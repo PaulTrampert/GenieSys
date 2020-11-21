@@ -11,6 +11,11 @@ class Bus;
 class m68000cpu {
 
 private:
+    const uint16_t EFFECTIVE_ADDR_MASK = 0x003F;
+    const uint16_t EA_MODE_MASK = 0x0038;
+    const uint16_t EA_REG_MASK = 0x0007;
+    const uint8_t USP_ADDRESS = 0x07;
+
     Bus* bus = nullptr;
 
     std::array<uint32_t, 8> dataRegisters;
@@ -64,10 +69,84 @@ private:
         ACCR_EX_DZ = 1 << 4,     // Divide by zero
         ACCR_EX_INEX = 1 << 3    // Inexact
     };
+
+    enum DATA_SIZE {
+        BYTE,
+        WORD,
+        LONG
+    };
+
+    enum M68K_REG_TYPE {
+        M68K_REG_TYPE_DATA = 0,
+        M68K_REG_TYPE_ADDR = 1
+    };
+
+    enum EXT_WORD_IDX_SIZE {
+        EXT_WORD_IDX_SIZE_SE_WORD = 0,
+        EXT_WORD_IDX_SIZE_LONG_WORD = 1
+    };
+
+    enum EXT_WORD_BD_SIZE {
+        EXT_WORD_BD_SIZE_RESERVED = 0,
+        EXT_WORD_BD_SIZE_NULL = 1,
+        EXT_WORD_BD_SIZE_WORD = 2,
+        EXT_WORD_BD_SIZE_LONG = 3,
+    };
+
+    /* Operational Fields */
+    uint16_t opWord;  // Single Effective Address Operation Word
+    uint32_t address; // Effective address for the current operation
+    DATA_SIZE operandSize;
+
+
+
+    struct BriefExtensionWord {
+        M68K_REG_TYPE idxRegType;
+        uint8_t idxRegAddr;
+        EXT_WORD_IDX_SIZE idxSize;
+        uint8_t scale;
+        int8_t displacement;
+    };
+
+    struct ExtensionWord {
+        M68K_REG_TYPE idxRegType;
+        uint8_t idxRegAddr;
+        EXT_WORD_IDX_SIZE idxSize;
+        uint8_t scale;
+        bool baseRegSuppress;
+        bool indexSuppress;
+        EXT_WORD_BD_SIZE baseDisplacementSize;
+        uint8_t indexIndirectSelection;
+    };
+
 public:
     m68000cpu();
     ~m68000cpu();
     void ConnectBus(Bus* bus);
+
+private:
+    BriefExtensionWord decodeBriefExtensionWord(uint16_t word);
+    ExtensionWord decodeExtensionWord(uint16_t word);
+
+    /* Addressing Modes */
+    void dataRegisterDirect();
+    void addressRegisterDirect();
+    void addressRegisterIndirect();
+    void addressRegisterIndirectPostIncrement();
+    void addressRegisterIndirectPreDecrement();
+    void addressRegisterIndirectDisplacement();
+    void addressRegisterIndirect8BitDisplacement();
+    void addressRegisterIndirectBaseDisplacement();
+    void memoryIndirectPostIndexed();
+    void memoryIndirectPreIndexed();
+    void programCounterIndirectDisplacement();
+    void programCounterIndirect8BitDisplacement();
+    void programCounterIndirectBaseDisplacement();
+    void programCounterMemoryIndirectPostIndexed();
+    void programCounterMemoryIndirectPreIndexed();
+    void absoluteShortAddressingMode();
+    void absoluteLongAddressingMode();
+    void immediateData();
 };
 
 
