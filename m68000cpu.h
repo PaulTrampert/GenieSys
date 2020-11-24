@@ -135,10 +135,7 @@ private:
     void addressRegisterIndirectPostIncrement();
     void addressRegisterIndirectPreDecrement();
     void addressRegisterIndirectDisplacement();
-    void addressRegisterIndirect8BitDisplacement();
-    void addressRegisterIndirectBaseDisplacement();
-    void memoryIndirectPostIndexed();
-    void memoryIndirectPreIndexed();
+    void addressRegisterIndirectWithIndex();
     void programCounterIndirectDisplacement();
     void programCounterIndirect8BitDisplacement();
     void programCounterIndirectBaseDisplacement();

@@ -18,6 +18,8 @@ public:
     Bus();
     ~Bus();
     uint8_t read(uint32_t addr);
+    uint16_t readWord(uint32_t addr);
+    uint32_t readLong(uint32_t addr);
     void write(uint32_t addr, uint8_t data);
 };
 
