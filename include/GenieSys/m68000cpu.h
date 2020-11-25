@@ -24,9 +24,6 @@ private:
 
     uint8_t ccr = 0;
 
-    uint8_t read(uint32_t addr);
-    void write(uint32_t addr, uint8_t data);
-
     enum CCR_FLAGS {
         CCR_EXTEND = 1 << 4, // Extend - Set to the value of the C-bit for arithmetic operations
         CCR_NEGATIVE = 1 << 3, // Negative - Set if the most significant bit of the result is set.

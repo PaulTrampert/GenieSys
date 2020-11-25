@@ -30,14 +30,6 @@ m68000cpu::ExtensionWord m68000cpu::decodeExtensionWord(uint16_t word) {
     };
 }
 
-uint8_t m68000cpu::read(uint32_t addr) {
-    return bus->read(addr);
-}
-
-void m68000cpu::write(uint32_t addr, uint8_t data) {
-    bus->write(addr, data);
-}
-
 m68000cpu::m68000cpu() = default;
 
 m68000cpu::~m68000cpu() = default;
