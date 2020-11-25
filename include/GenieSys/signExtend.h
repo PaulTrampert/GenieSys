@@ -5,4 +5,7 @@
 #pragma once
 
 template<class T>
-T signExtend(T x, unsigned int bits);
+T signExtend(T x, unsigned int bits) {
+    T m = 1U << (bits - 1);
+    return (x ^ m) - m;
+}

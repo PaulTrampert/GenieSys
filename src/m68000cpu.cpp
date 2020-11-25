@@ -95,7 +95,7 @@ void m68000cpu::addressRegisterIndirectPreDecrement() {
 }
 
 void m68000cpu::addressRegisterIndirectDisplacement() {
-    int32_t displacement = signExtend<int32_t>(bus->readWord(pc), 16);
+    auto displacement = signExtend<int32_t>(bus->readWord(pc), 16);
     pc += 2;
     address = addressRegisters[opWord & EA_REG_MASK] + displacement;
 }
