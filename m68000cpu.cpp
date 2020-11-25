@@ -95,7 +95,7 @@ void m68000cpu::addressRegisterIndirectPreDecrement() {
 }
 
 void m68000cpu::addressRegisterIndirectDisplacement() {
-    int32_t displacement = signExtend(bus->readWord(pc), 16);
+    int32_t displacement = signExtend<int32_t>(bus->readWord(pc), 16);
     pc += 2;
     address = addressRegisters[opWord & EA_REG_MASK] + displacement;
 }
@@ -106,10 +106,13 @@ void m68000cpu::addressRegisterIndirectWithIndex() {
     if ((extWordRaw & 0x0100) > 0) {
         auto extWord = decodeBriefExtensionWord(extWordRaw);
         uint32_t addrReg = addressRegisters[opWord & EA_REG_MASK];
-        int32_t displacement = signExtend(extWord.displacement, 8);
+        int32_t displacement = signExtend<int32_t>(extWord.displacement, 8);
         int32_t idxReg = extWord.idxRegType == M68K_REG_TYPE_DATA
                 ? dataRegisters[extWord.idxRegAddr]
                 : addressRegisters[extWord.idxRegAddr];
+        if (extWord.idxSize == EXT_WORD_IDX_SIZE_SE_WORD) {
+            idxReg = signExtend<int32_t>(idxReg & 0x0000FFFF, 16);
+        }
         uint32_t scale = pow(2, extWord.scale);
         address = addrReg + displacement + (idxReg * scale);
     }
@@ -121,11 +124,14 @@ void m68000cpu::addressRegisterIndirectWithIndex() {
             idxReg = extWord.idxRegType == M68K_REG_TYPE_DATA
                     ? dataRegisters[extWord.idxRegAddr]
                     : addressRegisters[extWord.idxRegAddr];
+            if (extWord.idxSize == EXT_WORD_IDX_SIZE_SE_WORD) {
+                idxReg = signExtend<int32_t>(idxReg & 0x0000FFFF, 16);
+            }
         }
         uint32_t scale = pow(2, extWord.scale);
         int32_t baseDisplacement = 0;
         if (extWord.baseDisplacementSize == EXT_WORD_BD_SIZE_WORD) {
-            baseDisplacement = signExtend(bus->readWord(pc), 16);
+            baseDisplacement = signExtend<int32_t>(bus->readWord(pc), 16);
             pc += 2;
         }
         else if (extWord.baseDisplacementSize == EXT_WORD_BD_SIZE_LONG) {
@@ -145,7 +151,7 @@ void m68000cpu::addressRegisterIndirectWithIndex() {
                 // Preindexed
                 intermediateAddr = addrReg + baseDisplacement + (idxReg * scale);
                 if (extWord.indexIndirectSelection == 2) {
-                    outerDisplacement = signExtend(bus->readWord(pc), 16);
+                    outerDisplacement = signExtend<int32_t>(bus->readWord(pc), 16);
                     pc += 2;
                 }
                 else if (extWord.indexIndirectSelection == 3) {
@@ -160,7 +166,7 @@ void m68000cpu::addressRegisterIndirectWithIndex() {
                 // Postindexed
                 intermediateAddr = addrReg + baseDisplacement;
                 if (extWord.indexIndirectSelection == 6) {
-                    outerDisplacement = signExtend(bus->readWord(pc), 16);
+                    outerDisplacement = signExtend<int32_t>(bus->readWord(pc), 16);
                     pc += 2;
                 }
                 else if (extWord.indexIndirectSelection == 7) {
@@ -175,4 +181,102 @@ void m68000cpu::addressRegisterIndirectWithIndex() {
     }
 }
 
+void m68000cpu::programCounterIndirectDisplacement() {
+    address = pc + signExtend<int32_t>((int32_t)bus->readWord(pc), 16);
+    pc += 2;
+}
 
+void m68000cpu::programCounterIndirectWithIndex() {
+    uint32_t baseAddr = pc;
+    uint16_t extWordRaw = bus->readWord(pc);
+    pc += 2;
+    if ((extWordRaw & 0x0100) > 0) {
+        auto extWord = decodeBriefExtensionWord(extWordRaw);
+        auto displacement = signExtend<int32_t>(extWord.displacement, 8);
+        int32_t idxReg = extWord.idxRegType == M68K_REG_TYPE_DATA
+                         ? dataRegisters[extWord.idxRegAddr]
+                         : addressRegisters[extWord.idxRegAddr];
+        if (extWord.idxSize == EXT_WORD_IDX_SIZE_SE_WORD) {
+            idxReg = signExtend<int32_t>(idxReg & 0x0000FFFF, 16);
+        }
+        uint32_t scale = pow(2, extWord.scale);
+        address = baseAddr + displacement + (idxReg * scale);
+    }
+    else {
+        auto extWord = decodeExtensionWord(extWordRaw);
+        baseAddr = extWord.baseRegSuppress ? 0 : baseAddr;
+        int32_t idxReg = 0;
+        if (!extWord.indexSuppress) {
+            idxReg = extWord.idxRegType == M68K_REG_TYPE_DATA
+                     ? dataRegisters[extWord.idxRegAddr]
+                     : addressRegisters[extWord.idxRegAddr];
+            if (extWord.idxSize == EXT_WORD_IDX_SIZE_SE_WORD) {
+                idxReg = signExtend<int32_t>(idxReg & 0x0000FFFF, 16);
+            }
+        }
+        uint32_t scale = pow(2, extWord.scale);
+        int32_t baseDisplacement = 0;
+        if (extWord.baseDisplacementSize == EXT_WORD_BD_SIZE_WORD) {
+            baseDisplacement = signExtend<int32_t>(bus->readWord(pc), 16);
+            pc += 2;
+        }
+        else if (extWord.baseDisplacementSize == EXT_WORD_BD_SIZE_LONG) {
+            baseDisplacement = bus->readLong(pc);
+            pc += 4;
+        }
+        int32_t outerDisplacement = 0;
+        uint32_t intermediateAddr = 0;
+        switch(extWord.indexIndirectSelection) {
+            case 0:
+                // PC Indirect Mode
+                address = baseAddr + baseDisplacement + (idxReg * scale);
+                break;
+            case 1:
+            case 2:
+            case 3:
+                // Preindexed
+                intermediateAddr = baseAddr + baseDisplacement + (idxReg * scale);
+                if (extWord.indexIndirectSelection == 2) {
+                    outerDisplacement = signExtend<int32_t>(bus->readWord(pc), 16);
+                    pc += 2;
+                }
+                else if (extWord.indexIndirectSelection == 3) {
+                    outerDisplacement = bus->readLong(pc);
+                    pc += 4;
+                }
+                address = bus->readLong(intermediateAddr) + outerDisplacement;
+                break;
+            case 5:
+            case 6:
+            case 7:
+                // Postindexed
+                intermediateAddr = baseAddr + baseDisplacement;
+                if (extWord.indexIndirectSelection == 6) {
+                    outerDisplacement = signExtend<int32_t>(bus->readWord(pc), 16);
+                    pc += 2;
+                }
+                else if (extWord.indexIndirectSelection == 7) {
+                    outerDisplacement = bus->readLong(pc);
+                    pc += 4;
+                }
+                address = bus->readLong(intermediateAddr) + (idxReg * scale) + outerDisplacement;
+                break;
+            default:
+                throw std::runtime_error("Invalid instruction");
+        }
+    }
+}
+
+void m68000cpu::absoluteShortAddressingMode() {
+    address = signExtend<int32_t>(bus->readWord(pc), 16);
+    pc += 2;
+}
+
+void m68000cpu::absoluteLongAddressingMode() {
+    address = bus->readLong(pc);
+    pc += 4;
+}
+
+void m68000cpu::immediateData() {
+    address = pc;
+}
