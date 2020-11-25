@@ -3,6 +3,7 @@
 //
 
 #include <stdexcept>
+#include <cmath>
 #include "GenieSys/m68000cpu.h"
 #include "GenieSys/Bus.h"
 #include "GenieSys/signExtend.h"
