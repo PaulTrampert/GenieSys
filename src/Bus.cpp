@@ -2,7 +2,7 @@
 // Created by paul.trampert on 11/8/2020.
 //
 
-#include "Bus.h"
+#include "GenieSys/Bus.h"
 
 
 Bus::Bus() {

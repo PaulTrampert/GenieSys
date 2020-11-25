@@ -3,9 +3,9 @@
 //
 
 #include <stdexcept>
-#include "m68000cpu.h"
-#include "Bus.h"
-#include "signExtend.h"
+#include "GenieSys/m68000cpu.h"
+#include "GenieSys/Bus.h"
+#include "GenieSys/signExtend.h"
 
 m68000cpu::BriefExtensionWord m68000cpu::decodeBriefExtensionWord(uint16_t word) {
     return m68000cpu::BriefExtensionWord {

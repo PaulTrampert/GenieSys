@@ -1,6 +1,6 @@
 #include <iostream>
-#include "m68000cpu.h"
-#include "Bus.h"
+#include "GenieSys/m68000cpu.h"
+#include "GenieSys/Bus.h"
 
 int main() {
     std::cout << "Hello, World!" << std::endl;
