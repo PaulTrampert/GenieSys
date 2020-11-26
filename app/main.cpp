@@ -1,5 +1,5 @@
 #include <iostream>
-#include "GenieSys/m68000cpu.h"
+#include "GenieSys/M68kCpu.h"
 #include "GenieSys/Bus.h"
 
 int main() {

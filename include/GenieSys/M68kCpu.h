@@ -5,12 +5,14 @@
 #pragma once
 #include <cstdint>
 #include <array>
+#include "GenieSys/enums.h"
+#include "GenieSys/BriefExtensionWord.h"
 
 class Bus;
 /**
  * The CPU used in the Sega Genesis.
  */
-class m68000cpu {
+class M68kCpu {
 
 private:
     /* Constants */
@@ -18,84 +20,6 @@ private:
     const uint16_t EA_MODE_MASK = 0x0038;        // Mask for getting the effective address mode from the opWord.
     const uint16_t EA_REG_MASK = 0x0007;         // Mask for getting the effective address reg from the opWord.
     const uint8_t USP_ADDRESS = 0x07;            // The address register used for the user stack pointer.
-
-    /* Enums */
-    enum CCR_FLAGS {
-        CCR_EXTEND = 1 << 4, // Extend - Set to the value of the C-bit for arithmetic operations
-        CCR_NEGATIVE = 1 << 3, // Negative - Set if the most significant bit of the result is set.
-        CCR_ZERO = 1 << 2, // Zero - Set if the result equals zero
-        CCR_OVERFLOW = 1 << 1, // Overflow - Set if an arithmetic overflow occurs
-        CCR_CARRY = 1       // Carry - Set if a carry out of the most significant bit of the operand occurs for an addition
-    };
-
-    enum FP_EXCEPTION_ENABLE_FLAGS {
-        FP_EE_BSUN = 1 << 7,    // Branch/Set on unordered
-        FP_EE_SNAN = 1 << 6,    // Signaling NaN
-        FP_EE_OPERR = 1 << 5,   // Operand error
-        FP_EE_OVFL = 1 << 4,    // Overflow
-        FP_EE_UNFL = 1 << 3,    // Underflow
-        FP_EE_DZ = 1 << 2,      // Divide by zero
-        FP_EE_INEX2 = 1 << 1,   // Inexact operation
-        FP_EE_INEX1 = 1         // Inexact decimal input
-    };
-
-    enum FP_CONDITION_CODES {
-        FP_CC_NEGATIVE = 1 << 3,
-        FP_CC_ZERO = 1 << 2,
-        FP_CC_INFINITY = 1 << 1,
-        FP_CC_NAN = 1
-    };
-
-    enum FP_ACCRUED_EXCEPTIONS {
-        ACCR_EX_IOP = 1 << 7,    // Invalid operation
-        ACCR_EX_OVFL = 1 << 6,   // Overflow
-        ACCR_EX_UNFL = 1 << 5,   // Underflow
-        ACCR_EX_DZ = 1 << 4,     // Divide by zero
-        ACCR_EX_INEX = 1 << 3    // Inexact
-    };
-
-    enum DATA_SIZE {
-        BYTE,
-        WORD,
-        LONG
-    };
-
-    enum M68K_REG_TYPE {
-        M68K_REG_TYPE_DATA = 0,
-        M68K_REG_TYPE_ADDR = 1
-    };
-
-    enum EXT_WORD_IDX_SIZE {
-        EXT_WORD_IDX_SIZE_SE_WORD = 0,
-        EXT_WORD_IDX_SIZE_LONG_WORD = 1
-    };
-
-    enum EXT_WORD_BD_SIZE {
-        EXT_WORD_BD_SIZE_RESERVED = 0,
-        EXT_WORD_BD_SIZE_NULL = 1,
-        EXT_WORD_BD_SIZE_WORD = 2,
-        EXT_WORD_BD_SIZE_LONG = 3,
-    };
-
-    /* Structures for internal use */
-    struct BriefExtensionWord {
-        M68K_REG_TYPE idxRegType;
-        uint8_t idxRegAddr;
-        EXT_WORD_IDX_SIZE idxSize;
-        uint8_t scale;
-        int8_t displacement;
-    };
-
-    struct ExtensionWord {
-        M68K_REG_TYPE idxRegType;
-        uint8_t idxRegAddr;
-        EXT_WORD_IDX_SIZE idxSize;
-        uint8_t scale;
-        bool baseRegSuppress;
-        bool indexSuppress;
-        EXT_WORD_BD_SIZE baseDisplacementSize;
-        uint8_t indexIndirectSelection;
-    };
 
     /* Private fields */
     /**
@@ -143,25 +67,9 @@ private:
     DATA_SIZE operandSize;
 
 public:
-    m68000cpu();
-    ~m68000cpu();
+    M68kCpu();
+    ~M68kCpu();
     void ConnectBus(Bus* bus);
-
-private:
-    /* Utility methods for internal use */
-    /**
-     * Decodes the brief extention word format.
-     * @param word The 16-bit brief extension word.
-     * @return A struct separating out the fields of the brief extention word.
-     */
-    BriefExtensionWord decodeBriefExtensionWord(uint16_t word);
-
-    /**
-     * Decodes the full extension word format.
-     * @param word The 16-bit extension word.
-     * @return A struct separating out the fields of the full extension word.
-     */
-    ExtensionWord decodeExtensionWord(uint16_t word);
 
     /* Addressing Modes */
     /**

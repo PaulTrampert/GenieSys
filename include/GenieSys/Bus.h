@@ -5,14 +5,14 @@
 #pragma once
 #include <array>
 #include <cstdint>
-#include "m68000cpu.h"
+#include "M68kCpu.h"
 
 #define RAM_SIZE 1024*72
 
 class Bus {
 private:
     std::array<uint8_t, RAM_SIZE> ram;
-    m68000cpu cpu;
+    M68kCpu cpu;
 
 public:
     Bus();

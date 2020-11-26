@@ -9,7 +9,7 @@ FetchContent_MakeAvailable(googletest)
 
 include(GoogleTest)
 
-add_executable(testGenieSys main.cpp BusTest.cpp signExtendTest.cpp)
+add_executable(testGenieSys main.cpp BusTest.cpp signExtendTest.cpp BriefExtensionWordTest.cpp ExtensionWordTest.cpp)
 
 target_link_libraries(testGenieSys PRIVATE libGenieSys gtest)
 

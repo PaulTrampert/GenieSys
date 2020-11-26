@@ -4,54 +4,33 @@
 
 #include <stdexcept>
 #include <cmath>
-#include "GenieSys/m68000cpu.h"
-#include "GenieSys/Bus.h"
-#include "GenieSys/signExtend.h"
+#include <GenieSys/BriefExtensionWord.h>
+#include <GenieSys/ExtensionWord.h>
+#include <GenieSys/M68kCpu.h>
+#include <GenieSys/Bus.h>
+#include <GenieSys/signExtend.h>
 
-m68000cpu::BriefExtensionWord m68000cpu::decodeBriefExtensionWord(uint16_t word) {
-    return m68000cpu::BriefExtensionWord {
-            static_cast<M68K_REG_TYPE>(word >> 15),
-            static_cast<uint8_t>((word & 0xE000) >> 12),
-            static_cast<EXT_WORD_IDX_SIZE>((word & 0x0800) >> 11),
-            static_cast<uint8_t>((word & 0x0600) >> 9),
-            static_cast<int8_t>((word & 0x00FF))
-    };
-}
+M68kCpu::M68kCpu() = default;
 
-m68000cpu::ExtensionWord m68000cpu::decodeExtensionWord(uint16_t word) {
-    return m68000cpu::ExtensionWord {
-            static_cast<M68K_REG_TYPE>(word >> 15),
-            static_cast<uint8_t>((word & 0xE000) >> 12),
-            static_cast<EXT_WORD_IDX_SIZE>((word & 0x0800) >> 11),
-            static_cast<uint8_t>((word & 0x0600) >> 8),
-            static_cast<bool>(word & 0x0080),
-            static_cast<bool>(word & 0x0040),
-            static_cast<EXT_WORD_BD_SIZE>((word & 0x0030) >> 4),
-            static_cast<uint8_t>(word & 0x0007)
-    };
-}
+M68kCpu::~M68kCpu() = default;
 
-m68000cpu::m68000cpu() = default;
-
-m68000cpu::~m68000cpu() = default;
-
-void m68000cpu::ConnectBus(Bus *bus) {
+void M68kCpu::ConnectBus(Bus *bus) {
     this->bus = bus;
 }
 
-void m68000cpu::dataRegisterDirect() {
+void M68kCpu::dataRegisterDirect() {
     address = opWord & EA_REG_MASK;
 }
 
-void m68000cpu::addressRegisterDirect() {
+void M68kCpu::addressRegisterDirect() {
     address = opWord & EA_REG_MASK;
 }
 
-void m68000cpu::addressRegisterIndirect() {
+void M68kCpu::addressRegisterIndirect() {
     address = addressRegisters[opWord & EA_REG_MASK];
 }
 
-void m68000cpu::addressRegisterIndirectPostIncrement() {
+void M68kCpu::addressRegisterIndirectPostIncrement() {
     uint8_t regAddr = opWord & EA_REG_MASK;
     address = addressRegisters[regAddr];
     uint8_t size = 1;
@@ -69,7 +48,7 @@ void m68000cpu::addressRegisterIndirectPostIncrement() {
     addressRegisters[regAddr] += size;
 }
 
-void m68000cpu::addressRegisterIndirectPreDecrement() {
+void M68kCpu::addressRegisterIndirectPreDecrement() {
     uint8_t regAddr = opWord & EA_REG_MASK;
     uint8_t size = 1;
     switch (operandSize) {
@@ -87,13 +66,13 @@ void m68000cpu::addressRegisterIndirectPreDecrement() {
     address = addressRegisters[regAddr];
 }
 
-void m68000cpu::addressRegisterIndirectDisplacement() {
+void M68kCpu::addressRegisterIndirectDisplacement() {
     auto displacement = signExtend<int32_t>(bus->readWord(pc), 16);
     pc += 2;
     address = addressRegisters[opWord & EA_REG_MASK] + displacement;
 }
 
-void m68000cpu::addressRegisterIndirectWithIndex() {
+void M68kCpu::addressRegisterIndirectWithIndex() {
     uint16_t extWordRaw = bus->readWord(pc);
     pc += 2;
     if ((extWordRaw & 0x0100) > 0) {
@@ -174,12 +153,12 @@ void m68000cpu::addressRegisterIndirectWithIndex() {
     }
 }
 
-void m68000cpu::programCounterIndirectDisplacement() {
+void M68kCpu::programCounterIndirectDisplacement() {
     address = pc + signExtend<int32_t>((int32_t)bus->readWord(pc), 16);
     pc += 2;
 }
 
-void m68000cpu::programCounterIndirectWithIndex() {
+void M68kCpu::programCounterIndirectWithIndex() {
     uint32_t baseAddr = pc;
     uint16_t extWordRaw = bus->readWord(pc);
     pc += 2;
@@ -260,16 +239,16 @@ void m68000cpu::programCounterIndirectWithIndex() {
     }
 }
 
-void m68000cpu::absoluteShortAddressingMode() {
+void M68kCpu::absoluteShortAddressingMode() {
     address = signExtend<int32_t>(bus->readWord(pc), 16);
     pc += 2;
 }
 
-void m68000cpu::absoluteLongAddressingMode() {
+void M68kCpu::absoluteLongAddressingMode() {
     address = bus->readLong(pc);
     pc += 4;
 }
 
-void m68000cpu::immediateData() {
+void M68kCpu::immediateData() {
     address = pc;
 }
