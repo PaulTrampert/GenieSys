@@ -22,7 +22,7 @@ uint8_t Bus::read(uint32_t addr) {
     return 0;
 }
 
-void Bus::write(uint32_t addr, uint8_t data) {
+void Bus::writeByte(uint32_t addr, uint8_t data) {
     if (addr < RAM_SIZE) {
         ram[addr] = data;
     }
@@ -40,4 +40,16 @@ uint32_t Bus::readLong(uint32_t addr) {
         return (ram[addr] << 24) | (ram[addr + 1] << 16) | (ram[addr + 2] << 8) | ram[addr + 3];
     }
     return 0;
+}
+
+void Bus::writeWord(uint32_t addr, uint16_t data) {
+    ram[addr] = (data & 0xFF00) >> 8;
+    ram[addr + 1] = data & 0x00FF;
+}
+
+void Bus::writeLong(uint32_t addr, uint32_t data) {
+    ram[addr] = (data & 0xFF000000) >> 24;
+    ram[addr + 1] = (data & 0x00FF0000) >> 16;
+    ram[addr + 2] = (data & 0x0000FF00) >> 8;
+    ram[addr + 3] = (data & 0x000000FF);
 }
