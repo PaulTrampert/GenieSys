@@ -10,7 +10,6 @@
 class AbsoluteShortAddressingMode : public AddressingMode {
 public:
     AbsoluteShortAddressingMode(M68kCpu *cpu, Bus *bus);
-    ~AbsoluteShortAddressingMode() override = default;
 
     uint32_t getAddress() override;
     uint8_t getModeId() override;

@@ -11,7 +11,6 @@
 class AddressRegisterDirectMode : public AddressingMode {
 public:
     AddressRegisterDirectMode(M68kCpu *cpu, Bus *bus);
-    ~AddressRegisterDirectMode() override = default;
 
     uint32_t getAddress() override;
     uint8_t getModeId() override;
