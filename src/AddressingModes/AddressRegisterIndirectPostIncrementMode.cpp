@@ -27,3 +27,7 @@ uint32_t AddressRegisterIndirectPostIncrementMode::getAddress() {
     cpu->setAddressRegister(regAddr, address + size);
     return address;
 }
+
+uint8_t AddressRegisterIndirectPostIncrementMode::getModeId() {
+    return 0b011u;
+}

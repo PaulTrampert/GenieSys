@@ -13,3 +13,7 @@ uint32_t AbsoluteLongAddressingMode::getAddress() {
     cpu->incrementPc(4);
     return address;
 }
+
+uint8_t AbsoluteLongAddressingMode::getModeId() {
+    return 0b001u;
+}

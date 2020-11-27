@@ -9,6 +9,8 @@
 #include "GenieSys/BriefExtensionWord.h"
 
 class Bus;
+class AddressingMode;
+
 /**
  * The CPU used in the Sega Genesis.
  */
@@ -60,6 +62,11 @@ private:
     uint32_t address; // Effective address for the current operation
     DATA_SIZE operandSize;
 
+    uint8_t clock = 0;
+
+    /* Addressing modes */
+    std::array<AddressingMode*, 8> addressingModes;
+
 public:
     M68kCpu();
     ~M68kCpu();
@@ -71,7 +78,9 @@ public:
     void setAddressRegister(uint8_t addr, uint32_t value);
     uint32_t getPc();
     void incrementPc(int32_t amount);
+    void setPc(uint32_t value);
     DATA_SIZE getOperandSize();
+    void tick();
 };
 
 

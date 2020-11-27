@@ -12,6 +12,7 @@ public:
     AddressRegisterIndirectMode(M68kCpu *cpu, Bus *bus);
     ~AddressRegisterIndirectMode() override = default;
     uint32_t getAddress() override;
+    uint8_t getModeId() override;
 };
 
 

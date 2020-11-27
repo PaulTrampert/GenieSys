@@ -12,4 +12,7 @@ uint32_t DataRegisterDirectMode::getAddress() {
     return cpu->getCurrentOpWord() & EA_REG_MASK;
 }
 
-DataRegisterDirectMode::~DataRegisterDirectMode() = default;
+uint8_t DataRegisterDirectMode::getModeId() {
+    return 0b000;
+}
+

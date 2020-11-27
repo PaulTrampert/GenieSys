@@ -21,4 +21,6 @@ public:
     AddressingMode(M68kCpu *cpu, Bus *bus);
     virtual ~AddressingMode() = 0;
     virtual uint32_t getAddress() = 0;
+    virtual uint8_t getModeId() = 0;
+    virtual void setBus(Bus* b);
 };

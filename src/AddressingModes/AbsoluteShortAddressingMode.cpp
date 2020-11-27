@@ -14,3 +14,7 @@ uint32_t AbsoluteShortAddressingMode::getAddress() {
     cpu->incrementPc(2);
     return address;
 }
+
+uint8_t AbsoluteShortAddressingMode::getModeId() {
+    return 0b000u;
+}

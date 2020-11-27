@@ -15,3 +15,7 @@ uint32_t ProgramCounterIndirectDisplacementMode::getAddress() {
     cpu->incrementPc(2);
     return address;
 }
+
+uint8_t ProgramCounterIndirectDisplacementMode::getModeId() {
+    return 0b010u;
+}

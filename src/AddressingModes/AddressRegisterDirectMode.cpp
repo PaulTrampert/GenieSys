@@ -12,3 +12,7 @@ AddressRegisterDirectMode::AddressRegisterDirectMode(M68kCpu *cpu, Bus *bus)
 uint32_t AddressRegisterDirectMode::getAddress() {
     return cpu->getCurrentOpWord() & EA_REG_MASK;
 }
+
+uint8_t AddressRegisterDirectMode::getModeId() {
+    return 0b001u;
+}

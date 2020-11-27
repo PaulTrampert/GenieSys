@@ -28,3 +28,7 @@ uint32_t AddressRegisterIndirectPreDecrementMode::getAddress() {
     cpu->setAddressRegister(regAddr, address);
     return address;
 }
+
+uint8_t AddressRegisterIndirectPreDecrementMode::getModeId() {
+    return 0b100u;
+}

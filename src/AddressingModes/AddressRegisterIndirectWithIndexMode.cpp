@@ -90,3 +90,7 @@ uint32_t AddressRegisterIndirectWithIndexMode::getAddress() {
         }
     }
 }
+
+uint8_t AddressRegisterIndirectWithIndexMode::getModeId() {
+    return 0b110u;
+}

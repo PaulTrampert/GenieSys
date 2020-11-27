@@ -14,3 +14,7 @@ uint32_t AddressRegisterIndirectDisplacementMode::getAddress() {
     cpu->incrementPc(2);
     return cpu->getAddressRegister(cpu->getCurrentOpWord() & EA_REG_MASK) + displacement;
 }
+
+uint8_t AddressRegisterIndirectDisplacementMode::getModeId() {
+    return 0b101;
+}

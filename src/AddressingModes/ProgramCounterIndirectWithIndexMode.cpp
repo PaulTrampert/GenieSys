@@ -91,3 +91,7 @@ uint32_t ProgramCounterIndirectWithIndexMode::getAddress() {
     }
 
 }
+
+uint8_t ProgramCounterIndirectWithIndexMode::getModeId() {
+    return 0b011u;
+}

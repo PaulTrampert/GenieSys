@@ -12,6 +12,7 @@ public:
     ~AddressRegisterIndirectPostIncrementMode() override = default;
 
     uint32_t getAddress() override;
+    uint8_t getModeId() override;
 };
 
 

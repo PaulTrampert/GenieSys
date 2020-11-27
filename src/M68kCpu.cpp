@@ -6,13 +6,51 @@
 #include <GenieSys/BriefExtensionWord.h>
 #include <GenieSys/M68kCpu.h>
 #include <GenieSys/Bus.h>
+#include <GenieSys/AddressingModes/AddressingMode.h>
+#include <GenieSys/AddressingModes/DataRegisterDirectMode.h>
+#include <GenieSys/AddressingModes/AddressRegisterDirectMode.h>
+#include <GenieSys/AddressingModes/AddressRegisterIndirectMode.h>
+#include <GenieSys/AddressingModes/AddressRegisterIndirectDisplacementMode.h>
+#include <GenieSys/AddressingModes/AddressRegisterIndirectPostIncrementMode.h>
+#include <GenieSys/AddressingModes/AddressRegisterIndirectPreDecrementMode.h>
+#include <GenieSys/AddressingModes/AddressRegisterIndirectWithIndexMode.h>
+#include <GenieSys/AddressingModes/ProgramCounterAddressingMode.h>
 
-M68kCpu::M68kCpu() = default;
+M68kCpu::M68kCpu() {
+    for (auto & mode : addressingModes) {
+        mode = nullptr;
+    }
+    AddressingMode *mode = new DataRegisterDirectMode(this, bus);
+    addressingModes[mode->getModeId()] = mode;
+    mode = new AddressRegisterDirectMode(this, bus);
+    addressingModes[mode->getModeId()] = mode;
+    mode = new AddressRegisterIndirectMode(this, bus);
+    addressingModes[mode->getModeId()] = mode;
+    mode = new AddressRegisterIndirectDisplacementMode(this, bus);
+    addressingModes[mode->getModeId()] = mode;
+    mode = new AddressRegisterIndirectPostIncrementMode(this, bus);
+    addressingModes[mode->getModeId()] = mode;
+    mode = new AddressRegisterIndirectPreDecrementMode(this, bus);
+    addressingModes[mode->getModeId()] = mode;
+    mode = new AddressRegisterIndirectWithIndexMode(this, bus);
+    addressingModes[mode->getModeId()] = mode;
+    mode = new ProgramCounterAddressingMode(this, bus);
+    addressingModes[mode->getModeId()] = mode;
+}
 
-M68kCpu::~M68kCpu() = default;
+M68kCpu::~M68kCpu() {
+    for (auto & mode : addressingModes) {
+        delete mode;
+    }
+};
 
 void M68kCpu::ConnectBus(Bus *bus) {
     this->bus = bus;
+    for (auto & mode : addressingModes) {
+        if (mode != nullptr) {
+            mode->setBus(bus);
+        }
+    }
 }
 
 uint16_t M68kCpu::getCurrentOpWord() {
@@ -45,4 +83,17 @@ void M68kCpu::setAddressRegister(uint8_t addr, uint32_t value) {
 
 DATA_SIZE M68kCpu::getOperandSize() {
     return operandSize;
+}
+
+void M68kCpu::setPc(uint32_t value) {
+    pc = value;
+}
+
+void M68kCpu::tick() {
+    if (clock == 0) {
+        clock = 1;
+        opWord = bus->readWord(pc);
+        pc += 2;
+    }
+    clock--;
 }

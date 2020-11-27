@@ -9,3 +9,7 @@ AddressingMode::AddressingMode(M68kCpu *cpu, Bus *bus) {
     this->bus = bus;
 }
 
+void AddressingMode::setBus(Bus *b) {
+    this->bus = b;
+}
+
