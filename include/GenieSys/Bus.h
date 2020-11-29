@@ -59,6 +59,12 @@ public:
      * @param data The data to writeByte.
      */
     void writeLong(uint32_t addr, uint32_t data);
+
+    /**
+     * Get a reference to the Bus's M68kCpu.
+     * @return a reference to the Bus's M68kCpu.
+     */
+    M68kCpu* getCpu();
 };
 
 

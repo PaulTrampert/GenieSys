@@ -16,5 +16,5 @@ uint32_t AbsoluteShortAddressingMode::getAddress(uint8_t regAddr) {
 }
 
 uint8_t AbsoluteShortAddressingMode::getModeId() {
-    return 0b000u;
+    return MODE_ID;
 }

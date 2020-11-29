@@ -53,3 +53,7 @@ void Bus::writeLong(uint32_t addr, uint32_t data) {
     ram[addr + 2] = (data & 0x0000FF00) >> 8;
     ram[addr + 3] = (data & 0x000000FF);
 }
+
+M68kCpu *Bus::getCpu() {
+    return &cpu;
+}

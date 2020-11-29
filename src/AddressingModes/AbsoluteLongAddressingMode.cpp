@@ -15,5 +15,5 @@ uint32_t AbsoluteLongAddressingMode::getAddress(uint8_t regAddr) {
 }
 
 uint8_t AbsoluteLongAddressingMode::getModeId() {
-    return 0b001u;
+    return MODE_ID;
 }
