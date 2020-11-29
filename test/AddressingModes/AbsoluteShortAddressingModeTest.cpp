@@ -23,8 +23,13 @@ struct AbsoluteShortAddressingModeTest : testing::Test {
     }
 };
 
-TEST_F(AbsoluteShortAddressingModeTest, TestGetAddress) {
+TEST_F(AbsoluteShortAddressingModeTest, ItGetsTheCorrectAddress) {
     EXPECT_EQ(9001, subject->getAddress(subject->getModeId()));
+}
+
+TEST_F(AbsoluteShortAddressingModeTest, ItAdvancesTheProgramCounterOneWord) {
+    subject->getAddress(subject->getModeId());
+    EXPECT_EQ(34, cpu->getPc());
 }
 
 TEST_F(AbsoluteShortAddressingModeTest, TestGetModeId) {

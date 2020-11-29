@@ -23,8 +23,13 @@ struct AbsoluteLongAddressingModeTest : testing::Test {
     }
 };
 
-TEST_F(AbsoluteLongAddressingModeTest, TestGetAddress) {
+TEST_F(AbsoluteLongAddressingModeTest, ItGetsTheCorrectAddress) {
     EXPECT_EQ(9876543, subject->getAddress(subject->getModeId()));
+}
+
+TEST_F(AbsoluteLongAddressingModeTest, ItAdvancesTheProgramCounterTwoWords) {
+    subject->getAddress(subject->getModeId());
+    EXPECT_EQ(36, cpu->getPc());
 }
 
 TEST_F(AbsoluteLongAddressingModeTest, TestGetModeId) {

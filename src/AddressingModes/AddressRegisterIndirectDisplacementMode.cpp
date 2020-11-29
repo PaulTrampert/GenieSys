@@ -16,5 +16,5 @@ uint32_t AddressRegisterIndirectDisplacementMode::getAddress(uint8_t regAddr) {
 }
 
 uint8_t AddressRegisterIndirectDisplacementMode::getModeId() {
-    return 0b101;
+    return MODE_ID;
 }

@@ -13,5 +13,5 @@ uint32_t AddressRegisterIndirectMode::getAddress(uint8_t regAddr) {
 }
 
 uint8_t AddressRegisterIndirectMode::getModeId() {
-    return 0b010;
+    return MODE_ID;
 }

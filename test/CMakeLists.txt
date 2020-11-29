@@ -16,7 +16,10 @@ add_executable(testGenieSys
         BriefExtensionWordTest.cpp
         ExtensionWordTest.cpp
         AddressingModes/AbsoluteLongAddressingModeTest.cpp
-        AddressingModes/AbsoluteShortAddressingModeTest.cpp)
+        AddressingModes/AbsoluteShortAddressingModeTest.cpp
+        AddressingModes/AddressRegisterDirectModeTest.cpp
+        AddressingModes/AddressRegisterIndirectDisplacementModeTest.cpp
+        AddressingModes/AddressRegisterIndirectModeTest.cpp)
 
 target_link_libraries(testGenieSys PRIVATE libGenieSys gtest gmock)
 
