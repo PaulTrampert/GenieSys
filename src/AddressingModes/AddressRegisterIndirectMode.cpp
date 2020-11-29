@@ -8,8 +8,8 @@ AddressRegisterIndirectMode::AddressRegisterIndirectMode(M68kCpu *cpu, Bus *bus)
 
 }
 
-uint32_t AddressRegisterIndirectMode::getAddress() {
-    return cpu->getAddressRegister(cpu->getCurrentOpWord() & EA_REG_MASK);
+uint32_t AddressRegisterIndirectMode::getAddress(uint8_t regAddr) {
+    return cpu->getAddressRegister(regAddr);
 }
 
 uint8_t AddressRegisterIndirectMode::getModeId() {

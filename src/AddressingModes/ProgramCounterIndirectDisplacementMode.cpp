@@ -10,7 +10,7 @@ ProgramCounterIndirectDisplacementMode::ProgramCounterIndirectDisplacementMode(M
 
 }
 
-uint32_t ProgramCounterIndirectDisplacementMode::getAddress() {
+uint32_t ProgramCounterIndirectDisplacementMode::getAddress(uint8_t regAddr) {
     uint32_t address = cpu->getPc() + signExtend<int32_t>((int32_t)bus->readWord(cpu->getPc()), 16);
     cpu->incrementPc(2);
     return address;

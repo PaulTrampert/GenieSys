@@ -20,22 +20,14 @@ M68kCpu::M68kCpu() {
     for (auto & mode : addressingModes) {
         mode = nullptr;
     }
-    AddressingMode *mode = new DataRegisterDirectMode(this, bus);
-    addressingModes[mode->getModeId()] = mode;
-    mode = new AddressRegisterDirectMode(this, bus);
-    addressingModes[mode->getModeId()] = mode;
-    mode = new AddressRegisterIndirectMode(this, bus);
-    addressingModes[mode->getModeId()] = mode;
-    mode = new AddressRegisterIndirectDisplacementMode(this, bus);
-    addressingModes[mode->getModeId()] = mode;
-    mode = new AddressRegisterIndirectPostIncrementMode(this, bus);
-    addressingModes[mode->getModeId()] = mode;
-    mode = new AddressRegisterIndirectPreDecrementMode(this, bus);
-    addressingModes[mode->getModeId()] = mode;
-    mode = new AddressRegisterIndirectWithIndexMode(this, bus);
-    addressingModes[mode->getModeId()] = mode;
-    mode = new ProgramCounterAddressingMode(this, bus);
-    addressingModes[mode->getModeId()] = mode;
+    addressingModes[DataRegisterDirectMode::MODE_ID] = new DataRegisterDirectMode(this, bus);
+    addressingModes[AddressRegisterDirectMode::MODE_ID] = new AddressRegisterDirectMode(this, bus);
+    addressingModes[AddressRegisterIndirectMode::MODE_ID] = new AddressRegisterIndirectMode(this, bus);
+    addressingModes[AddressRegisterIndirectDisplacementMode::MODE_ID] = new AddressRegisterIndirectDisplacementMode(this, bus);
+    addressingModes[AddressRegisterIndirectPostIncrementMode::MODE_ID] = new AddressRegisterIndirectPostIncrementMode(this, bus);
+    addressingModes[AddressRegisterIndirectPreDecrementMode::MODE_ID] = new AddressRegisterIndirectPreDecrementMode(this, bus);
+    addressingModes[AddressRegisterIndirectWithIndexMode::MODE_ID] = new AddressRegisterIndirectWithIndexMode(this, bus);
+    addressingModes[ProgramCounterAddressingMode::MODE_ID] = new ProgramCounterAddressingMode(this, bus);
 }
 
 M68kCpu::~M68kCpu() {
@@ -94,6 +86,8 @@ void M68kCpu::tick() {
         clock = 1;
         opWord = bus->readWord(pc);
         pc += 2;
+        uint8_t addrModeCode = opWord & AddressingMode::EA_MODE_MASK >> 3;
+        uint32_t operandAddress = addressingModes[addrModeCode]->getAddress(opWord & AddressingMode::EA_REG_MASK);
     }
     clock--;
 }

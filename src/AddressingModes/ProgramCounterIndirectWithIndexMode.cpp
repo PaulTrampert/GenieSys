@@ -13,7 +13,7 @@ ProgramCounterIndirectWithIndexMode::ProgramCounterIndirectWithIndexMode(M68kCpu
 
 }
 
-uint32_t ProgramCounterIndirectWithIndexMode::getAddress() {
+uint32_t ProgramCounterIndirectWithIndexMode::getAddress(uint8_t regAddr) {
     uint32_t baseAddr = cpu->getPc();
     uint16_t extWordRaw = bus->readWord(cpu->getPc());
     cpu->incrementPc(2);

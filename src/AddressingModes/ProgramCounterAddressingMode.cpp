@@ -13,21 +13,18 @@ ProgramCounterAddressingMode::ProgramCounterAddressingMode(M68kCpu *cpu, Bus *bu
     for (auto & subMode : subModes) {
         subMode = nullptr;
     }
-    AddressingMode* mode = new ProgramCounterIndirectDisplacementMode(cpu, bus);
-    subModes[mode->getModeId()] = mode;
-    mode = new ProgramCounterIndirectWithIndexMode(cpu, bus);
-    subModes[mode->getModeId()] = mode;
-    mode = new AbsoluteShortAddressingMode(cpu, bus);
-    subModes[mode->getModeId()] = mode;
-    mode = new AbsoluteLongAddressingMode(cpu, bus);
-    subModes[mode->getModeId()] = mode;
-    mode = new ImmediateDataMode(cpu, bus);
-    subModes[mode->getModeId()] = mode;
+    subModes[ProgramCounterIndirectDisplacementMode::MODE_ID] = new ProgramCounterIndirectDisplacementMode(cpu, bus);
+    subModes[ProgramCounterIndirectWithIndexMode::MODE_ID] = new ProgramCounterIndirectWithIndexMode(cpu, bus);
+    subModes[AbsoluteShortAddressingMode::MODE_ID] = new AbsoluteShortAddressingMode(cpu, bus);
+    subModes[AbsoluteLongAddressingMode::MODE_ID] = new AbsoluteLongAddressingMode(cpu, bus);
+    subModes[ImmediateDataMode::MODE_ID] = new ImmediateDataMode(cpu, bus);
 }
 
-uint32_t ProgramCounterAddressingMode::getAddress() {
-    uint8_t submodeId = cpu->getCurrentOpWord() & EA_REG_MASK;
-    return subModes[submodeId]->getAddress();
+uint32_t ProgramCounterAddressingMode::getAddress(uint8_t regAddr) {
+    uint8_t submodeId = regAddr;
+    AddressingMode* subMode = subModes[submodeId];
+    if (subMode == nullptr) return 0;
+    return subMode->getAddress(regAddr);
 }
 
 uint8_t ProgramCounterAddressingMode::getModeId() {

@@ -13,12 +13,12 @@ AddressRegisterIndirectWithIndexMode::AddressRegisterIndirectWithIndexMode(M68kC
 
 }
 
-uint32_t AddressRegisterIndirectWithIndexMode::getAddress() {
+uint32_t AddressRegisterIndirectWithIndexMode::getAddress(uint8_t regAddr) {
     uint16_t extWordRaw = bus->readWord(cpu->getPc());
     cpu->incrementPc(2);
     if ((extWordRaw & 0x0100) > 0) {
         auto extWord = decodeBriefExtensionWord(extWordRaw);
-        uint32_t addrReg = cpu->getAddressRegister(cpu->getCurrentOpWord() & EA_REG_MASK);
+        uint32_t addrReg = cpu->getAddressRegister(regAddr);
         auto displacement = signExtend<int32_t>(extWord.displacement, 8);
         int32_t idxReg = extWord.idxRegType == M68K_REG_TYPE_DATA
                          ? cpu->getDataRegister(extWord.idxRegAddr)
@@ -31,7 +31,7 @@ uint32_t AddressRegisterIndirectWithIndexMode::getAddress() {
     }
     else {
         auto extWord = decodeExtensionWord(extWordRaw);
-        uint32_t addrReg = extWord.baseRegSuppress ? 0 : cpu->getAddressRegister(cpu->getCurrentOpWord() & EA_REG_MASK);
+        uint32_t addrReg = extWord.baseRegSuppress ? 0 : cpu->getAddressRegister(regAddr);
         int32_t idxReg = 0;
         if (!extWord.indexSuppress) {
             idxReg = extWord.idxRegType == M68K_REG_TYPE_DATA

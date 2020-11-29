@@ -8,7 +8,7 @@ AbsoluteLongAddressingMode::AbsoluteLongAddressingMode(M68kCpu *cpu, Bus *bus) :
 
 }
 
-uint32_t AbsoluteLongAddressingMode::getAddress() {
+uint32_t AbsoluteLongAddressingMode::getAddress(uint8_t regAddr) {
     uint32_t address = bus->readLong(cpu->getPc());
     cpu->incrementPc(4);
     return address;

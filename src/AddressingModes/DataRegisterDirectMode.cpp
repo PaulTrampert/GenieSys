@@ -8,8 +8,8 @@ DataRegisterDirectMode::DataRegisterDirectMode(M68kCpu *cpu, Bus *bus) : Address
 
 }
 
-uint32_t DataRegisterDirectMode::getAddress() {
-    return cpu->getCurrentOpWord() & EA_REG_MASK;
+uint32_t DataRegisterDirectMode::getAddress(uint8_t regAddr) {
+    return regAddr;
 }
 
 uint8_t DataRegisterDirectMode::getModeId() {

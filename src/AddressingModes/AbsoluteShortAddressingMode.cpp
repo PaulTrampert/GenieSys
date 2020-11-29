@@ -9,7 +9,7 @@ AbsoluteShortAddressingMode::AbsoluteShortAddressingMode(M68kCpu *cpu, Bus *bus)
 
 }
 
-uint32_t AbsoluteShortAddressingMode::getAddress() {
+uint32_t AbsoluteShortAddressingMode::getAddress(uint8_t regAddr) {
     uint32_t address = signExtend<int32_t>(bus->readWord(cpu->getPc()), 16);
     cpu->incrementPc(2);
     return address;

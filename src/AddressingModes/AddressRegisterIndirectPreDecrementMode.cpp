@@ -9,8 +9,7 @@ AddressRegisterIndirectPreDecrementMode::AddressRegisterIndirectPreDecrementMode
 
 }
 
-uint32_t AddressRegisterIndirectPreDecrementMode::getAddress() {
-    uint8_t regAddr = cpu->getCurrentOpWord() & EA_REG_MASK;
+uint32_t AddressRegisterIndirectPreDecrementMode::getAddress(uint8_t regAddr) {
     uint32_t address = cpu->getAddressRegister(regAddr);
     uint8_t size = 1;
     switch (cpu->getOperandSize()) {

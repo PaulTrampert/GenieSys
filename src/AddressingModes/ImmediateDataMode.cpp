@@ -8,7 +8,7 @@ ImmediateDataMode::ImmediateDataMode(M68kCpu *cpu, Bus *bus) : AddressingMode(cp
 
 }
 
-uint32_t ImmediateDataMode::getAddress() {
+uint32_t ImmediateDataMode::getAddress(uint8_t regAddr) {
     return cpu->getPc();
 }
 
