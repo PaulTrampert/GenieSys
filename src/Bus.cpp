@@ -53,7 +53,7 @@ M68kCpu *Bus::getCpu() {
     return &cpu;
 }
 
-std::vector<uint8_t> Bus::read(uint8_t addr, uint8_t size) {
+std::vector<uint8_t> Bus::read(uint32_t addr, uint8_t size) {
     std::vector<uint8_t> result(size);
     for (int i = 0; i < size; i++) {
         result[i] = read(addr + i);

@@ -26,7 +26,13 @@ public:
      */
     uint8_t read(uint32_t addr);
 
-    std::vector<uint8_t> read(uint8_t addr, uint8_t size);
+    /**
+     * Read size bytes, starting at the given address.
+     * @param addr The address to read from.
+     * @param size The number of bytes to read.
+     * @return The bytes at that address.
+     */
+    std::vector<uint8_t> read(uint32_t addr, uint8_t size);
 
     /**
      * Read 2 bytes as a uint16_t from the given address.

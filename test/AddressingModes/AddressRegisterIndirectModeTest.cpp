@@ -15,6 +15,7 @@ struct AddressRegisterIndirectModeTest : testing::Test {
         subject = new AddressRegisterIndirectMode(cpu, &bus);
         bus.writeWord(0, -5);
         cpu->setAddressRegister(2, 11);
+        bus.writeWord(11, 0xABCD);
     }
 
     ~AddressRegisterIndirectModeTest() override {
@@ -24,6 +25,12 @@ struct AddressRegisterIndirectModeTest : testing::Test {
 
 TEST_F(AddressRegisterIndirectModeTest, ItGetsTheCorrectAddress) {
     EXPECT_EQ(11, subject->getAddress(2));
+}
+
+TEST_F(AddressRegisterIndirectModeTest, ItGetsTheCorrectData) {
+    auto result = subject->getData(2, 2);
+    EXPECT_EQ(0xAB, result[0]);
+    EXPECT_EQ(0xCD, result[1]);
 }
 
 TEST_F(AddressRegisterIndirectModeTest, TestGetModeId) {

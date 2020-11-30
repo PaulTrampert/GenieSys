@@ -15,7 +15,8 @@ struct AbsoluteLongAddressingModeTest : testing::Test {
         cpu = bus.getCpu();
         subject = new AbsoluteLongAddressingMode(cpu, &bus);
         cpu->setPc(32);
-        bus.writeLong(32, 9876543);
+        bus.writeLong(32, 4096);
+        bus.writeByte(4096, 55);
     }
 
     ~AbsoluteLongAddressingModeTest() override {
@@ -24,12 +25,17 @@ struct AbsoluteLongAddressingModeTest : testing::Test {
 };
 
 TEST_F(AbsoluteLongAddressingModeTest, ItGetsTheCorrectAddress) {
-    EXPECT_EQ(9876543, subject->getAddress(subject->getModeId()));
+    EXPECT_EQ(4096, subject->getAddress(subject->getModeId()));
 }
 
 TEST_F(AbsoluteLongAddressingModeTest, ItAdvancesTheProgramCounterTwoWords) {
     subject->getAddress(subject->getModeId());
     EXPECT_EQ(36, cpu->getPc());
+}
+
+TEST_F(AbsoluteLongAddressingModeTest, ItGetsTheCorrectData) {
+    std::vector<uint8_t> result = subject->getData(subject->getModeId(), 1);
+    EXPECT_EQ(55, result[0]);
 }
 
 TEST_F(AbsoluteLongAddressingModeTest, TestGetModeId) {

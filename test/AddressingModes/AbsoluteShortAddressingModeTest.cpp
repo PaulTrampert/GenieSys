@@ -16,6 +16,7 @@ struct AbsoluteShortAddressingModeTest : testing::Test {
         subject = new AbsoluteShortAddressingMode(cpu, &bus);
         cpu->setPc(32);
         bus.writeWord(32, 9001);
+        bus.writeByte(9001, 42);
     }
 
     ~AbsoluteShortAddressingModeTest() override {
@@ -30,6 +31,11 @@ TEST_F(AbsoluteShortAddressingModeTest, ItGetsTheCorrectAddress) {
 TEST_F(AbsoluteShortAddressingModeTest, ItAdvancesTheProgramCounterOneWord) {
     subject->getAddress(subject->getModeId());
     EXPECT_EQ(34, cpu->getPc());
+}
+
+TEST_F(AbsoluteShortAddressingModeTest, ItGetsTheCorrectData) {
+    std::vector<uint8_t> result = subject->getData(subject->getModeId(), 1);
+    EXPECT_EQ(42, result[0]);
 }
 
 TEST_F(AbsoluteShortAddressingModeTest, TestGetModeId) {

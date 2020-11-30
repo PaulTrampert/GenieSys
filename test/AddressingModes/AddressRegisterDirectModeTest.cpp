@@ -12,6 +12,7 @@ struct AddressRegisterDirectModeTest : testing::Test {
 
     AddressRegisterDirectModeTest() {
         cpu = bus.getCpu();
+        cpu->setAddressRegister(3, 9999);
         subject = new AddressRegisterDirectMode(cpu, &bus);
     }
 
@@ -22,6 +23,15 @@ struct AddressRegisterDirectModeTest : testing::Test {
 
 TEST_F(AddressRegisterDirectModeTest, ItGetsTheCorrectAddress) {
     EXPECT_EQ(3, subject->getAddress(3));
+}
+
+TEST_F(AddressRegisterDirectModeTest, ItGetsTheCorrectData) {
+    std::vector<uint8_t> result = subject->getData(3, 4);
+    uint32_t finalResult = 0;
+    for (int i = 0; i < 4; i++) {
+        finalResult |= result[i] << (8 * (3 - i));
+    }
+    EXPECT_EQ(9999, finalResult);
 }
 
 TEST_F(AddressRegisterDirectModeTest, TestGetModeId) {
