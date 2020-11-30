@@ -22,6 +22,7 @@ public:
     AddressingMode(M68kCpu *cpu, Bus *bus);
     virtual ~AddressingMode() = default;
     virtual uint32_t getAddress(uint8_t regAddr) = 0;
+    virtual std::vector<uint8_t> getData(uint8_t regAddr, uint8_t size);
     virtual uint8_t getModeId() = 0;
     virtual void setBus(Bus* b);
 };

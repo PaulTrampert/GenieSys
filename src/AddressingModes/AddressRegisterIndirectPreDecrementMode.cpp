@@ -31,3 +31,14 @@ uint32_t AddressRegisterIndirectPreDecrementMode::getAddress(uint8_t regAddr) {
 uint8_t AddressRegisterIndirectPreDecrementMode::getModeId() {
     return 0b100u;
 }
+
+std::vector<uint8_t> AddressRegisterIndirectPreDecrementMode::getData(uint8_t regAddr, uint8_t size) {
+    uint32_t address = cpu->getAddressRegister(regAddr);
+    uint8_t incrSize = size;
+    if (size == 1 && regAddr == USP_ADDRESS) {
+        incrSize = 2;
+    }
+    address -= incrSize;
+    cpu->setAddressRegister(regAddr, address);
+    return bus->read(address, size);
+}

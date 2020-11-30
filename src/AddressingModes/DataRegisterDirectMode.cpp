@@ -16,3 +16,13 @@ uint8_t DataRegisterDirectMode::getModeId() {
     return 0b000;
 }
 
+std::vector<uint8_t> DataRegisterDirectMode::getData(uint8_t regAddr, uint8_t size) {
+    uint32_t data = cpu->getDataRegister(regAddr);
+    std::vector<uint8_t> result(size);
+    for (int i = 0; i < size; i++) {
+        uint32_t mask = 0xFF << (8 * ((size - 1) - i));
+        result[i] = (data & mask) >> (8 * (size - 1 - i));
+    }
+    return result;
+}
+

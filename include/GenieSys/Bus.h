@@ -4,6 +4,7 @@
 
 #pragma once
 #include <array>
+#include <vector>
 #include <cstdint>
 #include "M68kCpu.h"
 
@@ -24,6 +25,8 @@ public:
      * @return The byte at the given address.
      */
     uint8_t read(uint32_t addr);
+
+    std::vector<uint8_t> read(uint8_t addr, uint8_t size);
 
     /**
      * Read 2 bytes as a uint16_t from the given address.

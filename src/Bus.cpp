@@ -2,6 +2,7 @@
 // Created by paul.trampert on 11/8/2020.
 //
 
+#include <vector>
 #include "GenieSys/Bus.h"
 
 
@@ -29,31 +30,33 @@ void Bus::writeByte(uint32_t addr, uint8_t data) {
 }
 
 uint16_t Bus::readWord(uint32_t addr) {
-    if (addr < RAM_SIZE - 1) {
-        return (ram[addr] << 8) | ram[addr + 1];
-    }
-    return 0;
+    return (read(addr) << 8) | read(addr + 1);
 }
 
 uint32_t Bus::readLong(uint32_t addr) {
-    if (addr < RAM_SIZE - 3) {
-        return (ram[addr] << 24) | (ram[addr + 1] << 16) | (ram[addr + 2] << 8) | ram[addr + 3];
-    }
-    return 0;
+    return (read(addr) << 24) | (read(addr + 1) << 16) | (read(addr + 2) << 8) | read(addr + 3);
 }
 
 void Bus::writeWord(uint32_t addr, uint16_t data) {
-    ram[addr] = (data & 0xFF00) >> 8;
-    ram[addr + 1] = data & 0x00FF;
+    writeByte(addr, (data & 0xFF00) >> 8);
+    writeByte(addr + 1, data & 0x00FF);
 }
 
 void Bus::writeLong(uint32_t addr, uint32_t data) {
-    ram[addr] = (data & 0xFF000000) >> 24;
-    ram[addr + 1] = (data & 0x00FF0000) >> 16;
-    ram[addr + 2] = (data & 0x0000FF00) >> 8;
-    ram[addr + 3] = (data & 0x000000FF);
+    writeByte(addr, (data & 0xFF000000) >> 24);
+    writeByte(addr + 1, (data & 0x00FF0000) >> 16);
+    writeByte(addr + 2, (data & 0x0000FF00) >> 8);
+    writeByte(addr + 3, (data & 0x000000FF));
 }
 
 M68kCpu *Bus::getCpu() {
     return &cpu;
+}
+
+std::vector<uint8_t> Bus::read(uint8_t addr, uint8_t size) {
+    std::vector<uint8_t> result(size);
+    for (int i = 0; i < size; i++) {
+        result[i] = read(addr + i);
+    }
+    return result;
 }

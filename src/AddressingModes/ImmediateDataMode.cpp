@@ -15,3 +15,14 @@ uint32_t ImmediateDataMode::getAddress(uint8_t regAddr) {
 uint8_t ImmediateDataMode::getModeId() {
     return 0b100u;
 }
+
+std::vector<uint8_t> ImmediateDataMode::getData(uint8_t regAddr, uint8_t size) {
+    uint32_t address = getAddress(regAddr);
+    uint8_t incrSize = size;
+    if (size == 1) {
+        incrSize = 2;
+        address++;
+    }
+    cpu->incrementPc(incrSize);
+    return bus->read(address, size);
+}

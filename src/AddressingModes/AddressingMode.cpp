@@ -13,3 +13,8 @@ void AddressingMode::setBus(Bus *b) {
     this->bus = b;
 }
 
+std::vector<uint8_t> AddressingMode::getData(uint8_t regAddr, uint8_t size) {
+    uint32_t address = getAddress(regAddr);
+    return bus->read(address, size);
+}
+

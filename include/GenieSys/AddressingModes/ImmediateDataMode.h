@@ -13,6 +13,7 @@ public:
 
     uint32_t getAddress(uint8_t regAddr) override;
     uint8_t getModeId() override;
+    std::vector<uint8_t> getData(uint8_t regAddr, uint8_t size) override;
 };
 
 
