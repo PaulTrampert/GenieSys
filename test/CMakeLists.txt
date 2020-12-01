@@ -19,7 +19,8 @@ add_executable(testGenieSys
         AddressingModes/AbsoluteShortAddressingModeTest.cpp
         AddressingModes/AddressRegisterDirectModeTest.cpp
         AddressingModes/AddressRegisterIndirectDisplacementModeTest.cpp
-        AddressingModes/AddressRegisterIndirectModeTest.cpp AddressingModes/AddressRegisterIndirectPostIncrementModeTest.cpp)
+        AddressingModes/AddressRegisterIndirectModeTest.cpp
+        AddressingModes/AddressRegisterIndirectPostIncrementModeTest.cpp numberUtils.cpp)
 
 target_link_libraries(testGenieSys PRIVATE libGenieSys gtest gmock)
 

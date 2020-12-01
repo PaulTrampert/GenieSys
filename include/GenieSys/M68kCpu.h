@@ -26,12 +26,16 @@ private:
     /**
      * Data registers
      */
-    std::array<uint32_t, 8> dataRegisters;
+    std::array<uint32_t, 8> dataRegisters {
+        0, 0, 0, 0, 0, 0, 0, 0
+    };
 
     /**
      * Address registers
      */
-    std::array<uint32_t, 8> addressRegisters;
+    std::array<uint32_t, 8> addressRegisters {
+            0, 0, 0, 0, 0, 0, 0, 0
+    };
 
     /**
      * Program counter.
@@ -46,7 +50,9 @@ private:
     /**
      * Floating point data registers.
      */
-    std::array<long double, 8> fpDataRegisters;
+    std::array<long double, 8> fpDataRegisters {
+            0, 0, 0, 0, 0, 0, 0, 0
+    };
     uint8_t fpExceptionEnableByte = 0;
     uint8_t fpModeControl = 0;
     uint8_t fpConditionCode = 0;
