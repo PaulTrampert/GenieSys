@@ -10,26 +10,11 @@ AddressRegisterIndirectPreDecrementMode::AddressRegisterIndirectPreDecrementMode
 }
 
 uint32_t AddressRegisterIndirectPreDecrementMode::getAddress(uint8_t regAddr) {
-    uint32_t address = cpu->getAddressRegister(regAddr);
-    uint8_t size = 1;
-    switch (cpu->getOperandSize()) {
-        case BYTE:
-            size = regAddr == USP_ADDRESS ? 2 : 1;
-            break;
-        case WORD:
-            size = 2;
-            break;
-        case LONG:
-            size = 4;
-            break;
-    }
-    address -= size;
-    cpu->setAddressRegister(regAddr, address);
-    return address;
+    return cpu->getAddressRegister(regAddr);
 }
 
 uint8_t AddressRegisterIndirectPreDecrementMode::getModeId() {
-    return 0b100u;
+    return AddressRegisterIndirectPreDecrementMode::MODE_ID;
 }
 
 std::vector<uint8_t> AddressRegisterIndirectPreDecrementMode::getData(uint8_t regAddr, uint8_t size) {
