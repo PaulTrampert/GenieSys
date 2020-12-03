@@ -3,7 +3,6 @@
 //
 
 #include <stdexcept>
-#include <GenieSys/BriefExtensionWord.h>
 #include <GenieSys/M68kCpu.h>
 #include <GenieSys/Bus.h>
 #include <GenieSys/AddressingModes/AddressingMode.h>

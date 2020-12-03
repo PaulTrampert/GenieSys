@@ -13,14 +13,13 @@ add_executable(testGenieSys
         main.cpp
         BusTest.cpp
         signExtendTest.cpp
-        BriefExtensionWordTest.cpp
         ExtensionWordTest.cpp
         AddressingModes/AbsoluteLongAddressingModeTest.cpp
         AddressingModes/AbsoluteShortAddressingModeTest.cpp
         AddressingModes/AddressRegisterDirectModeTest.cpp
         AddressingModes/AddressRegisterIndirectDisplacementModeTest.cpp
         AddressingModes/AddressRegisterIndirectModeTest.cpp
-        AddressingModes/AddressRegisterIndirectPostIncrementModeTest.cpp numberUtils.cpp AddressingModes/AddressRegisterIndirectPreDecrementModeTest.cpp)
+        AddressingModes/AddressRegisterIndirectPostIncrementModeTest.cpp numberUtils.cpp AddressingModes/AddressRegisterIndirectPreDecrementModeTest.cpp AddressingModes/AddressRegisterIndirectWithIndexModeTest.cpp)
 
 target_link_libraries(testGenieSys PRIVATE libGenieSys gtest gmock)
 

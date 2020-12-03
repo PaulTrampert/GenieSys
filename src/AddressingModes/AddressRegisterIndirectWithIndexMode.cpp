@@ -3,7 +3,6 @@
 //
 #include <cmath>
 #include <GenieSys/signExtend.h>
-#include <GenieSys/BriefExtensionWord.h>
 #include <GenieSys/ExtensionWord.h>
 #include <stdexcept>
 #include "GenieSys/AddressingModes/AddressRegisterIndirectWithIndexMode.h"
@@ -14,46 +13,46 @@ AddressRegisterIndirectWithIndexMode::AddressRegisterIndirectWithIndexMode(M68kC
 }
 
 uint32_t AddressRegisterIndirectWithIndexMode::getAddress(uint8_t regAddr) {
-    uint16_t extWordRaw = bus->readWord(cpu->getPc());
+    auto extWord = ExtensionWord(bus->readWord(cpu->getPc()));
     cpu->incrementPc(2);
-    if ((extWordRaw & 0x0100) > 0) {
-        auto extWord = decodeBriefExtensionWord(extWordRaw);
+    uint8_t idxRegAddr = extWord.getIdxRegAddr();
+    if (extWord.isBrief()) {
         uint32_t addrReg = cpu->getAddressRegister(regAddr);
-        auto displacement = signExtend<int32_t>(extWord.displacement, 8);
-        int32_t idxReg = extWord.idxRegType == M68K_REG_TYPE_DATA
-                         ? cpu->getDataRegister(extWord.idxRegAddr)
-                         : cpu->getAddressRegister(extWord.idxRegAddr);
-        if (extWord.idxSize == EXT_WORD_IDX_SIZE_SE_WORD) {
+        auto displacement = signExtend<int32_t>(extWord.getDisplacement(), 8);
+        int32_t idxReg = extWord.getIdxRegType() == M68K_REG_TYPE_DATA
+                         ? cpu->getDataRegister(idxRegAddr)
+                         : cpu->getAddressRegister(idxRegAddr);
+        if (extWord.getIdxSize() == EXT_WORD_IDX_SIZE_SE_WORD) {
             idxReg = signExtend<int32_t>(idxReg & 0x0000FFFF, 16);
         }
-        uint32_t scale = pow(2, extWord.scale);
+        uint32_t scale = pow(2, extWord.getScale());
         return addrReg + displacement + (idxReg * scale);
     }
     else {
-        auto extWord = decodeExtensionWord(extWordRaw);
-        uint32_t addrReg = extWord.baseRegSuppress ? 0 : cpu->getAddressRegister(regAddr);
+        uint32_t addrReg = extWord.getBaseRegSuppress() ? 0 : cpu->getAddressRegister(regAddr);
         int32_t idxReg = 0;
-        if (!extWord.indexSuppress) {
-            idxReg = extWord.idxRegType == M68K_REG_TYPE_DATA
-                     ? cpu->getDataRegister(extWord.idxRegAddr)
-                     : cpu->getAddressRegister(extWord.idxRegAddr);
-            if (extWord.idxSize == EXT_WORD_IDX_SIZE_SE_WORD) {
+        if (!extWord.getIndexSuppress()) {
+            idxReg = extWord.getIdxRegType() == M68K_REG_TYPE_DATA
+                     ? cpu->getDataRegister(idxRegAddr)
+                     : cpu->getAddressRegister(idxRegAddr);
+            if (extWord.getIdxSize() == EXT_WORD_IDX_SIZE_SE_WORD) {
                 idxReg = signExtend<int32_t>(idxReg & 0x0000FFFF, 16);
             }
         }
-        uint32_t scale = pow(2, extWord.scale);
+        uint32_t scale = pow(2, extWord.getScale());
         int32_t baseDisplacement = 0;
-        if (extWord.baseDisplacementSize == EXT_WORD_BD_SIZE_WORD) {
+        if (extWord.getBaseDisplacementSize() == EXT_WORD_BD_SIZE_WORD) {
             baseDisplacement = signExtend<int32_t>(bus->readWord(cpu->getPc()), 16);
             cpu->incrementPc(2);
         }
-        else if (extWord.baseDisplacementSize == EXT_WORD_BD_SIZE_LONG) {
+        else if (extWord.getBaseDisplacementSize() == EXT_WORD_BD_SIZE_LONG) {
             baseDisplacement = bus->readLong(cpu->getPc());
             cpu->incrementPc(4);
         }
         int32_t outerDisplacement = 0;
-        uint32_t intermediateAddr = 0;
-        switch(extWord.indexIndirectSelection) {
+        uint32_t intermediateAddr;
+        uint8_t idxIndirectSelection = extWord.getIndexIndirectSelection();
+        switch(idxIndirectSelection) {
             case 0:
                 // Address Register Indirect Mode
                 return addrReg + baseDisplacement + (idxReg * scale);
@@ -62,11 +61,11 @@ uint32_t AddressRegisterIndirectWithIndexMode::getAddress(uint8_t regAddr) {
             case 3:
                 // Preindexed
                 intermediateAddr = addrReg + baseDisplacement + (idxReg * scale);
-                if (extWord.indexIndirectSelection == 2) {
+                if (idxIndirectSelection == 2) {
                     outerDisplacement = signExtend<int32_t>(bus->readWord(cpu->getPc()), 16);
                     cpu->incrementPc(2);
                 }
-                else if (extWord.indexIndirectSelection == 3) {
+                else if (idxIndirectSelection == 3) {
                     outerDisplacement = bus->readLong(cpu->getPc());
                     cpu->incrementPc(4);
                 }
@@ -76,11 +75,11 @@ uint32_t AddressRegisterIndirectWithIndexMode::getAddress(uint8_t regAddr) {
             case 7:
                 // Postindexed
                 intermediateAddr = addrReg + baseDisplacement;
-                if (extWord.indexIndirectSelection == 6) {
+                if (idxIndirectSelection == 6) {
                     outerDisplacement = signExtend<int32_t>(bus->readWord(cpu->getPc()), 16);
                     cpu->incrementPc(2);
                 }
-                else if (extWord.indexIndirectSelection == 7) {
+                else if (idxIndirectSelection == 7) {
                     outerDisplacement = bus->readLong(cpu->getPc());
                     cpu->incrementPc(4);
                 }
@@ -92,5 +91,5 @@ uint32_t AddressRegisterIndirectWithIndexMode::getAddress(uint8_t regAddr) {
 }
 
 uint8_t AddressRegisterIndirectWithIndexMode::getModeId() {
-    return 0b110u;
+    return MODE_ID;
 }

@@ -6,7 +6,6 @@
 #include <cstdint>
 #include <array>
 #include "GenieSys/enums.h"
-#include "GenieSys/BriefExtensionWord.h"
 
 class Bus;
 class AddressingMode;

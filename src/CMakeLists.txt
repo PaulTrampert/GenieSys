@@ -3,7 +3,6 @@ set(GLOB HEADER_LIST "${GenieSys_SOURCE_DIR}/include/GenieSys/*.h")
 add_library(libGenieSys
         Bus.cpp
         M68kCpu.cpp
-        BriefExtensionWord.cpp
         ExtensionWord.cpp
         AddressingModes/DataRegisterDirectMode.cpp
         AddressingModes/AddressingMode.cpp
