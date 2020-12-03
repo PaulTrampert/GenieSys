@@ -13,7 +13,7 @@ uint32_t ImmediateDataMode::getAddress(uint8_t regAddr) {
 }
 
 uint8_t ImmediateDataMode::getModeId() {
-    return 0b100u;
+    return MODE_ID;
 }
 
 std::vector<uint8_t> ImmediateDataMode::getData(uint8_t regAddr, uint8_t size) {

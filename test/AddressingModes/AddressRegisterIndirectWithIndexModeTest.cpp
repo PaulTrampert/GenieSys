@@ -183,5 +183,4 @@ TEST_F(AddressRegisterIndirectWithIndexModeTest, GetAddress_AddressRegisterPostI
 
     ASSERT_EQ(9016, subject->getAddress(5));
     ASSERT_EQ(38, cpu->getPc());
-
 }
