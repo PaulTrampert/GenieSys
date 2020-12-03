@@ -120,3 +120,68 @@ TEST_F(AddressRegisterIndirectWithIndexModeTest, GetAddress_AddressRegisterWithI
     ASSERT_EQ(34, cpu->getPc());
 }
 
+TEST_F(AddressRegisterIndirectWithIndexModeTest, GetAddress_AddressRegisterWithIndexAndDisplacement_GetsTheCorrectAddress) {
+    ExtensionWord extWord = ExtensionWord();
+    extWord.setIsBrief(false);
+    extWord.setIdxRegType(M68K_REG_TYPE_DATA);
+    extWord.setIdxRegAddr(4);
+    extWord.setIdxSize(EXT_WORD_IDX_SIZE_SE_WORD);
+    extWord.setScale(2);
+    extWord.setIndexSuppress(false);
+    extWord.setBaseDisplacementSize(EXT_WORD_BD_SIZE_WORD);
+    extWord.setIndexIndirectSelection(0);
+    cpu->setPc(32);
+    bus.writeWord(32, (uint16_t)extWord);
+    bus.writeWord(34, -4);
+    cpu->setAddressRegister(5, 94);
+    cpu->setDataRegister(4, 5);
+
+    ASSERT_EQ(110, subject->getAddress(5));
+    ASSERT_EQ(36, cpu->getPc());
+}
+
+TEST_F(AddressRegisterIndirectWithIndexModeTest, GetAddress_AddressRegisterPreIndexedWithOuterDisplacement_GetsTheCorrectAddress) {
+    ExtensionWord extWord = ExtensionWord();
+    extWord.setIsBrief(false);
+    extWord.setIdxRegType(M68K_REG_TYPE_DATA);
+    extWord.setIdxRegAddr(4);
+    extWord.setIdxSize(EXT_WORD_IDX_SIZE_SE_WORD);
+    extWord.setScale(2);
+    extWord.setIndexSuppress(false);
+    extWord.setBaseDisplacementSize(EXT_WORD_BD_SIZE_WORD);
+    extWord.setIndexIndirectSelection(2);
+    cpu->setPc(32);
+    bus.writeWord(32, (uint16_t)extWord);
+    bus.writeWord(34, -4);
+    bus.writeWord(36, -4);
+    bus.writeLong(110, 9000);
+    cpu->setAddressRegister(5, 94);
+    cpu->setDataRegister(4, 5);
+
+    ASSERT_EQ(8996, subject->getAddress(5));
+    ASSERT_EQ(38, cpu->getPc());
+
+}
+
+TEST_F(AddressRegisterIndirectWithIndexModeTest, GetAddress_AddressRegisterPostIndexedWithOuterDisplacement_GetsTheCorrectAddress) {
+    ExtensionWord extWord = ExtensionWord();
+    extWord.setIsBrief(false);
+    extWord.setIdxRegType(M68K_REG_TYPE_DATA);
+    extWord.setIdxRegAddr(4);
+    extWord.setIdxSize(EXT_WORD_IDX_SIZE_SE_WORD);
+    extWord.setScale(2);
+    extWord.setIndexSuppress(false);
+    extWord.setBaseDisplacementSize(EXT_WORD_BD_SIZE_WORD);
+    extWord.setIndexIndirectSelection(6);
+    cpu->setPc(32);
+    bus.writeWord(32, (uint16_t)extWord);
+    bus.writeWord(34, -4);
+    bus.writeWord(36, -4);
+    bus.writeLong(90, 9000);
+    cpu->setAddressRegister(5, 94);
+    cpu->setDataRegister(4, 5);
+
+    ASSERT_EQ(9016, subject->getAddress(5));
+    ASSERT_EQ(38, cpu->getPc());
+
+}
