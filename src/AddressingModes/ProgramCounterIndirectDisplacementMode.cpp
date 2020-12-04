@@ -17,5 +17,5 @@ uint32_t ProgramCounterIndirectDisplacementMode::getAddress(uint8_t regAddr) {
 }
 
 uint8_t ProgramCounterIndirectDisplacementMode::getModeId() {
-    return 0b010u;
+    return MODE_ID;
 }
