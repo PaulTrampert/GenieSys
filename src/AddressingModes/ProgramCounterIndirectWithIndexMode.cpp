@@ -91,5 +91,5 @@ uint32_t ProgramCounterIndirectWithIndexMode::getAddress(uint8_t regAddr) {
 }
 
 uint8_t ProgramCounterIndirectWithIndexMode::getModeId() {
-    return 0b011u;
+    return MODE_ID;
 }
