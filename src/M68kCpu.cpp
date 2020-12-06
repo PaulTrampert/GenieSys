@@ -85,8 +85,8 @@ void M68kCpu::tick() {
         clock = 1;
         opWord = bus->readWord(pc);
         pc += 2;
-        uint8_t addrModeCode = opWord & AddressingMode::EA_MODE_MASK >> 3;
-        uint32_t operandAddress = addressingModes[addrModeCode]->getAddress(opWord & AddressingMode::EA_REG_MASK);
+        uint8_t addrModeCode = AddressingMode::EA_MODE_MASK.apply(opWord);
+        uint32_t operandAddress = addressingModes[addrModeCode]->getAddress(AddressingMode::EA_REG_MASK.apply(opWord));
     }
     clock--;
 }

@@ -17,7 +17,7 @@ public:
         for (int i = 0; i < numBits; i++) {
             mask |= 1 << (highBit - i);
         }
-        offset = highBit - numBits;
+        offset = highBit - numBits + 1;
     }
 
     T apply(T input) {
