@@ -11,5 +11,6 @@
 class Abcd : CpuOperation {
 
 public:
-    void execute() override;
+    Abcd(M68kCpu* cpu, Bus* bus);
+    void execute(uint16_t opWord) override;
 };

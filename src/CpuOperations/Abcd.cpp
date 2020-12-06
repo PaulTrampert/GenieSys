@@ -13,10 +13,10 @@ static BitMask<uint16_t> RM_MASK = BitMask<uint16_t>(3, 1);
 static BitMask<uint8_t> ONES_DIGIT = BitMask<uint8_t>(3, 4);
 static BitMask<uint8_t> TENS_DIGIT = BitMask<uint8_t>(7, 4);
 
-void Abcd::execute() {
-    uint16_t destReg = RX_MASK.apply(cpu->getCurrentOpWord());
-    uint16_t srcReg = RY_MASK.apply(cpu->getCurrentOpWord());
-    uint16_t rm = RM_MASK.apply(cpu->getCurrentOpWord());
+void Abcd::execute(uint16_t opWord) {
+    uint16_t destReg = RX_MASK.apply(opWord);
+    uint16_t srcReg = RY_MASK.apply(opWord);
+    uint16_t rm = RM_MASK.apply(opWord);
     AddressingMode* mode;
     if (rm > 0) {
         mode = cpu->getAddressingMode(AddressRegisterIndirectPreDecrementMode::MODE_ID);
@@ -56,4 +56,7 @@ void Abcd::execute() {
     }
     cpu->setCcrFlags(newCcrFlags);
     dest->write((uint8_t)((destTensDigit << 4) | destOnesDigit));
+}
+
+Abcd::Abcd(M68kCpu *cpu, Bus *bus) : CpuOperation(cpu, bus) {
 }

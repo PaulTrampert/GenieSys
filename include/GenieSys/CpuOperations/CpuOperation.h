@@ -12,5 +12,6 @@ protected:
     M68kCpu* cpu;
 
 public:
-    virtual void execute() = 0;
+    CpuOperation(M68kCpu* cpu, Bus* bus);
+    virtual void execute(uint16_t opWord) = 0;
 };
