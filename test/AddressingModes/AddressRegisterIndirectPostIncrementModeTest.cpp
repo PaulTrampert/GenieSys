@@ -28,37 +28,37 @@ TEST_F(AddressRegisterIndirectPostIncrementModeTest, ItGetsTheCorrectAddress) {
 }
 
 TEST_F(AddressRegisterIndirectPostIncrementModeTest, ItGetsTheExpectedDataWhenSizeIsOne) {
-    const std::vector<uint8_t> &result = subject->getData(2, 1);
+    const std::vector<uint8_t> &result = subject->getData(2, 1)->getData();
     EXPECT_EQ(0x12, result[0]);
 }
 
 TEST_F(AddressRegisterIndirectPostIncrementModeTest, ItGetsTheExpectedDataWhenSizeIsTwo) {
-    const std::vector<uint8_t> &result = subject->getData(2, 2);
+    const std::vector<uint8_t> &result = subject->getData(2, 2)->getData();
     EXPECT_EQ(0x1234, bytesToWord(result));
 }
 
 TEST_F(AddressRegisterIndirectPostIncrementModeTest, ItGetsTheExpectedDataWhenSizeIsFour) {
-    const std::vector<uint8_t> &result = subject->getData(2, 4);
+    const std::vector<uint8_t> &result = subject->getData(2, 4)->getData();
     EXPECT_EQ(0x12345678, bytesToLong(result));
 }
 
 TEST_F(AddressRegisterIndirectPostIncrementModeTest, ItIncrementsTheAddressRegisterBySizeOne) {
-    const std::vector<uint8_t> &result = subject->getData(2, 1);
+    const std::vector<uint8_t> &result = subject->getData(2, 1)->getData();
     EXPECT_EQ(11, cpu->getAddressRegister(2));
 }
 
 TEST_F(AddressRegisterIndirectPostIncrementModeTest, ItIncrementsTheAddressRegisterBySizeTwo) {
-    const std::vector<uint8_t> &result = subject->getData(2, 2);
+    const std::vector<uint8_t> &result = subject->getData(2, 2)->getData();
     EXPECT_EQ(12, cpu->getAddressRegister(2));
 }
 
 TEST_F(AddressRegisterIndirectPostIncrementModeTest, ItIncrementsTheAddressRegisterBySizeFour) {
-    const std::vector<uint8_t> &result = subject->getData(2, 4);
+    const std::vector<uint8_t> &result = subject->getData(2, 4)->getData();
     EXPECT_EQ(14, cpu->getAddressRegister(2));
 }
 
 TEST_F(AddressRegisterIndirectPostIncrementModeTest, ItIncrementsTheUserStackPointerByMinimumOfTwo) {
-    const std::vector<uint8_t> &result = subject->getData(7, 1);
+    const std::vector<uint8_t> &result = subject->getData(7, 1)->getData();
     EXPECT_EQ(2, cpu->getAddressRegister(7));
 }
 

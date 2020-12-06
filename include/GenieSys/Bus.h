@@ -49,6 +49,13 @@ public:
     uint32_t readLong(uint32_t addr);
 
     /**
+     * Writes the given data starting at the given address.
+     * @param addr The address to write to.
+     * @param data The data to write.
+     */
+    void write(uint32_t addr, std::vector<uint8_t> data);
+
+    /**
      * Write a byte at the given address.
      * @param addr The address to writeByte to
      * @param data The byte to writeByte.

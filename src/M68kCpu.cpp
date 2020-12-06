@@ -90,3 +90,15 @@ void M68kCpu::tick() {
     }
     clock--;
 }
+
+AddressingMode *M68kCpu::getAddressingMode(int modeId) {
+    return addressingModes[modeId];
+}
+
+void M68kCpu::setCcrFlags(uint8_t ccr) {
+    this->ccr = ccr;
+}
+
+uint8_t M68kCpu::getCcrFlags() {
+    return ccr;
+}

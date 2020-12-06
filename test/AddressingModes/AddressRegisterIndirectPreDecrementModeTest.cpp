@@ -32,38 +32,38 @@ TEST_F(AddressRegisterIndirectPreDecrementModeTest, ItGetsTheCorrectAddress) {
 }
 
 TEST_F(AddressRegisterIndirectPreDecrementModeTest, ItGetsTheExpectedDataWhenSizeIsOne) {
-    const std::vector<uint8_t> &result = subject->getData(2, 1);
+    const std::vector<uint8_t> &result = subject->getData(2, 1)->getData();
     EXPECT_EQ(0x78, result[0]);
 }
 
 TEST_F(AddressRegisterIndirectPreDecrementModeTest, ItGetsTheExpectedDataWhenSizeIsTwo) {
-    const std::vector<uint8_t> &result = subject->getData(2, 2);
+    const std::vector<uint8_t> &result = subject->getData(2, 2)->getData();
     EXPECT_EQ(0x5678, bytesToWord(result));
 }
 
 TEST_F(AddressRegisterIndirectPreDecrementModeTest, ItGetsTheExpectedDataWhenSizeIsFour) {
-    const std::vector<uint8_t> &result = subject->getData(2, 4);
+    const std::vector<uint8_t> &result = subject->getData(2, 4)->getData();
     EXPECT_EQ(0x12345678, bytesToLong(result));
 }
 
 TEST_F(AddressRegisterIndirectPreDecrementModeTest, ItDecrementsTheAddressRegisterBySizeOne) {
-    const std::vector<uint8_t> &result = subject->getData(2, 1);
+    const std::vector<uint8_t> &result = subject->getData(2, 1)->getData();
     EXPECT_EQ(13, cpu->getAddressRegister(2));
 }
 
 TEST_F(AddressRegisterIndirectPreDecrementModeTest, ItDecrementsTheAddressRegisterBySizeTwo) {
-    const std::vector<uint8_t> &result = subject->getData(2, 2);
+    const std::vector<uint8_t> &result = subject->getData(2, 2)->getData();
     EXPECT_EQ(12, cpu->getAddressRegister(2));
 }
 
 TEST_F(AddressRegisterIndirectPreDecrementModeTest, ItDecrementsTheAddressRegisterBySizeFour) {
-    const std::vector<uint8_t> &result = subject->getData(2, 4);
+    const std::vector<uint8_t> &result = subject->getData(2, 4)->getData();
     EXPECT_EQ(10, cpu->getAddressRegister(2));
 }
 
 TEST_F(AddressRegisterIndirectPreDecrementModeTest, ItDecrementsTheUserStackPointerByMinimumOfTwo) {
     cpu->setAddressRegister(7, 4);
-    const std::vector<uint8_t> &result = subject->getData(7, 1);
+    const std::vector<uint8_t> &result = subject->getData(7, 1)->getData();
     EXPECT_EQ(2, cpu->getAddressRegister(7));
 }
 

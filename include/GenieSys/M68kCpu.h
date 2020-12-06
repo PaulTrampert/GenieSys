@@ -85,7 +85,11 @@ public:
     void incrementPc(int32_t amount);
     void setPc(uint32_t value);
     DATA_SIZE getOperandSize();
+    void setCcrFlags(uint8_t ccr);
+    uint8_t getCcrFlags();
     void tick();
+
+    AddressingMode *getAddressingMode(int modeId);
 };
 
 

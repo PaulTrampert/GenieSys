@@ -7,7 +7,7 @@
 #include "../Bus.h"
 
 class CpuOperation {
-private:
+protected:
     Bus* bus;
     M68kCpu* cpu;
 

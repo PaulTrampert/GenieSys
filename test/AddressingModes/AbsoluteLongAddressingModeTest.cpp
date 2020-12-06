@@ -34,8 +34,8 @@ TEST_F(AbsoluteLongAddressingModeTest, ItAdvancesTheProgramCounterTwoWords) {
 }
 
 TEST_F(AbsoluteLongAddressingModeTest, ItGetsTheCorrectData) {
-    std::vector<uint8_t> result = subject->getData(subject->getModeId(), 1);
-    EXPECT_EQ(55, result[0]);
+    auto result = subject->getData(subject->getModeId(), 1);
+    EXPECT_EQ(55, result->getData()[0]);
 }
 
 TEST_F(AbsoluteLongAddressingModeTest, TestGetModeId) {
