@@ -4,6 +4,9 @@
 
 #include <GenieSys/AddressingModes/AddressingMode.h>
 
+BitMask<uint16_t> AddressingMode::EA_MODE_MASK = BitMask<uint16_t>(5, 3);
+BitMask<uint16_t> AddressingMode::EA_REG_MASK = BitMask<uint16_t>(2, 3);
+
 AddressingMode::AddressingMode(M68kCpu *cpu, Bus *bus) {
     this->cpu = cpu;
     this->bus = bus;
