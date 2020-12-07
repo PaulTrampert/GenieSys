@@ -102,3 +102,4 @@ void M68kCpu::setCcrFlags(uint8_t ccr) {
 uint8_t M68kCpu::getCcrFlags() {
     return ccr;
 }
+
