@@ -36,7 +36,7 @@ DataRegisterDirectResult::DataRegisterDirectResult(M68kCpu *cpu, Bus *bus, uint3
 void DataRegisterDirectResult::write(std::vector<uint8_t> data) {
     switch(data.size()) {
         case 1:
-            cpu->setDataRegister(address, data[0]);
+            cpu->setDataRegister(address, bytesToByte(data));
             break;
         case 2:
             cpu->setDataRegister(address, bytesToWord(data));

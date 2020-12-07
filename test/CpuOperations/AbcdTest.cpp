@@ -15,14 +15,14 @@ struct AbcdTest : testing::Test {
         subject = new Abcd(cpu, &bus);
     }
 
-    ~AbcdTest() {
+    ~AbcdTest() override {
         delete subject;
     }
 };
 
 TEST_F(AbcdTest, ItCorrectlyAddsDecimalsFromRegistersWithNoCarry) {
-    cpu->setDataRegister(2, 0x11);
-    cpu->setDataRegister(3, 0x11);
+    cpu->setDataRegister(2, (uint8_t)0x11);
+    cpu->setDataRegister(3, (uint8_t)0x11);
     subject->execute(0b1100010100000011);
 
     ASSERT_EQ(0x22, cpu->getDataRegister(2));
@@ -41,8 +41,8 @@ TEST_F(AbcdTest, ItCorrectlyAddsDecimalsFromMemoryWithNoCarry) {
 }
 
 TEST_F(AbcdTest, ItCorrectlyAddsDecimalsFromRegistersWithCarry) {
-    cpu->setDataRegister(2, 0x88);
-    cpu->setDataRegister(3, 0x11);
+    cpu->setDataRegister(2, (uint8_t)0x88);
+    cpu->setDataRegister(3, (uint8_t)0x11);
     cpu->setCcrFlags(CCR_EXTEND | CCR_CARRY);
 
     subject->execute(0b1100010100000011);

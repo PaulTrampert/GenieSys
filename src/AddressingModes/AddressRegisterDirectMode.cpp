@@ -39,7 +39,7 @@ AddressRegisterDirectResult::AddressRegisterDirectResult(M68kCpu *cpu, Bus *bus,
 void AddressRegisterDirectResult::write(std::vector<uint8_t> data) {
     switch(data.size()) {
         case 1:
-            cpu->setAddressRegister(address, data[0]);
+            cpu->setAddressRegister(address, bytesToByte(data));
             break;
         case 2:
             cpu->setAddressRegister(address, bytesToWord(data));

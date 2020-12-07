@@ -26,7 +26,7 @@ static uint8_t getCcrFlags(U result, U op1, U op2) {
     if (result == 0) {
         ccr |= CCR_ZERO;
     }
-    if ((int8_t)result < 0) {
+    if ((S)result < 0) {
         ccr |= CCR_NEGATIVE;
     }
     return ccr;

@@ -3,6 +3,7 @@
 //
 
 #pragma once
+#include "../AddressingModes/AddressingMode.h"
 #include "./CpuOperation.h"
 
 class Add : CpuOperation {

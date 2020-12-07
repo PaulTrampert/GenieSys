@@ -16,7 +16,7 @@ struct DataRegisterDirectModeTest : testing::Test {
 
     DataRegisterDirectModeTest() {
         cpu = bus.getCpu();
-        cpu->setDataRegister(3, 9999);
+        cpu->setDataRegister(3, (uint32_t)9999);
         subject = new DataRegisterDirectMode(cpu, &bus);
     }
 
