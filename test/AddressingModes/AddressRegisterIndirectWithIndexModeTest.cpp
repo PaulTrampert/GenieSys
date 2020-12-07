@@ -36,7 +36,7 @@ TEST_F(AddressRegisterIndirectWithIndexModeTest, GetAddress_With8BitDisplacement
     cpu->setPc(32);
     bus.writeWord(32, (uint16_t)extWord);
     cpu->setAddressRegister(5, 94);
-    cpu->setDataRegister(4, 5);
+    cpu->setDataRegister(4, (uint32_t)5);
 
     ASSERT_EQ(110, subject->getAddress(5));
     ASSERT_EQ(34, cpu->getPc());
@@ -56,7 +56,7 @@ TEST_F(AddressRegisterIndirectWithIndexModeTest, GetAddress_EverythingSuppressed
     cpu->setPc(32);
     bus.writeWord(32, (uint16_t)extWord);
     cpu->setAddressRegister(5, 94);
-    cpu->setDataRegister(4, 5);
+    cpu->setDataRegister(4, (uint32_t)5);
 
     ASSERT_EQ(0, subject->getAddress(5));
     ASSERT_EQ(34, cpu->getPc());
@@ -75,7 +75,7 @@ TEST_F(AddressRegisterIndirectWithIndexModeTest, GetAddress_OnlyAddressRegister_
     cpu->setPc(32);
     bus.writeWord(32, (uint16_t)extWord);
     cpu->setAddressRegister(5, 94);
-    cpu->setDataRegister(4, 5);
+    cpu->setDataRegister(4, (uint32_t)5);
 
     ASSERT_EQ(94, subject->getAddress(5));
     ASSERT_EQ(34, cpu->getPc());
@@ -95,7 +95,7 @@ TEST_F(AddressRegisterIndirectWithIndexModeTest, GetAddress_AddressWithDisplacem
     bus.writeWord(32, (uint16_t)extWord);
     bus.writeWord(34, -4);
     cpu->setAddressRegister(5, 94);
-    cpu->setDataRegister(4, 5);
+    cpu->setDataRegister(4, (uint32_t)5);
 
     ASSERT_EQ(90, subject->getAddress(5));
     ASSERT_EQ(36, cpu->getPc());
@@ -114,7 +114,7 @@ TEST_F(AddressRegisterIndirectWithIndexModeTest, GetAddress_AddressRegisterWithI
     cpu->setPc(32);
     bus.writeWord(32, (uint16_t)extWord);
     cpu->setAddressRegister(5, 94);
-    cpu->setDataRegister(4, 5);
+    cpu->setDataRegister(4, (uint32_t)5);
 
     ASSERT_EQ(114, subject->getAddress(5));
     ASSERT_EQ(34, cpu->getPc());
@@ -134,7 +134,7 @@ TEST_F(AddressRegisterIndirectWithIndexModeTest, GetAddress_AddressRegisterWithI
     bus.writeWord(32, (uint16_t)extWord);
     bus.writeWord(34, -4);
     cpu->setAddressRegister(5, 94);
-    cpu->setDataRegister(4, 5);
+    cpu->setDataRegister(4, (uint32_t)5);
 
     ASSERT_EQ(110, subject->getAddress(5));
     ASSERT_EQ(36, cpu->getPc());
@@ -156,7 +156,7 @@ TEST_F(AddressRegisterIndirectWithIndexModeTest, GetAddress_AddressRegisterPreIn
     bus.writeWord(36, -4);
     bus.writeLong(110, 9000);
     cpu->setAddressRegister(5, 94);
-    cpu->setDataRegister(4, 5);
+    cpu->setDataRegister(4, (uint32_t)5);
 
     ASSERT_EQ(8996, subject->getAddress(5));
     ASSERT_EQ(38, cpu->getPc());
@@ -179,7 +179,7 @@ TEST_F(AddressRegisterIndirectWithIndexModeTest, GetAddress_AddressRegisterPostI
     bus.writeWord(36, -4);
     bus.writeLong(90, 9000);
     cpu->setAddressRegister(5, 94);
-    cpu->setDataRegister(4, 5);
+    cpu->setDataRegister(4, (uint32_t)5);
 
     ASSERT_EQ(9016, subject->getAddress(5));
     ASSERT_EQ(38, cpu->getPc());

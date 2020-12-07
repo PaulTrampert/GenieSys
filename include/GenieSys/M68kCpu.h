@@ -78,6 +78,8 @@ public:
     void ConnectBus(Bus* bus);
     uint16_t getCurrentOpWord();
     uint32_t getDataRegister(uint8_t addr);
+    void setDataRegister(uint8_t addr, uint8_t value);
+    void setDataRegister(uint8_t addr, uint16_t value);
     void setDataRegister(uint8_t addr, uint32_t value);
     uint32_t getAddressRegister(uint8_t addr);
     void setAddressRegister(uint8_t addr, uint32_t value);
@@ -85,7 +87,11 @@ public:
     void incrementPc(int32_t amount);
     void setPc(uint32_t value);
     DATA_SIZE getOperandSize();
+    void setCcrFlags(uint8_t ccr);
+    uint8_t getCcrFlags();
     void tick();
+
+    AddressingMode *getAddressingMode(int modeId);
 };
 
 

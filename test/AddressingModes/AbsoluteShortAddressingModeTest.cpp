@@ -34,8 +34,8 @@ TEST_F(AbsoluteShortAddressingModeTest, ItAdvancesTheProgramCounterOneWord) {
 }
 
 TEST_F(AbsoluteShortAddressingModeTest, ItGetsTheCorrectData) {
-    std::vector<uint8_t> result = subject->getData(subject->getModeId(), 1);
-    EXPECT_EQ(42, result[0]);
+    auto result = subject->getData(subject->getModeId(), 1);
+    EXPECT_EQ(42, result->getData()[0]);
 }
 
 TEST_F(AbsoluteShortAddressingModeTest, TestGetModeId) {

@@ -28,7 +28,7 @@ TEST_F(AddressRegisterIndirectModeTest, ItGetsTheCorrectAddress) {
 }
 
 TEST_F(AddressRegisterIndirectModeTest, ItGetsTheCorrectData) {
-    auto result = subject->getData(2, 2);
+    auto result = subject->getData(2, 2)->getData();
     EXPECT_EQ(0xAB, result[0]);
     EXPECT_EQ(0xCD, result[1]);
 }

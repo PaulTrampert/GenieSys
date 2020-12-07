@@ -32,7 +32,7 @@ TEST_F(ImmediateDataModeTest, TheAddressIsTheCpusPc) {
 }
 
 TEST_F(ImmediateDataModeTest, GetData_GetsTheCorrectData) {
-    ASSERT_EQ(0x1111, bytesToWord(subject->getData(0b100u, 2)));
+    ASSERT_EQ(0x1111, bytesToWord(subject->getData(0b100u, 2)->getData()));
 }
 
 TEST_F(ImmediateDataModeTest, GetData_IncrementsTheProgramCounter) {

@@ -5,18 +5,18 @@
 #include <GenieSys/numberUtils.h>
 
 uint8_t bytesToByte(std::vector<uint8_t> data) {
-    return data[0];
+    return data[data.size() - 1];
 }
 
 uint16_t bytesToWord(std::vector<uint8_t> data) {
-    return (data[0] << 8) | data[1];
+    return (data[data.size() - 2] << 8) | data[data.size() - 1];
 }
 
 uint32_t bytesToLong(std::vector<uint8_t> data) {
-    return (data[0] << 24) |
-            (data[1] << 16) |
-            (data[2] << 8) |
-            data [3];
+    return (data[data.size() - 4] << 24) |
+            (data[data.size() - 3] << 16) |
+            (data[data.size() - 2] << 8) |
+            data [data.size() - 1];
 }
 
 std::vector<uint8_t> getBytes(uint8_t byte) {

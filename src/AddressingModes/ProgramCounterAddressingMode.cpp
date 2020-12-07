@@ -46,9 +46,9 @@ void ProgramCounterAddressingMode::setBus(Bus *b) {
     }
 }
 
-std::vector<uint8_t> ProgramCounterAddressingMode::getData(uint8_t regAddr, uint8_t size) {
+std::unique_ptr<AddressingResult> ProgramCounterAddressingMode::getData(uint8_t regAddr, uint8_t size) {
     uint8_t submodeId = regAddr;
     AddressingMode* subMode = subModes[submodeId];
-    if (subMode == nullptr) return std::vector<uint8_t>(0);
+    if (subMode == nullptr) return std::make_unique<AddressingResult>(cpu, bus, 0, std::vector<uint8_t>(0));
     return subMode->getData(regAddr, size);
 }

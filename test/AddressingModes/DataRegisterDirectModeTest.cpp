@@ -16,7 +16,7 @@ struct DataRegisterDirectModeTest : testing::Test {
 
     DataRegisterDirectModeTest() {
         cpu = bus.getCpu();
-        cpu->setDataRegister(3, 9999);
+        cpu->setDataRegister(3, (uint32_t)9999);
         subject = new DataRegisterDirectMode(cpu, &bus);
     }
 
@@ -30,7 +30,7 @@ TEST_F(DataRegisterDirectModeTest, ItGetsTheCorrectAddress) {
 }
 
 TEST_F(DataRegisterDirectModeTest, ItGetsTheCorrectData) {
-    std::vector<uint8_t> result = subject->getData(3, 4);
+    std::vector<uint8_t> result = subject->getData(3, 4)->getData();
     uint32_t finalResult = 0;
     for (int i = 0; i < 4; i++) {
         finalResult |= result[i] << (8 * (3 - i));

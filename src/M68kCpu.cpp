@@ -64,6 +64,14 @@ uint32_t M68kCpu::getAddressRegister(uint8_t addr) {
     return addressRegisters[addr];
 }
 
+void M68kCpu::setDataRegister(uint8_t addr, uint8_t value) {
+    dataRegisters[addr] = (dataRegisters[addr] & 0xFFFFFF00) | value;
+}
+
+void M68kCpu::setDataRegister(uint8_t addr, uint16_t value) {
+    dataRegisters[addr] = (dataRegisters[addr] & 0xFFFF0000) | value;
+}
+
 void M68kCpu::setDataRegister(uint8_t addr, uint32_t value) {
     dataRegisters[addr] = value;
 }
@@ -90,3 +98,20 @@ void M68kCpu::tick() {
     }
     clock--;
 }
+
+AddressingMode *M68kCpu::getAddressingMode(int modeId) {
+    return addressingModes[modeId];
+}
+
+void M68kCpu::setCcrFlags(uint8_t ccr) {
+    this->ccr = ccr;
+}
+
+uint8_t M68kCpu::getCcrFlags() {
+    return ccr;
+}
+
+
+
+
+

@@ -60,3 +60,9 @@ std::vector<uint8_t> Bus::read(uint32_t addr, uint8_t size) {
     }
     return result;
 }
+
+void Bus::write(uint32_t addr, std::vector<uint8_t> data) {
+    for(int i = 0; i < data.size(); i++) {
+        writeByte(addr + i, data[i]);
+    }
+}
