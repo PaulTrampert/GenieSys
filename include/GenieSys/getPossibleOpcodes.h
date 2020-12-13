@@ -19,8 +19,8 @@ std::vector<T> getPossibleOpcodes(T base, std::vector<BitMask<T>*> fields, int i
         return fieldResults;
     }
     std::vector<T> results;
-    for (int i = 0; i < fieldResults.size(); i++) {
-        T intermediateBase = fieldResults[i];
+    for (int j = 0; j < fieldResults.size(); j++) {
+        T intermediateBase = fieldResults[j];
         std::vector<T> nextFieldPossibilities = getPossibleOpcodes(intermediateBase, fields, i + 1);
         results.insert(results.end(), nextFieldPossibilities.begin(), nextFieldPossibilities.end());
     }
