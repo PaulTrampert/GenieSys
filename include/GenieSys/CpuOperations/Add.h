@@ -14,4 +14,5 @@ private:
 public:
     Add(M68kCpu* cpu, Bus* bus);
     void execute(uint16_t opWord) override;
+    std::vector<uint16_t> getOpcodes() override;
 };
