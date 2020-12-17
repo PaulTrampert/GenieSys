@@ -8,10 +8,11 @@
 /**
  * Add Decimal With Extend (M68KPM.pdf, page 107)
  */
-class Abcd : CpuOperation {
+class Abcd : public CpuOperation {
 
 public:
     Abcd(M68kCpu* cpu, Bus* bus);
     void execute(uint16_t opWord) override;
     std::vector<uint16_t> getOpcodes() override;
+    uint8_t getSpecificity() override;
 };

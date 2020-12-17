@@ -9,6 +9,7 @@
 
 class Bus;
 class AddressingMode;
+class CpuOperation;
 
 /**
  * The CPU used in the Sega Genesis.
@@ -64,13 +65,15 @@ private:
 
     /* Operational Fields */
     uint16_t opWord;  // Single Effective Address Operation Word
-    uint32_t address; // Effective address for the current operation
-    DATA_SIZE operandSize;
 
     uint8_t clock = 0;
 
     /* Addressing modes */
     std::array<AddressingMode*, 8> addressingModes;
+
+    std::array<CpuOperation*, 65536> opTable;
+
+    CpuOperation* nop;
 
 public:
     M68kCpu();

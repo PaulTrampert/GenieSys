@@ -70,3 +70,7 @@ std::vector<uint16_t> Abcd::getOpcodes() {
         &RM_MASK
     });
 }
+
+uint8_t Abcd::getSpecificity() {
+    return RX_MASK.getWidth() + RY_MASK.getWidth() + RM_MASK.getWidth();
+}

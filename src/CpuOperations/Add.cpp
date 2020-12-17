@@ -97,3 +97,7 @@ std::vector<uint16_t> Add::getOpcodes() {
         &EA_REG
     });
 }
+
+uint8_t Add::getSpecificity() {
+    return REG_MASK.getWidth() + DIRECTION.getWidth() + SIZE.getWidth() + EA_MODE.getWidth() + EA_REG.getWidth();
+}

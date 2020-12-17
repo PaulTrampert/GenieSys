@@ -18,7 +18,7 @@ add_library(libGenieSys
         AddressingModes/AbsoluteLongAddressingMode.cpp
         AddressingModes/ImmediateDataMode.cpp
         AddressingModes/ProgramCounterAddressingMode.cpp
-        numberUtils.cpp CpuOperations/Abcd.cpp CpuOperations/CpuOperation.cpp CpuOperations/Add.cpp)
+        numberUtils.cpp CpuOperations/Abcd.cpp CpuOperations/CpuOperation.cpp CpuOperations/Add.cpp CpuOperations/Nop.cpp)
 
 target_include_directories(libGenieSys PUBLIC ../include)
 

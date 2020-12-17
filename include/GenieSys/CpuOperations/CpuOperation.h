@@ -14,6 +14,12 @@ protected:
 
 public:
     CpuOperation(M68kCpu* cpu, Bus* bus);
+    virtual ~CpuOperation() = default;
     virtual void execute(uint16_t opWord) = 0;
     virtual std::vector<uint16_t> getOpcodes() = 0;
+    virtual uint8_t getSpecificity() = 0;
 };
+
+std::vector<CpuOperation*> getOperations(M68kCpu* cpu, Bus* bus);
+
+bool compare(CpuOperation* a, CpuOperation* b);

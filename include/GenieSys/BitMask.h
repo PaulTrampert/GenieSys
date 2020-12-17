@@ -14,6 +14,7 @@ class BitMask {
 private:
     T mask;
     uint8_t offset;
+    uint8_t width;
     T minValue = 0;
     T maxValue;
 
@@ -25,6 +26,7 @@ public:
      * @param width The width of the mask, extending downward from the highest bit.
      */
     BitMask(uint8_t highBit, uint8_t width) {
+        this->width = width;
         mask = 0;
         for (int i = 0; i < width; i++) {
             mask |= 1 << (highBit - i);
@@ -33,6 +35,14 @@ public:
         maxValue = mask >> offset;
     }
 
+    /**
+     * Create a new BitMask with the given highest bit and width. For example, for a byte BitMask, one might say
+     * highBit == 4, width == 2, which produces the mask 0b00011000.
+     * @param highBit The highest bit of the mask.
+     * @param width The width of the mask, extending downward from the highest bit.
+     * @param minValue The minimum valid value of the mask.
+     * @param maxValue The maximum valid value of the mask.
+     */
     BitMask(uint8_t highBit, uint8_t width, T minValue, T maxValue) : BitMask(highBit, width) {
         this->minValue = minValue;
         this->maxValue = maxValue;
@@ -48,15 +58,27 @@ public:
     }
 
     /**
-     * Get the maximum possible value described by this mask.
+     * Get the maximum valid value described by this mask.
      * @return The max value described by this mask.
      */
     T getMaxValue() {
         return maxValue;
     }
 
+    /**
+     * Get the minimum valid value of the mask.
+     * @return The min value described by this mask.
+     */
     T getMinValue() {
         return minValue;
+    }
+
+    /**
+     * Get the width of this mask, in bits.
+     * @return The width of this mask in bits.
+     */
+    T getWidth() {
+        return width;
     }
 
     /**

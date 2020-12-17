@@ -14,6 +14,8 @@
 #include <GenieSys/AddressingModes/AddressRegisterIndirectPreDecrementMode.h>
 #include <GenieSys/AddressingModes/AddressRegisterIndirectWithIndexMode.h>
 #include <GenieSys/AddressingModes/ProgramCounterAddressingMode.h>
+#include <GenieSys/CpuOperations/CpuOperation.h>
+#include <GenieSys/CpuOperations/Nop.h>
 
 M68kCpu::M68kCpu() {
     for (auto & mode : addressingModes) {
@@ -27,11 +29,22 @@ M68kCpu::M68kCpu() {
     addressingModes[AddressRegisterIndirectPreDecrementMode::MODE_ID] = new AddressRegisterIndirectPreDecrementMode(this, bus);
     addressingModes[AddressRegisterIndirectWithIndexMode::MODE_ID] = new AddressRegisterIndirectWithIndexMode(this, bus);
     addressingModes[ProgramCounterAddressingMode::MODE_ID] = new ProgramCounterAddressingMode(this, bus);
+
+    nop = new Nop(this, bus);
+    opTable.fill(nop);
+    for (auto & op : getOperations(this, bus)) {
+        for (auto & opcode : op->getOpcodes()) {
+            opTable[opcode] = op;
+        }
+    }
 }
 
 M68kCpu::~M68kCpu() {
     for (auto & mode : addressingModes) {
         delete mode;
+    }
+    for (auto & op : opTable) {
+        delete op;
     }
 };
 
