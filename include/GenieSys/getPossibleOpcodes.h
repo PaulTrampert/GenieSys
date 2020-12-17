@@ -29,7 +29,7 @@ std::vector<T> getPossibleOpcodes(T base, std::vector<BitMask<T>*> fields, int i
 template<class T>
 std::vector<T> getPossibleOpcodes(T base, BitMask<T>* field) {
     std::vector<T> results;
-    for (int i = 0; i <= field->getMaxValue(); i++) {
+    for (int i = field->getMinValue(); i <= field->getMaxValue(); i++) {
         results.push_back(field->compose(base, i));
     }
     return results;
