@@ -5,6 +5,7 @@
 #pragma once
 #include <cstdint>
 #include <array>
+#include <vector>
 #include <memory>
 #include "GenieSys/enums.h"
 
@@ -72,7 +73,7 @@ private:
     /* Addressing modes */
     std::array<std::unique_ptr<AddressingMode>, 8> addressingModes;
 
-    std::array<std::shared_ptr<CpuOperation>, 65536> opTable;
+    std::vector<std::shared_ptr<CpuOperation>> opTable = std::vector<std::shared_ptr<CpuOperation>>(65536);
 
     std::shared_ptr<CpuOperation> nop;
 

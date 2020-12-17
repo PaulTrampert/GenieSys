@@ -12,7 +12,7 @@
 
 class Bus {
 private:
-    std::array<uint8_t, RAM_SIZE> ram;
+    std::vector<uint8_t> ram = std::vector<uint8_t>(RAM_SIZE);
     M68kCpu cpu;
 
 public:

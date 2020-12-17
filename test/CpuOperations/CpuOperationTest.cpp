@@ -8,12 +8,12 @@
 TEST(CpuOperationTest, getOperationsReturnsOperationsInTheCorrectOrder) {
     Bus bus;
     M68kCpu* cpu = bus.getCpu();
-    std::shared_ptr<CpuOperation> previous = nullptr;
+    CpuOperation* previous = nullptr;
     auto operations = getOperations(cpu, &bus);
     for(auto & op : operations) {
         if (previous != nullptr) {
             ASSERT_TRUE(previous->getSpecificity() >= op->getSpecificity());
         }
-        previous = op;
+        previous = op.get();
     }
 }

@@ -32,7 +32,7 @@ M68kCpu::M68kCpu() {
     addressingModes[ProgramCounterAddressingMode::MODE_ID] = std::unique_ptr<AddressingMode>(new ProgramCounterAddressingMode(this, bus));
 
     nop = std::shared_ptr<CpuOperation>(new Nop(this, bus));
-    opTable.fill(nop);
+    std::fill(opTable.begin(), opTable.end(), nop);
     for (auto & op : getOperations(this, bus)) {
         for (auto & opcode : op->getOpcodes()) {
             opTable[opcode] = op;
