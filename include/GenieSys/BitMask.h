@@ -14,6 +14,8 @@ class BitMask {
 private:
     T mask;
     uint8_t offset;
+    T minValue = 0;
+    T maxValue;
 
 public:
     /**
@@ -28,6 +30,12 @@ public:
             mask |= 1 << (highBit - i);
         }
         offset = highBit - width + 1;
+        maxValue = mask >> offset;
+    }
+
+    BitMask(uint8_t highBit, uint8_t width, T minValue, T maxValue) : BitMask(highBit, width) {
+        this->minValue = minValue;
+        this->maxValue = maxValue;
     }
 
     /**
@@ -44,7 +52,11 @@ public:
      * @return The max value described by this mask.
      */
     T getMaxValue() {
-        return mask >> offset;
+        return maxValue;
+    }
+
+    T getMinValue() {
+        return minValue;
     }
 
     /**
