@@ -3,6 +3,7 @@
 //
 
 #pragma once
+#include <vector>
 #include "../M68kCpu.h"
 #include "../Bus.h"
 
@@ -13,5 +14,12 @@ protected:
 
 public:
     CpuOperation(M68kCpu* cpu, Bus* bus);
+    virtual ~CpuOperation() = default;
     virtual void execute(uint16_t opWord) = 0;
+    virtual std::vector<uint16_t> getOpcodes() = 0;
+    virtual uint8_t getSpecificity() = 0;
 };
+
+std::vector<std::shared_ptr<CpuOperation>> getOperations(M68kCpu* cpu, Bus* bus);
+
+bool compare(const std::shared_ptr<CpuOperation> &a, const std::shared_ptr<CpuOperation> &b);

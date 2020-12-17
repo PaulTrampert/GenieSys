@@ -10,7 +10,7 @@
 
 class ProgramCounterAddressingMode : public AddressingMode {
 private:
-    std::array<AddressingMode*, 8> subModes;
+    std::array<std::unique_ptr<AddressingMode>, 8> subModes;
 public:
     static const uint8_t MODE_ID = 0b111u;
 

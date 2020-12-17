@@ -19,7 +19,18 @@ add_executable(testGenieSys
         AddressingModes/AddressRegisterDirectModeTest.cpp
         AddressingModes/AddressRegisterIndirectDisplacementModeTest.cpp
         AddressingModes/AddressRegisterIndirectModeTest.cpp
-        AddressingModes/AddressRegisterIndirectPostIncrementModeTest.cpp numberUtils.cpp AddressingModes/AddressRegisterIndirectPreDecrementModeTest.cpp AddressingModes/AddressRegisterIndirectWithIndexModeTest.cpp AddressingModes/DataRegisterDirectModeTest.cpp AddressingModes/ImmediateDataModeTest.cpp AddressingModes/ProgramCounterIndirectDisplacementModeTest.cpp AddressingModes/ProgramCounterIndirectWithIndexModeTest.cpp BitMaskTest.cpp CpuOperations/AbcdTest.cpp CpuOperations/AddTest.cpp)
+        AddressingModes/AddressRegisterIndirectPostIncrementModeTest.cpp
+        numberUtils.cpp
+        AddressingModes/AddressRegisterIndirectPreDecrementModeTest.cpp
+        AddressingModes/AddressRegisterIndirectWithIndexModeTest.cpp
+        AddressingModes/DataRegisterDirectModeTest.cpp
+        AddressingModes/ImmediateDataModeTest.cpp
+        AddressingModes/ProgramCounterIndirectDisplacementModeTest.cpp
+        AddressingModes/ProgramCounterIndirectWithIndexModeTest.cpp
+        BitMaskTest.cpp
+        CpuOperations/AbcdTest.cpp
+        CpuOperations/AddTest.cpp
+        GetPossibleOpcodesTest.cpp)
 
 target_link_libraries(testGenieSys PRIVATE libGenieSys gtest gmock)
 

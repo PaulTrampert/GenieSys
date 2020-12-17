@@ -3,6 +3,7 @@
 //
 
 #include <stdexcept>
+#include <memory>
 #include <GenieSys/M68kCpu.h>
 #include <GenieSys/Bus.h>
 #include <GenieSys/AddressingModes/AddressingMode.h>
@@ -14,26 +15,32 @@
 #include <GenieSys/AddressingModes/AddressRegisterIndirectPreDecrementMode.h>
 #include <GenieSys/AddressingModes/AddressRegisterIndirectWithIndexMode.h>
 #include <GenieSys/AddressingModes/ProgramCounterAddressingMode.h>
+#include <GenieSys/CpuOperations/CpuOperation.h>
+#include <GenieSys/CpuOperations/Nop.h>
 
 M68kCpu::M68kCpu() {
     for (auto & mode : addressingModes) {
         mode = nullptr;
     }
-    addressingModes[DataRegisterDirectMode::MODE_ID] = new DataRegisterDirectMode(this, bus);
-    addressingModes[AddressRegisterDirectMode::MODE_ID] = new AddressRegisterDirectMode(this, bus);
-    addressingModes[AddressRegisterIndirectMode::MODE_ID] = new AddressRegisterIndirectMode(this, bus);
-    addressingModes[AddressRegisterIndirectDisplacementMode::MODE_ID] = new AddressRegisterIndirectDisplacementMode(this, bus);
-    addressingModes[AddressRegisterIndirectPostIncrementMode::MODE_ID] = new AddressRegisterIndirectPostIncrementMode(this, bus);
-    addressingModes[AddressRegisterIndirectPreDecrementMode::MODE_ID] = new AddressRegisterIndirectPreDecrementMode(this, bus);
-    addressingModes[AddressRegisterIndirectWithIndexMode::MODE_ID] = new AddressRegisterIndirectWithIndexMode(this, bus);
-    addressingModes[ProgramCounterAddressingMode::MODE_ID] = new ProgramCounterAddressingMode(this, bus);
+    addressingModes[DataRegisterDirectMode::MODE_ID] = std::unique_ptr<AddressingMode>(new DataRegisterDirectMode(this, bus));
+    addressingModes[AddressRegisterDirectMode::MODE_ID] = std::unique_ptr<AddressingMode>(new AddressRegisterDirectMode(this, bus));
+    addressingModes[AddressRegisterIndirectMode::MODE_ID] = std::unique_ptr<AddressingMode>(new AddressRegisterIndirectMode(this, bus));
+    addressingModes[AddressRegisterIndirectDisplacementMode::MODE_ID] = std::unique_ptr<AddressingMode>(new AddressRegisterIndirectDisplacementMode(this, bus));
+    addressingModes[AddressRegisterIndirectPostIncrementMode::MODE_ID] = std::unique_ptr<AddressingMode>(new AddressRegisterIndirectPostIncrementMode(this, bus));
+    addressingModes[AddressRegisterIndirectPreDecrementMode::MODE_ID] = std::unique_ptr<AddressingMode>(new AddressRegisterIndirectPreDecrementMode(this, bus));
+    addressingModes[AddressRegisterIndirectWithIndexMode::MODE_ID] = std::unique_ptr<AddressingMode>(new AddressRegisterIndirectWithIndexMode(this, bus));
+    addressingModes[ProgramCounterAddressingMode::MODE_ID] = std::unique_ptr<AddressingMode>(new ProgramCounterAddressingMode(this, bus));
+
+    nop = std::shared_ptr<CpuOperation>(new Nop(this, bus));
+    opTable.fill(nop);
+    for (auto & op : getOperations(this, bus)) {
+        for (auto & opcode : op->getOpcodes()) {
+            opTable[opcode] = op;
+        }
+    }
 }
 
-M68kCpu::~M68kCpu() {
-    for (auto & mode : addressingModes) {
-        delete mode;
-    }
-};
+M68kCpu::~M68kCpu() = default;
 
 void M68kCpu::ConnectBus(Bus *bus) {
     this->bus = bus;
@@ -80,10 +87,6 @@ void M68kCpu::setAddressRegister(uint8_t addr, uint32_t value) {
     addressRegisters[addr] = value;
 }
 
-DATA_SIZE M68kCpu::getOperandSize() {
-    return operandSize;
-}
-
 void M68kCpu::setPc(uint32_t value) {
     pc = value;
 }
@@ -100,7 +103,7 @@ void M68kCpu::tick() {
 }
 
 AddressingMode *M68kCpu::getAddressingMode(int modeId) {
-    return addressingModes[modeId];
+    return addressingModes[modeId].get();
 }
 
 void M68kCpu::setCcrFlags(uint8_t ccr) {
