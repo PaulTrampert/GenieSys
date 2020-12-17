@@ -20,6 +20,6 @@ public:
     virtual uint8_t getSpecificity() = 0;
 };
 
-std::vector<CpuOperation*> getOperations(M68kCpu* cpu, Bus* bus);
+std::vector<std::shared_ptr<CpuOperation>> getOperations(M68kCpu* cpu, Bus* bus);
 
-bool compare(CpuOperation* a, CpuOperation* b);
+bool compare(const std::shared_ptr<CpuOperation> &a, const std::shared_ptr<CpuOperation> &b);

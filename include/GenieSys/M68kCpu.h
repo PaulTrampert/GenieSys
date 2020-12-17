@@ -5,6 +5,7 @@
 #pragma once
 #include <cstdint>
 #include <array>
+#include <memory>
 #include "GenieSys/enums.h"
 
 class Bus;
@@ -69,11 +70,11 @@ private:
     uint8_t clock = 0;
 
     /* Addressing modes */
-    std::array<AddressingMode*, 8> addressingModes;
+    std::array<std::unique_ptr<AddressingMode>, 8> addressingModes;
 
-    std::array<CpuOperation*, 65536> opTable;
+    std::array<std::shared_ptr<CpuOperation>, 65536> opTable;
 
-    CpuOperation* nop;
+    std::shared_ptr<CpuOperation> nop;
 
 public:
     M68kCpu();
@@ -89,7 +90,6 @@ public:
     uint32_t getPc();
     void incrementPc(int32_t amount);
     void setPc(uint32_t value);
-    DATA_SIZE getOperandSize();
     void setCcrFlags(uint8_t ccr);
     uint8_t getCcrFlags();
     void tick();
