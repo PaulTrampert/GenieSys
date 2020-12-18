@@ -29,5 +29,5 @@ std::unique_ptr<AddressingResult> AddressRegisterIndirectPostIncrementMode::getD
 }
 
 std::string AddressRegisterIndirectPostIncrementMode::disassemble(uint8_t regAddr) {
-    return std::string();
+    return "(A" + std::to_string(regAddr) + ")+";
 }
