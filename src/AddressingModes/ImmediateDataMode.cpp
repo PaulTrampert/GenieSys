@@ -27,3 +27,7 @@ std::unique_ptr<AddressingResult> ImmediateDataMode::getData(uint8_t regAddr, ui
     cpu->incrementPc(incrSize);
     return std::make_unique<AddressingResult>(cpu, bus, address, bus->read(address, size));
 }
+
+std::string ImmediateDataMode::disassemble(uint8_t regAddr) {
+    return std::string();
+}

@@ -27,3 +27,7 @@ std::unique_ptr<AddressingResult> AddressRegisterIndirectPostIncrementMode::getD
     cpu->setAddressRegister(regAddr, address + incrSize);
     return std::make_unique<AddressingResult>(cpu, bus, address, bus->read(address, size));
 }
+
+std::string AddressRegisterIndirectPostIncrementMode::disassemble(uint8_t regAddr) {
+    return std::string();
+}

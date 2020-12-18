@@ -93,3 +93,7 @@ uint32_t AddressRegisterIndirectWithIndexMode::getAddress(uint8_t regAddr) {
 uint8_t AddressRegisterIndirectWithIndexMode::getModeId() {
     return MODE_ID;
 }
+
+std::string AddressRegisterIndirectWithIndexMode::disassemble(uint8_t regAddr) {
+    return std::string();
+}

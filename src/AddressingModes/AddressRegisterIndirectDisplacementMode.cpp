@@ -18,3 +18,7 @@ uint32_t AddressRegisterIndirectDisplacementMode::getAddress(uint8_t regAddr) {
 uint8_t AddressRegisterIndirectDisplacementMode::getModeId() {
     return MODE_ID;
 }
+
+std::string AddressRegisterIndirectDisplacementMode::disassemble(uint8_t regAddr) {
+    return std::string();
+}

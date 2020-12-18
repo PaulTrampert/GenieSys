@@ -5,6 +5,7 @@
 #pragma once
 #include <cstdint>
 #include <memory>
+#include <string>
 #include "GenieSys/M68kCpu.h"
 #include "GenieSys/Bus.h"
 #include "GenieSys/BitMask.h"
@@ -46,4 +47,5 @@ public:
     virtual std::unique_ptr<AddressingResult> getData(uint8_t regAddr, uint8_t size);
     virtual uint8_t getModeId() = 0;
     virtual void setBus(Bus* b);
+    virtual std::string disassemble(uint8_t regAddr) = 0;
 };

@@ -28,3 +28,7 @@ std::unique_ptr<AddressingResult> AddressRegisterIndirectPreDecrementMode::getDa
     cpu->setAddressRegister(regAddr, address);
     return std::make_unique<AddressingResult>(cpu, bus, address, bus->read(address, size));
 }
+
+std::string AddressRegisterIndirectPreDecrementMode::disassemble(uint8_t regAddr) {
+    return std::string();
+}

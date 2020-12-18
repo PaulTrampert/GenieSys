@@ -29,6 +29,10 @@ std::unique_ptr<AddressingResult> DataRegisterDirectMode::getData(uint8_t regAdd
     return std::make_unique<DataRegisterDirectResult>(cpu, bus, regAddr, result);
 }
 
+std::string DataRegisterDirectMode::disassemble(uint8_t regAddr) {
+    return "D" + std::to_string(regAddr);
+}
+
 DataRegisterDirectResult::DataRegisterDirectResult(M68kCpu *cpu, Bus *bus, uint32_t address, std::vector<uint8_t> data)
         : AddressingResult(cpu, bus, address, std::move(data)) {
 }
