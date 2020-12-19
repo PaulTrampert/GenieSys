@@ -3,6 +3,7 @@
 //
 
 #include <vector>
+#include <sstream>
 #include "GenieSys/AddressingModes/AbsoluteLongAddressingMode.h"
 
 AbsoluteLongAddressingMode::AbsoluteLongAddressingMode(M68kCpu *cpu, Bus *bus) : AddressingMode(cpu, bus) {
@@ -17,4 +18,10 @@ uint32_t AbsoluteLongAddressingMode::getAddress(uint8_t regAddr) {
 
 uint8_t AbsoluteLongAddressingMode::getModeId() {
     return MODE_ID;
+}
+
+std::string AbsoluteLongAddressingMode::disassemble(uint8_t regAddr, uint8_t size) {
+    std::stringstream stream;
+    stream << "(" << getAddress(regAddr) << ").L";
+    return stream.str();
 }

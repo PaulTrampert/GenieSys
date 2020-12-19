@@ -93,3 +93,82 @@ uint32_t ProgramCounterIndirectWithIndexMode::getAddress(uint8_t regAddr) {
 uint8_t ProgramCounterIndirectWithIndexMode::getModeId() {
     return MODE_ID;
 }
+
+std::string ProgramCounterIndirectWithIndexMode::disassemble(uint8_t regAddr, uint8_t size) {
+    auto extWord = ExtensionWord(bus->readWord(cpu->getPc()));
+    cpu->incrementPc(2);
+    uint8_t idxRegAddr = extWord.getIdxRegAddr();
+    if (extWord.isBrief()) {
+        auto displacement = signExtend<int32_t>(extWord.getDisplacement(), 8);
+        auto idxRegType = extWord.getIdxRegType() == M68K_REG_TYPE_DATA ? "D" : "A";
+        auto idxRegSize = extWord.getIdxSize() == EXT_WORD_IDX_SIZE_SE_WORD ? ".w" : ".l";
+        auto scale = (int)pow(2, extWord.getScale());
+        return "(#" + std::to_string(displacement)
+               + ",PC"
+               + "," + idxRegType + std::to_string(idxRegAddr) + idxRegSize + "*" + std::to_string(scale)
+               + ")";
+    }
+    else {
+        std::string baseRegTerm;
+        if (!extWord.getBaseRegSuppress()) {
+            baseRegTerm = "PC";
+        }
+        std::string baseDisplacementTerm;
+        if (extWord.getBaseDisplacementSize() == EXT_WORD_BD_SIZE_WORD) {
+            auto baseDisplacement = signExtend<int32_t>(bus->readWord(cpu->getPc()), 16);
+            cpu->incrementPc(2);
+            baseDisplacementTerm = "#" + std::to_string(baseDisplacement);
+        }
+        else if (extWord.getBaseDisplacementSize() == EXT_WORD_BD_SIZE_LONG) {
+            auto baseDisplacement = bus->readLong(cpu->getPc());
+            cpu->incrementPc(4);
+            baseDisplacementTerm = "#" + std::to_string(baseDisplacement);
+        }
+        std::string idxRegTerm;
+        if (!extWord.getIndexSuppress()) {
+            idxRegTerm += extWord.getIdxRegType() == M68K_REG_TYPE_DATA ? "D" : "A";
+            idxRegTerm += std::to_string(extWord.getIdxRegAddr());
+            idxRegTerm += extWord.getIdxSize() == EXT_WORD_IDX_SIZE_SE_WORD ? ".w" : ".l";
+            auto scale = (int)pow(2, extWord.getScale());
+            idxRegTerm += "*" + std::to_string(scale);
+        }
+        auto idxIndirectSelection = extWord.getIndexIndirectSelection();
+        int32_t outerDisplacement;
+        std::string outerDisplacementTerm;
+        switch(idxIndirectSelection) {
+            case 0:
+                return "(" + baseDisplacementTerm + "," + baseRegTerm + "," + idxRegTerm + ")";
+            case 1:
+            case 2:
+            case 3:
+                // Preindexed
+                if (idxIndirectSelection == 2) {
+                    outerDisplacement = signExtend<int32_t>(bus->readWord(cpu->getPc()), 16);
+                    cpu->incrementPc(2);
+                }
+                else if (idxIndirectSelection == 3) {
+                    outerDisplacement = bus->readLong(cpu->getPc());
+                    cpu->incrementPc(4);
+                }
+                outerDisplacementTerm = "#" + std::to_string(outerDisplacement);
+                return "([" + baseDisplacementTerm + "," + baseRegTerm + "," + idxRegTerm + "]," + outerDisplacementTerm + ")";
+            case 5:
+            case 6:
+            case 7:
+                // Preindexed
+                if (idxIndirectSelection == 6) {
+                    outerDisplacement = signExtend<int32_t>(bus->readWord(cpu->getPc()), 16);
+                    cpu->incrementPc(2);
+                }
+                else if (idxIndirectSelection == 7) {
+                    outerDisplacement = bus->readLong(cpu->getPc());
+                    cpu->incrementPc(4);
+                }
+                outerDisplacementTerm = "#" + std::to_string(outerDisplacement);
+                return "([" + baseDisplacementTerm + "," + baseRegTerm + "]," + idxRegTerm + "," + outerDisplacementTerm + ")";
+            default:
+                throw std::runtime_error("Invalid instruction");
+        }
+    }
+
+}

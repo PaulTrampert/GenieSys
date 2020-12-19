@@ -37,3 +37,7 @@ TEST_F(AddressRegisterDirectModeTest, ItGetsTheCorrectData) {
 TEST_F(AddressRegisterDirectModeTest, TestGetModeId) {
     EXPECT_EQ(0b001u, subject->getModeId());
 }
+
+TEST_F(AddressRegisterDirectModeTest, TestDisassemble) {
+    EXPECT_EQ("A7", subject->disassemble(7, 0));
+}

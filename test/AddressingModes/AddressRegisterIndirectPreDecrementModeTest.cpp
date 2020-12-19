@@ -70,3 +70,7 @@ TEST_F(AddressRegisterIndirectPreDecrementModeTest, ItDecrementsTheUserStackPoin
 TEST_F(AddressRegisterIndirectPreDecrementModeTest, TestGetModeId) {
     EXPECT_EQ(0b100u, subject->getModeId());
 }
+
+TEST_F(AddressRegisterIndirectPreDecrementModeTest, TestDisassemble) {
+    EXPECT_EQ("-(A7)", subject->disassemble(7, 0));
+}

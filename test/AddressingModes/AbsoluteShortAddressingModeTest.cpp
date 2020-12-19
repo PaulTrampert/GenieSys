@@ -41,3 +41,7 @@ TEST_F(AbsoluteShortAddressingModeTest, ItGetsTheCorrectData) {
 TEST_F(AbsoluteShortAddressingModeTest, TestGetModeId) {
     EXPECT_EQ(0b000u, subject->getModeId());
 }
+
+TEST_F(AbsoluteShortAddressingModeTest, TestDisassemble) {
+    EXPECT_EQ("(9001).W", subject->disassemble(subject->getModeId(), 1));
+}

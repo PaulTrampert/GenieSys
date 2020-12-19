@@ -39,3 +39,7 @@ TEST_F(ProgramCounterIndirectDisplacementModeTest, GetData_IncrementsTheProgramC
     subject->getData(0b010u, 2);
     ASSERT_EQ(0x1113, cpu->getPc());
 }
+
+TEST_F(ProgramCounterIndirectDisplacementModeTest, Disassemble) {
+    ASSERT_EQ("(#4369,PC)", subject->disassemble(0b010u, 2));
+}

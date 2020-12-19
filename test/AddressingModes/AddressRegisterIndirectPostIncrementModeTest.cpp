@@ -65,3 +65,7 @@ TEST_F(AddressRegisterIndirectPostIncrementModeTest, ItIncrementsTheUserStackPoi
 TEST_F(AddressRegisterIndirectPostIncrementModeTest, TestGetModeId) {
     EXPECT_EQ(0b011u, subject->getModeId());
 }
+
+TEST_F(AddressRegisterIndirectPostIncrementModeTest, TestDisassemble) {
+    EXPECT_EQ("(A7)+", subject->disassemble(7, 0));
+}

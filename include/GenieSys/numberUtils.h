@@ -5,6 +5,7 @@
 #pragma once
 #include <vector>
 #include <cstdint>
+#include <string>
 
 uint8_t bytesToByte(std::vector<uint8_t> data);
 
@@ -17,3 +18,5 @@ std::vector<uint8_t> getBytes(uint8_t byte);
 std::vector<uint8_t> getBytes(uint16_t byte);
 
 std::vector<uint8_t> getBytes(uint32_t byte);
+
+std::string toHex(const std::vector<uint8_t>& data);

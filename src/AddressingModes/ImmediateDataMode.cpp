@@ -3,6 +3,7 @@
 //
 
 #include <memory>
+#include <GenieSys/numberUtils.h>
 #include "GenieSys/AddressingModes/ImmediateDataMode.h"
 
 ImmediateDataMode::ImmediateDataMode(M68kCpu *cpu, Bus *bus) : AddressingMode(cpu, bus) {
@@ -26,4 +27,15 @@ std::unique_ptr<AddressingResult> ImmediateDataMode::getData(uint8_t regAddr, ui
     }
     cpu->incrementPc(incrSize);
     return std::make_unique<AddressingResult>(cpu, bus, address, bus->read(address, size));
+}
+
+std::string ImmediateDataMode::disassemble(uint8_t regAddr, uint8_t size) {
+    uint32_t address = getAddress(regAddr);
+    uint8_t incrSize = size;
+    if (size == 1) {
+        incrSize = 2;
+        address++;
+    }
+    cpu->incrementPc(incrSize);
+    return "$" + toHex(bus->read(address, size));
 }

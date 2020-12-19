@@ -41,3 +41,7 @@ TEST_F(AbsoluteLongAddressingModeTest, ItGetsTheCorrectData) {
 TEST_F(AbsoluteLongAddressingModeTest, TestGetModeId) {
     EXPECT_EQ(0b001u, subject->getModeId());
 }
+
+TEST_F(AbsoluteLongAddressingModeTest, TestDisassemble) {
+    EXPECT_EQ("(4096).L", subject->disassemble(subject->getModeId(), 1));
+}
