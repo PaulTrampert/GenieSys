@@ -50,5 +50,8 @@ std::unique_ptr<AddressingResult> ProgramCounterAddressingMode::getData(uint8_t 
 }
 
 std::string ProgramCounterAddressingMode::disassemble(uint8_t regAddr, uint8_t size) {
-    return std::string();
+    uint8_t submodeId = regAddr;
+    AddressingMode* subMode = subModes[submodeId].get();
+    if (subMode == nullptr) return std::string();
+    return subMode->disassemble(regAddr, size);
 }
