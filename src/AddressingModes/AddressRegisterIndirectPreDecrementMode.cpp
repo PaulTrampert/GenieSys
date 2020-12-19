@@ -30,5 +30,5 @@ std::unique_ptr<AddressingResult> AddressRegisterIndirectPreDecrementMode::getDa
 }
 
 std::string AddressRegisterIndirectPreDecrementMode::disassemble(uint8_t regAddr) {
-    return std::string();
+    return "-(A" + std::to_string(regAddr) + ")";
 }

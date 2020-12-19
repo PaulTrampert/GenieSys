@@ -20,5 +20,7 @@ uint8_t AddressRegisterIndirectDisplacementMode::getModeId() {
 }
 
 std::string AddressRegisterIndirectDisplacementMode::disassemble(uint8_t regAddr) {
-    return std::string();
+    auto displacement = signExtend<int32_t>(bus->readWord(cpu->getPc()), 16);
+    cpu->incrementPc(2);
+    return "(" + std::to_string(displacement) + ",A" + std::to_string(regAddr) + ")";
 }
