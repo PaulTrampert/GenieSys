@@ -3,6 +3,7 @@
 //
 
 #include <GenieSys/signExtend.h>
+#include <sstream>
 #include "GenieSys/AddressingModes/AbsoluteShortAddressingMode.h"
 
 AbsoluteShortAddressingMode::AbsoluteShortAddressingMode(M68kCpu *cpu, Bus *bus) : AddressingMode(cpu, bus) {
@@ -20,5 +21,7 @@ uint8_t AbsoluteShortAddressingMode::getModeId() {
 }
 
 std::string AbsoluteShortAddressingMode::disassemble(uint8_t regAddr, uint8_t size) {
-    return std::string();
+    std::stringstream stream;
+    stream << "(" << getAddress(regAddr) << ").W";
+    return stream.str();
 }

@@ -19,4 +19,4 @@ std::vector<uint8_t> getBytes(uint16_t byte);
 
 std::vector<uint8_t> getBytes(uint32_t byte);
 
-std::string toHex(std::vector<uint8_t> data);
+std::string toHex(const std::vector<uint8_t>& data);

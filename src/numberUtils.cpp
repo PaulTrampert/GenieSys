@@ -41,7 +41,7 @@ std::vector<uint8_t> getBytes(uint32_t byte) {
     };
 }
 
-std::string toHex(std::vector<uint8_t> data) {
+std::string toHex(const std::vector<uint8_t>& data) {
     std::stringstream stream;
     stream << std::setfill('0') << std::hex;
     for (auto & d : data) {
