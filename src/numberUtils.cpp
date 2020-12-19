@@ -3,6 +3,8 @@
 //
 
 #include <GenieSys/numberUtils.h>
+#include <iomanip>
+#include <sstream>
 
 uint8_t bytesToByte(std::vector<uint8_t> data) {
     return data[data.size() - 1];
@@ -37,4 +39,13 @@ std::vector<uint8_t> getBytes(uint32_t byte) {
         static_cast<uint8_t>((byte & 0x0000FF00) >> 8),
         static_cast<uint8_t>((byte & 0x000000FF)),
     };
+}
+
+std::string toHex(std::vector<uint8_t> data) {
+    std::stringstream stream;
+    stream << std::setfill('0') << std::hex;
+    for (auto & d : data) {
+        stream << std::setw(2) << (int)d;
+    }
+    return stream.str();
 }

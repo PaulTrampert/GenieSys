@@ -43,5 +43,5 @@ TEST_F(DataRegisterDirectModeTest, TestGetModeId) {
 }
 
 TEST_F(DataRegisterDirectModeTest, TestDisassemble) {
-    EXPECT_EQ("D7", subject->disassemble(7));
+    EXPECT_EQ("D7", subject->disassemble(7, 0));
 }

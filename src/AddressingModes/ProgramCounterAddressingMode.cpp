@@ -49,6 +49,6 @@ std::unique_ptr<AddressingResult> ProgramCounterAddressingMode::getData(uint8_t 
     return subMode->getData(regAddr, size);
 }
 
-std::string ProgramCounterAddressingMode::disassemble(uint8_t regAddr) {
+std::string ProgramCounterAddressingMode::disassemble(uint8_t regAddr, uint8_t size) {
     return std::string();
 }

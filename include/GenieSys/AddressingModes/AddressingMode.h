@@ -47,5 +47,5 @@ public:
     virtual std::unique_ptr<AddressingResult> getData(uint8_t regAddr, uint8_t size);
     virtual uint8_t getModeId() = 0;
     virtual void setBus(Bus* b);
-    virtual std::string disassemble(uint8_t regAddr) = 0;
+    virtual std::string disassemble(uint8_t regAddr, uint8_t size) = 0;
 };

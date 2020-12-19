@@ -31,7 +31,7 @@ std::unique_ptr<AddressingResult> AddressRegisterDirectMode::getData(uint8_t reg
     return std::make_unique<AddressRegisterDirectResult>(cpu, bus, regAddr, result);
 }
 
-std::string AddressRegisterDirectMode::disassemble(uint8_t regAddr) {
+std::string AddressRegisterDirectMode::disassemble(uint8_t regAddr, uint8_t size) {
     return "A" + std::to_string(regAddr);
 }
 

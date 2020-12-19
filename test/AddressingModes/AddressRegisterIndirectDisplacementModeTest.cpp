@@ -43,5 +43,5 @@ TEST_F(AddressRegisterIndirectDisplacementModeTest, TestGetModeId) {
 }
 
 TEST_F(AddressRegisterIndirectDisplacementModeTest, TestDisassemble) {
-    EXPECT_EQ("(-5,A7)", subject->disassemble(7));
+    EXPECT_EQ("(-5,A7)", subject->disassemble(7, 0));
 }

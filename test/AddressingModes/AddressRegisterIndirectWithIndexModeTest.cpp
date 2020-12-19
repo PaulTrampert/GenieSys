@@ -55,7 +55,7 @@ TEST_F(AddressRegisterIndirectWithIndexModeTest, GetAddress_With8BitDisplacement
     cpu->setAddressRegister(5, 94);
     cpu->setDataRegister(4, (uint32_t)5);
 
-    ASSERT_EQ("(#6,A5,D4.w*2)", subject->disassemble(5));
+    ASSERT_EQ("(#6,A5,D4.w*2)", subject->disassemble(5, 0));
 }
 
 TEST_F(AddressRegisterIndirectWithIndexModeTest, GetAddress_EverythingSuppressed_GetsTheCorrectAddress) {
@@ -94,7 +94,7 @@ TEST_F(AddressRegisterIndirectWithIndexModeTest, GetAddress_EverythingSuppressed
     cpu->setAddressRegister(5, 94);
     cpu->setDataRegister(4, (uint32_t)5);
 
-    ASSERT_EQ("(,,)", subject->disassemble(5));
+    ASSERT_EQ("(,,)", subject->disassemble(5, 0));
 }
 
 TEST_F(AddressRegisterIndirectWithIndexModeTest, GetAddress_OnlyAddressRegister_GetsTheCorrectAddress) {
@@ -131,7 +131,7 @@ TEST_F(AddressRegisterIndirectWithIndexModeTest, GetAddress_OnlyAddressRegister_
     cpu->setAddressRegister(5, 94);
     cpu->setDataRegister(4, (uint32_t)5);
 
-    ASSERT_EQ("(,A5,)", subject->disassemble(5));
+    ASSERT_EQ("(,A5,)", subject->disassemble(5, 0));
 }
 
 TEST_F(AddressRegisterIndirectWithIndexModeTest, GetAddress_AddressWithDisplacement_GetsTheCorrectAddress) {
@@ -170,7 +170,7 @@ TEST_F(AddressRegisterIndirectWithIndexModeTest, GetAddress_AddressWithDisplacem
     cpu->setAddressRegister(5, 94);
     cpu->setDataRegister(4, (uint32_t)5);
 
-    ASSERT_EQ("(#-4,A5,)", subject->disassemble(5));
+    ASSERT_EQ("(#-4,A5,)", subject->disassemble(5, 0));
 }
 
 TEST_F(AddressRegisterIndirectWithIndexModeTest, GetAddress_AddressRegisterWithIndex_GetsTheCorrectAddress) {
@@ -207,7 +207,7 @@ TEST_F(AddressRegisterIndirectWithIndexModeTest, GetAddress_AddressRegisterWithI
     cpu->setAddressRegister(5, 94);
     cpu->setDataRegister(4, (uint32_t)5);
 
-    ASSERT_EQ("(,A5,D4.w*4)", subject->disassemble(5));
+    ASSERT_EQ("(,A5,D4.w*4)", subject->disassemble(5, 0));
 }
 
 TEST_F(AddressRegisterIndirectWithIndexModeTest, GetAddress_AddressRegisterWithIndexAndDisplacement_GetsTheCorrectAddress) {
@@ -246,7 +246,7 @@ TEST_F(AddressRegisterIndirectWithIndexModeTest, GetAddress_AddressRegisterWithI
     cpu->setAddressRegister(5, 94);
     cpu->setDataRegister(4, (uint32_t)5);
 
-    ASSERT_EQ("(#-4,A5,D4.w*4)", subject->disassemble(5));
+    ASSERT_EQ("(#-4,A5,D4.w*4)", subject->disassemble(5, 0));
 }
 
 TEST_F(AddressRegisterIndirectWithIndexModeTest, GetAddress_AddressRegisterPreIndexedWithOuterDisplacement_GetsTheCorrectAddress) {
@@ -290,7 +290,7 @@ TEST_F(AddressRegisterIndirectWithIndexModeTest, GetAddress_AddressRegisterPreIn
     cpu->setAddressRegister(5, 94);
     cpu->setDataRegister(4, (uint32_t)5);
 
-    ASSERT_EQ("([#-4,A5,D4.w*4],#-4)", subject->disassemble(5));
+    ASSERT_EQ("([#-4,A5,D4.w*4],#-4)", subject->disassemble(5, 0));
 
 }
 
@@ -334,5 +334,5 @@ TEST_F(AddressRegisterIndirectWithIndexModeTest, GetAddress_AddressRegisterPostI
     cpu->setAddressRegister(5, 94);
     cpu->setDataRegister(4, (uint32_t)5);
 
-    ASSERT_EQ("([#-4,A5],D4.w*4,#-4)", subject->disassemble(5));
+    ASSERT_EQ("([#-4,A5],D4.w*4,#-4)", subject->disassemble(5, 0));
 }

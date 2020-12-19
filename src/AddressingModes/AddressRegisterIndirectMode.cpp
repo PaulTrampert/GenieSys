@@ -16,6 +16,6 @@ uint8_t AddressRegisterIndirectMode::getModeId() {
     return MODE_ID;
 }
 
-std::string AddressRegisterIndirectMode::disassemble(uint8_t regAddr) {
+std::string AddressRegisterIndirectMode::disassemble(uint8_t regAddr, uint8_t size) {
     return "(A" + std::to_string(regAddr) + ")";
 }

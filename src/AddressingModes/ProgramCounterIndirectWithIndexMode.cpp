@@ -94,6 +94,6 @@ uint8_t ProgramCounterIndirectWithIndexMode::getModeId() {
     return MODE_ID;
 }
 
-std::string ProgramCounterIndirectWithIndexMode::disassemble(uint8_t regAddr) {
+std::string ProgramCounterIndirectWithIndexMode::disassemble(uint8_t regAddr, uint8_t size) {
     return std::string();
 }

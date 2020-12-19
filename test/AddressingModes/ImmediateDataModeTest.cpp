@@ -16,6 +16,7 @@ struct ImmediateDataModeTest : testing::Test {
         cpu->setPc(32);
         subject = new ImmediateDataMode(cpu, &bus);
         bus.writeWord(32, 0x1111);
+        bus.writeWord(34, 0x0a00);
     }
 
     ~ImmediateDataModeTest() override {
@@ -38,4 +39,13 @@ TEST_F(ImmediateDataModeTest, GetData_GetsTheCorrectData) {
 TEST_F(ImmediateDataModeTest, GetData_IncrementsTheProgramCounter) {
     subject->getData(0b100u, 2);
     ASSERT_EQ(34, cpu->getPc());
+}
+
+TEST_F(ImmediateDataModeTest, Disassemble_ReturnsTheCorrectString) {
+    ASSERT_EQ("$1111", subject->disassemble(0b100, 2));
+}
+
+TEST_F(ImmediateDataModeTest, Disassemble_ReturnsTheCorrectStringWithZeros) {
+    cpu->setPc(34);
+    ASSERT_EQ("$0a00", subject->disassemble(0b100, 2));
 }

@@ -39,5 +39,5 @@ TEST_F(AddressRegisterDirectModeTest, TestGetModeId) {
 }
 
 TEST_F(AddressRegisterDirectModeTest, TestDisassemble) {
-    EXPECT_EQ("A7", subject->disassemble(7));
+    EXPECT_EQ("A7", subject->disassemble(7, 0));
 }

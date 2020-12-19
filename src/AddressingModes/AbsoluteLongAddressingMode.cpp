@@ -19,6 +19,6 @@ uint8_t AbsoluteLongAddressingMode::getModeId() {
     return MODE_ID;
 }
 
-std::string AbsoluteLongAddressingMode::disassemble(uint8_t regAddr) {
+std::string AbsoluteLongAddressingMode::disassemble(uint8_t regAddr, uint8_t size) {
     return std::string();
 }

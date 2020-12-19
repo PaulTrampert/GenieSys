@@ -94,7 +94,7 @@ uint8_t AddressRegisterIndirectWithIndexMode::getModeId() {
     return MODE_ID;
 }
 
-std::string AddressRegisterIndirectWithIndexMode::disassemble(uint8_t regAddr) {
+std::string AddressRegisterIndirectWithIndexMode::disassemble(uint8_t regAddr, uint8_t size) {
     auto extWord = ExtensionWord(bus->readWord(cpu->getPc()));
     cpu->incrementPc(2);
     uint8_t idxRegAddr = extWord.getIdxRegAddr();

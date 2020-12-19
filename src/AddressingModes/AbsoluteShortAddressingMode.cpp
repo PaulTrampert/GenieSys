@@ -19,6 +19,6 @@ uint8_t AbsoluteShortAddressingMode::getModeId() {
     return MODE_ID;
 }
 
-std::string AbsoluteShortAddressingMode::disassemble(uint8_t regAddr) {
+std::string AbsoluteShortAddressingMode::disassemble(uint8_t regAddr, uint8_t size) {
     return std::string();
 }

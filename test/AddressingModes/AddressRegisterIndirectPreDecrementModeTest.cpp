@@ -72,5 +72,5 @@ TEST_F(AddressRegisterIndirectPreDecrementModeTest, TestGetModeId) {
 }
 
 TEST_F(AddressRegisterIndirectPreDecrementModeTest, TestDisassemble) {
-    EXPECT_EQ("-(A7)", subject->disassemble(7));
+    EXPECT_EQ("-(A7)", subject->disassemble(7, 0));
 }

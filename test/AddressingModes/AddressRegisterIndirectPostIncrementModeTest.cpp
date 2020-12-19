@@ -67,5 +67,5 @@ TEST_F(AddressRegisterIndirectPostIncrementModeTest, TestGetModeId) {
 }
 
 TEST_F(AddressRegisterIndirectPostIncrementModeTest, TestDisassemble) {
-    EXPECT_EQ("(A7)+", subject->disassemble(7));
+    EXPECT_EQ("(A7)+", subject->disassemble(7, 0));
 }

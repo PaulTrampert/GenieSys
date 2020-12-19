@@ -29,6 +29,6 @@ std::unique_ptr<AddressingResult> AddressRegisterIndirectPreDecrementMode::getDa
     return std::make_unique<AddressingResult>(cpu, bus, address, bus->read(address, size));
 }
 
-std::string AddressRegisterIndirectPreDecrementMode::disassemble(uint8_t regAddr) {
+std::string AddressRegisterIndirectPreDecrementMode::disassemble(uint8_t regAddr, uint8_t size) {
     return "-(A" + std::to_string(regAddr) + ")";
 }

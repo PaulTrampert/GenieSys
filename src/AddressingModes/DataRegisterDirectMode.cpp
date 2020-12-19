@@ -29,7 +29,7 @@ std::unique_ptr<AddressingResult> DataRegisterDirectMode::getData(uint8_t regAdd
     return std::make_unique<DataRegisterDirectResult>(cpu, bus, regAddr, result);
 }
 
-std::string DataRegisterDirectMode::disassemble(uint8_t regAddr) {
+std::string DataRegisterDirectMode::disassemble(uint8_t regAddr, uint8_t size) {
     return "D" + std::to_string(regAddr);
 }
 
