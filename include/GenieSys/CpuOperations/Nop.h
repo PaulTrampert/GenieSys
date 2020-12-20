@@ -3,6 +3,8 @@
 //
 
 #pragma once
+
+#include <string>
 #include "./CpuOperation.h"
 
 class Nop : public CpuOperation {
@@ -11,4 +13,5 @@ public:
     std::vector<uint16_t> getOpcodes() override;
     void execute(uint16_t opWord) override;
     uint8_t getSpecificity() override;
+    std::string disassemble(uint16_t opWord) override;
 };

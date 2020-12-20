@@ -11,4 +11,5 @@ public:
     uint8_t getSpecificity() override;
     void execute(uint16_t opWord) override;
     std::vector<uint16_t> getOpcodes() override;
+    std::string disassemble(uint16_t opWord) override;
 };

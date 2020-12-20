@@ -18,6 +18,7 @@ public:
     virtual void execute(uint16_t opWord) = 0;
     virtual std::vector<uint16_t> getOpcodes() = 0;
     virtual uint8_t getSpecificity() = 0;
+    virtual std::string disassemble(uint16_t opWord) = 0;
 };
 
 std::vector<std::shared_ptr<CpuOperation>> getOperations(M68kCpu* cpu, Bus* bus);
