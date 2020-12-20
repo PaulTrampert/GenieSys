@@ -4,6 +4,7 @@
 
 #pragma once
 #include <vector>
+#include <string>
 #include "../M68kCpu.h"
 #include "../Bus.h"
 

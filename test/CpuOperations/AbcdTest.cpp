@@ -29,6 +29,10 @@ TEST_F(AbcdTest, ItCorrectlyAddsDecimalsFromRegistersWithNoCarry) {
     ASSERT_EQ(0, cpu->getCcrFlags());
 }
 
+TEST_F(AbcdTest, ItCorrectlyDisassemblesDecimalsFromRegisters) {
+    ASSERT_EQ("ABCD D3,D2", subject->disassemble(0b1100010100000011));
+}
+
 TEST_F(AbcdTest, ItCorrectlyAddsDecimalsFromMemoryWithNoCarry) {
     cpu->setAddressRegister(2, 0x20);
     cpu->setAddressRegister(3, 0x30);
@@ -38,6 +42,10 @@ TEST_F(AbcdTest, ItCorrectlyAddsDecimalsFromMemoryWithNoCarry) {
 
     ASSERT_EQ(0x22, bus.read(0x1F));
     ASSERT_EQ(0, cpu->getCcrFlags());
+}
+
+TEST_F(AbcdTest, ItCorrectlyDisassemblesDecimalsFromMemory) {
+    ASSERT_EQ("ABCD -(A3),-(A2)", subject->disassemble(0b1100010100001011));
 }
 
 TEST_F(AbcdTest, ItCorrectlyAddsDecimalsFromRegistersWithCarry) {

@@ -127,10 +127,10 @@ std::string Add::disassemble(uint16_t opWord) {
             break;
     }
     if (direction == 1) {
-        stream << "D" << dataRegAddr << "," << addrMode->disassemble(eaRegAddr, size);
+        stream << "D" << (int)dataRegAddr << "," << addrMode->disassemble(eaRegAddr, size);
     }
     else {
-        stream << addrMode->disassemble(eaRegAddr, size) << ",D" << dataRegAddr;
+        stream << addrMode->disassemble(eaRegAddr, size) << ",D" << (int)dataRegAddr;
     }
     return stream.str();
 }
