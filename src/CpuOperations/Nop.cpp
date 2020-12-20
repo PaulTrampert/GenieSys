@@ -18,3 +18,7 @@ void Nop::execute(uint16_t opWord) {
 uint8_t Nop::getSpecificity() {
     return 0;
 }
+
+std::string Nop::disassemble(uint16_t opWord) {
+    return "NOP";
+}

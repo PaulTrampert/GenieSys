@@ -4,6 +4,7 @@
 
 #include <GenieSys/CpuOperations/ORItoCCR.h>
 #include <GenieSys/AddressingModes/ImmediateDataMode.h>
+#include <sstream>
 
 ORItoCCR::ORItoCCR(M68kCpu *cpu, Bus *bus) : CpuOperation(cpu, bus) {
 
@@ -23,4 +24,11 @@ void ORItoCCR::execute(uint16_t opWord) {
     auto immediate = addressingResult->getDataAsByte();
     auto ccr = cpu->getCcrFlags();
     cpu->setCcrFlags(ccr | immediate);
+}
+
+std::string ORItoCCR::disassemble(uint16_t opWord) {
+    ImmediateDataMode mode(cpu, bus);
+    std::stringstream stream;
+    stream << "ORI " << mode.disassemble(0, 1) << ",CCR";
+    return stream.str();
 }

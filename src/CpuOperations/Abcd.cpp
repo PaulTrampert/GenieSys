@@ -7,6 +7,7 @@
 #include <GenieSys/AddressingModes/AddressRegisterIndirectPreDecrementMode.h>
 #include <GenieSys/AddressingModes/DataRegisterDirectMode.h>
 #include <GenieSys/getPossibleOpcodes.h>
+#include <sstream>
 
 const uint16_t OPCODE_BASE = 0b1100000100000000;
 static BitMask<uint16_t> RX_MASK = BitMask<uint16_t>(11, 3);
@@ -73,4 +74,20 @@ std::vector<uint16_t> Abcd::getOpcodes() {
 
 uint8_t Abcd::getSpecificity() {
     return RX_MASK.getWidth() + RY_MASK.getWidth() + RM_MASK.getWidth();
+}
+
+std::string Abcd::disassemble(uint16_t opWord) {
+    std::stringstream stream;
+    uint16_t destReg = RX_MASK.apply(opWord);
+    uint16_t srcReg = RY_MASK.apply(opWord);
+    uint16_t rm = RM_MASK.apply(opWord);
+    AddressingMode* mode;
+    if (rm > 0) {
+        mode = cpu->getAddressingMode(AddressRegisterIndirectPreDecrementMode::MODE_ID);
+    }
+    else {
+        mode = cpu->getAddressingMode(DataRegisterDirectMode::MODE_ID);
+    }
+    stream << "ABCD " << mode->disassemble(srcReg, 1) << "," << mode->disassemble(destReg, 1);
+    return stream.str();
 }

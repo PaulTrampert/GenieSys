@@ -6,6 +6,7 @@
 #include <GenieSys/BitMask.h>
 #include <cmath>
 #include <GenieSys/getPossibleOpcodes.h>
+#include <sstream>
 
 const uint16_t OPCODE_BASE = 0b1101000000000000;
 static BitMask<uint16_t> REG_MASK = BitMask<uint16_t>(11, 3);
@@ -100,4 +101,36 @@ std::vector<uint16_t> Add::getOpcodes() {
 
 uint8_t Add::getSpecificity() {
     return REG_MASK.getWidth() + DIRECTION.getWidth() + SIZE.getWidth() + EA_MODE.getWidth() + EA_REG.getWidth();
+}
+
+std::string Add::disassemble(uint16_t opWord) {
+    const std::string mnemonic = "ADD";
+    uint8_t direction = DIRECTION.apply(opWord);
+    uint8_t size = pow(2, SIZE.apply(opWord));
+    uint8_t eaMode = EA_MODE.apply(opWord);
+    uint8_t eaRegAddr = EA_REG.apply(opWord);
+    uint8_t dataRegAddr = REG_MASK.apply(opWord);
+    auto addrMode = cpu->getAddressingMode(eaMode);
+    std::stringstream stream;
+    stream << mnemonic;
+    switch(size) {
+        case 1:
+            stream << ".b ";
+            break;
+        case 2:
+            stream << ".w ";
+            break;
+        case 4:
+            stream << ".l ";
+            break;
+        default:
+            break;
+    }
+    if (direction == 1) {
+        stream << "D" << (int)dataRegAddr << "," << addrMode->disassemble(eaRegAddr, size);
+    }
+    else {
+        stream << addrMode->disassemble(eaRegAddr, size) << ",D" << (int)dataRegAddr;
+    }
+    return stream.str();
 }

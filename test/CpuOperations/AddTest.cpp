@@ -30,6 +30,10 @@ TEST_F(AddTest, ItAddsTwoBytes_EffectiveAddressResult) {
     ASSERT_EQ(0, cpu->getCcrFlags());
 }
 
+TEST_F(AddTest, ItDisassembles_EffectiveAddressResult) {
+    ASSERT_EQ("ADD.b D1,D0", subject->disassemble(0b1101001100000000));
+}
+
 TEST_F(AddTest, ItAddsTwoBytes_DataRegResult) {
     cpu->setDataRegister(0, (uint8_t)55);
     cpu->setDataRegister(1, (uint8_t)20);
@@ -38,6 +42,10 @@ TEST_F(AddTest, ItAddsTwoBytes_DataRegResult) {
 
     ASSERT_EQ(75, cpu->getDataRegister(1));
     ASSERT_EQ(0, cpu->getCcrFlags());
+}
+
+TEST_F(AddTest, ItDisassembles_DataRegResult) {
+    ASSERT_EQ("ADD.b D0,D1", subject->disassemble(0b1101001000000000));
 }
 
 TEST_F(AddTest, ItAddsTwoBytes_WhenOneIsNegative) {

@@ -29,6 +29,12 @@ TEST_F(ORItoCCRTest, ItHasTheCorrectOpcodes) {
     ASSERT_EQ(0b0000000000111100, subject->getOpcodes()[0]);
 }
 
+TEST_F(ORItoCCRTest, ItDisassemblesCorrectly) {
+    bus.writeWord(10, 0x00FF);
+    cpu->setPc(10);
+    ASSERT_EQ("ORI $ff,CCR", subject->disassemble(0b0000000000111100));
+}
+
 TEST_F(ORItoCCRTest, ItCorrectlyUpdatesTheCcr) {
     bus.writeWord(10, 0b0000000000010101);
     cpu->setPc(10);
