@@ -7,7 +7,8 @@
 #include "GenieSys/AddressingModes/AbsoluteLongAddressingMode.h"
 
 AbsoluteLongAddressingMode::AbsoluteLongAddressingMode(M68kCpu *cpu, Bus *bus) : AddressingMode(cpu, bus) {
-
+    cycles = 12;
+    longCycles = 16;
 }
 
 uint32_t AbsoluteLongAddressingMode::getAddress(uint8_t regAddr) {

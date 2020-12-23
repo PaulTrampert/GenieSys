@@ -12,7 +12,8 @@ std::vector<uint16_t> Nop::getOpcodes() {
     return std::vector<uint16_t>{0b0100111001110001};
 }
 
-void Nop::execute(uint16_t opWord) {
+uint8_t Nop::execute(uint16_t opWord) {
+    return 1;
 }
 
 uint8_t Nop::getSpecificity() {

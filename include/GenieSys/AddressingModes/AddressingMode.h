@@ -15,11 +15,13 @@ protected:
     M68kCpu* cpu;
     Bus* bus;
     uint32_t address;
+    uint8_t cycles;
     std::vector<uint8_t> data;
 
 public:
-    AddressingResult(M68kCpu* cpu, Bus* bus, uint32_t address, std::vector<uint8_t> data);
+    AddressingResult(M68kCpu *cpu, Bus *bus, uint32_t address, std::vector<uint8_t> data, uint8_t cycles);
     ~AddressingResult() = default;
+    uint8_t getCycles();
     std::vector<uint8_t> getData();
     uint8_t getDataAsByte();
     uint16_t getDataAsWord();
@@ -32,7 +34,8 @@ public:
 
 class AddressingMode {
 protected:
-
+    uint8_t cycles;
+    uint8_t longCycles;
     M68kCpu* cpu;
     Bus* bus;
 public:

@@ -7,7 +7,8 @@
 #include "GenieSys/AddressingModes/ImmediateDataMode.h"
 
 ImmediateDataMode::ImmediateDataMode(M68kCpu *cpu, Bus *bus) : AddressingMode(cpu, bus) {
-
+    cycles = 4;
+    longCycles = 8;
 }
 
 uint32_t ImmediateDataMode::getAddress(uint8_t regAddr) {
@@ -26,7 +27,7 @@ std::unique_ptr<AddressingResult> ImmediateDataMode::getData(uint8_t regAddr, ui
         address++;
     }
     cpu->incrementPc(incrSize);
-    return std::make_unique<AddressingResult>(cpu, bus, address, bus->read(address, size));
+    return std::make_unique<AddressingResult>(cpu, bus, address, bus->read(address, size), size > 2 ? longCycles : cycles);
 }
 
 std::string ImmediateDataMode::disassemble(uint8_t regAddr, uint8_t size) {

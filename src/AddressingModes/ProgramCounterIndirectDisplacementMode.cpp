@@ -8,7 +8,8 @@
 
 ProgramCounterIndirectDisplacementMode::ProgramCounterIndirectDisplacementMode(M68kCpu *cpu, Bus *bus)
     : AddressingMode(cpu, bus) {
-
+    cycles = 8;
+    longCycles = 12;
 }
 
 uint32_t ProgramCounterIndirectDisplacementMode::getAddress(uint8_t regAddr) {

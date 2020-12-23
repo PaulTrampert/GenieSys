@@ -7,6 +7,9 @@
 #include <cmath>
 #include <GenieSys/getPossibleOpcodes.h>
 #include <sstream>
+#include <GenieSys/AddressingModes/DataRegisterDirectMode.h>
+#include <GenieSys/AddressingModes/AddressRegisterDirectMode.h>
+#include <GenieSys/AddressingModes/ImmediateDataMode.h>
 
 const uint16_t OPCODE_BASE = 0b1101000000000000;
 static BitMask<uint16_t> REG_MASK = BitMask<uint16_t>(11, 3);
@@ -39,7 +42,7 @@ Add::Add(M68kCpu *cpu, Bus *bus) : CpuOperation(cpu, bus) {
 
 }
 
-void Add::execute(uint16_t opWord) {
+uint8_t Add::execute(uint16_t opWord) {
     uint8_t direction = DIRECTION.apply(opWord);
     uint8_t size = pow(2, SIZE.apply(opWord));
     uint8_t eaMode = EA_MODE.apply(opWord);
@@ -50,15 +53,25 @@ void Add::execute(uint16_t opWord) {
     switch(size) {
         case 1:
             addBytes(direction, dataRegAddr, addrResult.get());
-            break;
+            return (direction == 1 ? 8 : 4) + addrResult->getCycles();
         case 2:
             addWords(direction, dataRegAddr, addrResult.get());
-            break;
+            return (direction == 1 ? 8 : 4) + addrResult->getCycles();
         case 4:
             addLongs(direction, dataRegAddr, addrResult.get());
-            break;
+            if (direction == 1) {
+                return 12 + addrResult->getCycles();
+            }
+            else if (dynamic_cast<DataRegisterDirectMode*>(addrMode) != nullptr
+                || dynamic_cast<AddressRegisterDirectMode*>(addrMode) != nullptr
+                || dynamic_cast<ImmediateDataMode*>(addrMode) != nullptr) {
+                return 8 + addrResult->getCycles();
+            }
+            else {
+                return 6 + addrResult->getCycles();
+            }
         default:
-            addLongs(direction, dataRegAddr, addrResult.get());
+            return 1;
     }
 }
 

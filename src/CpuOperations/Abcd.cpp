@@ -15,8 +15,9 @@ static BitMask<uint16_t> RY_MASK = BitMask<uint16_t>(2, 3);
 static BitMask<uint16_t> RM_MASK = BitMask<uint16_t>(3, 1);
 static BitMask<uint8_t> ONES_DIGIT = BitMask<uint8_t>(3, 4);
 static BitMask<uint8_t> TENS_DIGIT = BitMask<uint8_t>(7, 4);
+static std::array<uint8_t, 2> cycles = {6,18};
 
-void Abcd::execute(uint16_t opWord) {
+uint8_t Abcd::execute(uint16_t opWord) {
     uint16_t destReg = RX_MASK.apply(opWord);
     uint16_t srcReg = RY_MASK.apply(opWord);
     uint16_t rm = RM_MASK.apply(opWord);
@@ -59,6 +60,7 @@ void Abcd::execute(uint16_t opWord) {
     }
     cpu->setCcrFlags(newCcrFlags);
     dest->write((uint8_t)((destTensDigit << 4) | destOnesDigit));
+    return cycles[rm];
 }
 
 Abcd::Abcd(M68kCpu *cpu, Bus *bus) : CpuOperation(cpu, bus) {
