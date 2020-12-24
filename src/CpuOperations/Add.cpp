@@ -10,6 +10,7 @@
 #include <GenieSys/AddressingModes/DataRegisterDirectMode.h>
 #include <GenieSys/AddressingModes/AddressRegisterDirectMode.h>
 #include <GenieSys/AddressingModes/ImmediateDataMode.h>
+#include <GenieSys/AddressingModes/ProgramCounterAddressingMode.h>
 
 const uint16_t OPCODE_BASE = 0b1101000000000000;
 static BitMask<uint16_t> REG_MASK = BitMask<uint16_t>(11, 3);
@@ -62,9 +63,9 @@ uint8_t Add::execute(uint16_t opWord) {
             if (direction == 1) {
                 return 12 + addrResult->getCycles();
             }
-            else if (dynamic_cast<DataRegisterDirectMode*>(addrMode) != nullptr
-                || dynamic_cast<AddressRegisterDirectMode*>(addrMode) != nullptr
-                || dynamic_cast<ImmediateDataMode*>(addrMode) != nullptr) {
+            else if (eaMode == DataRegisterDirectMode::MODE_ID
+                || eaMode == AddressRegisterDirectMode::MODE_ID
+                || (eaMode == ProgramCounterAddressingMode::MODE_ID && eaRegAddr == ImmediateDataMode::MODE_ID)) {
                 return 8 + addrResult->getCycles();
             }
             else {
