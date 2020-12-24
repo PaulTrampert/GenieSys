@@ -13,7 +13,7 @@ private:
     void addLongs(uint8_t direction, uint8_t dataRegAddr, AddressingResult* eaResult);
 public:
     Add(M68kCpu* cpu, Bus* bus);
-    void execute(uint16_t opWord) override;
+    uint8_t execute(uint16_t opWord) override;
     std::vector<uint16_t> getOpcodes() override;
     uint8_t getSpecificity() override;
     std::string disassemble(uint16_t opWord) override;

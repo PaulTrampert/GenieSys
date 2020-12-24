@@ -43,5 +43,8 @@ TEST_F(ORItoCCRTest, ItCorrectlyUpdatesTheCcr) {
     subject->execute(0b0000000000111100);
 
     ASSERT_EQ(CCR_EXTEND | CCR_ZERO | CCR_CARRY, cpu->getCcrFlags());
+}
 
+TEST_F(ORItoCCRTest, ItReturnsTheCorrectNumberOfClockCycles) {
+    ASSERT_EQ(20, subject->execute(0b0000000000111100));
 }

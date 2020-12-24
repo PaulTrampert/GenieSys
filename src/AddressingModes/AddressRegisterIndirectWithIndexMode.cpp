@@ -9,7 +9,8 @@
 
 AddressRegisterIndirectWithIndexMode::AddressRegisterIndirectWithIndexMode(M68kCpu *cpu, Bus *bus)
     : AddressingMode(cpu, bus) {
-
+    cycles = 10;
+    longCycles = 14;
 }
 
 uint32_t AddressRegisterIndirectWithIndexMode::getAddress(uint8_t regAddr) {

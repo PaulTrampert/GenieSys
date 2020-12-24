@@ -18,12 +18,13 @@ std::vector<uint16_t> ORItoCCR::getOpcodes() {
     return std::vector<uint16_t>{0b0000000000111100};
 }
 
-void ORItoCCR::execute(uint16_t opWord) {
+uint8_t ORItoCCR::execute(uint16_t opWord) {
     ImmediateDataMode mode(cpu, bus);
     auto addressingResult = mode.getData(0, 1);
     auto immediate = addressingResult->getDataAsByte();
     auto ccr = cpu->getCcrFlags();
     cpu->setCcrFlags(ccr | immediate);
+    return 20;
 }
 
 std::string ORItoCCR::disassemble(uint16_t opWord) {

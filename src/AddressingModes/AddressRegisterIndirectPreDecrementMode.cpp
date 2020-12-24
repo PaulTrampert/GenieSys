@@ -7,7 +7,8 @@
 
 AddressRegisterIndirectPreDecrementMode::AddressRegisterIndirectPreDecrementMode(M68kCpu *cpu, Bus *bus)
         : AddressingMode(cpu, bus) {
-
+    cycles = 6;
+    longCycles = 10;
 }
 
 uint32_t AddressRegisterIndirectPreDecrementMode::getAddress(uint8_t regAddr) {
@@ -26,9 +27,9 @@ std::unique_ptr<AddressingResult> AddressRegisterIndirectPreDecrementMode::getDa
     }
     address -= incrSize;
     cpu->setAddressRegister(regAddr, address);
-    return std::make_unique<AddressingResult>(cpu, bus, address, bus->read(address, size));
+    return std::make_unique<AddressingResult>(cpu, bus, address, bus->read(address, size), size > 2 ? longCycles : cycles);
 }
 
 std::string AddressRegisterIndirectPreDecrementMode::disassemble(uint8_t regAddr, uint8_t size) {
-    return "-(A" + std::to_string(regAddr) + ")";
+    return "-(A" + std::to_string((int)regAddr) + ")";
 }

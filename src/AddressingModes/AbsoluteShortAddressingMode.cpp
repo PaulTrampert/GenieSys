@@ -7,7 +7,8 @@
 #include "GenieSys/AddressingModes/AbsoluteShortAddressingMode.h"
 
 AbsoluteShortAddressingMode::AbsoluteShortAddressingMode(M68kCpu *cpu, Bus *bus) : AddressingMode(cpu, bus) {
-
+    cycles = 8;
+    longCycles = 12;
 }
 
 uint32_t AbsoluteShortAddressingMode::getAddress(uint8_t regAddr) {

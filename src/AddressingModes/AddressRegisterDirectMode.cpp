@@ -10,7 +10,8 @@
 
 AddressRegisterDirectMode::AddressRegisterDirectMode(M68kCpu *cpu, Bus *bus)
     : AddressingMode(cpu, bus) {
-
+    cycles = 0;
+    longCycles = 0;
 }
 
 uint32_t AddressRegisterDirectMode::getAddress(uint8_t regAddr) {
@@ -36,7 +37,7 @@ std::string AddressRegisterDirectMode::disassemble(uint8_t regAddr, uint8_t size
 }
 
 AddressRegisterDirectResult::AddressRegisterDirectResult(M68kCpu *cpu, Bus *bus, uint32_t address, std::vector<uint8_t> data)
-    : AddressingResult(cpu, bus, address, std::move(data)) {
+    : AddressingResult(cpu, bus, address, std::move(data), 0) {
 
 }
 

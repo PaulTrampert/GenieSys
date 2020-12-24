@@ -16,7 +16,7 @@ protected:
 public:
     CpuOperation(M68kCpu* cpu, Bus* bus);
     virtual ~CpuOperation() = default;
-    virtual void execute(uint16_t opWord) = 0;
+    virtual uint8_t execute(uint16_t opWord) = 0;
     virtual std::vector<uint16_t> getOpcodes() = 0;
     virtual uint8_t getSpecificity() = 0;
     virtual std::string disassemble(uint16_t opWord) = 0;

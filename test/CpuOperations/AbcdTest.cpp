@@ -71,3 +71,11 @@ TEST_F(AbcdTest, ItCorrectlyAddsDecimalsFromMemoryWithCarry) {
     ASSERT_EQ(0x00, bus.read(0x1F));
     ASSERT_EQ(CCR_EXTEND | CCR_CARRY | CCR_ZERO, cpu->getCcrFlags());
 }
+
+TEST_F(AbcdTest, ItReturnsTheCorrectClockCycles_ForDataRegisters) {
+    ASSERT_EQ(6, subject->execute(0b1100010100000011));
+}
+
+TEST_F(AbcdTest, ItReturnsTheCorrectClockCycles_ForAddressRegisterPreDecrement) {
+    ASSERT_EQ(18, subject->execute(0b1100010100001011));
+}

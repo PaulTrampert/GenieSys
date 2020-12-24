@@ -8,7 +8,8 @@
 #include "GenieSys/numberUtils.h"
 
 DataRegisterDirectMode::DataRegisterDirectMode(M68kCpu *cpu, Bus *bus) : AddressingMode(cpu, bus) {
-
+    cycles = 0;
+    longCycles = 0;
 }
 
 uint32_t DataRegisterDirectMode::getAddress(uint8_t regAddr) {
@@ -34,7 +35,7 @@ std::string DataRegisterDirectMode::disassemble(uint8_t regAddr, uint8_t size) {
 }
 
 DataRegisterDirectResult::DataRegisterDirectResult(M68kCpu *cpu, Bus *bus, uint32_t address, std::vector<uint8_t> data)
-        : AddressingResult(cpu, bus, address, std::move(data)) {
+        : AddressingResult(cpu, bus, address, std::move(data), 0) {
 }
 
 void DataRegisterDirectResult::write(std::vector<uint8_t> data) {

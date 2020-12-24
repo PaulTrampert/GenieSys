@@ -6,7 +6,8 @@
 
 AddressRegisterIndirectDisplacementMode::AddressRegisterIndirectDisplacementMode(M68kCpu *cpu, Bus *bus)
         : AddressingMode(cpu, bus) {
-
+    cycles = 8;
+    longCycles = 12;
 }
 
 uint32_t AddressRegisterIndirectDisplacementMode::getAddress(uint8_t regAddr) {
