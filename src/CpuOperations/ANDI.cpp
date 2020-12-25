@@ -36,19 +36,30 @@ uint8_t ANDI::execute(uint16_t opWord) {
     AddressingMode* eaMode = cpu->getAddressingMode(eaModeCode);
     auto eaResult = eaMode->getData(eaReg, size);
     bool isMemory = eaModeCode != DataRegisterDirectMode::MODE_ID && eaModeCode != AddressRegisterDirectMode::MODE_ID;
+    uint8_t oldCcr = cpu->getCcrFlags();
+    uint8_t oldX = oldCcr & CCR_EXTEND;
     uint8_t baseCycles = 1;
+    uint8_t byteResult;
+    uint16_t wordResult;
+    uint32_t longResult;
     switch(size) {
         case 1:
             baseCycles = isMemory ? 12 : 8;
-            eaResult->write((uint8_t)(eaResult->getDataAsByte() & immData->getDataAsByte()));
+            byteResult = eaResult->getDataAsByte() & immData->getDataAsByte();
+            eaResult->write(byteResult);
+            cpu->setCcrFlags(oldX | ((int8_t)byteResult < 0 ? CCR_NEGATIVE : 0) | (byteResult == 0 ? CCR_ZERO : 0));
             break;
         case 2:
             baseCycles = isMemory ? 12 : 8;
-            eaResult->write((uint16_t)(eaResult->getDataAsWord() & immData->getDataAsWord()));
+            wordResult = eaResult->getDataAsWord() & immData->getDataAsWord();
+            eaResult->write(wordResult);
+            cpu->setCcrFlags(oldX | ((int16_t)wordResult < 0 ? CCR_NEGATIVE : 0) | (wordResult == 0 ? CCR_ZERO : 0));
             break;
         case 4:
             baseCycles = isMemory ? 20 : 16;
-            eaResult->write((uint32_t)(eaResult->getDataAsLong() & immData->getDataAsLong()));
+            longResult = eaResult->getDataAsLong() & immData->getDataAsLong();
+            eaResult->write(longResult);
+            cpu->setCcrFlags(oldX | ((int32_t)longResult < 0 ? CCR_NEGATIVE : 0) | (longResult == 0 ? CCR_ZERO : 0));
             break;
         default:
             break;
