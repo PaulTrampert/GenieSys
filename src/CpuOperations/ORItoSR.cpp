@@ -20,12 +20,13 @@ uint8_t ORItoSR::getSpecificity() {
 }
 
 uint8_t ORItoSR::execute(uint16_t opWord) {
+    AddressingMode *mode = cpu->getAddressingMode(ProgramCounterAddressingMode::MODE_ID);
+    auto imm = mode->getData(ImmediateDataMode::MODE_ID, 2);
     if (!cpu->isSupervisor()) {
         cpu->trap(TV_PRIVILEGE);
+    } else {
+        cpu->setSR(cpu->getSR() | imm->getDataAsWord());
     }
-    AddressingMode* mode = cpu->getAddressingMode(ProgramCounterAddressingMode::MODE_ID);
-    auto imm = mode->getData(ImmediateDataMode::MODE_ID, 2);
-    cpu->setSR(cpu->getSR() | imm->getDataAsWord());
     return 20;
 }
 
