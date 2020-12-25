@@ -10,6 +10,7 @@
 #include <GenieSys/AddressingModes/ProgramCounterAddressingMode.h>
 #include <GenieSys/AddressingModes/ImmediateDataMode.h>
 #include <sstream>
+#include <cmath>
 
 ANDI::ANDI(M68kCpu *cpu, Bus *bus) : CpuOperation(cpu, bus) {
 
@@ -28,7 +29,7 @@ uint8_t ANDI::getSpecificity() {
 }
 
 uint8_t ANDI::execute(uint16_t opWord) {
-    uint8_t size = sizeMask.apply(opWord);
+    uint8_t size = pow(2, sizeMask.apply(opWord));
     uint8_t eaModeCode = eaModeMask.apply(opWord);
     uint8_t eaReg = eaRegMask.apply(opWord);
     AddressingMode* immMode = cpu->getAddressingMode(ProgramCounterAddressingMode::MODE_ID);
