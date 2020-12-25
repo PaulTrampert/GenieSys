@@ -8,6 +8,7 @@
 #include <vector>
 #include <memory>
 #include "GenieSys/enums.h"
+#include "./BitMask.h"
 
 class Bus;
 class AddressingMode;
@@ -47,8 +48,13 @@ private:
     /**
      * Condition code register
      */
-    uint8_t ccr = 0;
-
+    uint16_t SRandCCR = 0;
+    /**
+     * System stack pointer;
+     */
+    uint32_t ssp = 0;
+    BitMask<uint16_t> supervisorState = BitMask<uint16_t>(13, 1);
+    BitMask<uint16_t> masterInterruptState = BitMask<uint16_t>(12, 1);
     /**
      * Floating point data registers.
      */
@@ -94,6 +100,10 @@ public:
     void setCcrFlags(uint8_t ccr);
     uint8_t getCcrFlags();
     void tick();
+    uint16_t getSR();
+    void setSR(uint16_t sr);
+    bool isSupervisor();
+    void trap(uint8_t vector);
 
     AddressingMode *getAddressingMode(int modeId);
 };

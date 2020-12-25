@@ -68,6 +68,9 @@ uint32_t M68kCpu::getDataRegister(uint8_t addr) {
 }
 
 uint32_t M68kCpu::getAddressRegister(uint8_t addr) {
+    if (addr == 7 && isSupervisor()) {
+        return ssp;
+    }
     return addressRegisters[addr];
 }
 
@@ -84,7 +87,12 @@ void M68kCpu::setDataRegister(uint8_t addr, uint32_t value) {
 }
 
 void M68kCpu::setAddressRegister(uint8_t addr, uint32_t value) {
-    addressRegisters[addr] = value;
+    if (addr == 7 && isSupervisor()) {
+        ssp = value;
+    }
+    else {
+        addressRegisters[addr] = value;
+    }
 }
 
 void M68kCpu::setPc(uint32_t value) {
@@ -105,14 +113,30 @@ AddressingMode *M68kCpu::getAddressingMode(int modeId) {
 }
 
 void M68kCpu::setCcrFlags(uint8_t ccr) {
-    this->ccr = ccr;
+    this->SRandCCR = (SRandCCR & 0xFF00) | ccr;
 }
 
 uint8_t M68kCpu::getCcrFlags() {
-    return ccr;
+    return SRandCCR & 0x00FF;
 }
 
+uint16_t M68kCpu::getSR() {
+    return SRandCCR;
+}
 
+void M68kCpu::setSR(uint16_t sr) {
+    SRandCCR = sr;
+}
 
+bool M68kCpu::isSupervisor() {
+    return supervisorState.apply(SRandCCR) == 1;
+}
 
-
+void M68kCpu::trap(uint8_t vector) {
+    SRandCCR = supervisorState.compose(SRandCCR, 1);
+    ssp -= 4;
+    bus->writeLong(ssp, pc);
+    ssp -= 2;
+    bus->writeWord(ssp, SRandCCR);
+    pc = bus->readLong(4 * vector);
+}
