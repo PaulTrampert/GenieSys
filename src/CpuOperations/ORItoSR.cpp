@@ -32,8 +32,7 @@ uint8_t ORItoSR::execute(uint16_t opWord) {
 
 std::string ORItoSR::disassemble(uint16_t opWord) {
     AddressingMode* mode = cpu->getAddressingMode(ProgramCounterAddressingMode::MODE_ID);
-    auto imm = mode->getData(ImmediateDataMode::MODE_ID, 2);
     std::stringstream stream;
-    stream << "ORI #" << imm->getDataAsWord() << ",SR";
+    stream << "ORI " << mode->disassemble(ImmediateDataMode::MODE_ID, 2) << ",SR";
     return stream.str();
 }
