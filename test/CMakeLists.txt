@@ -30,7 +30,7 @@ add_executable(testGenieSys
         BitMaskTest.cpp
         CpuOperations/AbcdTest.cpp
         CpuOperations/AddTest.cpp
-        GetPossibleOpcodesTest.cpp CpuOperations/ORItoCCRTest.cpp CpuOperations/CpuOperationTest.cpp CpuOperations/ORItoSRTest.cpp)
+        GetPossibleOpcodesTest.cpp CpuOperations/ORItoCCRTest.cpp CpuOperations/CpuOperationTest.cpp CpuOperations/ORItoSRTest.cpp CpuOperations/ANDITest.cpp)
 
 target_link_libraries(testGenieSys PRIVATE libGenieSys gtest gmock)
 

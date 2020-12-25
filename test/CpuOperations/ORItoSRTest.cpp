@@ -31,7 +31,7 @@ TEST_F(ORItoSRTest, ItHasTheCorrectOpcodes) {
 TEST_F(ORItoSRTest, ItDisassemblesCorrectly) {
     bus.writeWord(10, 0xFFFF);
     cpu->setPc(10);
-    ASSERT_EQ("ORI #65535,SR", subject->disassemble(0b0000000011111100));
+    ASSERT_EQ("ORI $ffff,SR", subject->disassemble(0b0000000011111100));
 }
 
 TEST_F(ORItoSRTest, ItCorrectlyUpdatesTheSR_WhenInSupervisorMode) {
