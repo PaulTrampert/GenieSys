@@ -7,6 +7,7 @@
 #include <GenieSys/CpuOperations/Add.h>
 #include <algorithm>
 #include <GenieSys/CpuOperations/ORItoCCR.h>
+#include <GenieSys/CpuOperations/ORItoSR.h>
 
 CpuOperation::CpuOperation(M68kCpu *cpu, Bus *bus) {
     this->cpu = cpu;
@@ -17,7 +18,8 @@ std::vector<std::shared_ptr<CpuOperation>> getOperations(M68kCpu *cpu, Bus *bus)
     std::vector<std::shared_ptr<CpuOperation>> operations{
             std::shared_ptr<CpuOperation>(new Abcd(cpu, bus)),
             std::shared_ptr<CpuOperation>(new Add(cpu, bus)),
-            std::shared_ptr<CpuOperation>(new ORItoCCR(cpu, bus))
+            std::shared_ptr<CpuOperation>(new ORItoCCR(cpu, bus)),
+            std::shared_ptr<CpuOperation>(new ORItoSR(cpu, bus))
     };
 
     std::sort(operations.begin(), operations.end(), compare);
