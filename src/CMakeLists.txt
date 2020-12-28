@@ -18,7 +18,16 @@ add_library(libGenieSys
         AddressingModes/AbsoluteLongAddressingMode.cpp
         AddressingModes/ImmediateDataMode.cpp
         AddressingModes/ProgramCounterAddressingMode.cpp
-        numberUtils.cpp CpuOperations/Abcd.cpp CpuOperations/CpuOperation.cpp CpuOperations/Add.cpp CpuOperations/Nop.cpp CpuOperations/ORItoCCR.cpp CpuOperations/ORItoSR.cpp CpuOperations/ANDI.cpp)
+        numberUtils.cpp
+        CpuOperations/Abcd.cpp
+        CpuOperations/CpuOperation.cpp
+        CpuOperations/Add.cpp
+        CpuOperations/Nop.cpp
+        CpuOperations/ORItoCCR.cpp
+        CpuOperations/ORItoSR.cpp
+        CpuOperations/ANDI.cpp
+        CpuOperations/ANDItoCCR.cpp
+        )
 
 target_include_directories(libGenieSys PUBLIC ../include)
 
