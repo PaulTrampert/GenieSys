@@ -35,7 +35,8 @@ add_executable(testGenieSys
         CpuOperations/CpuOperationTest.cpp
         CpuOperations/ORItoSRTest.cpp
         CpuOperations/ANDITest.cpp
-        CpuOperations/ANDItoCCRTest.cpp)
+        CpuOperations/ANDItoCCRTest.cpp
+        CpuOperations/ANDItoSRTest.cpp)
 
 target_link_libraries(testGenieSys PRIVATE libGenieSys gtest gmock)
 

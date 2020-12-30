@@ -27,6 +27,7 @@ add_library(libGenieSys
         CpuOperations/ORItoSR.cpp
         CpuOperations/ANDI.cpp
         CpuOperations/ANDItoCCR.cpp
+        CpuOperations/ANDItoSR.cpp
         )
 
 target_include_directories(libGenieSys PUBLIC ../include)
