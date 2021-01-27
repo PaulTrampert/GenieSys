@@ -29,6 +29,7 @@ add_library(libGenieSys
         CpuOperations/ANDItoCCR.cpp
         CpuOperations/ANDItoSR.cpp
         CpuOperations/SUBI.cpp
+        CpuOperations/ADDI.cpp
         )
 
 target_include_directories(libGenieSys PUBLIC ../include)
