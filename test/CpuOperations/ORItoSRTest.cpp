@@ -25,13 +25,13 @@ TEST_F(ORItoSRTest, ItHasTheCorrectSpecificity) {
 
 TEST_F(ORItoSRTest, ItHasTheCorrectOpcodes) {
     ASSERT_EQ(1, subject->getOpcodes().size());
-    ASSERT_EQ(0b0000000011111100, subject->getOpcodes()[0]);
+    ASSERT_EQ(0b0000000001111100, subject->getOpcodes()[0]);
 }
 
 TEST_F(ORItoSRTest, ItDisassemblesCorrectly) {
     bus.writeWord(10, 0xFFFF);
     cpu->setPc(10);
-    ASSERT_EQ("ORI $ffff,SR", subject->disassemble(0b0000000011111100));
+    ASSERT_EQ("ORI $ffff,SR", subject->disassemble(0b0000000001111100));
 }
 
 TEST_F(ORItoSRTest, ItCorrectlyUpdatesTheSR_WhenInSupervisorMode) {

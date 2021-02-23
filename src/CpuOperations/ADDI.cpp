@@ -37,7 +37,7 @@ ADDI::ADDI(M68kCpu *cpu, Bus *bus) : CpuOperation(cpu, bus) {
 }
 
 std::vector<uint16_t> ADDI::getOpcodes() {
-    return getPossibleOpcodes((uint16_t)0b0000010000000000, std::vector<BitMask<uint16_t>*>{
+    return getPossibleOpcodes((uint16_t)0b0000011000000000, std::vector<BitMask<uint16_t>*>{
         &sizeMask,
         &eaModeMask,
         &eaRegMask,
