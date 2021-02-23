@@ -54,3 +54,19 @@ TEST_F(SUBITest, ItSubtractsLongs) {
     ASSERT_EQ(0x000000BB, bus.readLong(600));
     ASSERT_EQ(0, cpu->getCcrFlags());
 }
+
+TEST_F(SUBITest, GetOpcodesOnlyReturnsPossibleOpcodes) {
+    auto opcodes = subject->getOpcodes();
+    for(auto opcode : opcodes) {
+        ASSERT_EQ(0b0000010000000000, 0b0000010000000000 & opcode);
+    }
+}
+
+TEST_F(SUBITest, TestDisassemble) {
+    cpu->setPc(300);
+    bus.writeWord(300, 0x00F0);
+    bus.writeByte(600, 0xAB);
+    cpu->setAddressRegister(0, 600);
+    std::string assembly = subject->disassemble(0b0000011000010000);
+    ASSERT_EQ("SUBI $f0,(A0)", assembly);
+}

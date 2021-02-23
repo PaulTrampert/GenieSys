@@ -91,7 +91,7 @@ uint8_t SUBI::execute(uint16_t opWord) {
 }
 
 std::string SUBI::disassemble(uint16_t opWord) {
-    uint8_t size = sizeMask.apply(opWord);
+    uint8_t size = pow(2, sizeMask.apply(opWord));
     uint8_t eaModeCode = eaModeMask.apply(opWord);
     uint8_t eaReg = eaRegMask.apply(opWord);
     AddressingMode* immMode = cpu->getAddressingMode(ProgramCounterAddressingMode::MODE_ID);
