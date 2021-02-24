@@ -9,35 +9,16 @@
 #include <GenieSys/AddressingModes/AddressRegisterDirectMode.h>
 #include <GenieSys/AddressingModes/ProgramCounterAddressingMode.h>
 #include <GenieSys/AddressingModes/ImmediateDataMode.h>
+#include <GenieSys/getCcrFlags.h>
 #include <sstream>
 #include <cmath>
-
-template <class U, class S>
-static uint8_t getCcrFlags(U result, U op1, U op2) {
-    uint8_t flags = 0;
-    if (result > op1) {
-        flags |= CCR_OVERFLOW;
-    }
-    if ((S)result < 0) {
-        flags |= CCR_NEGATIVE;
-    }
-    if (result == 0) {
-        flags |= CCR_ZERO;
-    }
-    if (((S)result < 0 && (S)op1 > 0 && (S)op2 < 0) ||
-        ((S) result > 0 && (S)op1 < 0 && (S)op2 > 0)
-    ) {
-        flags |= CCR_EXTEND | CCR_CARRY;
-    }
-    return flags;
-}
 
 SUBI::SUBI(M68kCpu *cpu, Bus *bus) : CpuOperation(cpu, bus) {
 
 }
 
 std::vector<uint16_t> SUBI::getOpcodes() {
-    return getPossibleOpcodes((uint16_t)0b0000010000000000, std::vector<BitMask<uint16_t>*>{
+    return getPossibleOpcodes(BASE_OPCODE, std::vector<BitMask<uint16_t>*>{
         &sizeMask,
         &eaModeMask,
         &eaRegMask,
@@ -67,21 +48,24 @@ uint8_t SUBI::execute(uint16_t opWord) {
             baseCycles = isMemory ? 12 : 8;
             byteResult = eaResult->getDataAsByte() - immData->getDataAsByte();
             eaResult->write(byteResult);
-            newCcrFlags = getCcrFlags<uint8_t, int8_t>(byteResult, eaResult->getDataAsByte(), immData->getDataAsByte());
+            newCcrFlags = getSubtractionCcrFlags<uint8_t, int8_t>(byteResult, eaResult->getDataAsByte(),
+                                                                  immData->getDataAsByte());
             cpu->setCcrFlags(newCcrFlags);
             break;
         case 2:
             baseCycles = isMemory ? 12 : 8;
             wordResult = eaResult->getDataAsWord() - immData->getDataAsWord();
             eaResult->write(wordResult);
-            newCcrFlags = getCcrFlags<uint16_t, int16_t>(wordResult, eaResult->getDataAsWord(), immData->getDataAsWord());
+            newCcrFlags = getSubtractionCcrFlags<uint16_t, int16_t>(wordResult, eaResult->getDataAsWord(),
+                                                                    immData->getDataAsWord());
             cpu->setCcrFlags(newCcrFlags);
             break;
         case 4:
             baseCycles = isMemory ? 20 : 16;
             longResult = eaResult->getDataAsLong() - immData->getDataAsLong();
             eaResult->write(longResult);
-            newCcrFlags = getCcrFlags<uint32_t, int32_t>(longResult, eaResult->getDataAsLong(), immData->getDataAsLong());
+            newCcrFlags = getSubtractionCcrFlags<uint32_t, int32_t>(longResult, eaResult->getDataAsLong(),
+                                                                    immData->getDataAsLong());
             cpu->setCcrFlags(newCcrFlags);
             break;
         default:
