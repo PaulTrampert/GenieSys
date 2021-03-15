@@ -54,3 +54,19 @@ TEST_F(ANDITest, ItAndsLongs) {
     ASSERT_EQ(0x010100A0, bus.readLong(600));
     ASSERT_EQ(0, cpu->getCcrFlags());
 }
+
+TEST_F(ANDITest, GetOpcodesOnlyReturnsPossibleOpcodes) {
+    auto opcodes = subject->getOpcodes();
+    for(auto opcode : opcodes) {
+        ASSERT_EQ(0b0000001000000000, 0b0000001000000000 & opcode);
+    }
+}
+
+TEST_F(ANDITest, TestDisassemble) {
+    cpu->setPc(300);
+    bus.writeWord(300, 0x00F0);
+    bus.writeByte(600, 0xAB);
+    cpu->setAddressRegister(0, 600);
+    std::string assembly = subject->disassemble(0b0000001000010000);
+    ASSERT_EQ("ANDI $f0, (A0)", assembly);
+}

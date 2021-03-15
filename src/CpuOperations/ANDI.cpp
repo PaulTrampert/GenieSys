@@ -75,6 +75,6 @@ std::string ANDI::disassemble(uint16_t opWord) {
     AddressingMode* immMode = cpu->getAddressingMode(ProgramCounterAddressingMode::MODE_ID);
     AddressingMode* eaMode = cpu->getAddressingMode(eaModeCode);
     std::stringstream stream;
-    stream << "ANDI " << immMode->disassemble(ImmediateDataMode::MODE_ID, size) << "," << eaMode->disassemble(eaReg, size);
+    stream << "ANDI " << immMode->disassemble(ImmediateDataMode::MODE_ID, size) << ", " << eaMode->disassemble(eaReg, size);
     return stream.str();
 }
