@@ -30,7 +30,8 @@ add_library(libGenieSys
         CpuOperations/ANDItoSR.cpp
         CpuOperations/SUBI.cpp
         CpuOperations/ADDI.cpp
-        CpuOperations/ORI.cpp)
+        CpuOperations/ORI.cpp
+        CpuOperations/EORItoCCR.cpp)
 
 target_include_directories(libGenieSys PUBLIC ../include)
 
