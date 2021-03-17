@@ -18,6 +18,7 @@
 #include <GenieSys/CpuOperations/EORItoCCR.h>
 #include <GenieSys/CpuOperations/EORItoSR.h>
 #include <GenieSys/CpuOperations/EORI.h>
+#include <GenieSys/CpuOperations/CMPI.h>
 
 CpuOperation::CpuOperation(M68kCpu *cpu, Bus *bus) {
     this->cpu = cpu;
@@ -32,6 +33,7 @@ std::vector<std::shared_ptr<CpuOperation>> getOperations(M68kCpu *cpu, Bus *bus)
             std::shared_ptr<CpuOperation>(new ANDI(cpu, bus)),
             std::shared_ptr<CpuOperation>(new ANDItoCCR(cpu, bus)),
             std::shared_ptr<CpuOperation>(new ANDItoSR(cpu, bus)),
+            std::shared_ptr<CpuOperation>(new CMPI(cpu, bus)),
             std::shared_ptr<CpuOperation>(new EORI(cpu, bus)),
             std::shared_ptr<CpuOperation>(new EORItoCCR(cpu, bus)),
             std::shared_ptr<CpuOperation>(new EORItoSR(cpu, bus)),
