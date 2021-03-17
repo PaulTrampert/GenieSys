@@ -31,7 +31,8 @@ add_library(libGenieSys
         CpuOperations/SUBI.cpp
         CpuOperations/ADDI.cpp
         CpuOperations/ORI.cpp
-        CpuOperations/EORItoCCR.cpp)
+        CpuOperations/EORItoCCR.cpp
+        CpuOperations/EORItoSR.cpp)
 
 target_include_directories(libGenieSys PUBLIC ../include)
 
