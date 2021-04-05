@@ -26,3 +26,15 @@ std::vector<uint16_t> BTST::getOpcodes() {
     }
     return result;
 }
+
+uint8_t BTST::getSpecificity() {
+    return DnMask.getWidth() + ImmMask.getWidth() + EaModeMask.getWidth() + EaAddrMask.getWidth();
+}
+
+uint8_t BTST::execute(uint16_t opWord) {
+    return 0;
+}
+
+std::string BTST::disassemble(uint16_t opWord) {
+    return std::string();
+}
