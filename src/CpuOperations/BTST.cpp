@@ -37,7 +37,32 @@ uint8_t BTST::getSpecificity() {
 }
 
 uint8_t BTST::execute(uint16_t opWord) {
-    return 0;
+    uint8_t cycles = 0;
+    bool immMode = !ImmMask.apply(opWord);
+    uint8_t eaModeId = EaModeMask.apply(opWord);
+    uint8_t eaAddr = EaAddrMask.apply(opWord);
+    uint8_t destSize = eaModeId == DataRegisterDirectMode::MODE_ID ? 4 : 1;
+    uint8_t destSizeBits = destSize * 8;
+    auto eaMode = cpu->getAddressingMode(eaModeId);
+    uint32_t bitNum;
+    if (immMode) {
+        auto imm = cpu->getAddressingMode(ProgramCounterAddressingMode::MODE_ID);
+        auto immData = imm->getData(ImmediateDataMode::MODE_ID, 1);
+        bitNum = immData->getDataAsByte();
+        cycles = eaModeId == DataRegisterDirectMode::MODE_ID ? 10 : 8;
+    }
+    else {
+        auto dn = cpu->getAddressingMode(DataRegisterDirectMode::MODE_ID);
+        auto dnData = dn->getData(DnMask.apply(opWord), 4);
+        bitNum = dnData->getDataAsLong();
+        cycles = eaModeId == DataRegisterDirectMode::MODE_ID ? 6 : 4;
+    }
+    bitNum = bitNum % destSizeBits;
+    auto eaData = eaMode->getData(eaAddr, destSize);
+    uint32_t eaNum = destSize == 4 ? eaData->getDataAsLong() : eaData->getDataAsByte();
+    uint8_t result = ((eaNum >> bitNum) & 1) << 2;
+    cpu->setCcrFlags((cpu->getCcrFlags() & ~result) | result);
+    return cycles + eaData->getCycles();
 }
 
 std::string BTST::disassemble(uint16_t opWord) {
