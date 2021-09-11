@@ -69,7 +69,7 @@ uint8_t BCHG::execute(uint16_t opWord) {
     else {
         eaData->write((uint8_t) (data & 0x000000FF));
     }
-    return cycles;
+    return cycles + eaData->getCycles();
 }
 
 std::string BCHG::disassemble(uint16_t opWord) {
