@@ -37,7 +37,7 @@ uint8_t BTST::getSpecificity() {
 }
 
 uint8_t BTST::execute(uint16_t opWord) {
-    uint8_t cycles = 0;
+    uint8_t cycles;
     bool immMode = !ImmMask.apply(opWord);
     uint8_t eaModeId = EaModeMask.apply(opWord);
     uint8_t eaAddr = EaAddrMask.apply(opWord);
