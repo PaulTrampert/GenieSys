@@ -37,7 +37,7 @@ uint8_t BCLR::getSpecificity() {
 
 uint8_t BCLR::execute(uint16_t opWord) {
     uint8_t cycles;
-    bool imm = ImmMask.apply(opWord);
+    bool imm = !ImmMask.apply(opWord);
     uint16_t eaModeId = EaModeMask.apply(opWord);
     auto eaMode = cpu->getAddressingMode(eaModeId);
     uint16_t eaAddr = EaAddrMask.apply(opWord);
