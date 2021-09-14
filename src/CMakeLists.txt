@@ -38,7 +38,7 @@ add_library(libGenieSys
         CpuOperations/BTST.cpp
         CpuOperations/BCHG.cpp
         CpuOperations/BCLR.cpp
-        CpuOperations/BSET.cpp)
+        CpuOperations/BSET.cpp CpuOperations/MOVEP.cpp)
 
 target_include_directories(libGenieSys PUBLIC ../include)
 
