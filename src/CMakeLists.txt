@@ -36,7 +36,9 @@ add_library(libGenieSys
         CpuOperations/EORI.cpp
         CpuOperations/CMPI.cpp
         CpuOperations/BTST.cpp
-        CpuOperations/BCHG.cpp CpuOperations/BCLR.cpp)
+        CpuOperations/BCHG.cpp
+        CpuOperations/BCLR.cpp
+        CpuOperations/BSET.cpp)
 
 target_include_directories(libGenieSys PUBLIC ../include)
 

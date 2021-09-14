@@ -11,8 +11,8 @@ struct BCLRTest : testing::Test {
     M68kCpu* cpu;
     Bus bus;
     BCLR* subject;
-    uint16_t immModeOpWord = 0b0000100000000001; // BTST $06,D1
-    uint16_t dnModeOpWord = 0b0000011100000001; // BTST D3,D1
+    uint16_t immModeOpWord = 0b0000100000000001; // BCLR $06,D1
+    uint16_t dnModeOpWord = 0b0000011100000001; // BCLR D3,D1
 
     BCLRTest() {
         cpu = bus.getCpu();

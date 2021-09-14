@@ -46,7 +46,8 @@ add_executable(testGenieSys
         CpuOperations/CMPITest.cpp
         CpuOperations/BTSTTest.cpp
         CpuOperations/BCHGTest.cpp
-        CpuOperations/BCLRTest.cpp)
+        CpuOperations/BCLRTest.cpp
+        CpuOperations/BSETTest.cpp)
 
 target_link_libraries(testGenieSys PRIVATE libGenieSys gtest gmock)
 
