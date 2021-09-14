@@ -21,6 +21,7 @@
 #include <GenieSys/CpuOperations/CMPI.h>
 #include <GenieSys/CpuOperations/BCHG.h>
 #include <GenieSys/CpuOperations/BTST.h>
+#include <GenieSys/CpuOperations/BCLR.h>
 
 CpuOperation::CpuOperation(M68kCpu *cpu, Bus *bus) {
     this->cpu = cpu;
@@ -36,6 +37,7 @@ std::vector<std::shared_ptr<CpuOperation>> getOperations(M68kCpu *cpu, Bus *bus)
             std::shared_ptr<CpuOperation>(new ANDItoCCR(cpu, bus)),
             std::shared_ptr<CpuOperation>(new ANDItoSR(cpu, bus)),
             std::shared_ptr<CpuOperation>(new BCHG(cpu, bus)),
+            std::shared_ptr<CpuOperation>(new BCLR(cpu, bus)),
             std::shared_ptr<CpuOperation>(new BTST(cpu, bus)),
             std::shared_ptr<CpuOperation>(new CMPI(cpu, bus)),
             std::shared_ptr<CpuOperation>(new EORI(cpu, bus)),
