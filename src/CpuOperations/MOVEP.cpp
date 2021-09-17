@@ -26,7 +26,7 @@ std::string MOVEP::disassemble(uint16_t opWord) {
         stream << ".l " << dnMode->disassemble(dn, 4) << "," << addrMode->disassemble(an, 4);
     }
     else if (opMode == WORD_REG_MEM) {
-        stream << ".w" << dnMode->disassemble(dn, 2) << "," << addrMode->disassemble(an, 2);
+        stream << ".w " << dnMode->disassemble(dn, 2) << "," << addrMode->disassemble(an, 2);
     }
     else if (opMode == LONG_MEM_REG) {
         stream << ".l " << addrMode->disassemble(an, 4) << "," << dnMode->disassemble(dn, 4);
