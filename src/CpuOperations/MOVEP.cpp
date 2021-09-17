@@ -5,6 +5,8 @@
 #include <GenieSys/getPossibleOpcodes.h>
 #include <vector>
 #include <GenieSys/AddressingModes/AddressRegisterIndirectDisplacementMode.h>
+#include <sstream>
+#include <GenieSys/AddressingModes/DataRegisterDirectMode.h>
 
 MOVEP::MOVEP(M68kCpu *cpu, Bus *bus) : CpuOperation(cpu, bus) {
 
@@ -13,7 +15,27 @@ MOVEP::MOVEP(M68kCpu *cpu, Bus *bus) : CpuOperation(cpu, bus) {
 
 
 std::string MOVEP::disassemble(uint16_t opWord) {
-    return std::string();
+    auto dn = DnMask.apply(opWord);
+    auto opMode = (OpMode)OpModeMask.apply(opWord);
+    auto dnMode = cpu->getAddressingMode(DataRegisterDirectMode::MODE_ID);
+    auto addrMode = cpu->getAddressingMode(AddressRegisterIndirectDisplacementMode::MODE_ID);
+    auto an = AnMask.apply(opWord);
+    std::stringstream stream;
+    stream << "MOVEP ";
+    if (opMode == LONG_REG_MEM) {
+        stream << dnMode->disassemble(dn, 4) << "," << addrMode->disassemble(an, 4);
+    }
+    else if (opMode == WORD_REG_MEM) {
+        stream << dnMode->disassemble(dn, 2) << "," << addrMode->disassemble(an, 2);
+    }
+    else if (opMode == LONG_MEM_REG) {
+        stream << "," << addrMode->disassemble(an, 4) << dnMode->disassemble(dn, 4);
+    }
+    else if (opMode == WORD_MEM_REG) {
+        stream << "," << addrMode->disassemble(an, 2) << dnMode->disassemble(dn, 2);
+    }
+
+    return stream.str();
 }
 
 uint8_t MOVEP::execute(uint16_t opWord) {
