@@ -21,18 +21,18 @@ std::string MOVEP::disassemble(uint16_t opWord) {
     auto addrMode = cpu->getAddressingMode(AddressRegisterIndirectDisplacementMode::MODE_ID);
     auto an = AnMask.apply(opWord);
     std::stringstream stream;
-    stream << "MOVEP ";
+    stream << "MOVEP";
     if (opMode == LONG_REG_MEM) {
-        stream << dnMode->disassemble(dn, 4) << "," << addrMode->disassemble(an, 4);
+        stream << ".l " << dnMode->disassemble(dn, 4) << "," << addrMode->disassemble(an, 4);
     }
     else if (opMode == WORD_REG_MEM) {
-        stream << dnMode->disassemble(dn, 2) << "," << addrMode->disassemble(an, 2);
+        stream << ".w" << dnMode->disassemble(dn, 2) << "," << addrMode->disassemble(an, 2);
     }
     else if (opMode == LONG_MEM_REG) {
-        stream << "," << addrMode->disassemble(an, 4) << dnMode->disassemble(dn, 4);
+        stream << ".l " << addrMode->disassemble(an, 4) << "," << dnMode->disassemble(dn, 4);
     }
     else if (opMode == WORD_MEM_REG) {
-        stream << "," << addrMode->disassemble(an, 2) << dnMode->disassemble(dn, 2);
+        stream << ".w " << addrMode->disassemble(an, 2) << "," << dnMode->disassemble(dn, 2);
     }
 
     return stream.str();
