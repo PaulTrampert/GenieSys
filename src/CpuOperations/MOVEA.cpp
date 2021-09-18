@@ -36,7 +36,7 @@ uint8_t MOVEA::execute(uint16_t opWord) {
     auto eaResult = eaMode->getData(eaAddr, sizeBytes);
     uint32_t regData;
     if (sizeBytes == 2) {
-        regData = signExtend(eaResult->getDataAsWord(), 16);
+        regData = signExtend<uint32_t>(eaResult->getDataAsWord(), 16);
     }
     else {
         regData = eaResult->getDataAsLong();
@@ -53,6 +53,6 @@ std::string MOVEA::disassemble(uint16_t opWord) {
     uint8_t eaAddr = eaAddrMask.apply(opWord);
     auto eaMode = cpu->getAddressingMode(eaModeId);
     std::stringstream stream;
-    stream << "MOVEA" << (size == 3 ? ".w" : ".l") << eaMode->disassemble(eaAddr, sizeBytes) << ",A" << std::to_string(destReg);
+    stream << "MOVEA" << (size == 3 ? ".w " : ".l ") << eaMode->disassemble(eaAddr, sizeBytes) << ",A" << std::to_string(destReg);
     return stream.str();
 }
