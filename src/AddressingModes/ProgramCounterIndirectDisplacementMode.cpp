@@ -29,3 +29,7 @@ std::string ProgramCounterIndirectDisplacementMode::disassemble(uint8_t regAddr,
     stream << "(#" << displacement << ",PC)";
     return stream.str();
 }
+
+uint8_t ProgramCounterIndirectDisplacementMode::getMoveCycleKey() {
+    return 9;
+}

@@ -17,11 +17,13 @@ protected:
     uint32_t address;
     uint8_t cycles;
     std::vector<uint8_t> data;
+    uint8_t moveCycleKey;
 
 public:
-    AddressingResult(M68kCpu *cpu, Bus *bus, uint32_t address, std::vector<uint8_t> data, uint8_t cycles);
+    AddressingResult(M68kCpu *cpu, Bus *bus, uint32_t address, std::vector<uint8_t> data, uint8_t cycles, uint8_t moveCycleKey);
     ~AddressingResult() = default;
     uint8_t getCycles();
+    uint8_t getMoveCycleKey();
     std::vector<uint8_t> getData();
     uint8_t getDataAsByte();
     uint16_t getDataAsWord();
@@ -51,4 +53,5 @@ public:
     virtual uint8_t getModeId() = 0;
     virtual void setBus(Bus* b);
     virtual std::string disassemble(uint8_t regAddr, uint8_t size) = 0;
+    virtual uint8_t getMoveCycleKey();
 };

@@ -173,3 +173,7 @@ std::string ProgramCounterIndirectWithIndexMode::disassemble(uint8_t regAddr, ui
     }
 
 }
+
+uint8_t ProgramCounterIndirectWithIndexMode::getMoveCycleKey() {
+    return 10;
+}

@@ -22,16 +22,21 @@ void AddressingMode::setBus(Bus *b) {
 std::unique_ptr<AddressingResult> AddressingMode::getData(uint8_t regAddr, uint8_t size) {
     uint32_t address = getAddress(regAddr);
     auto data = bus->read(address, size);
-    return std::make_unique<AddressingResult>( cpu, bus, address, data, size > 2 ? longCycles : cycles );
+    return std::make_unique<AddressingResult>( cpu, bus, address, data, size > 2 ? longCycles : cycles, this->getMoveCycleKey());
+}
+
+uint8_t AddressingMode::getMoveCycleKey() {
+    return this->getModeId();
 }
 
 AddressingResult::AddressingResult(M68kCpu *cpu, Bus *bus, uint32_t address, std::vector<uint8_t> data,
-                                   uint8_t cycles) {
+                                   uint8_t cycles, uint8_t moveCycleKey) {
     this->cpu = cpu;
     this->bus = bus;
     this->address = address;
     this->data = std::move(data);
     this->cycles = cycles;
+    this->moveCycleKey = moveCycleKey;
 }
 
 std::vector<uint8_t> AddressingResult::getData() {
@@ -68,4 +73,8 @@ void AddressingResult::write(uint32_t data) {
 
 uint8_t AddressingResult::getCycles() {
     return cycles;
+}
+
+uint8_t AddressingResult::getMoveCycleKey() {
+    return moveCycleKey;
 }

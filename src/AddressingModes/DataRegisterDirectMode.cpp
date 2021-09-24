@@ -35,7 +35,7 @@ std::string DataRegisterDirectMode::disassemble(uint8_t regAddr, uint8_t size) {
 }
 
 DataRegisterDirectResult::DataRegisterDirectResult(M68kCpu *cpu, Bus *bus, uint32_t address, std::vector<uint8_t> data)
-        : AddressingResult(cpu, bus, address, std::move(data), 0) {
+        : AddressingResult(cpu, bus, address, std::move(data), 0, DataRegisterDirectMode::MODE_ID) {
 }
 
 void DataRegisterDirectResult::write(std::vector<uint8_t> data) {
