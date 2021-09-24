@@ -49,7 +49,7 @@ add_executable(testGenieSys
         CpuOperations/BCLRTest.cpp
         CpuOperations/BSETTest.cpp
         CpuOperations/MOVEPTest.cpp
-        CpuOperations/MOVEATest.cpp)
+        CpuOperations/MOVEATest.cpp CpuOperations/MOVETest.cpp)
 
 target_link_libraries(testGenieSys PRIVATE libGenieSys gtest gmock)
 

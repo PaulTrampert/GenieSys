@@ -27,7 +27,7 @@ std::unique_ptr<AddressingResult> AddressRegisterIndirectPreDecrementMode::getDa
     }
     address -= incrSize;
     cpu->setAddressRegister(regAddr, address);
-    return std::make_unique<AddressingResult>(cpu, bus, address, bus->read(address, size), size > 2 ? longCycles : cycles);
+    return std::make_unique<AddressingResult>(cpu, bus, address, bus->read(address, size), size > 2 ? longCycles : cycles, this->getMoveCycleKey());
 }
 
 std::string AddressRegisterIndirectPreDecrementMode::disassemble(uint8_t regAddr, uint8_t size) {

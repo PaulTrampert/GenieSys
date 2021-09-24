@@ -26,3 +26,7 @@ std::string AbsoluteLongAddressingMode::disassemble(uint8_t regAddr, uint8_t siz
     stream << "(" << getAddress(regAddr) << ").L";
     return stream.str();
 }
+
+uint8_t AbsoluteLongAddressingMode::getMoveCycleKey() {
+    return 8;
+}
