@@ -103,6 +103,12 @@ void M68kCpu::tick() {
     if (clock == 0) {
         opWord = bus->readWord(pc);
         pc += 2;
+#ifdef DISASSEMBLE
+        uint32_t oldPc = pc;
+        std::string instr = opTable[opWord]->disassemble(opWord);
+        printf("%#08x    %s", oldPc, instr.c_str());
+        pc = oldPc;
+#endif
         clock = opTable[opWord]->execute(opWord);
     }
     clock--;
