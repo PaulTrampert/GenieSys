@@ -50,3 +50,8 @@ source_group(
         PREFIX "Header Files"
         FILES ${HEADER_LIST}
 )
+
+OPTION(ENABLE_DISASSEMBLY "Enables disassembly when running the emulation" ON)
+IF(ENABLE_DISASSEMBLY)
+    ADD_DEFINITIONS(-DDISASSEMBLE)
+ENDIF(ENABLE_DISASSEMBLY)
