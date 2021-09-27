@@ -41,7 +41,7 @@ add_library(libGenieSys
         CpuOperations/BSET.cpp
         CpuOperations/MOVEP.cpp
         CpuOperations/MOVEA.cpp
-        CpuOperations/MOVE.cpp)
+        CpuOperations/MOVE.cpp CpuOperations/MOVEfromSR.cpp)
 
 target_include_directories(libGenieSys PUBLIC ../include)
 
