@@ -27,6 +27,7 @@
 #include <GenieSys/CpuOperations/MOVEA.h>
 #include <GenieSys/CpuOperations/MOVE.h>
 #include <GenieSys/CpuOperations/MOVEfromSR.h>
+#include <GenieSys/CpuOperations/MOVEtoCCR.h>
 
 CpuOperation::CpuOperation(M68kCpu *cpu, Bus *bus) {
     this->cpu = cpu;
@@ -52,6 +53,7 @@ std::vector<std::shared_ptr<CpuOperation>> getOperations(M68kCpu *cpu, Bus *bus)
             std::shared_ptr<CpuOperation>(new MOVE(cpu, bus)),
             std::shared_ptr<CpuOperation>(new MOVEA(cpu, bus)),
             std::shared_ptr<CpuOperation>(new MOVEfromSR(cpu, bus)),
+            std::shared_ptr<CpuOperation>(new MOVEtoCCR(cpu, bus)),
             std::shared_ptr<CpuOperation>(new MOVEP(cpu, bus)),
             std::shared_ptr<CpuOperation>(new Nop(cpu, bus)),
             std::shared_ptr<CpuOperation>(new ORI(cpu, bus)),
