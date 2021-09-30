@@ -1,0 +1,47 @@
+//
+// Created by pault on 9/29/2021.
+//
+
+#include <GenieSys/CpuOperations/MOVEtoSR.h>
+#include <GenieSys/AddressingModes/AddressingMode.h>
+#include <GenieSys/getPossibleOpcodes.h>
+#include <vector>
+#include <sstream>
+
+MOVEtoSR::MOVEtoSR(M68kCpu *cpu, Bus *bus) : CpuOperation(cpu, bus) {
+
+}
+
+std::vector<uint16_t> MOVEtoSR::getOpcodes() {
+    return getPossibleOpcodes((uint16_t) 0b0100011011000000, std::vector<BitMask<uint16_t>*> {
+        &eaRegMask,
+        &eaModeMask
+    });
+}
+
+uint8_t MOVEtoSR::execute(uint16_t opWord) {
+    uint8_t eaModeId = eaModeMask.apply(opWord);
+    auto eaMode = cpu->getAddressingMode(eaModeId);
+    uint8_t eaReg = eaRegMask.apply(opWord);
+    auto eaResult = eaMode->getData(eaReg, 2);
+    if (!cpu->isSupervisor()) {
+        cpu->trap(TV_PRIVILEGE);
+    }
+    else {
+        cpu->setSR(eaResult->getDataAsWord());
+    }
+    return 12 + eaResult->getCycles();
+}
+
+std::string MOVEtoSR::disassemble(uint16_t opWord) {
+    std::stringstream stream;
+    uint8_t eaModeId = eaModeMask.apply(opWord);
+    auto eaMode = cpu->getAddressingMode(eaModeId);
+    uint8_t eaReg = eaRegMask.apply(opWord);
+    stream << "MOVE " << eaMode->disassemble(eaReg, 2) << ",SR";
+    return stream.str();
+}
+
+uint8_t MOVEtoSR::getSpecificity() {
+    return eaModeMask.getWidth() + eaRegMask.getWidth();
+}
