@@ -55,3 +55,23 @@ static uint8_t getSubtractionCcrFlags(U result, U op1, U op2) {
     }
     return flags;
 }
+
+template <class U, class S>
+static uint8_t getNegxCcrFlags(U result, U op1, U x, uint8_t oldCcr) {
+    uint8_t flags = 0;
+    if (result > op1) {
+        flags |= CCR_OVERFLOW;
+    }
+    if ((S)result < 0) {
+        flags |= CCR_NEGATIVE;
+    }
+    if (result == 0) {
+        flags |= (oldCcr & CCR_ZERO);
+    }
+    if (((S)result < 0 && (S)op1 > 0 && (S)x < 0) ||
+        ((S) result > 0 && (S)op1 < 0 && (S)x > 0)
+    ) {
+        flags |= CCR_EXTEND | CCR_CARRY;
+    }
+    return flags;
+}
