@@ -42,8 +42,8 @@ protected:
     Bus* bus;
 public:
     /* Constants */
-    static BitMask<uint16_t> EA_MODE_MASK;        // Mask for getting the effective address mode from the opWord.
-    static BitMask<uint16_t> EA_REG_MASK;         // Mask for getting the effective address reg from the opWord.
+    static BitMask<uint16_t> EA_MODE_MASK;        // Mask for getting the effective address mode from the byteOpWord.
+    static BitMask<uint16_t> EA_REG_MASK;         // Mask for getting the effective address reg from the byteOpWord.
     static const uint8_t USP_ADDRESS = 0x07;            // The address register used for the user stack pointer.
 
     AddressingMode(M68kCpu *cpu, Bus *bus);

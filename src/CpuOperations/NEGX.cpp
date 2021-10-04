@@ -8,6 +8,7 @@
 #include <GenieSys/getCcrFlags.h>
 #include <vector>
 #include <cmath>
+#include <sstream>
 
 NEGX::NEGX(M68kCpu *cpu, Bus *bus) : CpuOperation(cpu, bus) {
 
@@ -52,31 +53,53 @@ uint8_t NEGX::execute(uint16_t opWord) {
 }
 
 uint8_t NEGX::negxByte(std::unique_ptr<AddressingResult> &eaResult, uint8_t oldCcr, uint8_t extendBit) {
-    uint8_t eaData = eaResult->getDataAsByte();
-    uint8_t result = -eaData - extendBit;
+    auto eaData = (int8_t)eaResult->getDataAsByte();
+    int8_t result = (int8_t)0 - eaData - extendBit;
     cpu->setCcrFlags(getNegxCcrFlags<uint8_t, int8_t>(result, -eaData, 1, oldCcr));
-    eaResult->write(result);
+    eaResult->write((uint8_t)result);
     return 4 + eaResult->getCycles();
 }
 
 uint8_t NEGX::negxWord(std::unique_ptr<AddressingResult> &eaResult, uint8_t oldCcr, uint8_t extendBit) {
-    uint16_t eaData = eaResult->getDataAsWord();
-    uint16_t result = -eaData - extendBit;
+    auto eaData = (int16_t)eaResult->getDataAsWord();
+    int16_t result = (int16_t)0 - eaData - extendBit;
     cpu->setCcrFlags(getNegxCcrFlags<uint16_t, int16_t>(result, -eaData, 1, oldCcr));
-    eaResult->write(result);
+    eaResult->write((uint16_t)result);
     return 4 + eaResult->getCycles();
 }
 
 uint8_t NEGX::negxLong(std::unique_ptr<AddressingResult> &eaResult, uint8_t oldCcr, uint8_t extendBit) {
-    uint32_t eaData = eaResult->getDataAsWord();
-    uint32_t result = -eaData - extendBit;
+    auto eaData = (int32_t)eaResult->getDataAsLong();
+    int32_t result = 0 - eaData - extendBit;
     cpu->setCcrFlags(getNegxCcrFlags<uint32_t, int32_t>(result, -eaData, 1, oldCcr));
-    eaResult->write(result);
+    eaResult->write((uint32_t)result);
     return 6 + eaResult->getCycles();
 }
 
 std::string NEGX::disassemble(uint16_t opWord) {
-    return std::string();
+    std::stringstream stream;
+    uint8_t size = sizeMask.apply(opWord);
+    uint8_t sizeBytes = pow(2, size);
+    uint8_t eaModeId = eaModeMask.apply(opWord);
+    uint8_t eaReg = eaRegMask.apply(opWord);
+    std::string sizeStr;
+    switch(size) {
+        case 0:
+            sizeStr = ".b";
+            break;
+        case 1:
+            sizeStr = ".w";
+            break;
+        case 2:
+            sizeStr = ".l";
+            break;
+        default:
+            sizeStr = "";
+            break;
+    }
+    auto eaMode = cpu->getAddressingMode(eaModeId);
+    stream << "NEGX" << sizeStr << " " << eaMode->disassemble(eaReg, sizeBytes);
+    return stream.str();
 }
 
 
