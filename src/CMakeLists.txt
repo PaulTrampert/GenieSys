@@ -44,7 +44,8 @@ add_library(libGenieSys
         CpuOperations/MOVE.cpp
         CpuOperations/MOVEfromSR.cpp
         CpuOperations/MOVEtoCCR.cpp
-        CpuOperations/MOVEtoSR.cpp)
+        CpuOperations/MOVEtoSR.cpp
+        CpuOperations/NEGX.cpp)
 
 target_include_directories(libGenieSys PUBLIC ../include)
 
