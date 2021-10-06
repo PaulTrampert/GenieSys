@@ -7,6 +7,7 @@
 #include <GenieSys/AddressingModes/AddressingMode.h>
 #include <vector>
 #include <sstream>
+#include <cmath>
 #include <GenieSys/AddressingModes/DataRegisterDirectMode.h>
 #include <GenieSys/AddressingModes/AddressRegisterDirectMode.h>
 
