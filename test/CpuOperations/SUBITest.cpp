@@ -30,7 +30,7 @@ TEST_F(SUBITest, ItSubtractsBytes) {
     uint8_t cycles = subject->execute(0b0000010000010000);
     ASSERT_EQ(16, cycles);
     ASSERT_EQ(0xBB, bus.read(600));
-    ASSERT_EQ(CCR_OVERFLOW | CCR_NEGATIVE, cpu->getCcrFlags());
+    ASSERT_EQ(CCR_EXTEND | CCR_CARRY | CCR_NEGATIVE, cpu->getCcrFlags());
 }
 
 TEST_F(SUBITest, ItSubtractsWords) {

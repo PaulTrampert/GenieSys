@@ -55,7 +55,7 @@ uint8_t NEGX::execute(uint16_t opWord) {
 uint8_t NEGX::negxByte(std::unique_ptr<AddressingResult> &eaResult, uint8_t oldCcr, uint8_t extendBit) {
     auto eaData = eaResult->getDataAsByte();
     uint8_t result = -eaData - extendBit;
-    cpu->setCcrFlags(getNegxCcrFlags<uint8_t, int8_t>(result, -eaData, 1, oldCcr));
+    cpu->setCcrFlags(getNegxCcrFlags<uint8_t, int8_t>(result, -eaData, extendBit, oldCcr));
     eaResult->write((uint8_t)result);
     return 4 + eaResult->getCycles();
 }
@@ -63,7 +63,7 @@ uint8_t NEGX::negxByte(std::unique_ptr<AddressingResult> &eaResult, uint8_t oldC
 uint8_t NEGX::negxWord(std::unique_ptr<AddressingResult> &eaResult, uint8_t oldCcr, uint8_t extendBit) {
     auto eaData = eaResult->getDataAsWord();
     uint16_t result = -eaData - extendBit;
-    cpu->setCcrFlags(getNegxCcrFlags<uint16_t, int16_t>(result, -eaData, 1, oldCcr));
+    cpu->setCcrFlags(getNegxCcrFlags<uint16_t, int16_t>(result, -eaData, extendBit, oldCcr));
     eaResult->write((uint16_t)result);
     return 4 + eaResult->getCycles();
 }
@@ -71,7 +71,7 @@ uint8_t NEGX::negxWord(std::unique_ptr<AddressingResult> &eaResult, uint8_t oldC
 uint8_t NEGX::negxLong(std::unique_ptr<AddressingResult> &eaResult, uint8_t oldCcr, uint8_t extendBit) {
     auto eaData = eaResult->getDataAsLong();
     uint32_t result = -eaData - extendBit;
-    cpu->setCcrFlags(getNegxCcrFlags<uint32_t, int32_t>(result, -eaData, 1, oldCcr));
+    cpu->setCcrFlags(getNegxCcrFlags<uint32_t, int32_t>(result, -eaData, extendBit, oldCcr));
     eaResult->write((uint32_t)result);
     return 6 + eaResult->getCycles();
 }
