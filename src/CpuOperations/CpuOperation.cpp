@@ -30,6 +30,7 @@
 #include <GenieSys/CpuOperations/MOVEtoCCR.h>
 #include <GenieSys/CpuOperations/MOVEtoSR.h>
 #include <GenieSys/CpuOperations/NEGX.h>
+#include <GenieSys/CpuOperations/CLR.h>
 
 CpuOperation::CpuOperation(M68kCpu *cpu, Bus *bus) {
     this->cpu = cpu;
@@ -48,6 +49,7 @@ std::vector<std::shared_ptr<CpuOperation>> getOperations(M68kCpu *cpu, Bus *bus)
             std::shared_ptr<CpuOperation>(new BCLR(cpu, bus)),
             std::shared_ptr<CpuOperation>(new BSET(cpu, bus)),
             std::shared_ptr<CpuOperation>(new BTST(cpu, bus)),
+            std::shared_ptr<CpuOperation>(new CLR(cpu, bus)),
             std::shared_ptr<CpuOperation>(new CMPI(cpu, bus)),
             std::shared_ptr<CpuOperation>(new EORI(cpu, bus)),
             std::shared_ptr<CpuOperation>(new EORItoCCR(cpu, bus)),
