@@ -37,7 +37,7 @@ uint8_t CLR::execute(uint16_t opWord) {
     eaResult->write(zeros);
     auto initCcrX = cpu->getCcrFlags() & CCR_EXTEND;
     cpu->setCcrFlags(initCcrX | CCR_ZERO);
-    bool isRegisterEa = eaModeId != DataRegisterDirectMode::MODE_ID && eaModeId != AddressRegisterDirectMode::MODE_ID;
+    bool isRegisterEa = eaModeId == DataRegisterDirectMode::MODE_ID || eaModeId == AddressRegisterDirectMode::MODE_ID;
     switch(size) {
         case 0:
         case 1:

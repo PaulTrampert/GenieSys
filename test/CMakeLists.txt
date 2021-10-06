@@ -53,7 +53,7 @@ add_executable(testGenieSys
         CpuOperations/MOVETest.cpp
         CpuOperations/MOVEfromSRTest.cpp
         CpuOperations/MOVEtoCCRTest.cpp
-        CpuOperations/MOVEtoSRTest.cpp CpuOperations/NEGXTest.cpp)
+        CpuOperations/MOVEtoSRTest.cpp CpuOperations/NEGXTest.cpp CpuOperations/CLRTest.cpp)
 
 target_link_libraries(testGenieSys PRIVATE libGenieSys gtest gmock)
 
