@@ -30,7 +30,7 @@ TEST_F(CMPITest, ItComparesBytes) {
     uint8_t cycles = subject->execute(0b0000110000010000);
     ASSERT_EQ(12, cycles);
     ASSERT_EQ(0xAB, bus.read(600));
-    ASSERT_EQ(CCR_OVERFLOW | CCR_NEGATIVE, cpu->getCcrFlags());
+    ASSERT_EQ(CCR_EXTEND | CCR_CARRY | CCR_NEGATIVE, cpu->getCcrFlags());
 }
 
 TEST_F(CMPITest, ItComparesWords) {

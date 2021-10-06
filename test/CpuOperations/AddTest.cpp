@@ -95,17 +95,17 @@ TEST_F(AddTest, ItAddsTwoBytes_WhenOneIsNegative) {
     subject->execute(0b1101001000000000);
 
     ASSERT_EQ(35, cpu->getDataRegister(1));
-    ASSERT_EQ(CCR_OVERFLOW, cpu->getCcrFlags());
+    ASSERT_EQ(CCR_EXTEND | CCR_CARRY, cpu->getCcrFlags());
 }
 
-TEST_F(AddTest, ItCorrectlySetsCarryFlag) {
+TEST_F(AddTest, ItCorrectlySetsOverflow) {
     cpu->setDataRegister(0, (uint8_t)127);
     cpu->setDataRegister(1, (uint8_t)1);
 
     subject->execute(0b1101001000000000);
 
     ASSERT_EQ(128, cpu->getDataRegister(1));
-    ASSERT_EQ(CCR_EXTEND | CCR_CARRY | CCR_NEGATIVE, cpu->getCcrFlags());
+    ASSERT_EQ(CCR_OVERFLOW | CCR_NEGATIVE, cpu->getCcrFlags());
 }
 
 TEST_F(AddTest, ItReturnsTheCorrectCycles_AddBytes_EffectiveAddressResult) {
