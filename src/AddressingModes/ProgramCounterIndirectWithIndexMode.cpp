@@ -6,6 +6,7 @@
 #include <stdexcept>
 #include <GenieSys/ExtensionWord.h>
 #include "GenieSys/AddressingModes/ProgramCounterIndirectWithIndexMode.h"
+#include "signExtend.h"
 
 ProgramCounterIndirectWithIndexMode::ProgramCounterIndirectWithIndexMode(M68kCpu *cpu, Bus *bus)
     : AddressingMode(cpu, bus) {
@@ -19,12 +20,12 @@ uint32_t ProgramCounterIndirectWithIndexMode::getAddress(uint8_t regAddr) {
     cpu->incrementPc(2);
     uint8_t idxRegAddr = extWord.getIdxRegAddr();
     if (extWord.isBrief()) {
-        auto displacement = signExtend<int32_t>(extWord.getDisplacement(), 8);
+        auto displacement = GenieSys::signExtend<int32_t>(extWord.getDisplacement(), 8);
         int32_t idxReg = extWord.getIdxRegType() == M68K_REG_TYPE_DATA
                          ? cpu->getDataRegister(idxRegAddr)
                          : cpu->getAddressRegister(idxRegAddr);
         if (extWord.getIdxSize() == EXT_WORD_IDX_SIZE_SE_WORD) {
-            idxReg = signExtend<int32_t>(idxReg & 0x0000FFFF, 16);
+            idxReg = GenieSys::signExtend<int32_t>(idxReg & 0x0000FFFF, 16);
         }
         uint32_t scale = pow(2, extWord.getScale());
         return baseAddr + displacement + (idxReg * scale);
@@ -37,13 +38,13 @@ uint32_t ProgramCounterIndirectWithIndexMode::getAddress(uint8_t regAddr) {
                      ? cpu->getDataRegister(idxRegAddr)
                      : cpu->getAddressRegister(idxRegAddr);
             if (extWord.getIdxSize() == EXT_WORD_IDX_SIZE_SE_WORD) {
-                idxReg = signExtend<int32_t>(idxReg & 0x0000FFFF, 16);
+                idxReg = GenieSys::signExtend<int32_t>(idxReg & 0x0000FFFF, 16);
             }
         }
         uint32_t scale = pow(2, extWord.getScale());
         int32_t baseDisplacement = 0;
         if (extWord.getBaseDisplacementSize() == EXT_WORD_BD_SIZE_WORD) {
-            baseDisplacement = signExtend<int32_t>(bus->readWord(cpu->getPc()), 16);
+            baseDisplacement = GenieSys::signExtend<int32_t>(bus->readWord(cpu->getPc()), 16);
             cpu->incrementPc(2);
         }
         else if (extWord.getBaseDisplacementSize() == EXT_WORD_BD_SIZE_LONG) {
@@ -62,7 +63,7 @@ uint32_t ProgramCounterIndirectWithIndexMode::getAddress(uint8_t regAddr) {
                 // Preindexed
                 intermediateAddr = baseAddr + baseDisplacement + (idxReg * scale);
                 if (extWord.getIndexIndirectSelection() == 2) {
-                    outerDisplacement = signExtend<int32_t>(bus->readWord(cpu->getPc()), 16);
+                    outerDisplacement = GenieSys::signExtend<int32_t>(bus->readWord(cpu->getPc()), 16);
                     cpu->incrementPc(2);
                 }
                 else if (extWord.getIndexIndirectSelection() == 3) {
@@ -76,7 +77,7 @@ uint32_t ProgramCounterIndirectWithIndexMode::getAddress(uint8_t regAddr) {
                 // Postindexed
                 intermediateAddr = baseAddr + baseDisplacement;
                 if (extWord.getIndexIndirectSelection() == 6) {
-                    outerDisplacement = signExtend<int32_t>(bus->readWord(cpu->getPc()), 16);
+                    outerDisplacement = GenieSys::signExtend<int32_t>(bus->readWord(cpu->getPc()), 16);
                     cpu->incrementPc(2);
                 }
                 else if (extWord.getIndexIndirectSelection() == 7) {
@@ -100,7 +101,7 @@ std::string ProgramCounterIndirectWithIndexMode::disassemble(uint8_t regAddr, ui
     cpu->incrementPc(2);
     uint8_t idxRegAddr = extWord.getIdxRegAddr();
     if (extWord.isBrief()) {
-        auto displacement = signExtend<int32_t>(extWord.getDisplacement(), 8);
+        auto displacement = GenieSys::signExtend<int32_t>(extWord.getDisplacement(), 8);
         auto idxRegType = extWord.getIdxRegType() == M68K_REG_TYPE_DATA ? "D" : "A";
         auto idxRegSize = extWord.getIdxSize() == EXT_WORD_IDX_SIZE_SE_WORD ? ".w" : ".l";
         auto scale = (int)pow(2, extWord.getScale());
@@ -116,7 +117,7 @@ std::string ProgramCounterIndirectWithIndexMode::disassemble(uint8_t regAddr, ui
         }
         std::string baseDisplacementTerm;
         if (extWord.getBaseDisplacementSize() == EXT_WORD_BD_SIZE_WORD) {
-            auto baseDisplacement = signExtend<int32_t>(bus->readWord(cpu->getPc()), 16);
+            auto baseDisplacement = GenieSys::signExtend<int32_t>(bus->readWord(cpu->getPc()), 16);
             cpu->incrementPc(2);
             baseDisplacementTerm = "#" + std::to_string(baseDisplacement);
         }
@@ -144,7 +145,7 @@ std::string ProgramCounterIndirectWithIndexMode::disassemble(uint8_t regAddr, ui
             case 3:
                 // Preindexed
                 if (idxIndirectSelection == 2) {
-                    outerDisplacement = signExtend<int32_t>(bus->readWord(cpu->getPc()), 16);
+                    outerDisplacement = GenieSys::signExtend<int32_t>(bus->readWord(cpu->getPc()), 16);
                     cpu->incrementPc(2);
                 }
                 else if (idxIndirectSelection == 3) {
@@ -158,7 +159,7 @@ std::string ProgramCounterIndirectWithIndexMode::disassemble(uint8_t regAddr, ui
             case 7:
                 // Preindexed
                 if (idxIndirectSelection == 6) {
-                    outerDisplacement = signExtend<int32_t>(bus->readWord(cpu->getPc()), 16);
+                    outerDisplacement = GenieSys::signExtend<int32_t>(bus->readWord(cpu->getPc()), 16);
                     cpu->incrementPc(2);
                 }
                 else if (idxIndirectSelection == 7) {

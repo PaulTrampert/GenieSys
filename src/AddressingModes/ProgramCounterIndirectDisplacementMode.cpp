@@ -5,6 +5,7 @@
 #include <GenieSys/signExtend.h>
 #include <sstream>
 #include "GenieSys/AddressingModes/ProgramCounterIndirectDisplacementMode.h"
+#include "signExtend.h"
 
 ProgramCounterIndirectDisplacementMode::ProgramCounterIndirectDisplacementMode(M68kCpu *cpu, Bus *bus)
     : AddressingMode(cpu, bus) {
@@ -13,7 +14,7 @@ ProgramCounterIndirectDisplacementMode::ProgramCounterIndirectDisplacementMode(M
 }
 
 uint32_t ProgramCounterIndirectDisplacementMode::getAddress(uint8_t regAddr) {
-    uint32_t address = cpu->getPc() + signExtend<int32_t>((int32_t)bus->readWord(cpu->getPc()), 16);
+    uint32_t address = cpu->getPc() + GenieSys::signExtend<int32_t>((int32_t)bus->readWord(cpu->getPc()), 16);
     cpu->incrementPc(2);
     return address;
 }
@@ -23,7 +24,7 @@ uint8_t ProgramCounterIndirectDisplacementMode::getModeId() {
 }
 
 std::string ProgramCounterIndirectDisplacementMode::disassemble(uint8_t regAddr, uint8_t size) {
-    auto displacement = signExtend<int32_t>((int32_t)bus->readWord(cpu->getPc()), 16);
+    auto displacement = GenieSys::signExtend<int32_t>((int32_t)bus->readWord(cpu->getPc()), 16);
     cpu->incrementPc(2);
     std::stringstream stream;
     stream << "(#" << displacement << ",PC)";

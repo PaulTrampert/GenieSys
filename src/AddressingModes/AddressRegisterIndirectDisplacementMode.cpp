@@ -3,6 +3,7 @@
 //
 #include <GenieSys/signExtend.h>
 #include "GenieSys/AddressingModes/AddressRegisterIndirectDisplacementMode.h"
+#include "signExtend.h"
 
 AddressRegisterIndirectDisplacementMode::AddressRegisterIndirectDisplacementMode(M68kCpu *cpu, Bus *bus)
         : AddressingMode(cpu, bus) {
@@ -11,7 +12,7 @@ AddressRegisterIndirectDisplacementMode::AddressRegisterIndirectDisplacementMode
 }
 
 uint32_t AddressRegisterIndirectDisplacementMode::getAddress(uint8_t regAddr) {
-    auto displacement = signExtend<int32_t>(bus->readWord(cpu->getPc()), 16);
+    auto displacement = GenieSys::signExtend<int32_t>(bus->readWord(cpu->getPc()), 16);
     cpu->incrementPc(2);
     return cpu->getAddressRegister(regAddr) + displacement;
 }
@@ -21,7 +22,7 @@ uint8_t AddressRegisterIndirectDisplacementMode::getModeId() {
 }
 
 std::string AddressRegisterIndirectDisplacementMode::disassemble(uint8_t regAddr, uint8_t size) {
-    auto displacement = signExtend<int32_t>(bus->readWord(cpu->getPc()), 16);
+    auto displacement = GenieSys::signExtend<int32_t>(bus->readWord(cpu->getPc()), 16);
     cpu->incrementPc(2);
     return "(" + std::to_string(displacement) + ",A" + std::to_string(regAddr) + ")";
 }

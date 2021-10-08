@@ -8,6 +8,7 @@
 #include <GenieSys/signExtend.h>
 #include <cmath>
 #include <sstream>
+#include "signExtend.h"
 
 MOVEA::MOVEA(M68kCpu *cpu, Bus *bus) : CpuOperation(cpu, bus) {
 
@@ -36,7 +37,7 @@ uint8_t MOVEA::execute(uint16_t opWord) {
     auto eaResult = eaMode->getData(eaAddr, sizeBytes);
     uint32_t regData;
     if (sizeBytes == 2) {
-        regData = signExtend<uint32_t>(eaResult->getDataAsWord(), 16);
+        regData = GenieSys::signExtend<uint32_t>(eaResult->getDataAsWord(), 16);
     }
     else {
         regData = eaResult->getDataAsLong();

@@ -5,6 +5,7 @@
 #include <GenieSys/signExtend.h>
 #include <sstream>
 #include "GenieSys/AddressingModes/AbsoluteShortAddressingMode.h"
+#include "signExtend.h"
 
 AbsoluteShortAddressingMode::AbsoluteShortAddressingMode(M68kCpu *cpu, Bus *bus) : AddressingMode(cpu, bus) {
     cycles = 8;
@@ -12,7 +13,7 @@ AbsoluteShortAddressingMode::AbsoluteShortAddressingMode(M68kCpu *cpu, Bus *bus)
 }
 
 uint32_t AbsoluteShortAddressingMode::getAddress(uint8_t regAddr) {
-    uint32_t address = signExtend<int32_t>(bus->readWord(cpu->getPc()), 16);
+    uint32_t address = GenieSys::signExtend<int32_t>(bus->readWord(cpu->getPc()), 16);
     cpu->incrementPc(2);
     return address;
 }
