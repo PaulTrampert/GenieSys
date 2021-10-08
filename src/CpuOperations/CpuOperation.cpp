@@ -32,6 +32,7 @@
 #include <GenieSys/CpuOperations/NEGX.h>
 #include <GenieSys/CpuOperations/CLR.h>
 #include <GenieSys/CpuOperations/NEG.h>
+#include <GenieSys/CpuOperations/NOT.h>
 
 CpuOperation::CpuOperation(M68kCpu *cpu, Bus *bus) {
     this->cpu = cpu;
@@ -64,6 +65,7 @@ std::vector<std::shared_ptr<CpuOperation>> getOperations(M68kCpu *cpu, Bus *bus)
             std::shared_ptr<CpuOperation>(new NEG(cpu, bus)),
             std::shared_ptr<CpuOperation>(new NEGX(cpu, bus)),
             std::shared_ptr<CpuOperation>(new Nop(cpu, bus)),
+            std::shared_ptr<CpuOperation>(new NOT(cpu, bus)),
             std::shared_ptr<CpuOperation>(new ORI(cpu, bus)),
             std::shared_ptr<CpuOperation>(new ORItoCCR(cpu, bus)),
             std::shared_ptr<CpuOperation>(new ORItoSR(cpu, bus)),

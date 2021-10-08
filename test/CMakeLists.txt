@@ -57,6 +57,7 @@ add_executable(testGenieSys
         CpuOperations/NEGXTest.cpp
         CpuOperations/CLRTest.cpp
         CpuOperations/NEGTest.cpp
+        CpuOperations/NOTTest.cpp
         getCcrFlags.cpp)
 
 target_link_libraries(testGenieSys PRIVATE libGenieSys gtest gmock)
