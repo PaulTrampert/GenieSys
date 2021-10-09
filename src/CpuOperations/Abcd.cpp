@@ -9,6 +9,7 @@
 #include <GenieSys/getPossibleOpcodes.h>
 #include <sstream>
 
+
 const uint16_t OPCODE_BASE = 0b1100000100000000;
 static GenieSys::BitMask<uint16_t> RX_MASK = GenieSys::BitMask<uint16_t>(11, 3);
 static GenieSys::BitMask<uint16_t> RY_MASK = GenieSys::BitMask<uint16_t>(2, 3);
@@ -63,7 +64,7 @@ uint8_t Abcd::execute(uint16_t opWord) {
     return cycles[rm];
 }
 
-Abcd::Abcd(M68kCpu *cpu, Bus *bus) : CpuOperation(cpu, bus) {
+Abcd::Abcd(GenieSys::M68kCpu *cpu, Bus *bus) : CpuOperation(cpu, bus) {
 }
 
 std::vector<uint16_t> Abcd::getOpcodes() {

@@ -5,8 +5,9 @@
 #include <gtest/gtest.h>
 #include <GenieSys/CpuOperations/EORItoCCR.h>
 
+
 struct EORItoCCRTest : testing::Test {
-    M68kCpu* cpu;
+    GenieSys::M68kCpu* cpu;
     Bus bus;
     EORItoCCR* subject;
 

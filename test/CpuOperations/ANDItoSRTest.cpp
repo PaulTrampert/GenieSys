@@ -4,8 +4,9 @@
 #include <gtest/gtest.h>
 #include <GenieSys/CpuOperations/ANDItoSR.h>
 
+
 struct ANDItoSRTest : testing::Test {
-    M68kCpu* cpu;
+    GenieSys::M68kCpu* cpu;
     Bus bus;
     ANDItoSR* subject;
 

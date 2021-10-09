@@ -34,12 +34,13 @@
 #include <GenieSys/CpuOperations/NEG.h>
 #include <GenieSys/CpuOperations/NOT.h>
 
-CpuOperation::CpuOperation(M68kCpu *cpu, Bus *bus) {
+
+CpuOperation::CpuOperation(GenieSys::M68kCpu *cpu, Bus *bus) {
     this->cpu = cpu;
     this->bus = bus;
 }
 
-std::vector<std::shared_ptr<CpuOperation>> getOperations(M68kCpu *cpu, Bus *bus) {
+std::vector<std::shared_ptr<CpuOperation>> getOperations(GenieSys::M68kCpu *cpu, Bus *bus) {
     std::vector<std::shared_ptr<CpuOperation>> operations{
             std::shared_ptr<CpuOperation>(new Abcd(cpu, bus)),
             std::shared_ptr<CpuOperation>(new Add(cpu, bus)),

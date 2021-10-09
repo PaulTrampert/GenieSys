@@ -7,7 +7,8 @@
 #include <GenieSys/AddressingModes/ImmediateDataMode.h>
 #include <sstream>
 
-ORItoSR::ORItoSR(M68kCpu *cpu, Bus *bus) : CpuOperation(cpu, bus) {
+
+ORItoSR::ORItoSR(GenieSys::M68kCpu *cpu, Bus *bus) : CpuOperation(cpu, bus) {
 
 }
 

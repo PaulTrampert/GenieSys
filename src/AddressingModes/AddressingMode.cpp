@@ -7,10 +7,11 @@
 #include <memory>
 #include <utility>
 
+
 GenieSys::BitMask<uint16_t> AddressingMode::EA_MODE_MASK = GenieSys::BitMask<uint16_t>(5, 3);
 GenieSys::BitMask<uint16_t> AddressingMode::EA_REG_MASK = GenieSys::BitMask<uint16_t>(2, 3);
 
-AddressingMode::AddressingMode(M68kCpu *cpu, Bus *bus) {
+AddressingMode::AddressingMode(GenieSys::M68kCpu *cpu, Bus *bus) {
     this->cpu = cpu;
     this->bus = bus;
 }
@@ -29,7 +30,7 @@ uint8_t AddressingMode::getMoveCycleKey() {
     return this->getModeId();
 }
 
-AddressingResult::AddressingResult(M68kCpu *cpu, Bus *bus, uint32_t address, std::vector<uint8_t> data,
+AddressingResult::AddressingResult(GenieSys::M68kCpu *cpu, Bus *bus, uint32_t address, std::vector<uint8_t> data,
                                    uint8_t cycles, uint8_t moveCycleKey) {
     this->cpu = cpu;
     this->bus = bus;

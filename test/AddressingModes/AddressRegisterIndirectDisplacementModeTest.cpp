@@ -5,9 +5,10 @@
 #include <GenieSys/Bus.h>
 #include <GenieSys/AddressingModes/AddressRegisterIndirectDisplacementMode.h>
 
+
 struct AddressRegisterIndirectDisplacementModeTest : testing::Test {
     Bus bus;
-    M68kCpu* cpu;
+    GenieSys::M68kCpu* cpu;
     AddressRegisterIndirectDisplacementMode* subject;
 
     AddressRegisterIndirectDisplacementModeTest() {

@@ -5,10 +5,11 @@
 #include <GenieSys/CpuOperations/CLR.h>
 
 
+
 class CLRTest : public ::testing::Test {
 public:
     CLR* subject;
-    M68kCpu* cpu;
+    GenieSys::M68kCpu* cpu;
     Bus bus;
 
     uint16_t byteOp = 0b0100001000010000;

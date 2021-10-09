@@ -6,7 +6,8 @@
 #include <sstream>
 #include "GenieSys/AddressingModes/ProgramCounterIndirectDisplacementMode.h"
 
-ProgramCounterIndirectDisplacementMode::ProgramCounterIndirectDisplacementMode(M68kCpu *cpu, Bus *bus)
+
+ProgramCounterIndirectDisplacementMode::ProgramCounterIndirectDisplacementMode(GenieSys::M68kCpu *cpu, Bus *bus)
     : AddressingMode(cpu, bus) {
     cycles = 8;
     longCycles = 12;

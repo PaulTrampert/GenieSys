@@ -9,6 +9,7 @@
 #include "CpuOperation.h"
 
 
+
 class NEGX : public CpuOperation {
 private:
     GenieSys::BitMask<uint16_t> sizeMask = GenieSys::BitMask<uint16_t>(7, 2, 0, 2);
@@ -20,7 +21,7 @@ private:
     uint8_t negxLong(std::unique_ptr<AddressingResult> &eaResult, uint8_t oldCcr, uint8_t extendBit);
 
 public:
-    NEGX(M68kCpu* cpu, Bus* bus);
+    NEGX(GenieSys::M68kCpu* cpu, Bus* bus);
     uint8_t getSpecificity() override;
     std::vector<uint16_t> getOpcodes() override;
     uint8_t execute(uint16_t opWord) override;

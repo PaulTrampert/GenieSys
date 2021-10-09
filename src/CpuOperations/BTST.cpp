@@ -11,7 +11,8 @@
 #include <GenieSys/AddressingModes/DataRegisterDirectMode.h>
 
 
-BTST::BTST(M68kCpu *cpu, Bus *bus) : CpuOperation(cpu, bus) {
+
+BTST::BTST(GenieSys::M68kCpu *cpu, Bus *bus) : CpuOperation(cpu, bus) {
 
 }
 

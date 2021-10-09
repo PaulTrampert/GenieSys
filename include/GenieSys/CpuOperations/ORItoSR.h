@@ -5,9 +5,10 @@
 #pragma once
 #include "./CpuOperation.h"
 
+
 class ORItoSR : public CpuOperation {
 public:
-    ORItoSR(M68kCpu* cpu, Bus* bus);
+    ORItoSR(GenieSys::M68kCpu* cpu, Bus* bus);
     std::vector<uint16_t> getOpcodes() override;
     uint8_t execute(uint16_t opWord) override;
     uint8_t getSpecificity() override;

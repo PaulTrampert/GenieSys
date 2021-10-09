@@ -5,10 +5,11 @@
 #include <gtest/gtest.h>
 #include <GenieSys/CpuOperations/CMPI.h>
 
+
 static uint16_t BASE_OPCODE = 0b0000010000000000;
 
 struct CMPITest : testing::Test {
-    M68kCpu* cpu;
+    GenieSys::M68kCpu* cpu;
     Bus bus;
     CMPI* subject;
 

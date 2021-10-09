@@ -8,6 +8,7 @@
 #include <sstream>
 
 
+
 static uint8_t byteWordCycleTable[12][9] = {
         {4, 4, 8, 8, 8, 12, 14, 12, 16},
         {4, 4, 8, 8, 8, 12, 14, 12, 16},
@@ -38,7 +39,7 @@ static uint8_t longCycleTable[12][9] = {
         {12, 12, 20, 20, 20, 24, 26, 24, 28},
 };
 
-MOVE::MOVE(M68kCpu *cpu, Bus *bus) : CpuOperation(cpu, bus) {
+MOVE::MOVE(GenieSys::M68kCpu *cpu, Bus *bus) : CpuOperation(cpu, bus) {
 
 }
 

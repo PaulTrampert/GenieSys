@@ -8,6 +8,7 @@
 #include "CpuOperation.h"
 
 
+
 class MOVE : public CpuOperation{
 private:
     GenieSys::BitMask<uint16_t> sizeMask = GenieSys::BitMask<uint16_t>(13, 2, 1, 3);
@@ -17,7 +18,7 @@ private:
     GenieSys::BitMask<uint16_t> srcEaModeMask = GenieSys::BitMask<uint16_t>(5, 3);
 
 public:
-    MOVE(M68kCpu* cpu, Bus* bus);
+    MOVE(GenieSys::M68kCpu* cpu, Bus* bus);
     std::vector<uint16_t> getOpcodes() override;
     uint8_t getSpecificity() override;
     uint8_t execute(uint16_t opWord) override;

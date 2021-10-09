@@ -4,7 +4,8 @@
 #include <GenieSys/signExtend.h>
 #include "GenieSys/AddressingModes/AddressRegisterIndirectDisplacementMode.h"
 
-AddressRegisterIndirectDisplacementMode::AddressRegisterIndirectDisplacementMode(M68kCpu *cpu, Bus *bus)
+
+AddressRegisterIndirectDisplacementMode::AddressRegisterIndirectDisplacementMode(GenieSys::M68kCpu *cpu, Bus *bus)
         : AddressingMode(cpu, bus) {
     cycles = 8;
     longCycles = 12;

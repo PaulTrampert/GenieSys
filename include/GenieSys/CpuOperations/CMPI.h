@@ -7,6 +7,7 @@
 #include "CpuOperation.h"
 
 
+
 class CMPI : public CpuOperation {
 private:
     const uint16_t BASE_OPCODE = 0b0000110000000000;
@@ -15,7 +16,7 @@ private:
     GenieSys::BitMask<uint16_t> eaRegMask = GenieSys::BitMask<uint16_t>(2, 3);
 
 public:
-    CMPI(M68kCpu* cpu, Bus* bus);
+    CMPI(GenieSys::M68kCpu* cpu, Bus* bus);
     std::string disassemble(uint16_t opWord) override;
     uint8_t getSpecificity() override;
     uint8_t execute(uint16_t opWord) override;

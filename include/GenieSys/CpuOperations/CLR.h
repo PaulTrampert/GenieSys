@@ -6,6 +6,7 @@
 #include "CpuOperation.h"
 
 
+
 class CLR : public CpuOperation {
 private:
     GenieSys::BitMask<uint16_t> sizeMask = GenieSys::BitMask<uint16_t>(7, 2, 0, 2);
@@ -13,7 +14,7 @@ private:
     GenieSys::BitMask<uint16_t> eaRegMask = GenieSys::BitMask<uint16_t>(2, 3);
 
 public:
-    CLR(M68kCpu* cpu, Bus* bus);
+    CLR(GenieSys::M68kCpu* cpu, Bus* bus);
 
     uint8_t getSpecificity() override;
     std::vector<uint16_t> getOpcodes() override;

@@ -8,6 +8,7 @@
 #include "../BitMask.h"
 
 
+
 class MOVEP : public CpuOperation {
 private:
     enum OpMode {
@@ -26,7 +27,7 @@ private:
     void LongRegToMem(uint32_t anAddr, uint8_t dn);
 
 public:
-    MOVEP(M68kCpu* cpu, Bus* bus);
+    MOVEP(GenieSys::M68kCpu* cpu, Bus* bus);
     std::string disassemble(uint16_t opWord) override;
     uint8_t execute(uint16_t opWord) override;
     std::vector<uint16_t> getOpcodes() override;

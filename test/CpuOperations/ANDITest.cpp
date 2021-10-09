@@ -5,10 +5,11 @@
 #include <gtest/gtest.h>
 #include <GenieSys/CpuOperations/ANDI.h>
 
+
 static uint16_t BASE_OPCODE = 0b0000001000000000;
 
 struct ANDITest : testing::Test {
-    M68kCpu* cpu;
+    GenieSys::M68kCpu* cpu;
     Bus bus;
     ANDI* subject;
 

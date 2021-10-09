@@ -5,9 +5,10 @@
 #include <GenieSys/AddressingModes/ProgramCounterIndirectDisplacementMode.h>
 #include <GenieSys/numberUtils.h>
 
+
 struct ProgramCounterIndirectDisplacementModeTest : testing::Test {
     Bus bus;
-    M68kCpu* cpu;
+    GenieSys::M68kCpu* cpu;
     ProgramCounterIndirectDisplacementMode* subject;
 
     ProgramCounterIndirectDisplacementModeTest() {

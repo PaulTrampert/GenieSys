@@ -5,8 +5,9 @@
 #include <gtest/gtest.h>
 #include <GenieSys/CpuOperations/ORItoCCR.h>
 
+
 struct ORItoCCRTest : testing::Test {
-    M68kCpu* cpu;
+    GenieSys::M68kCpu* cpu;
     Bus bus;
     ORItoCCR* subject;
 

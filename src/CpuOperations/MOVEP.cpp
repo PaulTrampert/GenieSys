@@ -9,7 +9,8 @@
 #include <GenieSys/AddressingModes/DataRegisterDirectMode.h>
 
 
-MOVEP::MOVEP(M68kCpu *cpu, Bus *bus) : CpuOperation(cpu, bus) {
+
+MOVEP::MOVEP(GenieSys::M68kCpu *cpu, Bus *bus) : CpuOperation(cpu, bus) {
 
 }
 

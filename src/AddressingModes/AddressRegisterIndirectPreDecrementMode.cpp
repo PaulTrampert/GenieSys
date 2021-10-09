@@ -5,7 +5,8 @@
 #include <memory>
 #include "GenieSys/AddressingModes/AddressRegisterIndirectPreDecrementMode.h"
 
-AddressRegisterIndirectPreDecrementMode::AddressRegisterIndirectPreDecrementMode(M68kCpu *cpu, Bus *bus)
+
+AddressRegisterIndirectPreDecrementMode::AddressRegisterIndirectPreDecrementMode(GenieSys::M68kCpu *cpu, Bus *bus)
         : AddressingMode(cpu, bus) {
     cycles = 6;
     longCycles = 10;

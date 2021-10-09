@@ -7,6 +7,7 @@
 #include "../AddressingModes/AddressingMode.h"
 
 
+
 /**
  * Documented on page 253 of docs/68KPM.pdf
  */
@@ -33,7 +34,7 @@ private:
     }
 
 public:
-    NOT(M68kCpu* cpu, Bus* bus);
+    NOT(GenieSys::M68kCpu* cpu, Bus* bus);
 
     uint8_t getSpecificity() override;
     std::vector<uint16_t> getOpcodes() override;

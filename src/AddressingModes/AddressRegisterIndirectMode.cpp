@@ -4,7 +4,8 @@
 
 #include "GenieSys/AddressingModes/AddressRegisterIndirectMode.h"
 
-AddressRegisterIndirectMode::AddressRegisterIndirectMode(M68kCpu *cpu, Bus *bus) : AddressingMode(cpu, bus) {
+
+AddressRegisterIndirectMode::AddressRegisterIndirectMode(GenieSys::M68kCpu *cpu, Bus *bus) : AddressingMode(cpu, bus) {
     cycles = 4;
     longCycles = 8;
 }

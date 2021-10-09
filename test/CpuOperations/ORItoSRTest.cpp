@@ -4,8 +4,9 @@
 #include <gtest/gtest.h>
 #include <GenieSys/CpuOperations/ORItoSR.h>
 
+
 struct ORItoSRTest : testing::Test {
-    M68kCpu* cpu;
+    GenieSys::M68kCpu* cpu;
     Bus bus;
     ORItoSR* subject;
 

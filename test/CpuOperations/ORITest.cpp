@@ -5,10 +5,11 @@
 #include <gtest/gtest.h>
 #include <GenieSys/CpuOperations/ORI.h>
 
+
 static uint16_t BASE_OPCODE = 0b0000010000000000;
 
 struct ORITest : testing::Test {
-    M68kCpu* cpu;
+    GenieSys::M68kCpu* cpu;
     Bus bus;
     ORI* subject;
 

@@ -10,7 +10,8 @@
 #include <sstream>
 
 
-MOVEA::MOVEA(M68kCpu *cpu, Bus *bus) : CpuOperation(cpu, bus) {
+
+MOVEA::MOVEA(GenieSys::M68kCpu *cpu, Bus *bus) : CpuOperation(cpu, bus) {
 
 }
 

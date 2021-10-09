@@ -14,7 +14,7 @@
 
 
 
-ADDI::ADDI(M68kCpu *cpu, Bus *bus) : CpuOperation(cpu, bus) {
+ADDI::ADDI(GenieSys::M68kCpu *cpu, Bus *bus) : CpuOperation(cpu, bus) {
 
 }
 

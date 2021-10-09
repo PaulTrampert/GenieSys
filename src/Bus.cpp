@@ -6,6 +6,7 @@
 #include "GenieSys/Bus.h"
 
 
+
 Bus::Bus() {
     for (uint32_t i = 0; i < RAM_SIZE; i++) {
         ram[i] = 0x00;
@@ -49,7 +50,7 @@ void Bus::writeLong(uint32_t addr, uint32_t data) {
     writeByte(addr + 3, (data & 0x000000FF));
 }
 
-M68kCpu *Bus::getCpu() {
+GenieSys::M68kCpu *Bus::getCpu() {
     return &cpu;
 }
 

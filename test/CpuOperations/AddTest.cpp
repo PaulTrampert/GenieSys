@@ -5,8 +5,9 @@
 #include <gtest/gtest.h>
 #include <GenieSys/CpuOperations/Add.h>
 
+
 struct AddTest : testing::Test {
-    M68kCpu* cpu;
+    GenieSys::M68kCpu* cpu;
     Bus bus;
     Add* subject;
 

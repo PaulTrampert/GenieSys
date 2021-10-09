@@ -7,11 +7,12 @@
 #include <GenieSys/Bus.h>
 #include <GenieSys/CpuOperations/NEGX.h>
 
+
 struct NEGXTest : public ::testing::Test {
     uint16_t byteOpWord = 0b0100000000000001u;
     uint16_t wordOpWord = 0b0100000001000001u;
     uint16_t longOpWord = 0b0100000010000001u;
-    M68kCpu* cpu;
+    GenieSys::M68kCpu* cpu;
     Bus bus;
     NEGX* subject;
 

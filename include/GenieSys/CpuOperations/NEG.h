@@ -6,6 +6,7 @@
 #include "CpuOperation.h"
 
 
+
 class NEG : public CpuOperation {
 private:
     GenieSys::BitMask<uint16_t> sizeMask = GenieSys::BitMask<uint16_t>(7, 2, 0, 2);
@@ -13,7 +14,7 @@ private:
     GenieSys::BitMask<uint16_t> eaRegMask = GenieSys::BitMask<uint16_t>(2, 3);
 
 public:
-    NEG(M68kCpu* cpu, Bus* bus);
+    NEG(GenieSys::M68kCpu* cpu, Bus* bus);
 
     uint8_t getSpecificity() override;
     std::vector<uint16_t> getOpcodes() override;

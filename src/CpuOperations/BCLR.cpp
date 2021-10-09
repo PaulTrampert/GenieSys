@@ -10,7 +10,8 @@
 #include <sstream>
 
 
-BCLR::BCLR(M68kCpu *cpu, Bus *bus) : CpuOperation(cpu, bus) {
+
+BCLR::BCLR(GenieSys::M68kCpu *cpu, Bus *bus) : CpuOperation(cpu, bus) {
 
 }
 

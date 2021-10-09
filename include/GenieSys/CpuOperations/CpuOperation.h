@@ -8,13 +8,14 @@
 #include "../M68kCpu.h"
 #include "../Bus.h"
 
+
 class CpuOperation {
 protected:
     Bus* bus;
-    M68kCpu* cpu;
+    GenieSys::M68kCpu* cpu;
 
 public:
-    CpuOperation(M68kCpu* cpu, Bus* bus);
+    CpuOperation(GenieSys::M68kCpu* cpu, Bus* bus);
     virtual ~CpuOperation() = default;
     virtual uint8_t execute(uint16_t opWord) = 0;
     virtual std::vector<uint16_t> getOpcodes() = 0;
@@ -22,6 +23,6 @@ public:
     virtual std::string disassemble(uint16_t opWord) = 0;
 };
 
-std::vector<std::shared_ptr<CpuOperation>> getOperations(M68kCpu* cpu, Bus* bus);
+std::vector<std::shared_ptr<CpuOperation>> getOperations(GenieSys::M68kCpu* cpu, Bus* bus);
 
 bool compare(const std::shared_ptr<CpuOperation> &a, const std::shared_ptr<CpuOperation> &b);

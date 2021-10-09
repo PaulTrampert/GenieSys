@@ -7,7 +7,8 @@
 #include <GenieSys/AddressingModes/ImmediateDataMode.h>
 #include <sstream>
 
-ANDItoSR::ANDItoSR(M68kCpu *cpu, Bus *bus) : CpuOperation(cpu, bus) {
+
+ANDItoSR::ANDItoSR(GenieSys::M68kCpu *cpu, Bus *bus) : CpuOperation(cpu, bus) {
 
 }
 

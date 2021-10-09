@@ -6,9 +6,10 @@
 #include <GenieSys/Bus.h>
 #include <GenieSys/AddressingModes/AbsoluteLongAddressingMode.h>
 
+
 struct AbsoluteLongAddressingModeTest : testing::Test {
     Bus bus;
-    M68kCpu* cpu;
+    GenieSys::M68kCpu* cpu;
     AbsoluteLongAddressingMode* subject;
 
     AbsoluteLongAddressingModeTest() {

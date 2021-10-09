@@ -5,9 +5,10 @@
 #include <GenieSys/Bus.h>
 #include <GenieSys/AddressingModes/AddressRegisterDirectMode.h>
 
+
 struct AddressRegisterDirectModeTest : testing::Test {
     Bus bus;
-    M68kCpu* cpu;
+    GenieSys::M68kCpu* cpu;
     AddressRegisterDirectMode* subject;
 
     AddressRegisterDirectModeTest() {

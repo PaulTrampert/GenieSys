@@ -4,7 +4,8 @@
 
 #include <GenieSys/CpuOperations/Nop.h>
 
-Nop::Nop(M68kCpu *cpu, Bus *bus) : CpuOperation(cpu, bus) {
+
+Nop::Nop(GenieSys::M68kCpu *cpu, Bus *bus) : CpuOperation(cpu, bus) {
 
 }
 

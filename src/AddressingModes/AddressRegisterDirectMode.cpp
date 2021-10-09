@@ -4,11 +4,12 @@
 
 #include "GenieSys/AddressingModes/AddressRegisterDirectMode.h"
 
+
 #include <utility>
 #include <GenieSys/numberUtils.h>
 
 
-AddressRegisterDirectMode::AddressRegisterDirectMode(M68kCpu *cpu, Bus *bus)
+AddressRegisterDirectMode::AddressRegisterDirectMode(GenieSys::M68kCpu *cpu, Bus *bus)
     : AddressingMode(cpu, bus) {
     cycles = 0;
     longCycles = 0;
@@ -36,7 +37,7 @@ std::string AddressRegisterDirectMode::disassemble(uint8_t regAddr, uint8_t size
     return "A" + std::to_string(regAddr);
 }
 
-AddressRegisterDirectResult::AddressRegisterDirectResult(M68kCpu *cpu, Bus *bus, uint32_t address, std::vector<uint8_t> data)
+AddressRegisterDirectResult::AddressRegisterDirectResult(GenieSys::M68kCpu *cpu, Bus *bus, uint32_t address, std::vector<uint8_t> data)
     : AddressingResult(cpu, bus, address, std::move(data), 0, AddressRegisterDirectMode::MODE_ID) {
 
 }

@@ -9,9 +9,10 @@
 #include <GenieSys/Bus.h>
 #include <GenieSys/AddressingModes/DataRegisterDirectMode.h>
 
+
 struct DataRegisterDirectModeTest : testing::Test {
     Bus bus;
-    M68kCpu* cpu;
+    GenieSys::M68kCpu* cpu;
     DataRegisterDirectMode* subject;
 
     DataRegisterDirectModeTest() {

@@ -8,9 +8,10 @@
 #include <cstdint>
 #include "AddressingMode.h"
 
+
 class AddressRegisterDirectResult : public AddressingResult {
 public:
-    AddressRegisterDirectResult(M68kCpu* cpu, Bus* bus, uint32_t address, std::vector<uint8_t> data);
+    AddressRegisterDirectResult(GenieSys::M68kCpu* cpu, Bus* bus, uint32_t address, std::vector<uint8_t> data);
     void write(std::vector<uint8_t> data) override;
     void write(uint8_t data) override;
     void write(uint16_t data) override;
@@ -21,7 +22,7 @@ class AddressRegisterDirectMode : public AddressingMode {
 public:
     static const uint8_t MODE_ID = 0b001u;
 
-    AddressRegisterDirectMode(M68kCpu *cpu, Bus *bus);
+    AddressRegisterDirectMode(GenieSys::M68kCpu *cpu, Bus *bus);
 
     uint32_t getAddress(uint8_t regAddr) override;
     uint8_t getModeId() override;

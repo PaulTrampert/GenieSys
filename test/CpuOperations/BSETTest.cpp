@@ -7,8 +7,9 @@
 #include <GenieSys/Bus.h>
 #include <GenieSys/CpuOperations/BSET.h>
 
+
 struct BSETTest : testing::Test {
-    M68kCpu* cpu;
+    GenieSys::M68kCpu* cpu;
     Bus bus;
     BSET* subject;
     uint16_t immModeOpWord = 0b0000100011000001; // BSET $06,D1

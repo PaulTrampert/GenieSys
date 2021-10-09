@@ -4,8 +4,9 @@
 #include <gtest/gtest.h>
 #include <GenieSys/CpuOperations/MOVEfromSR.h>
 
+
 struct MOVEfromSRTest : testing::Test {
-    M68kCpu* cpu;
+    GenieSys::M68kCpu* cpu;
     Bus bus;
     MOVEfromSR* subject;
 

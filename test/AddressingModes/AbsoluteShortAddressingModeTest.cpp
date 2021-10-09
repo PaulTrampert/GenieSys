@@ -6,9 +6,10 @@
 #include <GenieSys/Bus.h>
 #include <GenieSys/AddressingModes/AbsoluteShortAddressingMode.h>
 
+
 struct AbsoluteShortAddressingModeTest : testing::Test {
     Bus bus;
-    M68kCpu* cpu;
+    GenieSys::M68kCpu* cpu;
     AbsoluteShortAddressingMode* subject;
 
     AbsoluteShortAddressingModeTest() {

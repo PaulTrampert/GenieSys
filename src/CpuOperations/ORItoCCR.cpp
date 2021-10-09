@@ -6,7 +6,8 @@
 #include <GenieSys/AddressingModes/ImmediateDataMode.h>
 #include <sstream>
 
-ORItoCCR::ORItoCCR(M68kCpu *cpu, Bus *bus) : CpuOperation(cpu, bus) {
+
+ORItoCCR::ORItoCCR(GenieSys::M68kCpu *cpu, Bus *bus) : CpuOperation(cpu, bus) {
 
 }
 

@@ -10,9 +10,10 @@
 #include <GenieSys/numberUtils.h>
 #include <GenieSys/AddressingModes/AddressRegisterIndirectPreDecrementMode.h>
 
+
 struct AddressRegisterIndirectPreDecrementModeTest : testing::Test {
     Bus bus;
-    M68kCpu* cpu;
+    GenieSys::M68kCpu* cpu;
     AddressRegisterIndirectPreDecrementMode* subject;
 
     AddressRegisterIndirectPreDecrementModeTest() {

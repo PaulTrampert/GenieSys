@@ -7,6 +7,7 @@
 #include "../BitMask.h"
 
 
+
 class BCHG : public CpuOperation {
 private:
     GenieSys::BitMask<uint16_t> DnMask = GenieSys::BitMask<uint16_t>(11, 3);
@@ -15,7 +16,7 @@ private:
     GenieSys::BitMask<uint16_t> ImmMask = GenieSys::BitMask<uint16_t>(8, 1);
 
 public:
-    BCHG(M68kCpu* cpu, Bus* bus);
+    BCHG(GenieSys::M68kCpu* cpu, Bus* bus);
     std::vector<uint16_t> getOpcodes() override;
     uint8_t getSpecificity() override;
     uint8_t execute(uint16_t opWord) override;

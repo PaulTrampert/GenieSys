@@ -14,6 +14,7 @@
 #include <GenieSys/getCcrFlags.h>
 
 
+
 const uint16_t OPCODE_BASE = 0b1101000000000000;
 static GenieSys::BitMask<uint16_t> REG_MASK = GenieSys::BitMask<uint16_t>(11, 3);
 static GenieSys::BitMask<uint16_t> DIRECTION = GenieSys::BitMask<uint16_t>(8, 1);
@@ -21,7 +22,7 @@ static GenieSys::BitMask<uint16_t> SIZE = GenieSys::BitMask<uint16_t>(7, 2, 0, 2
 static GenieSys::BitMask<uint16_t> EA_MODE = GenieSys::BitMask<uint16_t>(5, 3);
 static GenieSys::BitMask<uint16_t> EA_REG = GenieSys::BitMask<uint16_t>(2, 3);
 
-Add::Add(M68kCpu *cpu, Bus *bus) : CpuOperation(cpu, bus) {
+Add::Add(GenieSys::M68kCpu *cpu, Bus *bus) : CpuOperation(cpu, bus) {
 
 }
 

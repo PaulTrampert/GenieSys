@@ -7,8 +7,9 @@
 #include <GenieSys/Bus.h>
 #include <GenieSys/CpuOperations/BCLR.h>
 
+
 struct BCLRTest : testing::Test {
-    M68kCpu* cpu;
+    GenieSys::M68kCpu* cpu;
     Bus bus;
     BCLR* subject;
     uint16_t immModeOpWord = 0b0000100000000001; // BCLR $06,D1

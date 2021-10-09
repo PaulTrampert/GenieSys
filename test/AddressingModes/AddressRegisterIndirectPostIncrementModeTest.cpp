@@ -6,9 +6,10 @@
 #include <GenieSys/AddressingModes/AddressRegisterIndirectPostIncrementMode.h>
 #include <GenieSys/numberUtils.h>
 
+
 struct AddressRegisterIndirectPostIncrementModeTest : testing::Test {
     Bus bus;
-    M68kCpu* cpu;
+    GenieSys::M68kCpu* cpu;
     AddressRegisterIndirectPostIncrementMode* subject;
 
     AddressRegisterIndirectPostIncrementModeTest() {

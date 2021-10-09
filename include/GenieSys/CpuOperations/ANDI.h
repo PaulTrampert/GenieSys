@@ -7,6 +7,7 @@
 #include "CpuOperation.h"
 
 
+
 class ANDI : public CpuOperation {
 private:
     GenieSys::BitMask<uint16_t> sizeMask = GenieSys::BitMask<uint16_t>(7, 2, 0, 2);
@@ -14,7 +15,7 @@ private:
     GenieSys::BitMask<uint16_t> eaRegMask = GenieSys::BitMask<uint16_t>(2, 3);
 
 public:
-    ANDI(M68kCpu* cpu, Bus* bus);
+    ANDI(GenieSys::M68kCpu* cpu, Bus* bus);
     std::string disassemble(uint16_t opWord) override;
     uint8_t getSpecificity() override;
     uint8_t execute(uint16_t opWord) override;

@@ -5,10 +5,11 @@
 #include <GenieSys/CpuOperations/NEG.h>
 
 
+
 class NEGTest : public ::testing::Test {
 public:
     NEG* subject;
-    M68kCpu* cpu;
+    GenieSys::M68kCpu* cpu;
     Bus bus;
 
     uint16_t byteOp = 0b0100010000010000;

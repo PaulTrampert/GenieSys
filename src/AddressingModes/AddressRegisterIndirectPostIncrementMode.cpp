@@ -5,7 +5,8 @@
 #include <memory>
 #include "GenieSys/AddressingModes/AddressRegisterIndirectPostIncrementMode.h"
 
-AddressRegisterIndirectPostIncrementMode::AddressRegisterIndirectPostIncrementMode(M68kCpu *cpu, Bus *bus)
+
+AddressRegisterIndirectPostIncrementMode::AddressRegisterIndirectPostIncrementMode(GenieSys::M68kCpu *cpu, Bus *bus)
         : AddressingMode(cpu, bus) {
     cycles = 4;
     longCycles = 8;

@@ -6,8 +6,9 @@
 #include <GenieSys/AddressingModes/ProgramCounterIndirectWithIndexMode.h>
 #include <GenieSys/ExtensionWord.h>
 
+
 struct ProgramCounterIndirectWithIndexModeTest : testing::Test {
-    M68kCpu* cpu;
+    GenieSys::M68kCpu* cpu;
     Bus bus;
     ProgramCounterIndirectWithIndexMode* subject;
 

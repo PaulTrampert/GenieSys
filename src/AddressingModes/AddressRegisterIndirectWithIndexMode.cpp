@@ -7,7 +7,8 @@
 #include <stdexcept>
 #include "GenieSys/AddressingModes/AddressRegisterIndirectWithIndexMode.h"
 
-AddressRegisterIndirectWithIndexMode::AddressRegisterIndirectWithIndexMode(M68kCpu *cpu, Bus *bus)
+
+AddressRegisterIndirectWithIndexMode::AddressRegisterIndirectWithIndexMode(GenieSys::M68kCpu *cpu, Bus *bus)
     : AddressingMode(cpu, bus) {
     cycles = 10;
     longCycles = 14;

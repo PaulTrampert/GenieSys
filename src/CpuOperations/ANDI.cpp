@@ -13,7 +13,8 @@
 #include <cmath>
 
 
-ANDI::ANDI(M68kCpu *cpu, Bus *bus) : CpuOperation(cpu, bus) {
+
+ANDI::ANDI(GenieSys::M68kCpu *cpu, Bus *bus) : CpuOperation(cpu, bus) {
 
 }
 

@@ -9,7 +9,8 @@
 #include <GenieSys/AddressingModes/ImmediateDataMode.h>
 #include "GenieSys/AddressingModes/ProgramCounterAddressingMode.h"
 
-ProgramCounterAddressingMode::ProgramCounterAddressingMode(M68kCpu *cpu, Bus *bus) : AddressingMode(cpu, bus) {
+
+ProgramCounterAddressingMode::ProgramCounterAddressingMode(GenieSys::M68kCpu *cpu, Bus *bus) : AddressingMode(cpu, bus) {
     for (auto & subMode : subModes) {
         subMode = nullptr;
     }

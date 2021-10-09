@@ -7,7 +7,8 @@
 #include <GenieSys/ExtensionWord.h>
 #include "GenieSys/AddressingModes/ProgramCounterIndirectWithIndexMode.h"
 
-ProgramCounterIndirectWithIndexMode::ProgramCounterIndirectWithIndexMode(M68kCpu *cpu, Bus *bus)
+
+ProgramCounterIndirectWithIndexMode::ProgramCounterIndirectWithIndexMode(GenieSys::M68kCpu *cpu, Bus *bus)
     : AddressingMode(cpu, bus) {
     cycles = 10;
     longCycles = 14;

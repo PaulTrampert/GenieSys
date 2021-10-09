@@ -7,8 +7,9 @@
 #include <GenieSys/M68kCpu.h>
 #include <GenieSys/Bus.h>
 
+
 struct MOVEPTest : testing::Test {
-    M68kCpu* cpu;
+    GenieSys::M68kCpu* cpu;
     Bus bus;
     MOVEP* subject;
 

@@ -12,7 +12,7 @@
 
 
 
-NEG::NEG(M68kCpu *cpu, Bus *bus) : CpuOperation(cpu, bus) {
+NEG::NEG(GenieSys::M68kCpu *cpu, Bus *bus) : CpuOperation(cpu, bus) {
 
 }
 

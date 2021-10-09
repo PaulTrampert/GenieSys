@@ -13,7 +13,7 @@
 class Bus {
 private:
     std::vector<uint8_t> ram = std::vector<uint8_t>(RAM_SIZE);
-    M68kCpu cpu;
+    GenieSys::M68kCpu cpu;
 
 public:
     Bus();
@@ -80,7 +80,7 @@ public:
      * Get a reference to the Bus's M68kCpu.
      * @return a reference to the Bus's M68kCpu.
      */
-    M68kCpu* getCpu();
+    GenieSys::M68kCpu* getCpu();
 };
 
 

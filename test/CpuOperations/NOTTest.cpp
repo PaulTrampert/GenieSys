@@ -5,10 +5,11 @@
 #include <GenieSys/CpuOperations/NOT.h>
 
 
+
 class NOTTest : public ::testing::Test {
 public:
     NOT* subject;
-    M68kCpu* cpu;
+    GenieSys::M68kCpu* cpu;
     Bus bus;
 
     uint16_t byteOp = 0b0100011000000000;

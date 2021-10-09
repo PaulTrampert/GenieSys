@@ -18,7 +18,7 @@
 #include <GenieSys/CpuOperations/CpuOperation.h>
 #include <GenieSys/CpuOperations/Nop.h>
 
-M68kCpu::M68kCpu() {
+GenieSys::M68kCpu::M68kCpu() {
     for (auto & mode : addressingModes) {
         mode = nullptr;
     }
@@ -40,9 +40,9 @@ M68kCpu::M68kCpu() {
     }
 }
 
-M68kCpu::~M68kCpu() = default;
+GenieSys::M68kCpu::~M68kCpu() = default;
 
-void M68kCpu::ConnectBus(Bus *bus) {
+void GenieSys::M68kCpu::ConnectBus(Bus *bus) {
     this->bus = bus;
     for (auto & mode : addressingModes) {
         if (mode != nullptr) {
@@ -51,42 +51,42 @@ void M68kCpu::ConnectBus(Bus *bus) {
     }
 }
 
-uint16_t M68kCpu::getCurrentOpWord() {
+uint16_t GenieSys::M68kCpu::getCurrentOpWord() {
     return opWord;
 }
 
-uint32_t M68kCpu::getPc() {
+uint32_t GenieSys::M68kCpu::getPc() {
     return pc;
 }
 
-void M68kCpu::incrementPc(int32_t amount) {
+void GenieSys::M68kCpu::incrementPc(int32_t amount) {
     pc += amount;
 }
 
-uint32_t M68kCpu::getDataRegister(uint8_t addr) {
+uint32_t GenieSys::M68kCpu::getDataRegister(uint8_t addr) {
     return dataRegisters[addr];
 }
 
-uint32_t M68kCpu::getAddressRegister(uint8_t addr) {
+uint32_t GenieSys::M68kCpu::getAddressRegister(uint8_t addr) {
     if (addr == 7 && isSupervisor()) {
         return ssp;
     }
     return addressRegisters[addr];
 }
 
-void M68kCpu::setDataRegister(uint8_t addr, uint8_t value) {
+void GenieSys::M68kCpu::setDataRegister(uint8_t addr, uint8_t value) {
     dataRegisters[addr] = (dataRegisters[addr] & 0xFFFFFF00) | value;
 }
 
-void M68kCpu::setDataRegister(uint8_t addr, uint16_t value) {
+void GenieSys::M68kCpu::setDataRegister(uint8_t addr, uint16_t value) {
     dataRegisters[addr] = (dataRegisters[addr] & 0xFFFF0000) | value;
 }
 
-void M68kCpu::setDataRegister(uint8_t addr, uint32_t value) {
+void GenieSys::M68kCpu::setDataRegister(uint8_t addr, uint32_t value) {
     dataRegisters[addr] = value;
 }
 
-void M68kCpu::setAddressRegister(uint8_t addr, uint32_t value) {
+void GenieSys::M68kCpu::setAddressRegister(uint8_t addr, uint32_t value) {
     if (addr == 7 && isSupervisor()) {
         ssp = value;
     }
@@ -95,11 +95,11 @@ void M68kCpu::setAddressRegister(uint8_t addr, uint32_t value) {
     }
 }
 
-void M68kCpu::setPc(uint32_t value) {
+void GenieSys::M68kCpu::setPc(uint32_t value) {
     pc = value;
 }
 
-void M68kCpu::tick() {
+void GenieSys::M68kCpu::tick() {
     if (clock == 0) {
         opWord = bus->readWord(pc);
         pc += 2;
@@ -114,31 +114,31 @@ void M68kCpu::tick() {
     clock--;
 }
 
-AddressingMode *M68kCpu::getAddressingMode(int modeId) {
+AddressingMode *GenieSys::M68kCpu::getAddressingMode(int modeId) {
     return addressingModes[modeId].get();
 }
 
-void M68kCpu::setCcrFlags(uint8_t ccr) {
+void GenieSys::M68kCpu::setCcrFlags(uint8_t ccr) {
     this->SRandCCR = (SRandCCR & 0xFF00) | ccr;
 }
 
-uint8_t M68kCpu::getCcrFlags() {
+uint8_t GenieSys::M68kCpu::getCcrFlags() {
     return SRandCCR & 0x00FF;
 }
 
-uint16_t M68kCpu::getSR() {
+uint16_t GenieSys::M68kCpu::getSR() {
     return SRandCCR;
 }
 
-void M68kCpu::setSR(uint16_t sr) {
+void GenieSys::M68kCpu::setSR(uint16_t sr) {
     SRandCCR = sr;
 }
 
-bool M68kCpu::isSupervisor() {
+bool GenieSys::M68kCpu::isSupervisor() {
     return supervisorState.apply(SRandCCR) == 1;
 }
 
-void M68kCpu::trap(uint8_t vector) {
+void GenieSys::M68kCpu::trap(uint8_t vector) {
     SRandCCR = supervisorState.compose(SRandCCR, 1);
     ssp -= 4;
     bus->writeLong(ssp, pc);

@@ -15,7 +15,7 @@
 
 
 
-CMPI::CMPI(M68kCpu *cpu, Bus *bus) : CpuOperation(cpu, bus) {
+CMPI::CMPI(GenieSys::M68kCpu *cpu, Bus *bus) : CpuOperation(cpu, bus) {
 
 }
 

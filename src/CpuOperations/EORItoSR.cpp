@@ -7,7 +7,8 @@
 #include <GenieSys/AddressingModes/ImmediateDataMode.h>
 #include <sstream>
 
-EORItoSR::EORItoSR(M68kCpu *cpu, Bus *bus) : CpuOperation(cpu, bus) {
+
+EORItoSR::EORItoSR(GenieSys::M68kCpu *cpu, Bus *bus) : CpuOperation(cpu, bus) {
 
 }
 

@@ -5,9 +5,10 @@
 #include <gtest/gtest.h>
 #include <GenieSys/CpuOperations/CpuOperation.h>
 
+
 TEST(CpuOperationTest, getOperationsReturnsOperationsInTheCorrectOrder) {
     Bus bus;
-    M68kCpu* cpu = bus.getCpu();
+    GenieSys::M68kCpu* cpu = bus.getCpu();
     CpuOperation* previous = nullptr;
     auto operations = getOperations(cpu, &bus);
     for(auto & op : operations) {

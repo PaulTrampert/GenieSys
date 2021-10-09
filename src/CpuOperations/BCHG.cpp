@@ -9,7 +9,8 @@
 #include <sstream>
 
 
-BCHG::BCHG(M68kCpu *cpu, Bus *bus) : CpuOperation(cpu, bus) {
+
+BCHG::BCHG(GenieSys::M68kCpu *cpu, Bus *bus) : CpuOperation(cpu, bus) {
 
 }
 

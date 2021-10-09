@@ -9,7 +9,8 @@
 #include <sstream>
 
 
-MOVEtoSR::MOVEtoSR(M68kCpu *cpu, Bus *bus) : CpuOperation(cpu, bus) {
+
+MOVEtoSR::MOVEtoSR(GenieSys::M68kCpu *cpu, Bus *bus) : CpuOperation(cpu, bus) {
 
 }
 
