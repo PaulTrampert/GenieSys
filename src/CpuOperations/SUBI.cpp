@@ -14,6 +14,7 @@
 #include <cmath>
 
 
+
 SUBI::SUBI(M68kCpu *cpu, Bus *bus) : CpuOperation(cpu, bus) {
 
 }
@@ -49,24 +50,24 @@ uint8_t SUBI::execute(uint16_t opWord) {
             baseCycles = isMemory ? 12 : 8;
             byteResult = eaResult->getDataAsByte() - immData->getDataAsByte();
             eaResult->write(byteResult);
-            newCcrFlags = getSubtractionCcrFlags<uint8_t, int8_t>(byteResult, eaResult->getDataAsByte(),
-                                                                  immData->getDataAsByte());
+            newCcrFlags = GenieSys::getSubtractionCcrFlags<uint8_t, int8_t>(byteResult, eaResult->getDataAsByte(),
+                                                                            immData->getDataAsByte());
             cpu->setCcrFlags(newCcrFlags);
             break;
         case 2:
             baseCycles = isMemory ? 12 : 8;
             wordResult = eaResult->getDataAsWord() - immData->getDataAsWord();
             eaResult->write(wordResult);
-            newCcrFlags = getSubtractionCcrFlags<uint16_t, int16_t>(wordResult, eaResult->getDataAsWord(),
-                                                                    immData->getDataAsWord());
+            newCcrFlags = GenieSys::getSubtractionCcrFlags<uint16_t, int16_t>(wordResult, eaResult->getDataAsWord(),
+                                                                              immData->getDataAsWord());
             cpu->setCcrFlags(newCcrFlags);
             break;
         case 4:
             baseCycles = isMemory ? 20 : 16;
             longResult = eaResult->getDataAsLong() - immData->getDataAsLong();
             eaResult->write(longResult);
-            newCcrFlags = getSubtractionCcrFlags<uint32_t, int32_t>(longResult, eaResult->getDataAsLong(),
-                                                                    immData->getDataAsLong());
+            newCcrFlags = GenieSys::getSubtractionCcrFlags<uint32_t, int32_t>(longResult, eaResult->getDataAsLong(),
+                                                                              immData->getDataAsLong());
             cpu->setCcrFlags(newCcrFlags);
             break;
         default:

@@ -11,6 +11,7 @@
 #include <sstream>
 
 
+
 NEG::NEG(M68kCpu *cpu, Bus *bus) : CpuOperation(cpu, bus) {
 
 }
@@ -42,19 +43,19 @@ uint8_t NEG::execute(uint16_t opWord) {
         case 0:
             byteResult = -eaResult->getDataAsByte();
             eaResult->write(byteResult);
-            cpu->setCcrFlags(getSubtractionCcrFlags<uint8_t, int8_t>(byteResult, 0, -byteResult));
+            cpu->setCcrFlags(GenieSys::getSubtractionCcrFlags<uint8_t, int8_t>(byteResult, 0, -byteResult));
             cycles = isRegisterEa ? 4 : (8 + eaResult->getCycles());
             break;
         case 1:
             wordResult = -eaResult->getDataAsWord();
             eaResult->write(wordResult);
-            cpu->setCcrFlags(getSubtractionCcrFlags<uint16_t, int16_t>(wordResult, 0, -wordResult));
+            cpu->setCcrFlags(GenieSys::getSubtractionCcrFlags<uint16_t, int16_t>(wordResult, 0, -wordResult));
             cycles = isRegisterEa ? 4 : (8 + eaResult->getCycles());
             break;
         case 2:
             longResult = -eaResult->getDataAsLong();
             eaResult->write(longResult);
-            cpu->setCcrFlags(getSubtractionCcrFlags<uint32_t, int32_t>(longResult, 0, -longResult));
+            cpu->setCcrFlags(GenieSys::getSubtractionCcrFlags<uint32_t, int32_t>(longResult, 0, -longResult));
             cycles = isRegisterEa ? 6 : (12 + eaResult->getCycles());
             break;
         default:

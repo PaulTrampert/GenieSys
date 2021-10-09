@@ -13,6 +13,7 @@
 #include <GenieSys/AddressingModes/ProgramCounterAddressingMode.h>
 #include <GenieSys/getCcrFlags.h>
 
+
 const uint16_t OPCODE_BASE = 0b1101000000000000;
 static GenieSys::BitMask<uint16_t> REG_MASK = GenieSys::BitMask<uint16_t>(11, 3);
 static GenieSys::BitMask<uint16_t> DIRECTION = GenieSys::BitMask<uint16_t>(8, 1);
@@ -61,7 +62,7 @@ void Add::addBytes(uint8_t direction, uint8_t dataRegAddr, AddressingResult *eaR
     uint8_t regOp = cpu->getDataRegister(dataRegAddr) & 0x000000FF;
     uint8_t eaOp = eaResult->getDataAsByte();
     uint8_t result = direction == 1 ? regOp + eaOp : eaOp + regOp;
-    uint8_t ccr = getAdditionCcrFlags<uint8_t, int8_t>(result, regOp, eaOp);
+    uint8_t ccr = GenieSys::getAdditionCcrFlags<uint8_t, int8_t>(result, regOp, eaOp);
     cpu->setCcrFlags(ccr);
     direction == 1 ? eaResult->write(result) : cpu->setDataRegister(dataRegAddr, result);
 }
@@ -70,7 +71,7 @@ void Add::addWords(uint8_t direction, uint8_t dataRegAddr, AddressingResult *eaR
     uint16_t regOp = cpu->getDataRegister(dataRegAddr) & 0x0000FFFF;
     uint16_t eaOp = eaResult->getDataAsWord();
     uint16_t result = direction == 1 ? regOp + eaOp : eaOp + regOp;
-    uint8_t ccr = getAdditionCcrFlags<uint16_t, int16_t>(result, regOp, eaOp);
+    uint8_t ccr = GenieSys::getAdditionCcrFlags<uint16_t, int16_t>(result, regOp, eaOp);
     cpu->setCcrFlags(ccr);
     direction == 1 ? eaResult->write(result) : cpu->setDataRegister(dataRegAddr, result);
 }
@@ -79,7 +80,7 @@ void Add::addLongs(uint8_t direction, uint8_t dataRegAddr, AddressingResult *eaR
     uint32_t regOp = cpu->getDataRegister(dataRegAddr);
     uint32_t eaOp = eaResult->getDataAsWord();
     uint32_t result = direction == 1 ? regOp + eaOp : eaOp + regOp;
-    uint8_t ccr = getAdditionCcrFlags<uint32_t, int32_t>(result, regOp, eaOp);
+    uint8_t ccr = GenieSys::getAdditionCcrFlags<uint32_t, int32_t>(result, regOp, eaOp);
     cpu->setCcrFlags(ccr);
     direction == 1 ? eaResult->write(result) : cpu->setDataRegister(dataRegAddr, result);
 }

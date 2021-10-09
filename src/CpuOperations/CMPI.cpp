@@ -14,6 +14,7 @@
 #include <cmath>
 
 
+
 CMPI::CMPI(M68kCpu *cpu, Bus *bus) : CpuOperation(cpu, bus) {
 
 }
@@ -48,22 +49,22 @@ uint8_t CMPI::execute(uint16_t opWord) {
         case 1:
             baseCycles = isMemory ? 8 : 8;
             byteResult = eaResult->getDataAsByte() - immData->getDataAsByte();
-            newCcrFlags = getSubtractionCcrFlags<uint8_t, int8_t>(byteResult, eaResult->getDataAsByte(),
-                                                                  immData->getDataAsByte());
+            newCcrFlags = GenieSys::getSubtractionCcrFlags<uint8_t, int8_t>(byteResult, eaResult->getDataAsByte(),
+                                                                            immData->getDataAsByte());
             cpu->setCcrFlags(newCcrFlags);
             break;
         case 2:
             baseCycles = isMemory ? 8 : 8;
             wordResult = eaResult->getDataAsWord() - immData->getDataAsWord();
-            newCcrFlags = getSubtractionCcrFlags<uint16_t, int16_t>(wordResult, eaResult->getDataAsWord(),
-                                                                    immData->getDataAsWord());
+            newCcrFlags = GenieSys::getSubtractionCcrFlags<uint16_t, int16_t>(wordResult, eaResult->getDataAsWord(),
+                                                                              immData->getDataAsWord());
             cpu->setCcrFlags(newCcrFlags);
             break;
         case 4:
             baseCycles = isMemory ? 12 : 14;
             longResult = eaResult->getDataAsLong() - immData->getDataAsLong();
-            newCcrFlags = getSubtractionCcrFlags<uint32_t, int32_t>(longResult, eaResult->getDataAsLong(),
-                                                                    immData->getDataAsLong());
+            newCcrFlags = GenieSys::getSubtractionCcrFlags<uint32_t, int32_t>(longResult, eaResult->getDataAsLong(),
+                                                                              immData->getDataAsLong());
             cpu->setCcrFlags(newCcrFlags);
             break;
         default:
