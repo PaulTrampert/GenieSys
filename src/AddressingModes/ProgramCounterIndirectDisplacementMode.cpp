@@ -5,7 +5,6 @@
 #include <GenieSys/signExtend.h>
 #include <sstream>
 #include "GenieSys/AddressingModes/ProgramCounterIndirectDisplacementMode.h"
-#include "signExtend.h"
 
 ProgramCounterIndirectDisplacementMode::ProgramCounterIndirectDisplacementMode(M68kCpu *cpu, Bus *bus)
     : AddressingMode(cpu, bus) {

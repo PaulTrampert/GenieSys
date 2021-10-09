@@ -32,7 +32,7 @@ TEST_F(ProgramCounterIndirectDisplacementModeTest, TheAddressIsTheCpusPcPlusTheD
 }
 
 TEST_F(ProgramCounterIndirectDisplacementModeTest, GetData_GetsTheCorrectData) {
-    ASSERT_EQ(0x3344, bytesToWord(subject->getData(0b010u, 2)->getData()));
+    ASSERT_EQ(0x3344, GenieSys::bytesToWord(subject->getData(0b010u, 2)->getData()));
 }
 
 TEST_F(ProgramCounterIndirectDisplacementModeTest, GetData_IncrementsTheProgramCounter) {

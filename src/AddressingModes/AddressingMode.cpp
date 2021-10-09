@@ -44,15 +44,15 @@ std::vector<uint8_t> AddressingResult::getData() {
 }
 
 uint8_t AddressingResult::getDataAsByte() {
-    return bytesToByte(data);
+    return GenieSys::bytesToByte(data);
 }
 
 uint16_t AddressingResult::getDataAsWord() {
-    return bytesToWord(data);
+    return GenieSys::bytesToWord(data);
 }
 
 uint32_t AddressingResult::getDataAsLong() {
-    return bytesToLong(data);
+    return GenieSys::bytesToLong(data);
 }
 
 void AddressingResult::write(std::vector<uint8_t> data) {

@@ -3,7 +3,6 @@
 //
 #include <GenieSys/signExtend.h>
 #include "GenieSys/AddressingModes/AddressRegisterIndirectDisplacementMode.h"
-#include "signExtend.h"
 
 AddressRegisterIndirectDisplacementMode::AddressRegisterIndirectDisplacementMode(M68kCpu *cpu, Bus *bus)
         : AddressingMode(cpu, bus) {

@@ -6,7 +6,6 @@
 #include <stdexcept>
 #include <GenieSys/ExtensionWord.h>
 #include "GenieSys/AddressingModes/ProgramCounterIndirectWithIndexMode.h"
-#include "signExtend.h"
 
 ProgramCounterIndirectWithIndexMode::ProgramCounterIndirectWithIndexMode(M68kCpu *cpu, Bus *bus)
     : AddressingMode(cpu, bus) {

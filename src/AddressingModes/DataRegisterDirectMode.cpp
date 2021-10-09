@@ -41,13 +41,13 @@ DataRegisterDirectResult::DataRegisterDirectResult(M68kCpu *cpu, Bus *bus, uint3
 void DataRegisterDirectResult::write(std::vector<uint8_t> data) {
     switch(data.size()) {
         case 1:
-            cpu->setDataRegister(address, bytesToByte(data));
+            cpu->setDataRegister(address, GenieSys::bytesToByte(data));
             break;
         case 2:
-            cpu->setDataRegister(address, bytesToWord(data));
+            cpu->setDataRegister(address, GenieSys::bytesToWord(data));
             break;
         case 4:
-            cpu->setDataRegister(address, bytesToLong(data));
+            cpu->setDataRegister(address, GenieSys::bytesToLong(data));
             break;
     }
 }

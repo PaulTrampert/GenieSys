@@ -5,7 +5,6 @@
 #include <GenieSys/signExtend.h>
 #include <sstream>
 #include "GenieSys/AddressingModes/AbsoluteShortAddressingMode.h"
-#include "signExtend.h"
 
 AbsoluteShortAddressingMode::AbsoluteShortAddressingMode(M68kCpu *cpu, Bus *bus) : AddressingMode(cpu, bus) {
     cycles = 8;

@@ -8,7 +8,6 @@
 #include <GenieSys/signExtend.h>
 #include <cmath>
 #include <sstream>
-#include "signExtend.h"
 
 MOVEA::MOVEA(M68kCpu *cpu, Bus *bus) : CpuOperation(cpu, bus) {
 

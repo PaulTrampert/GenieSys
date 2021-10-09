@@ -38,7 +38,7 @@ std::string ImmediateDataMode::disassemble(uint8_t regAddr, uint8_t size) {
         address++;
     }
     cpu->incrementPc(incrSize);
-    return "$" + toHex(bus->read(address, size));
+    return "$" + GenieSys::toHex(bus->read(address, size));
 }
 
 uint8_t ImmediateDataMode::getMoveCycleKey() {

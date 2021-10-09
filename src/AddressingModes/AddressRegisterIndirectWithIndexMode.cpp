@@ -6,7 +6,6 @@
 #include <GenieSys/ExtensionWord.h>
 #include <stdexcept>
 #include "GenieSys/AddressingModes/AddressRegisterIndirectWithIndexMode.h"
-#include "signExtend.h"
 
 AddressRegisterIndirectWithIndexMode::AddressRegisterIndirectWithIndexMode(M68kCpu *cpu, Bus *bus)
     : AddressingMode(cpu, bus) {

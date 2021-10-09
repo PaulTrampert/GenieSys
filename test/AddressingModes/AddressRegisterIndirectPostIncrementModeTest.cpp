@@ -34,12 +34,12 @@ TEST_F(AddressRegisterIndirectPostIncrementModeTest, ItGetsTheExpectedDataWhenSi
 
 TEST_F(AddressRegisterIndirectPostIncrementModeTest, ItGetsTheExpectedDataWhenSizeIsTwo) {
     const std::vector<uint8_t> &result = subject->getData(2, 2)->getData();
-    EXPECT_EQ(0x1234, bytesToWord(result));
+    EXPECT_EQ(0x1234, GenieSys::bytesToWord(result));
 }
 
 TEST_F(AddressRegisterIndirectPostIncrementModeTest, ItGetsTheExpectedDataWhenSizeIsFour) {
     const std::vector<uint8_t> &result = subject->getData(2, 4)->getData();
-    EXPECT_EQ(0x12345678, bytesToLong(result));
+    EXPECT_EQ(0x12345678, GenieSys::bytesToLong(result));
 }
 
 TEST_F(AddressRegisterIndirectPostIncrementModeTest, ItIncrementsTheAddressRegisterBySizeOne) {
