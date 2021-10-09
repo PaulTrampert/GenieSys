@@ -11,6 +11,7 @@
 #include <GenieSys/AddressingModes/DataRegisterDirectMode.h>
 #include <GenieSys/AddressingModes/AddressRegisterDirectMode.h>
 
+
 NOT::NOT(M68kCpu *cpu, Bus *bus) : CpuOperation(cpu, bus) {
 
 }
@@ -20,7 +21,7 @@ uint8_t NOT::getSpecificity() {
 }
 
 std::vector<uint16_t> NOT::getOpcodes() {
-    return getPossibleOpcodes((uint16_t)0b0100011000000000, std::vector<BitMask<uint16_t>*> {
+    return getPossibleOpcodes((uint16_t)0b0100011000000000, std::vector<GenieSys::BitMask<uint16_t>*> {
         &sizeMask,
         &eaModeMask,
         &eaRegMask

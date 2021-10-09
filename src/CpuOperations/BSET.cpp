@@ -9,18 +9,19 @@
 #include <GenieSys/AddressingModes/ImmediateDataMode.h>
 #include <sstream>
 
+
 BSET::BSET(M68kCpu *cpu, Bus *bus) : CpuOperation(cpu, bus) {
 
 }
 
 std::vector<uint16_t> BSET::getOpcodes() {
-    auto result = getPossibleOpcodes((uint16_t)0b0000000110000000, std::vector<BitMask<uint16_t>*> {
+    auto result = getPossibleOpcodes((uint16_t)0b0000000110000000, std::vector<GenieSys::BitMask<uint16_t>*> {
        &DnMask,
        &EaModeMask,
        &EaAddrMask
     });
 
-    auto immResult = getPossibleOpcodes((uint16_t)0b0000100010000000, std::vector<BitMask<uint16_t>*> {
+    auto immResult = getPossibleOpcodes((uint16_t)0b0000100010000000, std::vector<GenieSys::BitMask<uint16_t>*> {
         &EaModeMask,
         &EaAddrMask
     });
@@ -59,7 +60,7 @@ uint8_t BSET::execute(uint16_t opWord) {
     bitNum %= sizeBits;
     auto eaResult = eaMode->getData(eaAddr, size);
     uint32_t eaData = size == 4 ? eaResult->getDataAsLong() : eaResult->getDataAsByte();
-    BitMask<uint32_t> mask(bitNum, 1);
+    GenieSys::BitMask<uint32_t> mask(bitNum, 1);
     uint8_t testResult = mask.apply(eaData) == 0 ? CCR_ZERO : 0;
     cpu->setCcrFlags((cpu->getCcrFlags() & ~testResult) | testResult);
     eaData = mask.compose(eaData, 1);

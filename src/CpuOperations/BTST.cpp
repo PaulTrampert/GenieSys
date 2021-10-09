@@ -10,18 +10,19 @@
 #include <GenieSys/AddressingModes/ProgramCounterAddressingMode.h>
 #include <GenieSys/AddressingModes/DataRegisterDirectMode.h>
 
+
 BTST::BTST(M68kCpu *cpu, Bus *bus) : CpuOperation(cpu, bus) {
 
 }
 
 std::vector<uint16_t> BTST::getOpcodes() {
-    std::vector<uint16_t> result = getPossibleOpcodes((uint16_t)0b0000000100000000, std::vector<BitMask<uint16_t>*> {
+    std::vector<uint16_t> result = getPossibleOpcodes((uint16_t)0b0000000100000000, std::vector<GenieSys::BitMask<uint16_t>*> {
         &DnMask,
         &EaModeMask,
         &EaAddrMask
     });
 
-    std::vector<uint16_t> immResults = getPossibleOpcodes((uint16_t)0b0000100000000000, std::vector<BitMask<uint16_t>*> {
+    std::vector<uint16_t> immResults = getPossibleOpcodes((uint16_t)0b0000100000000000, std::vector<GenieSys::BitMask<uint16_t>*> {
         &EaModeMask,
         &EaAddrMask
     });

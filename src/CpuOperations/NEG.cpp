@@ -10,6 +10,7 @@
 #include <cmath>
 #include <sstream>
 
+
 NEG::NEG(M68kCpu *cpu, Bus *bus) : CpuOperation(cpu, bus) {
 
 }
@@ -19,7 +20,7 @@ uint8_t NEG::getSpecificity() {
 }
 
 std::vector<uint16_t> NEG::getOpcodes() {
-    return getPossibleOpcodes((uint16_t)0b0100010000000000, std::vector<BitMask<uint16_t>*> {
+    return getPossibleOpcodes((uint16_t)0b0100010000000000, std::vector<GenieSys::BitMask<uint16_t>*> {
         &sizeMask,
         &eaModeMask,
         &eaRegMask

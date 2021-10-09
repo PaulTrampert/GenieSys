@@ -8,18 +8,19 @@
 #include <GenieSys/AddressingModes/ImmediateDataMode.h>
 #include <sstream>
 
+
 BCHG::BCHG(M68kCpu *cpu, Bus *bus) : CpuOperation(cpu, bus) {
 
 }
 
 std::vector<uint16_t> BCHG::getOpcodes() {
-    auto results = getPossibleOpcodes((uint16_t)0b0000000101000000, std::vector<BitMask<uint16_t>*> {
+    auto results = getPossibleOpcodes((uint16_t)0b0000000101000000, std::vector<GenieSys::BitMask<uint16_t>*> {
         &DnMask,
         &EaModeMask,
         &EaAddrMask
     });
 
-    auto immModeResults = getPossibleOpcodes((uint16_t)0b0000100001000000, std::vector<BitMask<uint16_t>*> {
+    auto immModeResults = getPossibleOpcodes((uint16_t)0b0000100001000000, std::vector<GenieSys::BitMask<uint16_t>*> {
         &EaModeMask,
         &EaAddrMask
     });
@@ -58,7 +59,7 @@ uint8_t BCHG::execute(uint16_t opWord) {
     bitNum = bitNum % destSizeBits;
     auto eaData = eaMode->getData(eaAddr, destSize);
     uint32_t data = destSize == 4 ? eaData->getDataAsLong() : eaData->getDataAsByte();
-    BitMask<uint32_t> mask(bitNum, 1);
+    GenieSys::BitMask<uint32_t> mask(bitNum, 1);
     uint32_t bit = mask.apply(data);
     auto result = bit == 0 ? CCR_ZERO : 0;
     cpu->setCcrFlags((cpu->getCcrFlags() & ~result) | result);

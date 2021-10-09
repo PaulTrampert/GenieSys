@@ -5,11 +5,12 @@
 #pragma once
 #include "CpuOperation.h"
 
+
 class CLR : public CpuOperation {
 private:
-    BitMask<uint16_t> sizeMask = BitMask<uint16_t>(7, 2, 0, 2);
-    BitMask<uint16_t> eaModeMask = BitMask<uint16_t>(5, 3);
-    BitMask<uint16_t> eaRegMask = BitMask<uint16_t>(2, 3);
+    GenieSys::BitMask<uint16_t> sizeMask = GenieSys::BitMask<uint16_t>(7, 2, 0, 2);
+    GenieSys::BitMask<uint16_t> eaModeMask = GenieSys::BitMask<uint16_t>(5, 3);
+    GenieSys::BitMask<uint16_t> eaRegMask = GenieSys::BitMask<uint16_t>(2, 3);
 
 public:
     CLR(M68kCpu* cpu, Bus* bus);

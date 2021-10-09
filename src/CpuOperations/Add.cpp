@@ -14,11 +14,11 @@
 #include <GenieSys/getCcrFlags.h>
 
 const uint16_t OPCODE_BASE = 0b1101000000000000;
-static BitMask<uint16_t> REG_MASK = BitMask<uint16_t>(11, 3);
-static BitMask<uint16_t> DIRECTION = BitMask<uint16_t>(8, 1);
-static BitMask<uint16_t> SIZE = BitMask<uint16_t>(7, 2, 0, 2);
-static BitMask<uint16_t> EA_MODE = BitMask<uint16_t>(5, 3);
-static BitMask<uint16_t> EA_REG = BitMask<uint16_t>(2, 3);
+static GenieSys::BitMask<uint16_t> REG_MASK = GenieSys::BitMask<uint16_t>(11, 3);
+static GenieSys::BitMask<uint16_t> DIRECTION = GenieSys::BitMask<uint16_t>(8, 1);
+static GenieSys::BitMask<uint16_t> SIZE = GenieSys::BitMask<uint16_t>(7, 2, 0, 2);
+static GenieSys::BitMask<uint16_t> EA_MODE = GenieSys::BitMask<uint16_t>(5, 3);
+static GenieSys::BitMask<uint16_t> EA_REG = GenieSys::BitMask<uint16_t>(2, 3);
 
 Add::Add(M68kCpu *cpu, Bus *bus) : CpuOperation(cpu, bus) {
 
@@ -85,7 +85,7 @@ void Add::addLongs(uint8_t direction, uint8_t dataRegAddr, AddressingResult *eaR
 }
 
 std::vector<uint16_t> Add::getOpcodes() {
-    return getPossibleOpcodes(OPCODE_BASE, std::vector<BitMask<uint16_t>*> {
+    return getPossibleOpcodes(OPCODE_BASE, std::vector<GenieSys::BitMask<uint16_t>*> {
         &REG_MASK,
         &DIRECTION,
         &SIZE,

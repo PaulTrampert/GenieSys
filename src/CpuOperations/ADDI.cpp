@@ -12,12 +12,13 @@
 #include <sstream>
 #include <cmath>
 
+
 ADDI::ADDI(M68kCpu *cpu, Bus *bus) : CpuOperation(cpu, bus) {
 
 }
 
 std::vector<uint16_t> ADDI::getOpcodes() {
-    return getPossibleOpcodes(BASE_OPCODE, std::vector<BitMask<uint16_t>*>{
+    return getPossibleOpcodes(BASE_OPCODE, std::vector<GenieSys::BitMask<uint16_t>*>{
         &sizeMask,
         &eaModeMask,
         &eaRegMask,

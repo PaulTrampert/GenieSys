@@ -6,14 +6,15 @@
 #include "CpuOperation.h"
 #include "../AddressingModes/AddressingMode.h"
 
+
 /**
  * Documented on page 253 of docs/68KPM.pdf
  */
 class NOT : public CpuOperation {
 private:
-    BitMask<uint16_t> sizeMask = BitMask<uint16_t>(7, 2, 0, 2);
-    BitMask<uint16_t> eaModeMask = BitMask<uint16_t>(5, 3);
-    BitMask<uint16_t> eaRegMask = BitMask<uint16_t>(2, 3);
+    GenieSys::BitMask<uint16_t> sizeMask = GenieSys::BitMask<uint16_t>(7, 2, 0, 2);
+    GenieSys::BitMask<uint16_t> eaModeMask = GenieSys::BitMask<uint16_t>(5, 3);
+    GenieSys::BitMask<uint16_t> eaRegMask = GenieSys::BitMask<uint16_t>(2, 3);
 
     uint8_t notByte(AddressingResult* eaResult, uint8_t eaModeId);
     uint8_t notWord(AddressingResult* eaResult, uint8_t eaModeId);

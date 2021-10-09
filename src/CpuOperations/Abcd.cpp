@@ -10,11 +10,11 @@
 #include <sstream>
 
 const uint16_t OPCODE_BASE = 0b1100000100000000;
-static BitMask<uint16_t> RX_MASK = BitMask<uint16_t>(11, 3);
-static BitMask<uint16_t> RY_MASK = BitMask<uint16_t>(2, 3);
-static BitMask<uint16_t> RM_MASK = BitMask<uint16_t>(3, 1);
-static BitMask<uint8_t> ONES_DIGIT = BitMask<uint8_t>(3, 4);
-static BitMask<uint8_t> TENS_DIGIT = BitMask<uint8_t>(7, 4);
+static GenieSys::BitMask<uint16_t> RX_MASK = GenieSys::BitMask<uint16_t>(11, 3);
+static GenieSys::BitMask<uint16_t> RY_MASK = GenieSys::BitMask<uint16_t>(2, 3);
+static GenieSys::BitMask<uint16_t> RM_MASK = GenieSys::BitMask<uint16_t>(3, 1);
+static GenieSys::BitMask<uint8_t> ONES_DIGIT = GenieSys::BitMask<uint8_t>(3, 4);
+static GenieSys::BitMask<uint8_t> TENS_DIGIT = GenieSys::BitMask<uint8_t>(7, 4);
 static std::array<uint8_t, 2> cycles = {6,18};
 
 uint8_t Abcd::execute(uint16_t opWord) {
@@ -67,7 +67,7 @@ Abcd::Abcd(M68kCpu *cpu, Bus *bus) : CpuOperation(cpu, bus) {
 }
 
 std::vector<uint16_t> Abcd::getOpcodes() {
-    return getPossibleOpcodes(OPCODE_BASE, std::vector<BitMask<uint16_t>*>{
+    return getPossibleOpcodes(OPCODE_BASE, std::vector<GenieSys::BitMask<uint16_t>*>{
         &RX_MASK,
         &RY_MASK,
         &RM_MASK

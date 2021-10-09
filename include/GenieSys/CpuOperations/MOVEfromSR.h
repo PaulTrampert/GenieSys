@@ -6,10 +6,11 @@
 
 #include "CpuOperation.h"
 
+
 class MOVEfromSR : public CpuOperation {
 private:
-    BitMask<uint16_t> eaModeMask = BitMask<uint16_t>(5, 3);
-    BitMask<uint16_t> eaRegMask = BitMask<uint16_t>(2, 3);
+    GenieSys::BitMask<uint16_t> eaModeMask = GenieSys::BitMask<uint16_t>(5, 3);
+    GenieSys::BitMask<uint16_t> eaRegMask = GenieSys::BitMask<uint16_t>(2, 3);
 
 public:
     MOVEfromSR(M68kCpu* cpu, Bus* bus);

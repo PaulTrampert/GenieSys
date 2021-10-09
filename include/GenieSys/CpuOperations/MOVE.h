@@ -7,13 +7,14 @@
 
 #include "CpuOperation.h"
 
+
 class MOVE : public CpuOperation{
 private:
-    BitMask<uint16_t> sizeMask = BitMask<uint16_t>(13, 2, 1, 3);
-    BitMask<uint16_t> destEaModeMask = BitMask<uint16_t>(8, 3);
-    BitMask<uint16_t> destEaRegMask = BitMask<uint16_t>(11, 3);
-    BitMask<uint16_t> srcEaRegMask = BitMask<uint16_t>(2, 3);
-    BitMask<uint16_t> srcEaModeMask = BitMask<uint16_t>(5, 3);
+    GenieSys::BitMask<uint16_t> sizeMask = GenieSys::BitMask<uint16_t>(13, 2, 1, 3);
+    GenieSys::BitMask<uint16_t> destEaModeMask = GenieSys::BitMask<uint16_t>(8, 3);
+    GenieSys::BitMask<uint16_t> destEaRegMask = GenieSys::BitMask<uint16_t>(11, 3);
+    GenieSys::BitMask<uint16_t> srcEaRegMask = GenieSys::BitMask<uint16_t>(2, 3);
+    GenieSys::BitMask<uint16_t> srcEaModeMask = GenieSys::BitMask<uint16_t>(5, 3);
 
 public:
     MOVE(M68kCpu* cpu, Bus* bus);

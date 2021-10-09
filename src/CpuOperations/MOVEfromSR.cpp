@@ -9,12 +9,13 @@
 #include <GenieSys/AddressingModes/DataRegisterDirectMode.h>
 #include <sstream>
 
+
 MOVEfromSR::MOVEfromSR(M68kCpu *cpu, Bus *bus) : CpuOperation(cpu, bus) {
 
 }
 
 std::vector<uint16_t> MOVEfromSR::getOpcodes() {
-    return getPossibleOpcodes((uint16_t)0b0100001011000000, std::vector<BitMask<uint16_t>*> {
+    return getPossibleOpcodes((uint16_t)0b0100001011000000, std::vector<GenieSys::BitMask<uint16_t>*> {
         &eaModeMask,
         &eaRegMask
     });

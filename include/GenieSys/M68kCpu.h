@@ -10,6 +10,7 @@
 #include "GenieSys/enums.h"
 #include "./BitMask.h"
 
+
 class Bus;
 class AddressingMode;
 class CpuOperation;
@@ -53,8 +54,8 @@ private:
      * System stack pointer;
      */
     uint32_t ssp = 0;
-    BitMask<uint16_t> supervisorState = BitMask<uint16_t>(13, 1);
-    BitMask<uint16_t> masterInterruptState = BitMask<uint16_t>(12, 1);
+    GenieSys::BitMask<uint16_t> supervisorState = GenieSys::BitMask<uint16_t>(13, 1);
+    GenieSys::BitMask<uint16_t> masterInterruptState = GenieSys::BitMask<uint16_t>(12, 1);
     /**
      * Floating point data registers.
      */

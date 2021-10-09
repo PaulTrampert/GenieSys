@@ -6,12 +6,13 @@
 
 #include "CpuOperation.h"
 
+
 class CMPI : public CpuOperation {
 private:
     const uint16_t BASE_OPCODE = 0b0000110000000000;
-    BitMask<uint16_t> sizeMask = BitMask<uint16_t>(7, 2, 0, 2);
-    BitMask<uint16_t> eaModeMask = BitMask<uint16_t>(5, 3);
-    BitMask<uint16_t> eaRegMask = BitMask<uint16_t>(2, 3);
+    GenieSys::BitMask<uint16_t> sizeMask = GenieSys::BitMask<uint16_t>(7, 2, 0, 2);
+    GenieSys::BitMask<uint16_t> eaModeMask = GenieSys::BitMask<uint16_t>(5, 3);
+    GenieSys::BitMask<uint16_t> eaRegMask = GenieSys::BitMask<uint16_t>(2, 3);
 
 public:
     CMPI(M68kCpu* cpu, Bus* bus);

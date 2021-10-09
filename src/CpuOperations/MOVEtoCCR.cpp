@@ -8,12 +8,13 @@
 #include <vector>
 #include <sstream>
 
+
 MOVEtoCCR::MOVEtoCCR(M68kCpu *cpu, Bus *bus) : CpuOperation(cpu, bus) {
 
 }
 
 std::vector<uint16_t> MOVEtoCCR::getOpcodes() {
-    return getPossibleOpcodes((uint16_t) 0b0100010011000000, std::vector<BitMask<uint16_t>*> {
+    return getPossibleOpcodes((uint16_t) 0b0100010011000000, std::vector<GenieSys::BitMask<uint16_t>*> {
         &eaRegMask,
         &eaModeMask
     });

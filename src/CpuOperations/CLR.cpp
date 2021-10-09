@@ -11,6 +11,7 @@
 #include <GenieSys/AddressingModes/DataRegisterDirectMode.h>
 #include <GenieSys/AddressingModes/AddressRegisterDirectMode.h>
 
+
 CLR::CLR(M68kCpu *cpu, Bus *bus) : CpuOperation(cpu, bus) {
 
 }
@@ -20,7 +21,7 @@ uint8_t CLR::getSpecificity() {
 }
 
 std::vector<uint16_t> CLR::getOpcodes() {
-    return getPossibleOpcodes((uint16_t)0b0100001000000000u, std::vector<BitMask<uint16_t>*> {
+    return getPossibleOpcodes((uint16_t)0b0100001000000000u, std::vector<GenieSys::BitMask<uint16_t>*> {
         &sizeMask,
         &eaModeMask,
         &eaRegMask

@@ -7,6 +7,7 @@
 #include <GenieSys/AddressingModes/AddressingMode.h>
 #include <sstream>
 
+
 static uint8_t byteWordCycleTable[12][9] = {
         {4, 4, 8, 8, 8, 12, 14, 12, 16},
         {4, 4, 8, 8, 8, 12, 14, 12, 16},
@@ -42,7 +43,7 @@ MOVE::MOVE(M68kCpu *cpu, Bus *bus) : CpuOperation(cpu, bus) {
 }
 
 std::vector<uint16_t> MOVE::getOpcodes() {
-    return getPossibleOpcodes((uint16_t) 0b0000000000000000, std::vector<BitMask<uint16_t>*> {
+    return getPossibleOpcodes((uint16_t) 0b0000000000000000, std::vector<GenieSys::BitMask<uint16_t>*> {
        &sizeMask,
        &destEaModeMask,
        &destEaRegMask,

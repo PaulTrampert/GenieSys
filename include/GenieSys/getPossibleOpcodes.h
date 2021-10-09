@@ -6,14 +6,15 @@
 #include <vector>
 #include "./BitMask.h"
 
+
 template <class T>
-std::vector<T> getPossibleOpcodes(T base, BitMask<T>* field);
+std::vector<T> getPossibleOpcodes(T base, GenieSys::BitMask<T>* field);
 
 template<class T>
-std::vector<T> getPossibleOpcodes(T base, std::vector<BitMask<T>*> fields, int i = 0);
+std::vector<T> getPossibleOpcodes(T base, std::vector<GenieSys::BitMask<T>*> fields, int i = 0);
 
 template<class T>
-std::vector<T> getPossibleOpcodes(T base, std::vector<BitMask<T>*> fields, int i) {
+std::vector<T> getPossibleOpcodes(T base, std::vector<GenieSys::BitMask<T>*> fields, int i) {
     std::vector<T> fieldResults = getPossibleOpcodes(base, fields[i]);
     if (i == fields.size() - 1) {
         return fieldResults;
@@ -27,7 +28,7 @@ std::vector<T> getPossibleOpcodes(T base, std::vector<BitMask<T>*> fields, int i
     return results;
 }
 template<class T>
-std::vector<T> getPossibleOpcodes(T base, BitMask<T>* field) {
+std::vector<T> getPossibleOpcodes(T base, GenieSys::BitMask<T>* field) {
     std::vector<T> results;
     for (int i = field->getMinValue(); i <= field->getMaxValue(); i++) {
         results.push_back(field->compose(base, i));

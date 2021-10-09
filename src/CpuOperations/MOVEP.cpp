@@ -8,6 +8,7 @@
 #include <sstream>
 #include <GenieSys/AddressingModes/DataRegisterDirectMode.h>
 
+
 MOVEP::MOVEP(M68kCpu *cpu, Bus *bus) : CpuOperation(cpu, bus) {
 
 }
@@ -62,7 +63,7 @@ uint8_t MOVEP::execute(uint16_t opWord) {
 }
 
 std::vector<uint16_t> MOVEP::getOpcodes() {
-    return getPossibleOpcodes((uint16_t) 0b0000000000001000, std::vector<BitMask<uint16_t>*> {
+    return getPossibleOpcodes((uint16_t) 0b0000000000001000, std::vector<GenieSys::BitMask<uint16_t>*> {
         &DnMask,
         &AnMask,
         &OpModeMask

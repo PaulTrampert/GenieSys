@@ -6,12 +6,13 @@
 #include "./CpuOperation.h"
 #include "../BitMask.h"
 
+
 class BCLR : public CpuOperation {
 private:
-    BitMask<uint16_t> DnMask = BitMask<uint16_t>(11, 3);
-    BitMask<uint16_t> EaModeMask = BitMask<uint16_t>(5, 3);
-    BitMask<uint16_t> EaAddrMask = BitMask<uint16_t>(2, 3);
-    BitMask<uint16_t> ImmMask = BitMask<uint16_t>(8, 1);
+    GenieSys::BitMask<uint16_t> DnMask = GenieSys::BitMask<uint16_t>(11, 3);
+    GenieSys::BitMask<uint16_t> EaModeMask = GenieSys::BitMask<uint16_t>(5, 3);
+    GenieSys::BitMask<uint16_t> EaAddrMask = GenieSys::BitMask<uint16_t>(2, 3);
+    GenieSys::BitMask<uint16_t> ImmMask = GenieSys::BitMask<uint16_t>(8, 1);
 
 public:
     BCLR(M68kCpu* cpu, Bus* bus);
