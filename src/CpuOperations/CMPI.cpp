@@ -20,7 +20,7 @@ CMPI::CMPI(GenieSys::M68kCpu *cpu, Bus *bus) : CpuOperation(cpu, bus) {
 }
 
 std::vector<uint16_t> CMPI::getOpcodes() {
-    return getPossibleOpcodes(BASE_OPCODE, std::vector<GenieSys::BitMask<uint16_t>*>{
+    return GenieSys::getPossibleOpcodes(BASE_OPCODE, std::vector<GenieSys::BitMask<uint16_t>*>{
         &sizeMask,
         &eaModeMask,
         &eaRegMask,

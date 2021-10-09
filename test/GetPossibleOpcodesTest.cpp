@@ -7,9 +7,10 @@
 #include <GenieSys/getPossibleOpcodes.h>
 
 
+
 TEST(getPossibleOpcodes, ItGetsThePossibleOpcodesForOneField) {
     auto mask = GenieSys::BitMask<uint16_t>(9, 2);
-    auto result = getPossibleOpcodes((uint16_t) 0b1111110011111111, &mask);
+    auto result = GenieSys::getPossibleOpcodes((uint16_t) 0b1111110011111111, &mask);
     ASSERT_EQ(4, result.size());
     ASSERT_THAT(result, ::testing::ElementsAre(0b1111110011111111, 0b1111110111111111, 0b1111111011111111, 0b1111111111111111));
 }

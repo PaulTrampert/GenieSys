@@ -87,7 +87,7 @@ void Add::addLongs(uint8_t direction, uint8_t dataRegAddr, AddressingResult *eaR
 }
 
 std::vector<uint16_t> Add::getOpcodes() {
-    return getPossibleOpcodes(OPCODE_BASE, std::vector<GenieSys::BitMask<uint16_t>*> {
+    return GenieSys::getPossibleOpcodes(OPCODE_BASE, std::vector<GenieSys::BitMask<uint16_t>*> {
         &REG_MASK,
         &DIRECTION,
         &SIZE,

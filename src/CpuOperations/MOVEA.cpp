@@ -20,7 +20,7 @@ uint8_t MOVEA::getSpecificity() {
 }
 
 std::vector<uint16_t> MOVEA::getOpcodes() {
-    return getPossibleOpcodes((uint16_t) 0b0000000001000000, std::vector<GenieSys::BitMask<uint16_t>*> {
+    return GenieSys::getPossibleOpcodes((uint16_t) 0b0000000001000000, std::vector<GenieSys::BitMask<uint16_t>*> {
        &sizeMask,
        &destMask,
        &eaModeMask,

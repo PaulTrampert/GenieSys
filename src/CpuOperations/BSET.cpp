@@ -16,13 +16,13 @@ BSET::BSET(GenieSys::M68kCpu *cpu, Bus *bus) : CpuOperation(cpu, bus) {
 }
 
 std::vector<uint16_t> BSET::getOpcodes() {
-    auto result = getPossibleOpcodes((uint16_t)0b0000000110000000, std::vector<GenieSys::BitMask<uint16_t>*> {
+    auto result = GenieSys::getPossibleOpcodes((uint16_t)0b0000000110000000, std::vector<GenieSys::BitMask<uint16_t>*> {
        &DnMask,
        &EaModeMask,
        &EaAddrMask
     });
 
-    auto immResult = getPossibleOpcodes((uint16_t)0b0000100010000000, std::vector<GenieSys::BitMask<uint16_t>*> {
+    auto immResult = GenieSys::getPossibleOpcodes((uint16_t)0b0000100010000000, std::vector<GenieSys::BitMask<uint16_t>*> {
         &EaModeMask,
         &EaAddrMask
     });

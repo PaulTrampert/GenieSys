@@ -22,7 +22,7 @@ uint8_t CLR::getSpecificity() {
 }
 
 std::vector<uint16_t> CLR::getOpcodes() {
-    return getPossibleOpcodes((uint16_t)0b0100001000000000u, std::vector<GenieSys::BitMask<uint16_t>*> {
+    return GenieSys::getPossibleOpcodes((uint16_t)0b0100001000000000u, std::vector<GenieSys::BitMask<uint16_t>*> {
         &sizeMask,
         &eaModeMask,
         &eaRegMask

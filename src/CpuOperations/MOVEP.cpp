@@ -64,7 +64,7 @@ uint8_t MOVEP::execute(uint16_t opWord) {
 }
 
 std::vector<uint16_t> MOVEP::getOpcodes() {
-    return getPossibleOpcodes((uint16_t) 0b0000000000001000, std::vector<GenieSys::BitMask<uint16_t>*> {
+    return GenieSys::getPossibleOpcodes((uint16_t) 0b0000000000001000, std::vector<GenieSys::BitMask<uint16_t>*> {
         &DnMask,
         &AnMask,
         &OpModeMask

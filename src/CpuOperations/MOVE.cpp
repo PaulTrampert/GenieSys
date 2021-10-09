@@ -44,7 +44,7 @@ MOVE::MOVE(GenieSys::M68kCpu *cpu, Bus *bus) : CpuOperation(cpu, bus) {
 }
 
 std::vector<uint16_t> MOVE::getOpcodes() {
-    return getPossibleOpcodes((uint16_t) 0b0000000000000000, std::vector<GenieSys::BitMask<uint16_t>*> {
+    return GenieSys::getPossibleOpcodes((uint16_t) 0b0000000000000000, std::vector<GenieSys::BitMask<uint16_t>*> {
        &sizeMask,
        &destEaModeMask,
        &destEaRegMask,

@@ -21,7 +21,7 @@ uint8_t NEGX::getSpecificity() {
 }
 
 std::vector<uint16_t> NEGX::getOpcodes() {
-    return getPossibleOpcodes((uint16_t)0b0100000000000000, std::vector<GenieSys::BitMask<uint16_t>*> {
+    return GenieSys::getPossibleOpcodes((uint16_t)0b0100000000000000, std::vector<GenieSys::BitMask<uint16_t>*> {
        &sizeMask,
        &eaModeMask,
        &eaRegMask

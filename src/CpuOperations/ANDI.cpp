@@ -19,7 +19,7 @@ ANDI::ANDI(GenieSys::M68kCpu *cpu, Bus *bus) : CpuOperation(cpu, bus) {
 }
 
 std::vector<uint16_t> ANDI::getOpcodes() {
-    return getPossibleOpcodes((uint16_t)0b0000001000000000, std::vector<GenieSys::BitMask<uint16_t>*>{
+    return GenieSys::getPossibleOpcodes((uint16_t)0b0000001000000000, std::vector<GenieSys::BitMask<uint16_t>*>{
         &sizeMask,
         &eaModeMask,
         &eaRegMask,

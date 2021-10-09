@@ -22,7 +22,7 @@ uint8_t NOT::getSpecificity() {
 }
 
 std::vector<uint16_t> NOT::getOpcodes() {
-    return getPossibleOpcodes((uint16_t)0b0100011000000000, std::vector<GenieSys::BitMask<uint16_t>*> {
+    return GenieSys::getPossibleOpcodes((uint16_t)0b0100011000000000, std::vector<GenieSys::BitMask<uint16_t>*> {
         &sizeMask,
         &eaModeMask,
         &eaRegMask

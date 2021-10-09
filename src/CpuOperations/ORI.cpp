@@ -30,7 +30,7 @@ std::string ORI::disassemble(uint16_t opWord) {
 }
 
 std::vector<uint16_t> ORI::getOpcodes() {
-    return getPossibleOpcodes(BASE_OPCODE, std::vector<GenieSys::BitMask<uint16_t>*>{
+    return GenieSys::getPossibleOpcodes(BASE_OPCODE, std::vector<GenieSys::BitMask<uint16_t>*>{
             &sizeMask,
             &eaModeMask,
             &eaRegMask,

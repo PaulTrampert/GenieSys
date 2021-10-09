@@ -10,6 +10,7 @@
 #include <sstream>
 
 
+
 const uint16_t OPCODE_BASE = 0b1100000100000000;
 static GenieSys::BitMask<uint16_t> RX_MASK = GenieSys::BitMask<uint16_t>(11, 3);
 static GenieSys::BitMask<uint16_t> RY_MASK = GenieSys::BitMask<uint16_t>(2, 3);
@@ -68,7 +69,7 @@ Abcd::Abcd(GenieSys::M68kCpu *cpu, Bus *bus) : CpuOperation(cpu, bus) {
 }
 
 std::vector<uint16_t> Abcd::getOpcodes() {
-    return getPossibleOpcodes(OPCODE_BASE, std::vector<GenieSys::BitMask<uint16_t>*>{
+    return GenieSys::getPossibleOpcodes(OPCODE_BASE, std::vector<GenieSys::BitMask<uint16_t>*>{
         &RX_MASK,
         &RY_MASK,
         &RM_MASK
