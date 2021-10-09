@@ -27,7 +27,7 @@ struct MOVETest : testing::Test {
     }
 public:
     void SetUp() override {
-        cpu->setCcrFlags(CCR_EXTEND | CCR_NEGATIVE | CCR_ZERO | CCR_OVERFLOW | CCR_CARRY);
+        cpu->setCcrFlags(GenieSys::CCR_EXTEND | GenieSys::CCR_NEGATIVE | GenieSys::CCR_ZERO | GenieSys::CCR_OVERFLOW | GenieSys::CCR_CARRY);
         cpu->setAddressRegister(0, 500);
         cpu->setAddressRegister(1, 600);
         bus.writeLong(500, 0);
@@ -50,17 +50,17 @@ TEST_F(MOVETest, DisassembleMoveLong) {
 TEST_F(MOVETest, ExecuteMoveByte) {
     ASSERT_EQ(12, subject->execute(moveByte));
     ASSERT_EQ(0xAA000000, bus.readLong(500));
-    ASSERT_EQ(CCR_EXTEND | CCR_NEGATIVE, cpu->getCcrFlags());
+    ASSERT_EQ(GenieSys::CCR_EXTEND | GenieSys::CCR_NEGATIVE, cpu->getCcrFlags());
 }
 
 TEST_F(MOVETest, ExecuteMoveWord) {
     ASSERT_EQ(12, subject->execute(moveWord));
     ASSERT_EQ(0xAABB0000, bus.readLong(500));
-    ASSERT_EQ(CCR_EXTEND | CCR_NEGATIVE, cpu->getCcrFlags());
+    ASSERT_EQ(GenieSys::CCR_EXTEND | GenieSys::CCR_NEGATIVE, cpu->getCcrFlags());
 }
 
 TEST_F(MOVETest, ExecuteMoveLong) {
     ASSERT_EQ(20, subject->execute(moveLong));
     ASSERT_EQ(0xAABBCCDD, bus.readLong(500));
-    ASSERT_EQ(CCR_EXTEND | CCR_NEGATIVE, cpu->getCcrFlags());
+    ASSERT_EQ(GenieSys::CCR_EXTEND | GenieSys::CCR_NEGATIVE, cpu->getCcrFlags());
 }

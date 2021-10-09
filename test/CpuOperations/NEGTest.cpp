@@ -49,7 +49,7 @@ TEST_F(NEGTest, ExecuteByte) {
 
     ASSERT_EQ(12, subject->execute(byteOp));
     ASSERT_EQ(-100, (int8_t)bus.read(600));
-    ASSERT_EQ(CCR_CARRY | CCR_EXTEND | CCR_NEGATIVE, cpu->getCcrFlags());
+    ASSERT_EQ(GenieSys::CCR_CARRY | GenieSys::CCR_EXTEND | GenieSys::CCR_NEGATIVE, cpu->getCcrFlags());
 }
 
 TEST_F(NEGTest, ExecuteWord) {
@@ -57,7 +57,7 @@ TEST_F(NEGTest, ExecuteWord) {
 
     ASSERT_EQ(12, subject->execute(wordOp));
     ASSERT_EQ(-100, (int16_t)bus.readWord(600));
-    ASSERT_EQ(CCR_CARRY | CCR_EXTEND | CCR_NEGATIVE, cpu->getCcrFlags());
+    ASSERT_EQ(GenieSys::CCR_CARRY | GenieSys::CCR_EXTEND | GenieSys::CCR_NEGATIVE, cpu->getCcrFlags());
 }
 
 TEST_F(NEGTest, ExecuteLong) {
@@ -65,5 +65,5 @@ TEST_F(NEGTest, ExecuteLong) {
 
     ASSERT_EQ(20, subject->execute(longOp));
     ASSERT_EQ(-100, (int32_t)bus.readLong(600));
-    ASSERT_EQ(CCR_CARRY | CCR_EXTEND | CCR_NEGATIVE, cpu->getCcrFlags());
+    ASSERT_EQ(GenieSys::CCR_CARRY | GenieSys::CCR_EXTEND | GenieSys::CCR_NEGATIVE, cpu->getCcrFlags());
 }

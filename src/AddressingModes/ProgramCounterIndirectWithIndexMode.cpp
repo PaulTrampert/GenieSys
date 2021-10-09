@@ -22,10 +22,10 @@ uint32_t ProgramCounterIndirectWithIndexMode::getAddress(uint8_t regAddr) {
     uint8_t idxRegAddr = extWord.getIdxRegAddr();
     if (extWord.isBrief()) {
         auto displacement = GenieSys::signExtend<int32_t>(extWord.getDisplacement(), 8);
-        int32_t idxReg = extWord.getIdxRegType() == M68K_REG_TYPE_DATA
+        int32_t idxReg = extWord.getIdxRegType() == GenieSys::M68K_REG_TYPE_DATA
                          ? cpu->getDataRegister(idxRegAddr)
                          : cpu->getAddressRegister(idxRegAddr);
-        if (extWord.getIdxSize() == EXT_WORD_IDX_SIZE_SE_WORD) {
+        if (extWord.getIdxSize() == GenieSys::EXT_WORD_IDX_SIZE_SE_WORD) {
             idxReg = GenieSys::signExtend<int32_t>(idxReg & 0x0000FFFF, 16);
         }
         uint32_t scale = pow(2, extWord.getScale());
@@ -35,20 +35,20 @@ uint32_t ProgramCounterIndirectWithIndexMode::getAddress(uint8_t regAddr) {
         baseAddr = extWord.getBaseRegSuppress() ? 0 : baseAddr;
         int32_t idxReg = 0;
         if (!extWord.getIndexSuppress()) {
-            idxReg = extWord.getIdxRegType() == M68K_REG_TYPE_DATA
+            idxReg = extWord.getIdxRegType() == GenieSys::M68K_REG_TYPE_DATA
                      ? cpu->getDataRegister(idxRegAddr)
                      : cpu->getAddressRegister(idxRegAddr);
-            if (extWord.getIdxSize() == EXT_WORD_IDX_SIZE_SE_WORD) {
+            if (extWord.getIdxSize() == GenieSys::EXT_WORD_IDX_SIZE_SE_WORD) {
                 idxReg = GenieSys::signExtend<int32_t>(idxReg & 0x0000FFFF, 16);
             }
         }
         uint32_t scale = pow(2, extWord.getScale());
         int32_t baseDisplacement = 0;
-        if (extWord.getBaseDisplacementSize() == EXT_WORD_BD_SIZE_WORD) {
+        if (extWord.getBaseDisplacementSize() == GenieSys::EXT_WORD_BD_SIZE_WORD) {
             baseDisplacement = GenieSys::signExtend<int32_t>(bus->readWord(cpu->getPc()), 16);
             cpu->incrementPc(2);
         }
-        else if (extWord.getBaseDisplacementSize() == EXT_WORD_BD_SIZE_LONG) {
+        else if (extWord.getBaseDisplacementSize() == GenieSys::EXT_WORD_BD_SIZE_LONG) {
             baseDisplacement = bus->readLong(cpu->getPc());
             cpu->incrementPc(4);
         }
@@ -103,8 +103,8 @@ std::string ProgramCounterIndirectWithIndexMode::disassemble(uint8_t regAddr, ui
     uint8_t idxRegAddr = extWord.getIdxRegAddr();
     if (extWord.isBrief()) {
         auto displacement = GenieSys::signExtend<int32_t>(extWord.getDisplacement(), 8);
-        auto idxRegType = extWord.getIdxRegType() == M68K_REG_TYPE_DATA ? "D" : "A";
-        auto idxRegSize = extWord.getIdxSize() == EXT_WORD_IDX_SIZE_SE_WORD ? ".w" : ".l";
+        auto idxRegType = extWord.getIdxRegType() == GenieSys::M68K_REG_TYPE_DATA ? "D" : "A";
+        auto idxRegSize = extWord.getIdxSize() == GenieSys::EXT_WORD_IDX_SIZE_SE_WORD ? ".w" : ".l";
         auto scale = (int)pow(2, extWord.getScale());
         return "(#" + std::to_string(displacement)
                + ",PC"
@@ -117,21 +117,21 @@ std::string ProgramCounterIndirectWithIndexMode::disassemble(uint8_t regAddr, ui
             baseRegTerm = "PC";
         }
         std::string baseDisplacementTerm;
-        if (extWord.getBaseDisplacementSize() == EXT_WORD_BD_SIZE_WORD) {
+        if (extWord.getBaseDisplacementSize() == GenieSys::EXT_WORD_BD_SIZE_WORD) {
             auto baseDisplacement = GenieSys::signExtend<int32_t>(bus->readWord(cpu->getPc()), 16);
             cpu->incrementPc(2);
             baseDisplacementTerm = "#" + std::to_string(baseDisplacement);
         }
-        else if (extWord.getBaseDisplacementSize() == EXT_WORD_BD_SIZE_LONG) {
+        else if (extWord.getBaseDisplacementSize() == GenieSys::EXT_WORD_BD_SIZE_LONG) {
             auto baseDisplacement = bus->readLong(cpu->getPc());
             cpu->incrementPc(4);
             baseDisplacementTerm = "#" + std::to_string(baseDisplacement);
         }
         std::string idxRegTerm;
         if (!extWord.getIndexSuppress()) {
-            idxRegTerm += extWord.getIdxRegType() == M68K_REG_TYPE_DATA ? "D" : "A";
+            idxRegTerm += extWord.getIdxRegType() == GenieSys::M68K_REG_TYPE_DATA ? "D" : "A";
             idxRegTerm += std::to_string(extWord.getIdxRegAddr());
-            idxRegTerm += extWord.getIdxSize() == EXT_WORD_IDX_SIZE_SE_WORD ? ".w" : ".l";
+            idxRegTerm += extWord.getIdxSize() == GenieSys::EXT_WORD_IDX_SIZE_SE_WORD ? ".w" : ".l";
             auto scale = (int)pow(2, extWord.getScale());
             idxRegTerm += "*" + std::to_string(scale);
         }

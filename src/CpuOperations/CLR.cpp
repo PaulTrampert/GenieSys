@@ -38,8 +38,8 @@ uint8_t CLR::execute(uint16_t opWord) {
     auto eaResult = eaMode->getData(eaReg, sizeBytes);
     std::vector<uint8_t> zeros(sizeBytes, 0);
     eaResult->write(zeros);
-    auto initCcrX = cpu->getCcrFlags() & CCR_EXTEND;
-    cpu->setCcrFlags(initCcrX | CCR_ZERO);
+    auto initCcrX = cpu->getCcrFlags() & GenieSys::CCR_EXTEND;
+    cpu->setCcrFlags(initCcrX | GenieSys::CCR_ZERO);
     bool isRegisterEa = eaModeId == DataRegisterDirectMode::MODE_ID || eaModeId == AddressRegisterDirectMode::MODE_ID;
     switch(size) {
         case 0:

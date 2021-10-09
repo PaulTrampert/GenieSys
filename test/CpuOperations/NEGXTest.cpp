@@ -43,7 +43,7 @@ TEST_F(NEGXTest, ExecuteByteOpNonZero) {
 
     ASSERT_EQ(4, subject->execute(byteOpWord));
     ASSERT_EQ(-1, (int8_t)cpu->getDataRegister(1));
-    ASSERT_EQ(CCR_NEGATIVE, cpu->getCcrFlags());
+    ASSERT_EQ(GenieSys::CCR_NEGATIVE, cpu->getCcrFlags());
 }
 
 TEST_F(NEGXTest, ExecuteWordOpNonZero) {
@@ -51,7 +51,7 @@ TEST_F(NEGXTest, ExecuteWordOpNonZero) {
 
     ASSERT_EQ(4, subject->execute(wordOpWord));
     ASSERT_EQ(-1, (int16_t)cpu->getDataRegister(1));
-    ASSERT_EQ(CCR_NEGATIVE, cpu->getCcrFlags());
+    ASSERT_EQ(GenieSys::CCR_NEGATIVE, cpu->getCcrFlags());
 }
 
 TEST_F(NEGXTest, ExecuteLongOpNonZero) {
@@ -59,7 +59,7 @@ TEST_F(NEGXTest, ExecuteLongOpNonZero) {
 
     ASSERT_EQ(6, subject->execute(longOpWord));
     ASSERT_EQ(-1, (int32_t)cpu->getDataRegister(1));
-    ASSERT_EQ(CCR_NEGATIVE, cpu->getCcrFlags());
+    ASSERT_EQ(GenieSys::CCR_NEGATIVE, cpu->getCcrFlags());
 }
 
 TEST_F(NEGXTest, ExecuteByteOpZero) {
@@ -88,11 +88,11 @@ TEST_F(NEGXTest, ExecuteLongOpZero) {
 
 TEST_F(NEGXTest, ClearsCcrZeroWhenResultNotZero) {
     cpu->setDataRegister(1, (uint32_t)5);
-    cpu->setCcrFlags(CCR_ZERO);
+    cpu->setCcrFlags(GenieSys::CCR_ZERO);
 
     subject->execute(longOpWord);
 
-    ASSERT_EQ(CCR_NEGATIVE, cpu->getCcrFlags());
+    ASSERT_EQ(GenieSys::CCR_NEGATIVE, cpu->getCcrFlags());
 }
 
 TEST_F(NEGXTest, DoesNotSetCcrZeroWhenResultIsZero) {
@@ -106,7 +106,7 @@ TEST_F(NEGXTest, DoesNotSetCcrZeroWhenResultIsZero) {
 TEST_F(NEGXTest, ExtendBitIsUsed) {
     int32_t data = -5;
     cpu->setDataRegister(1, (uint32_t)data);
-    cpu->setCcrFlags(CCR_EXTEND);
+    cpu->setCcrFlags(GenieSys::CCR_EXTEND);
 
     subject->execute(longOpWord);
 

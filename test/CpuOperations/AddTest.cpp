@@ -96,7 +96,7 @@ TEST_F(AddTest, ItAddsTwoBytes_WhenOneIsNegative) {
     subject->execute(0b1101001000000000);
 
     ASSERT_EQ(35, cpu->getDataRegister(1));
-    ASSERT_EQ(CCR_EXTEND | CCR_CARRY, cpu->getCcrFlags());
+    ASSERT_EQ(GenieSys::CCR_EXTEND | GenieSys::CCR_CARRY, cpu->getCcrFlags());
 }
 
 TEST_F(AddTest, ItCorrectlySetsOverflow) {
@@ -106,7 +106,7 @@ TEST_F(AddTest, ItCorrectlySetsOverflow) {
     subject->execute(0b1101001000000000);
 
     ASSERT_EQ(128, cpu->getDataRegister(1));
-    ASSERT_EQ(CCR_OVERFLOW | CCR_NEGATIVE, cpu->getCcrFlags());
+    ASSERT_EQ(GenieSys::CCR_OVERFLOW | GenieSys::CCR_NEGATIVE, cpu->getCcrFlags());
 }
 
 TEST_F(AddTest, ItReturnsTheCorrectCycles_AddBytes_EffectiveAddressResult) {

@@ -62,7 +62,7 @@ uint8_t BTST::execute(uint16_t opWord) {
     bitNum = bitNum % destSizeBits;
     auto eaData = eaMode->getData(eaAddr, destSize);
     uint32_t eaNum = destSize == 4 ? eaData->getDataAsLong() : eaData->getDataAsByte();
-    uint8_t result = ((eaNum >> bitNum) & 1) == 0 ? CCR_ZERO : 0;
+    uint8_t result = ((eaNum >> bitNum) & 1) == 0 ? GenieSys::CCR_ZERO : 0;
     cpu->setCcrFlags((cpu->getCcrFlags() & ~result) | result);
     return cycles + eaData->getCycles();
 }

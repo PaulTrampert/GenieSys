@@ -62,7 +62,7 @@ uint8_t BCHG::execute(uint16_t opWord) {
     uint32_t data = destSize == 4 ? eaData->getDataAsLong() : eaData->getDataAsByte();
     GenieSys::BitMask<uint32_t> mask(bitNum, 1);
     uint32_t bit = mask.apply(data);
-    auto result = bit == 0 ? CCR_ZERO : 0;
+    auto result = bit == 0 ? GenieSys::CCR_ZERO : 0;
     cpu->setCcrFlags((cpu->getCcrFlags() & ~result) | result);
     data = mask.compose(data, bit == 1 ? 0 : 1);
     if (destSize == 4) {

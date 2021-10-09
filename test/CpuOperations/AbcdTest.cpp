@@ -52,25 +52,25 @@ TEST_F(AbcdTest, ItCorrectlyDisassemblesDecimalsFromMemory) {
 TEST_F(AbcdTest, ItCorrectlyAddsDecimalsFromRegistersWithCarry) {
     cpu->setDataRegister(2, (uint8_t)0x88);
     cpu->setDataRegister(3, (uint8_t)0x11);
-    cpu->setCcrFlags(CCR_EXTEND | CCR_CARRY);
+    cpu->setCcrFlags(GenieSys::CCR_EXTEND | GenieSys::CCR_CARRY);
 
     subject->execute(0b1100010100000011);
 
     ASSERT_EQ(0x00, cpu->getDataRegister(2));
-    ASSERT_EQ(CCR_EXTEND | CCR_CARRY | CCR_ZERO, cpu->getCcrFlags());
+    ASSERT_EQ(GenieSys::CCR_EXTEND | GenieSys::CCR_CARRY | GenieSys::CCR_ZERO, cpu->getCcrFlags());
 }
 
 TEST_F(AbcdTest, ItCorrectlyAddsDecimalsFromMemoryWithCarry) {
     cpu->setAddressRegister(2, 0x20);
     cpu->setAddressRegister(3, 0x30);
-    cpu->setCcrFlags(CCR_EXTEND | CCR_CARRY);
+    cpu->setCcrFlags(GenieSys::CCR_EXTEND | GenieSys::CCR_CARRY);
     bus.writeByte(0x1F, 0x88);
     bus.writeByte(0x2F, 0x11);
 
     subject->execute(0b1100010100001011);
 
     ASSERT_EQ(0x00, bus.read(0x1F));
-    ASSERT_EQ(CCR_EXTEND | CCR_CARRY | CCR_ZERO, cpu->getCcrFlags());
+    ASSERT_EQ(GenieSys::CCR_EXTEND | GenieSys::CCR_CARRY | GenieSys::CCR_ZERO, cpu->getCcrFlags());
 }
 
 TEST_F(AbcdTest, ItReturnsTheCorrectClockCycles_ForDataRegisters) {

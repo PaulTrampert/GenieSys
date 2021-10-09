@@ -23,12 +23,12 @@ private:
 
     template <class U, class S>
     uint8_t getCcrFlags(U result) {
-        uint8_t ccr = cpu->getCcrFlags() & CCR_EXTEND;
+        uint8_t ccr = cpu->getCcrFlags() & GenieSys::CCR_EXTEND;
         if ((S) result < 0) {
-            ccr |= CCR_NEGATIVE;
+            ccr |= GenieSys::CCR_NEGATIVE;
         }
         if (result == 0) {
-            ccr |= CCR_ZERO;
+            ccr |= GenieSys::CCR_ZERO;
         }
         return ccr;
     }

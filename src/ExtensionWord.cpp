@@ -17,7 +17,7 @@ GenieSys::ExtensionWord& GenieSys::ExtensionWord::operator=(const uint16_t value
     return *this;
 }
 
-M68K_REG_TYPE GenieSys::ExtensionWord::getIdxRegType() {
+GenieSys::M68K_REG_TYPE GenieSys::ExtensionWord::getIdxRegType() {
     return static_cast<M68K_REG_TYPE>(word >> 15);
 }
 
@@ -33,7 +33,7 @@ void GenieSys::ExtensionWord::setIdxRegAddr(uint8_t value) {
     word |= ((value & 0x07) << 12);
 }
 
-EXT_WORD_IDX_SIZE GenieSys::ExtensionWord::getIdxSize() {
+GenieSys::EXT_WORD_IDX_SIZE GenieSys::ExtensionWord::getIdxSize() {
     return static_cast<EXT_WORD_IDX_SIZE>((word & 0x0800) >> 11);
 }
 
@@ -65,7 +65,7 @@ void GenieSys::ExtensionWord::setIndexSuppress(bool suppress) {
     word |= suppress << 6;
 }
 
-EXT_WORD_BD_SIZE GenieSys::ExtensionWord::getBaseDisplacementSize() {
+GenieSys::EXT_WORD_BD_SIZE GenieSys::ExtensionWord::getBaseDisplacementSize() {
     return static_cast<EXT_WORD_BD_SIZE>((word & 0x0030) >> 4);
 }
 

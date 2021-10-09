@@ -9,7 +9,7 @@ TEST(getCcrFlags, getAdditionOverflow_OverflowOccurs) {
     int8_t op2 = 10;
     int8_t result = op1 + op2;
     uint8_t flags = GenieSys::getAdditionCcrFlags<uint8_t, int8_t>(result, op1, op2);
-    ASSERT_EQ(CCR_OVERFLOW, flags & CCR_OVERFLOW);
+    ASSERT_EQ(GenieSys::CCR_OVERFLOW, flags & GenieSys::CCR_OVERFLOW);
 }
 
 TEST(getCcrFlags, getAdditionOverflow_NoOverflowOccurs) {
@@ -17,7 +17,7 @@ TEST(getCcrFlags, getAdditionOverflow_NoOverflowOccurs) {
     int8_t op2 = 10;
     int8_t result = op1 + op2;
     uint8_t flags = GenieSys::getAdditionCcrFlags<uint8_t, int8_t>(result, op1, op2);
-    ASSERT_EQ(0, flags & CCR_OVERFLOW);
+    ASSERT_EQ(0, flags & GenieSys::CCR_OVERFLOW);
 }
 
 TEST(getCcrFlags, getAdditionCarry_CarryOccurs) {
@@ -25,7 +25,7 @@ TEST(getCcrFlags, getAdditionCarry_CarryOccurs) {
     uint8_t op2 = 1;
     uint8_t result = op1 + op2;
     uint8_t flags = GenieSys::getAdditionCcrFlags<uint8_t, int8_t>(result, op1, op2);
-    ASSERT_EQ(CCR_CARRY | CCR_EXTEND, flags & (CCR_CARRY | CCR_EXTEND));
+    ASSERT_EQ(GenieSys::CCR_CARRY | GenieSys::CCR_EXTEND, flags & (GenieSys::CCR_CARRY | GenieSys::CCR_EXTEND));
 }
 
 TEST(getCcrFlags, getAdditionCarry_NoCarryOccurs) {
@@ -33,7 +33,7 @@ TEST(getCcrFlags, getAdditionCarry_NoCarryOccurs) {
     uint8_t op2 = 1;
     uint8_t result = op1 + op2;
     uint8_t flags = GenieSys::getAdditionCcrFlags<uint8_t, int8_t>(result, op1, op2);
-    ASSERT_EQ(0, flags & (CCR_CARRY | CCR_EXTEND));
+    ASSERT_EQ(0, flags & (GenieSys::CCR_CARRY | GenieSys::CCR_EXTEND));
 }
 
 TEST(getCcrFlags, getAdditionZero_ResultIsZero) {
@@ -41,7 +41,7 @@ TEST(getCcrFlags, getAdditionZero_ResultIsZero) {
     uint8_t op2 = 1;
     uint8_t result = op1 + op2;
     uint8_t flags = GenieSys::getAdditionCcrFlags<uint8_t, int8_t>(result, op1, op2);
-    ASSERT_EQ(CCR_ZERO, flags & (CCR_ZERO));
+    ASSERT_EQ(GenieSys::CCR_ZERO, flags & (GenieSys::CCR_ZERO));
 }
 
 TEST(getCcrFlags, getAdditionZero_ResultIsNotZero) {
@@ -49,7 +49,7 @@ TEST(getCcrFlags, getAdditionZero_ResultIsNotZero) {
     uint8_t op2 = 1;
     uint8_t result = op1 + op2;
     uint8_t flags = GenieSys::getAdditionCcrFlags<uint8_t, int8_t>(result, op1, op2);
-    ASSERT_EQ(0, flags & (CCR_ZERO));
+    ASSERT_EQ(0, flags & (GenieSys::CCR_ZERO));
 }
 
 TEST(getCcrFlags, getAdditionNegative_ResultIsNegative) {
@@ -57,7 +57,7 @@ TEST(getCcrFlags, getAdditionNegative_ResultIsNegative) {
     uint8_t op2 = 1;
     uint8_t result = op1 + op2;
     uint8_t flags = GenieSys::getAdditionCcrFlags<uint8_t, int8_t>(result, op1, op2);
-    ASSERT_EQ(CCR_NEGATIVE, flags & (CCR_NEGATIVE));
+    ASSERT_EQ(GenieSys::CCR_NEGATIVE, flags & (GenieSys::CCR_NEGATIVE));
 }
 
 TEST(getCcrFlags, getAdditionNegative_ResultIsPositive) {
@@ -65,7 +65,7 @@ TEST(getCcrFlags, getAdditionNegative_ResultIsPositive) {
     uint8_t op2 = 1;
     uint8_t result = op1 + op2;
     uint8_t flags = GenieSys::getAdditionCcrFlags<uint8_t, int8_t>(result, op1, op2);
-    ASSERT_EQ(0, flags & (CCR_NEGATIVE));
+    ASSERT_EQ(0, flags & (GenieSys::CCR_NEGATIVE));
 }
 
 TEST(getCcrFlags, getSubtractionOverflow_OverflowOccurs) {
@@ -73,7 +73,7 @@ TEST(getCcrFlags, getSubtractionOverflow_OverflowOccurs) {
     int8_t op2 = 1;
     int8_t result = op1 - op2;
     uint8_t flags = GenieSys::getSubtractionCcrFlags<uint8_t, int8_t>(result, op1, op2);
-    ASSERT_EQ(CCR_OVERFLOW, flags & CCR_OVERFLOW);
+    ASSERT_EQ(GenieSys::CCR_OVERFLOW, flags & GenieSys::CCR_OVERFLOW);
 }
 
 TEST(getCcrFlags, getSubtractionOverflow_NoOverflowOccurs) {
@@ -81,7 +81,7 @@ TEST(getCcrFlags, getSubtractionOverflow_NoOverflowOccurs) {
     int8_t op2 = 10;
     int8_t result = op1 - op2;
     uint8_t flags = GenieSys::getSubtractionCcrFlags<uint8_t, int8_t>(result, op1, op2);
-    ASSERT_EQ(0, flags & CCR_OVERFLOW);
+    ASSERT_EQ(0, flags & GenieSys::CCR_OVERFLOW);
 }
 
 TEST(getCcrFlags, getSubtractionCarry_CarryOccurs) {
@@ -89,7 +89,7 @@ TEST(getCcrFlags, getSubtractionCarry_CarryOccurs) {
     uint8_t op2 = 10;
     uint8_t result = op1 - op2;
     uint8_t flags = GenieSys::getSubtractionCcrFlags<uint8_t, int8_t>(result, op1, op2);
-    ASSERT_EQ(CCR_CARRY | CCR_EXTEND, flags & (CCR_CARRY | CCR_EXTEND));
+    ASSERT_EQ(GenieSys::CCR_CARRY | GenieSys::CCR_EXTEND, flags & (GenieSys::CCR_CARRY | GenieSys::CCR_EXTEND));
 }
 
 TEST(getCcrFlags, getSubtractionCarry_NoCarryOccurs) {
@@ -97,7 +97,7 @@ TEST(getCcrFlags, getSubtractionCarry_NoCarryOccurs) {
     uint8_t op2 = 1;
     uint8_t result = op1 - op2;
     uint8_t flags = GenieSys::getSubtractionCcrFlags<uint8_t, int8_t>(result, op1, op2);
-    ASSERT_EQ(0, flags & (CCR_CARRY | CCR_EXTEND));
+    ASSERT_EQ(0, flags & (GenieSys::CCR_CARRY | GenieSys::CCR_EXTEND));
 }
 
 TEST(getCcrFlags, getSubtractionZero_ResultIsZero) {
@@ -105,7 +105,7 @@ TEST(getCcrFlags, getSubtractionZero_ResultIsZero) {
     uint8_t op2 = 1;
     uint8_t result = op1 - op2;
     uint8_t flags = GenieSys::getSubtractionCcrFlags<uint8_t, int8_t>(result, op1, op2);
-    ASSERT_EQ(CCR_ZERO, flags & (CCR_ZERO));
+    ASSERT_EQ(GenieSys::CCR_ZERO, flags & (GenieSys::CCR_ZERO));
 }
 
 TEST(getCcrFlags, getSubtractionZero_ResultIsNotZero) {
@@ -113,7 +113,7 @@ TEST(getCcrFlags, getSubtractionZero_ResultIsNotZero) {
     uint8_t op2 = 1;
     uint8_t result = op1 - op2;
     uint8_t flags = GenieSys::getSubtractionCcrFlags<uint8_t, int8_t>(result, op1, op2);
-    ASSERT_EQ(0, flags & (CCR_ZERO));
+    ASSERT_EQ(0, flags & (GenieSys::CCR_ZERO));
 }
 
 TEST(getCcrFlags, getSubtractionNegative_ResultIsNegative) {
@@ -121,7 +121,7 @@ TEST(getCcrFlags, getSubtractionNegative_ResultIsNegative) {
     uint8_t op2 = 1;
     uint8_t result = op1 - op2;
     uint8_t flags = GenieSys::getSubtractionCcrFlags<uint8_t, int8_t>(result, op1, op2);
-    ASSERT_EQ(CCR_NEGATIVE, flags & (CCR_NEGATIVE));
+    ASSERT_EQ(GenieSys::CCR_NEGATIVE, flags & (GenieSys::CCR_NEGATIVE));
 }
 
 TEST(getCcrFlags, getSubtractionNegative_ResultIsPositive) {
@@ -129,5 +129,5 @@ TEST(getCcrFlags, getSubtractionNegative_ResultIsPositive) {
     uint8_t op2 = 1;
     uint8_t result = op1 - op2;
     uint8_t flags = GenieSys::getSubtractionCcrFlags<uint8_t, int8_t>(result, op1, op2);
-    ASSERT_EQ(0, flags & (CCR_NEGATIVE));
+    ASSERT_EQ(0, flags & (GenieSys::CCR_NEGATIVE));
 }

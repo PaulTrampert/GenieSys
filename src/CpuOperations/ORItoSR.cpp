@@ -24,7 +24,7 @@ uint8_t ORItoSR::execute(uint16_t opWord) {
     AddressingMode *mode = cpu->getAddressingMode(ProgramCounterAddressingMode::MODE_ID);
     auto imm = mode->getData(ImmediateDataMode::MODE_ID, 2);
     if (!cpu->isSupervisor()) {
-        cpu->trap(TV_PRIVILEGE);
+        cpu->trap(GenieSys::TV_PRIVILEGE);
     } else {
         cpu->setSR(cpu->getSR() | imm->getDataAsWord());
     }

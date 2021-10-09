@@ -48,17 +48,17 @@ TEST_F(CLRTest, DisassembleLong) {
 TEST_F(CLRTest, ExecuteByte) {
     ASSERT_EQ(12, subject->execute(byteOp));
     ASSERT_EQ(0x00BBCCDD, bus.readLong(600));
-    ASSERT_EQ(CCR_ZERO, cpu->getCcrFlags());
+    ASSERT_EQ(GenieSys::CCR_ZERO, cpu->getCcrFlags());
 }
 
 TEST_F(CLRTest, ExecuteWord) {
     ASSERT_EQ(12, subject->execute(wordOp));
     ASSERT_EQ(0x0000CCDD, bus.readLong(600));
-    ASSERT_EQ(CCR_ZERO, cpu->getCcrFlags());
+    ASSERT_EQ(GenieSys::CCR_ZERO, cpu->getCcrFlags());
 }
 
 TEST_F(CLRTest, ExecuteLong) {
     ASSERT_EQ(20, subject->execute(longOp));
     ASSERT_EQ(0x00000000, bus.readLong(600));
-    ASSERT_EQ(CCR_ZERO, cpu->getCcrFlags());
+    ASSERT_EQ(GenieSys::CCR_ZERO, cpu->getCcrFlags());
 }

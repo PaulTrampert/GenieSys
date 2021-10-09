@@ -62,7 +62,7 @@ uint8_t BSET::execute(uint16_t opWord) {
     auto eaResult = eaMode->getData(eaAddr, size);
     uint32_t eaData = size == 4 ? eaResult->getDataAsLong() : eaResult->getDataAsByte();
     GenieSys::BitMask<uint32_t> mask(bitNum, 1);
-    uint8_t testResult = mask.apply(eaData) == 0 ? CCR_ZERO : 0;
+    uint8_t testResult = mask.apply(eaData) == 0 ? GenieSys::CCR_ZERO : 0;
     cpu->setCcrFlags((cpu->getCcrFlags() & ~testResult) | testResult);
     eaData = mask.compose(eaData, 1);
     if (size == 4) {

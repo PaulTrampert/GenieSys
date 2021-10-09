@@ -49,7 +49,7 @@ TEST_F(BCLRTest, ImmMode_SetsCcrZero_WhenSpecifiedBitIsZero) {
     uint8_t cycles = subject->execute(immModeOpWord);
 
     ASSERT_EQ(14, cycles);
-    ASSERT_EQ(CCR_ZERO, (cpu->getCcrFlags() & CCR_ZERO));
+    ASSERT_EQ(GenieSys::CCR_ZERO, (cpu->getCcrFlags() & GenieSys::CCR_ZERO));
     ASSERT_EQ(0, cpu->getDataRegister(1));
 }
 
@@ -59,7 +59,7 @@ TEST_F(BCLRTest, ImmMode_DoesntSetCcrZero_WhenSpecifiedBitIsOne) {
     uint8_t cycles = subject->execute(immModeOpWord);
 
     ASSERT_EQ(14, cycles);
-    ASSERT_EQ(0, (cpu->getCcrFlags() & CCR_ZERO));
+    ASSERT_EQ(0, (cpu->getCcrFlags() & GenieSys::CCR_ZERO));
     ASSERT_EQ(0, cpu->getDataRegister(1));
 }
 
@@ -70,7 +70,7 @@ TEST_F(BCLRTest, DnMode_SetsCcrZero_WhenSpecifiedBitIsZero) {
     uint8_t cycles = subject->execute(dnModeOpWord);
 
     ASSERT_EQ(10, cycles);
-    ASSERT_EQ(CCR_ZERO, (cpu->getCcrFlags() & CCR_ZERO));
+    ASSERT_EQ(GenieSys::CCR_ZERO, (cpu->getCcrFlags() & GenieSys::CCR_ZERO));
     ASSERT_EQ(0, cpu->getDataRegister(1));
 }
 
@@ -81,6 +81,6 @@ TEST_F(BCLRTest, DnMode_DoesntSetCcrZero_WhenSpecifiedBitIsOne) {
     uint8_t cycles = subject->execute(dnModeOpWord);
 
     ASSERT_EQ(10, cycles);
-    ASSERT_EQ(0, (cpu->getCcrFlags() & CCR_ZERO));
+    ASSERT_EQ(0, (cpu->getCcrFlags() & GenieSys::CCR_ZERO));
     ASSERT_EQ(0, cpu->getDataRegister(1));
 }

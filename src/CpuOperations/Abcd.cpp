@@ -36,7 +36,7 @@ uint8_t Abcd::execute(uint16_t opWord) {
     auto destTensDigit = TENS_DIGIT.apply(dest->getDataAsByte());
     auto srcOnesDigit = ONES_DIGIT.apply(src->getDataAsByte());
     auto srcTensDigit = TENS_DIGIT.apply(src->getDataAsByte());
-    auto x = (cpu->getCcrFlags() & CCR_EXTEND) >> 4;
+    auto x = (cpu->getCcrFlags() & GenieSys::CCR_EXTEND) >> 4;
     destOnesDigit = destOnesDigit + srcOnesDigit + x;
     if (destOnesDigit >= 10) {
         x = 1;
@@ -55,10 +55,10 @@ uint8_t Abcd::execute(uint16_t opWord) {
     }
     uint8_t newCcrFlags = 0;
     if (x == 1) {
-        newCcrFlags |= CCR_EXTEND | CCR_CARRY;
+        newCcrFlags |= GenieSys::CCR_EXTEND | GenieSys::CCR_CARRY;
     }
     if (destTensDigit == 0 && destOnesDigit == 0) {
-        newCcrFlags |= CCR_ZERO;
+        newCcrFlags |= GenieSys::CCR_ZERO;
     }
     cpu->setCcrFlags(newCcrFlags);
     dest->write((uint8_t)((destTensDigit << 4) | destOnesDigit));

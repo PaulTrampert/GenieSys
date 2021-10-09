@@ -82,9 +82,9 @@ uint8_t MOVE::execute(uint16_t opWord) {
     auto srcResult = srcMode->getData(srcReg, sizeBytes);
     auto destResult = destMode->getData(destReg, sizeBytes);
     const std::vector<uint8_t> data = srcResult->getData();
-    uint8_t oldExtendCcr = cpu->getCcrFlags() & CCR_EXTEND;
-    uint8_t negativeFlag = (int8_t)data[0] < 0 ? CCR_NEGATIVE : 0;
-    uint8_t zeroFlag = CCR_ZERO;
+    uint8_t oldExtendCcr = cpu->getCcrFlags() & GenieSys::CCR_EXTEND;
+    uint8_t negativeFlag = (int8_t)data[0] < 0 ? GenieSys::CCR_NEGATIVE : 0;
+    uint8_t zeroFlag = GenieSys::CCR_ZERO;
     for(uint8_t byte : data) {
         if (byte != 0) {
             zeroFlag = 0;

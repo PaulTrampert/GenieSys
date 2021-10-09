@@ -21,18 +21,18 @@ namespace GenieSys {
     static uint8_t getAdditionCcrFlags(U result, U op1, U op2) {
         uint8_t ccr = 0;
         if (result < op1) {
-            ccr |= CCR_CARRY | CCR_EXTEND;
+            ccr |= GenieSys::CCR_CARRY | GenieSys::CCR_EXTEND;
         }
         if (((S) result < 0 && (S)op1 > 0 && (S)op2 > 0) ||
             ((S) result > 0 && (S)op1 < 0 && (S)op2 < 0)
                 ) {
-            ccr |= CCR_OVERFLOW;
+            ccr |= GenieSys::CCR_OVERFLOW;
         }
         if (result == 0) {
-            ccr |= CCR_ZERO;
+            ccr |= GenieSys::CCR_ZERO;
         }
         if ((S)result < 0) {
-            ccr |= CCR_NEGATIVE;
+            ccr |= GenieSys::CCR_NEGATIVE;
         }
         return ccr;
     }
@@ -42,16 +42,16 @@ namespace GenieSys {
         uint8_t flags = 0;
         if (((S)op2 > 0 && (S)result > (S)op1)
             || ((S)op2 < 0 && (S)result < (S)op1)) {
-            flags |= CCR_OVERFLOW;
+            flags |= GenieSys::CCR_OVERFLOW;
         }
         if ((S)result < 0) {
-            flags |= CCR_NEGATIVE;
+            flags |= GenieSys::CCR_NEGATIVE;
         }
         if (result == 0) {
-            flags |= CCR_ZERO;
+            flags |= GenieSys::CCR_ZERO;
         }
         if (op1 < op2) {
-            flags |= CCR_EXTEND | CCR_CARRY;
+            flags |= GenieSys::CCR_EXTEND | GenieSys::CCR_CARRY;
         }
         return flags;
     }
@@ -61,16 +61,16 @@ namespace GenieSys {
         uint8_t flags = 0;
         if (((S)op2 > 0 && (S)result > (S)op1)
             || ((S)op2 < 0 && (S)result < (S)op1)) {
-            flags |= CCR_OVERFLOW;
+            flags |= GenieSys::CCR_OVERFLOW;
         }
         if ((S)result < 0) {
-            flags |= CCR_NEGATIVE;
+            flags |= GenieSys::CCR_NEGATIVE;
         }
         if (result == 0) {
-            flags |= (oldCcr & CCR_ZERO);
+            flags |= (oldCcr & GenieSys::CCR_ZERO);
         }
         if (op1 < op2) {
-            flags |= CCR_EXTEND | CCR_CARRY;
+            flags |= GenieSys::CCR_EXTEND | GenieSys::CCR_CARRY;
         }
         return flags;
     }
@@ -79,13 +79,13 @@ namespace GenieSys {
     static uint8_t getNegCcrFlags(U op) {
         uint8_t flags = 0;
         if (op < 127) {
-            flags |= CCR_NEGATIVE;
+            flags |= GenieSys::CCR_NEGATIVE;
         }
         if (op == 0) {
-            flags |= CCR_ZERO;
+            flags |= GenieSys::CCR_ZERO;
         }
         else {
-            flags |= CCR_CARRY | CCR_EXTEND;
+            flags |= GenieSys::CCR_CARRY | GenieSys::CCR_EXTEND;
         }
         return flags;
     }

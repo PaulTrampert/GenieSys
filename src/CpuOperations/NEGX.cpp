@@ -36,7 +36,7 @@ uint8_t NEGX::execute(uint16_t opWord) {
     auto eaMode = cpu->getAddressingMode(eaModeId);
     auto eaResult = eaMode->getData(eaReg, sizeBytes);
     uint8_t oldCcr = cpu->getCcrFlags();
-    auto extendBit = (oldCcr & CCR_EXTEND) >> 4;
+    auto extendBit = (oldCcr & GenieSys::CCR_EXTEND) >> 4;
     switch (sizeBytes) {
         case 1:
             cycles = negxByte(eaResult, oldCcr, extendBit);
@@ -49,7 +49,7 @@ uint8_t NEGX::execute(uint16_t opWord) {
             break;
         default:
             cycles = 4;
-            cpu->trap(TV_ILLEGAL_INSTR);
+            cpu->trap(GenieSys::TV_ILLEGAL_INSTR);
     }
     return cycles;
 }

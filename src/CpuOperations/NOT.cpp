@@ -45,7 +45,7 @@ uint8_t NOT::execute(uint16_t opWord) {
         case 2:
             return notLong(eaResultPtr, eaModeId);
         default:
-            cpu->trap(TV_ILLEGAL_INSTR);
+            cpu->trap(GenieSys::TV_ILLEGAL_INSTR);
     }
     return 1;
 }

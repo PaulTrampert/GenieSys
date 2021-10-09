@@ -40,7 +40,7 @@ uint8_t EORI::execute(uint16_t opWord) {
     auto eaResult = eaMode->getData(eaReg, size);
     bool isMemory = eaModeCode != DataRegisterDirectMode::MODE_ID && eaModeCode != AddressRegisterDirectMode::MODE_ID;
     uint8_t oldCcr = cpu->getCcrFlags();
-    uint8_t oldX = oldCcr & CCR_EXTEND;
+    uint8_t oldX = oldCcr & GenieSys::CCR_EXTEND;
     uint8_t baseCycles = 1;
     uint8_t byteResult;
     uint16_t wordResult;
@@ -50,19 +50,19 @@ uint8_t EORI::execute(uint16_t opWord) {
             baseCycles = isMemory ? 12 : 8;
             byteResult = eaResult->getDataAsByte() ^ immData->getDataAsByte();
             eaResult->write(byteResult);
-            cpu->setCcrFlags(oldX | ((int8_t)byteResult < 0 ? CCR_NEGATIVE : 0) | (byteResult == 0 ? CCR_ZERO : 0));
+            cpu->setCcrFlags(oldX | ((int8_t)byteResult < 0 ? GenieSys::CCR_NEGATIVE : 0) | (byteResult == 0 ? GenieSys::CCR_ZERO : 0));
             break;
         case 2:
             baseCycles = isMemory ? 12 : 8;
             wordResult = eaResult->getDataAsWord() ^ immData->getDataAsWord();
             eaResult->write(wordResult);
-            cpu->setCcrFlags(oldX | ((int16_t)wordResult < 0 ? CCR_NEGATIVE : 0) | (wordResult == 0 ? CCR_ZERO : 0));
+            cpu->setCcrFlags(oldX | ((int16_t)wordResult < 0 ? GenieSys::CCR_NEGATIVE : 0) | (wordResult == 0 ? GenieSys::CCR_ZERO : 0));
             break;
         case 4:
             baseCycles = isMemory ? 20 : 16;
             longResult = eaResult->getDataAsLong() ^ immData->getDataAsLong();
             eaResult->write(longResult);
-            cpu->setCcrFlags(oldX | ((int32_t)longResult < 0 ? CCR_NEGATIVE : 0) | (longResult == 0 ? CCR_ZERO : 0));
+            cpu->setCcrFlags(oldX | ((int32_t)longResult < 0 ? GenieSys::CCR_NEGATIVE : 0) | (longResult == 0 ? GenieSys::CCR_ZERO : 0));
             break;
         default:
             break;

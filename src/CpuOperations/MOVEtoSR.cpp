@@ -27,7 +27,7 @@ uint8_t MOVEtoSR::execute(uint16_t opWord) {
     uint8_t eaReg = eaRegMask.apply(opWord);
     auto eaResult = eaMode->getData(eaReg, 2);
     if (!cpu->isSupervisor()) {
-        cpu->trap(TV_PRIVILEGE);
+        cpu->trap(GenieSys::TV_PRIVILEGE);
     }
     else {
         cpu->setSR(eaResult->getDataAsWord());

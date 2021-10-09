@@ -47,17 +47,17 @@ TEST_F(NOTTest, DisassembleLong) {
 TEST_F(NOTTest, ExecuteByte) {
     ASSERT_EQ(4, subject->execute(byteOp));
     ASSERT_EQ(0xFFFFFF00, cpu->getDataRegister(0));
-    ASSERT_EQ(CCR_ZERO, cpu->getCcrFlags());
+    ASSERT_EQ(GenieSys::CCR_ZERO, cpu->getCcrFlags());
 }
 
 TEST_F(NOTTest, ExecuteWord) {
     ASSERT_EQ(4, subject->execute(wordOp));
     ASSERT_EQ(0xFFFF0000, cpu->getDataRegister(0));
-    ASSERT_EQ(CCR_ZERO, cpu->getCcrFlags());
+    ASSERT_EQ(GenieSys::CCR_ZERO, cpu->getCcrFlags());
 }
 
 TEST_F(NOTTest, ExecuteLong) {
     ASSERT_EQ(6, subject->execute(longOp));
     ASSERT_EQ(0, cpu->getDataRegister(0));
-    ASSERT_EQ(CCR_ZERO, cpu->getCcrFlags());
+    ASSERT_EQ(GenieSys::CCR_ZERO, cpu->getCcrFlags());
 }

@@ -43,7 +43,7 @@ TEST_F(ANDItoCCRTest, ItCorrectlyUpdatesTheCcr) {
 
     subject->execute(0b0000000000111100);
 
-    ASSERT_EQ(CCR_EXTEND | CCR_ZERO | CCR_CARRY, cpu->getCcrFlags());
+    ASSERT_EQ(GenieSys::CCR_EXTEND | GenieSys::CCR_ZERO | GenieSys::CCR_CARRY, cpu->getCcrFlags());
 }
 
 TEST_F(ANDItoCCRTest, ItReturnsTheCorrectNumberOfClockCycles) {
