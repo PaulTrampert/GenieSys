@@ -12,7 +12,7 @@
 
 
 
-ORI::ORI(GenieSys::M68kCpu *cpu, Bus *bus) : CpuOperation(cpu, bus) {
+ORI::ORI(GenieSys::M68kCpu *cpu, GenieSys::Bus *bus) : CpuOperation(cpu, bus) {
 
 }
 

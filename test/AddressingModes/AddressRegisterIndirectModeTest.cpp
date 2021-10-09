@@ -6,8 +6,9 @@
 #include <GenieSys/AddressingModes/AddressRegisterIndirectMode.h>
 
 
+
 struct AddressRegisterIndirectModeTest : testing::Test {
-    Bus bus;
+    GenieSys::Bus bus;
     GenieSys::M68kCpu* cpu;
     AddressRegisterIndirectMode* subject;
 

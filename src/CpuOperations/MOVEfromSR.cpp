@@ -11,7 +11,7 @@
 
 
 
-MOVEfromSR::MOVEfromSR(GenieSys::M68kCpu *cpu, Bus *bus) : CpuOperation(cpu, bus) {
+MOVEfromSR::MOVEfromSR(GenieSys::M68kCpu *cpu, GenieSys::Bus *bus) : CpuOperation(cpu, bus) {
 
 }
 

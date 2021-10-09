@@ -8,9 +8,10 @@
 #include <GenieSys/CpuOperations/BSET.h>
 
 
+
 struct BSETTest : testing::Test {
     GenieSys::M68kCpu* cpu;
-    Bus bus;
+    GenieSys::Bus bus;
     BSET* subject;
     uint16_t immModeOpWord = 0b0000100011000001; // BSET $06,D1
     uint16_t dnModeOpWord = 0b0000011111000001; // BSET D3,D1

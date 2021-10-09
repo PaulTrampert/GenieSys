@@ -6,8 +6,9 @@
 #include <GenieSys/numberUtils.h>
 
 
+
 struct ProgramCounterIndirectDisplacementModeTest : testing::Test {
-    Bus bus;
+    GenieSys::Bus bus;
     GenieSys::M68kCpu* cpu;
     ProgramCounterIndirectDisplacementMode* subject;
 

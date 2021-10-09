@@ -6,8 +6,9 @@
 #include <GenieSys/CpuOperations/CpuOperation.h>
 
 
+
 TEST(CpuOperationTest, getOperationsReturnsOperationsInTheCorrectOrder) {
-    Bus bus;
+    GenieSys::Bus bus;
     GenieSys::M68kCpu* cpu = bus.getCpu();
     CpuOperation* previous = nullptr;
     auto operations = getOperations(cpu, &bus);

@@ -34,7 +34,7 @@ private:
     }
 
 public:
-    NOT(GenieSys::M68kCpu* cpu, Bus* bus);
+    NOT(GenieSys::M68kCpu* cpu, GenieSys::Bus* bus);
 
     uint8_t getSpecificity() override;
     std::vector<uint16_t> getOpcodes() override;

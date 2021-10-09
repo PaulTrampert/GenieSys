@@ -10,7 +10,7 @@
 
 struct MOVETest : testing::Test {
     GenieSys::M68kCpu* cpu;
-    Bus bus;
+    GenieSys::Bus bus;
     MOVE* subject;
 
     uint16_t moveByte = 0b0001000010010001; // MOVE.b (A1),(A0)

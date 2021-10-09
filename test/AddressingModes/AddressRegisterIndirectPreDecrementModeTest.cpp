@@ -11,8 +11,9 @@
 #include <GenieSys/AddressingModes/AddressRegisterIndirectPreDecrementMode.h>
 
 
+
 struct AddressRegisterIndirectPreDecrementModeTest : testing::Test {
-    Bus bus;
+    GenieSys::Bus bus;
     GenieSys::M68kCpu* cpu;
     AddressRegisterIndirectPreDecrementMode* subject;
 

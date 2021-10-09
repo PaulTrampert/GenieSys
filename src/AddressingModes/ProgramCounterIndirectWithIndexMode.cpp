@@ -9,7 +9,7 @@
 
 
 
-ProgramCounterIndirectWithIndexMode::ProgramCounterIndirectWithIndexMode(GenieSys::M68kCpu *cpu, Bus *bus)
+ProgramCounterIndirectWithIndexMode::ProgramCounterIndirectWithIndexMode(GenieSys::M68kCpu *cpu, GenieSys::Bus *bus)
     : AddressingMode(cpu, bus) {
     cycles = 10;
     longCycles = 14;

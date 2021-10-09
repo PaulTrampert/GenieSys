@@ -5,9 +5,10 @@
 #include <GenieSys/CpuOperations/MOVEtoCCR.h>
 
 
+
 struct MOVEtoCCRTest : testing::Test {
     GenieSys::M68kCpu* cpu;
-    Bus bus;
+    GenieSys::Bus bus;
     MOVEtoCCR* subject;
 
     uint16_t opWord = 0b0100010011010000;

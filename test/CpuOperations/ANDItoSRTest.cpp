@@ -5,9 +5,10 @@
 #include <GenieSys/CpuOperations/ANDItoSR.h>
 
 
+
 struct ANDItoSRTest : testing::Test {
     GenieSys::M68kCpu* cpu;
-    Bus bus;
+    GenieSys::Bus bus;
     ANDItoSR* subject;
 
     ANDItoSRTest() {

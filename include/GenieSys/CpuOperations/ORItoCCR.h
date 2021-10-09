@@ -6,9 +6,10 @@
 #include "./CpuOperation.h"
 
 
+
 class ORItoCCR : public CpuOperation {
 public:
-    ORItoCCR(GenieSys::M68kCpu* cpu, Bus* bus);
+    ORItoCCR(GenieSys::M68kCpu* cpu, GenieSys::Bus* bus);
     uint8_t getSpecificity() override;
     uint8_t execute(uint16_t opWord) override;
     std::vector<uint16_t> getOpcodes() override;

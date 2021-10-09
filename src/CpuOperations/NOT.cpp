@@ -13,7 +13,7 @@
 
 
 
-NOT::NOT(GenieSys::M68kCpu *cpu, Bus *bus) : CpuOperation(cpu, bus) {
+NOT::NOT(GenieSys::M68kCpu *cpu, GenieSys::Bus *bus) : CpuOperation(cpu, bus) {
 
 }
 

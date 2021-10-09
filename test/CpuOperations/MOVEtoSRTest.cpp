@@ -6,9 +6,10 @@
 #include <GenieSys/M68kCpu.h>
 
 
+
 struct MOVEtoSRTest : testing::Test {
     GenieSys::M68kCpu* cpu;
-    Bus bus;
+    GenieSys::Bus bus;
     MOVEtoSR* subject;
 
     uint16_t opWord = 0b0100010011010000;

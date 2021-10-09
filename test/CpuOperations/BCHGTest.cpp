@@ -6,9 +6,10 @@
 #include <GenieSys/CpuOperations/BCHG.h>
 
 
+
 struct BCHGTest : testing::Test {
     GenieSys::M68kCpu* cpu;
-    Bus bus;
+    GenieSys::Bus bus;
     BCHG* subject;
 
     BCHGTest() {

@@ -7,7 +7,8 @@
 #include <sstream>
 
 
-ANDItoCCR::ANDItoCCR(GenieSys::M68kCpu *cpu, Bus *bus) : CpuOperation(cpu, bus) {
+
+ANDItoCCR::ANDItoCCR(GenieSys::M68kCpu *cpu, GenieSys::Bus *bus) : CpuOperation(cpu, bus) {
 
 }
 

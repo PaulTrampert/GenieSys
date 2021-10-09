@@ -7,7 +7,8 @@
 #include "GenieSys/AddressingModes/ImmediateDataMode.h"
 
 
-ImmediateDataMode::ImmediateDataMode(GenieSys::M68kCpu *cpu, Bus *bus) : AddressingMode(cpu, bus) {
+
+ImmediateDataMode::ImmediateDataMode(GenieSys::M68kCpu *cpu, GenieSys::Bus *bus) : AddressingMode(cpu, bus) {
     cycles = 4;
     longCycles = 8;
 }

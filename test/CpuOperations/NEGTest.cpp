@@ -10,7 +10,7 @@ class NEGTest : public ::testing::Test {
 public:
     NEG* subject;
     GenieSys::M68kCpu* cpu;
-    Bus bus;
+    GenieSys::Bus bus;
 
     uint16_t byteOp = 0b0100010000010000;
     uint16_t wordOp = 0b0100010001010000;

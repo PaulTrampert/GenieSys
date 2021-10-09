@@ -7,7 +7,8 @@
 #include <sstream>
 
 
-ORItoCCR::ORItoCCR(GenieSys::M68kCpu *cpu, Bus *bus) : CpuOperation(cpu, bus) {
+
+ORItoCCR::ORItoCCR(GenieSys::M68kCpu *cpu, GenieSys::Bus *bus) : CpuOperation(cpu, bus) {
 
 }
 

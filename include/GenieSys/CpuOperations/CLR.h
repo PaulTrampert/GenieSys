@@ -14,7 +14,7 @@ private:
     GenieSys::BitMask<uint16_t> eaRegMask = GenieSys::BitMask<uint16_t>(2, 3);
 
 public:
-    CLR(GenieSys::M68kCpu* cpu, Bus* bus);
+    CLR(GenieSys::M68kCpu* cpu, GenieSys::Bus* bus);
 
     uint8_t getSpecificity() override;
     std::vector<uint16_t> getOpcodes() override;

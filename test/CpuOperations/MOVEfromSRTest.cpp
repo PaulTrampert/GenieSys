@@ -5,9 +5,10 @@
 #include <GenieSys/CpuOperations/MOVEfromSR.h>
 
 
+
 struct MOVEfromSRTest : testing::Test {
     GenieSys::M68kCpu* cpu;
-    Bus bus;
+    GenieSys::Bus bus;
     MOVEfromSR* subject;
 
     uint16_t opWord = 0b0100000011010000;

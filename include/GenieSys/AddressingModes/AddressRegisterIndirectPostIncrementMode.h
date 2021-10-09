@@ -7,11 +7,12 @@
 #include "AddressingMode.h"
 
 
+
 class AddressRegisterIndirectPostIncrementMode : public AddressingMode{
 public:
     static const uint8_t MODE_ID = 0b011u;
 
-    AddressRegisterIndirectPostIncrementMode(GenieSys::M68kCpu *cpu, Bus *bus);
+    AddressRegisterIndirectPostIncrementMode(GenieSys::M68kCpu *cpu, GenieSys::Bus *bus);
 
     uint32_t getAddress(uint8_t regAddr) override;
     uint8_t getModeId() override;

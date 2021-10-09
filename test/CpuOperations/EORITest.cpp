@@ -6,9 +6,10 @@
 #include <GenieSys/CpuOperations/EORI.h>
 
 
+
 struct EORITest : testing::Test {
     GenieSys::M68kCpu* cpu;
-    Bus bus;
+    GenieSys::Bus bus;
     EORI* subject;
 
     EORITest() {

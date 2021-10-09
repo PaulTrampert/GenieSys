@@ -11,7 +11,7 @@
 
 
 
-MOVEA::MOVEA(GenieSys::M68kCpu *cpu, Bus *bus) : CpuOperation(cpu, bus) {
+MOVEA::MOVEA(GenieSys::M68kCpu *cpu, GenieSys::Bus *bus) : CpuOperation(cpu, bus) {
 
 }
 

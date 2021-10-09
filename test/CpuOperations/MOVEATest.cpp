@@ -8,9 +8,10 @@
 #include <GenieSys/Bus.h>
 
 
+
 struct MOVEATest : testing::Test {
     GenieSys::M68kCpu* cpu;
-    Bus bus;
+    GenieSys::Bus bus;
     MOVEA* subject;
 
     uint16_t moveWord = 0b0011001001010000;

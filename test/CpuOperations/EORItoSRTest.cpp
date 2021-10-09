@@ -5,9 +5,10 @@
 #include <GenieSys/CpuOperations/EORItoSR.h>
 
 
+
 struct EORItoSRTest : testing::Test {
     GenieSys::M68kCpu* cpu;
-    Bus bus;
+    GenieSys::Bus bus;
     EORItoSR* subject;
 
     EORItoSRTest() {

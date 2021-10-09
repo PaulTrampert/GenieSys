@@ -18,6 +18,7 @@
 #include <GenieSys/CpuOperations/CpuOperation.h>
 #include <GenieSys/CpuOperations/Nop.h>
 
+
 GenieSys::M68kCpu::M68kCpu() {
     for (auto & mode : addressingModes) {
         mode = nullptr;

@@ -15,7 +15,7 @@ private:
     GenieSys::BitMask<uint16_t> eaAddrMask = GenieSys::BitMask<uint16_t>(2, 3);
 
 public:
-    MOVEA(GenieSys::M68kCpu* cpu, Bus* bus);
+    MOVEA(GenieSys::M68kCpu* cpu, GenieSys::Bus* bus);
     uint8_t getSpecificity() override;
     std::vector<uint16_t> getOpcodes() override;
     uint8_t execute(uint16_t opWord) override;

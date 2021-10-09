@@ -10,7 +10,7 @@ class CLRTest : public ::testing::Test {
 public:
     CLR* subject;
     GenieSys::M68kCpu* cpu;
-    Bus bus;
+    GenieSys::Bus bus;
 
     uint16_t byteOp = 0b0100001000010000;
     uint16_t wordOp = 0b0100001001010000;

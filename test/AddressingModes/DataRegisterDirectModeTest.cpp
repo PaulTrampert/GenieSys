@@ -10,8 +10,9 @@
 #include <GenieSys/AddressingModes/DataRegisterDirectMode.h>
 
 
+
 struct DataRegisterDirectModeTest : testing::Test {
-    Bus bus;
+    GenieSys::Bus bus;
     GenieSys::M68kCpu* cpu;
     DataRegisterDirectMode* subject;
 

@@ -12,7 +12,7 @@
 
 
 
-BTST::BTST(GenieSys::M68kCpu *cpu, Bus *bus) : CpuOperation(cpu, bus) {
+BTST::BTST(GenieSys::M68kCpu *cpu, GenieSys::Bus *bus) : CpuOperation(cpu, bus) {
 
 }
 

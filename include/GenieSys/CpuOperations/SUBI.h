@@ -16,7 +16,7 @@ private:
     GenieSys::BitMask<uint16_t> eaRegMask = GenieSys::BitMask<uint16_t>(2, 3);
 
 public:
-    SUBI(GenieSys::M68kCpu* cpu, Bus* bus);
+    SUBI(GenieSys::M68kCpu* cpu, GenieSys::Bus* bus);
     std::string disassemble(uint16_t opWord) override;
     uint8_t getSpecificity() override;
     uint8_t execute(uint16_t opWord) override;

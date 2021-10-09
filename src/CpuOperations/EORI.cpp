@@ -14,7 +14,7 @@
 
 
 
-EORI::EORI(GenieSys::M68kCpu *cpu, Bus *bus) : CpuOperation(cpu, bus) {
+EORI::EORI(GenieSys::M68kCpu *cpu, GenieSys::Bus *bus) : CpuOperation(cpu, bus) {
 
 }
 

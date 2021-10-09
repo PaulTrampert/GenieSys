@@ -7,8 +7,9 @@
 #include <GenieSys/numberUtils.h>
 
 
+
 struct ImmediateDataModeTest : testing::Test {
-    Bus bus;
+    GenieSys::Bus bus;
     GenieSys::M68kCpu* cpu;
     ImmediateDataMode* subject;
 

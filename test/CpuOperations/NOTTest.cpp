@@ -10,7 +10,7 @@ class NOTTest : public ::testing::Test {
 public:
     NOT* subject;
     GenieSys::M68kCpu* cpu;
-    Bus bus;
+    GenieSys::Bus bus;
 
     uint16_t byteOp = 0b0100011000000000;
     uint16_t wordOp = 0b0100011001000000;

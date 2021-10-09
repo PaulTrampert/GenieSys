@@ -10,7 +10,7 @@
 
 
 
-MOVEtoCCR::MOVEtoCCR(GenieSys::M68kCpu *cpu, Bus *bus) : CpuOperation(cpu, bus) {
+MOVEtoCCR::MOVEtoCCR(GenieSys::M68kCpu *cpu, GenieSys::Bus *bus) : CpuOperation(cpu, bus) {
 
 }
 

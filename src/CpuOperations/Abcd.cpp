@@ -65,7 +65,7 @@ uint8_t Abcd::execute(uint16_t opWord) {
     return cycles[rm];
 }
 
-Abcd::Abcd(GenieSys::M68kCpu *cpu, Bus *bus) : CpuOperation(cpu, bus) {
+Abcd::Abcd(GenieSys::M68kCpu *cpu, GenieSys::Bus *bus) : CpuOperation(cpu, bus) {
 }
 
 std::vector<uint16_t> Abcd::getOpcodes() {

@@ -8,9 +8,10 @@
 #include <GenieSys/Bus.h>
 
 
+
 struct MOVEPTest : testing::Test {
     GenieSys::M68kCpu* cpu;
-    Bus bus;
+    GenieSys::Bus bus;
     MOVEP* subject;
 
     uint16_t longMemToReg = 0b0000001101001001;

@@ -6,9 +6,10 @@
 #include <GenieSys/CpuOperations/BTST.h>
 
 
+
 struct BTSTTest : testing::Test {
     GenieSys::M68kCpu* cpu;
-    Bus bus;
+    GenieSys::Bus bus;
     BTST* subject;
 
     BTSTTest() {

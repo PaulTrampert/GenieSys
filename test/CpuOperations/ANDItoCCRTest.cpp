@@ -6,9 +6,10 @@
 #include <GenieSys/CpuOperations/ANDItoCCR.h>
 
 
+
 struct ANDItoCCRTest : testing::Test {
     GenieSys::M68kCpu* cpu;
-    Bus bus;
+    GenieSys::Bus bus;
     ANDItoCCR* subject;
 
     ANDItoCCRTest() {

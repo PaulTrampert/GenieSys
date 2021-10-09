@@ -6,8 +6,9 @@
 #include <GenieSys/AddressingModes/AddressRegisterIndirectDisplacementMode.h>
 
 
+
 struct AddressRegisterIndirectDisplacementModeTest : testing::Test {
-    Bus bus;
+    GenieSys::Bus bus;
     GenieSys::M68kCpu* cpu;
     AddressRegisterIndirectDisplacementMode* subject;
 

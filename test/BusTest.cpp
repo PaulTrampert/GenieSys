@@ -5,8 +5,9 @@
 #include "BusTest.h"
 #include "GenieSys/Bus.h"
 
+
 BusTest::BusTest() {
-    bus = new Bus();
+    bus = new GenieSys::Bus();
 }
 
 BusTest::~BusTest() {

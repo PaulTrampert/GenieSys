@@ -6,9 +6,10 @@
 #include <GenieSys/CpuOperations/Abcd.h>
 
 
+
 struct AbcdTest : testing::Test {
     GenieSys::M68kCpu* cpu;
-    Bus bus;
+    GenieSys::Bus bus;
     Abcd* subject;
 
     AbcdTest() {

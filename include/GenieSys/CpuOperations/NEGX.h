@@ -21,7 +21,7 @@ private:
     uint8_t negxLong(std::unique_ptr<AddressingResult> &eaResult, uint8_t oldCcr, uint8_t extendBit);
 
 public:
-    NEGX(GenieSys::M68kCpu* cpu, Bus* bus);
+    NEGX(GenieSys::M68kCpu* cpu, GenieSys::Bus* bus);
     uint8_t getSpecificity() override;
     std::vector<uint16_t> getOpcodes() override;
     uint8_t execute(uint16_t opWord) override;

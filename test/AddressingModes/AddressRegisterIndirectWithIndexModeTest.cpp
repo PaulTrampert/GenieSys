@@ -10,7 +10,7 @@
 
 struct AddressRegisterIndirectWithIndexModeTest : testing::Test {
     GenieSys::M68kCpu* cpu;
-    Bus bus;
+    GenieSys::Bus bus;
     AddressRegisterIndirectWithIndexMode* subject;
 
     AddressRegisterIndirectWithIndexModeTest() {

@@ -10,7 +10,8 @@
 #include "GenieSys/AddressingModes/ProgramCounterAddressingMode.h"
 
 
-ProgramCounterAddressingMode::ProgramCounterAddressingMode(GenieSys::M68kCpu *cpu, Bus *bus) : AddressingMode(cpu, bus) {
+
+ProgramCounterAddressingMode::ProgramCounterAddressingMode(GenieSys::M68kCpu *cpu, GenieSys::Bus *bus) : AddressingMode(cpu, bus) {
     for (auto & subMode : subModes) {
         subMode = nullptr;
     }
@@ -34,7 +35,7 @@ uint8_t ProgramCounterAddressingMode::getModeId() {
 
 ProgramCounterAddressingMode::~ProgramCounterAddressingMode() = default;
 
-void ProgramCounterAddressingMode::setBus(Bus *b) {
+void ProgramCounterAddressingMode::setBus(GenieSys::Bus *b) {
     this->bus = b;
     for (auto & subMode : subModes) {
         if (subMode != nullptr) {

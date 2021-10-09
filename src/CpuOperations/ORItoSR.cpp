@@ -8,7 +8,8 @@
 #include <sstream>
 
 
-ORItoSR::ORItoSR(GenieSys::M68kCpu *cpu, Bus *bus) : CpuOperation(cpu, bus) {
+
+ORItoSR::ORItoSR(GenieSys::M68kCpu *cpu, GenieSys::Bus *bus) : CpuOperation(cpu, bus) {
 
 }
 

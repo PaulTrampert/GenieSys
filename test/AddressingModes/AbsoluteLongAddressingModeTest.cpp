@@ -7,8 +7,9 @@
 #include <GenieSys/AddressingModes/AbsoluteLongAddressingMode.h>
 
 
+
 struct AbsoluteLongAddressingModeTest : testing::Test {
-    Bus bus;
+    GenieSys::Bus bus;
     GenieSys::M68kCpu* cpu;
     AbsoluteLongAddressingMode* subject;
 

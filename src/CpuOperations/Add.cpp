@@ -22,7 +22,7 @@ static GenieSys::BitMask<uint16_t> SIZE = GenieSys::BitMask<uint16_t>(7, 2, 0, 2
 static GenieSys::BitMask<uint16_t> EA_MODE = GenieSys::BitMask<uint16_t>(5, 3);
 static GenieSys::BitMask<uint16_t> EA_REG = GenieSys::BitMask<uint16_t>(2, 3);
 
-Add::Add(GenieSys::M68kCpu *cpu, Bus *bus) : CpuOperation(cpu, bus) {
+Add::Add(GenieSys::M68kCpu *cpu, GenieSys::Bus *bus) : CpuOperation(cpu, bus) {
 
 }
 

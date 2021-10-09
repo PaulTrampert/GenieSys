@@ -39,7 +39,7 @@ static uint8_t longCycleTable[12][9] = {
         {12, 12, 20, 20, 20, 24, 26, 24, 28},
 };
 
-MOVE::MOVE(GenieSys::M68kCpu *cpu, Bus *bus) : CpuOperation(cpu, bus) {
+MOVE::MOVE(GenieSys::M68kCpu *cpu, GenieSys::Bus *bus) : CpuOperation(cpu, bus) {
 
 }
 
