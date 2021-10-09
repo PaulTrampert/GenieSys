@@ -8,6 +8,7 @@
 #include "GenieSys/AddressingModes/AddressRegisterIndirectWithIndexMode.h"
 
 
+
 AddressRegisterIndirectWithIndexMode::AddressRegisterIndirectWithIndexMode(GenieSys::M68kCpu *cpu, Bus *bus)
     : AddressingMode(cpu, bus) {
     cycles = 10;
@@ -15,7 +16,7 @@ AddressRegisterIndirectWithIndexMode::AddressRegisterIndirectWithIndexMode(Genie
 }
 
 uint32_t AddressRegisterIndirectWithIndexMode::getAddress(uint8_t regAddr) {
-    auto extWord = ExtensionWord(bus->readWord(cpu->getPc()));
+    auto extWord = GenieSys::ExtensionWord(bus->readWord(cpu->getPc()));
     cpu->incrementPc(2);
     uint8_t idxRegAddr = extWord.getIdxRegAddr();
     if (extWord.isBrief()) {
@@ -97,7 +98,7 @@ uint8_t AddressRegisterIndirectWithIndexMode::getModeId() {
 }
 
 std::string AddressRegisterIndirectWithIndexMode::disassemble(uint8_t regAddr, uint8_t size) {
-    auto extWord = ExtensionWord(bus->readWord(cpu->getPc()));
+    auto extWord = GenieSys::ExtensionWord(bus->readWord(cpu->getPc()));
     cpu->incrementPc(2);
     uint8_t idxRegAddr = extWord.getIdxRegAddr();
     if (extWord.isBrief()) {

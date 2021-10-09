@@ -8,6 +8,7 @@
 #include "GenieSys/AddressingModes/ProgramCounterIndirectWithIndexMode.h"
 
 
+
 ProgramCounterIndirectWithIndexMode::ProgramCounterIndirectWithIndexMode(GenieSys::M68kCpu *cpu, Bus *bus)
     : AddressingMode(cpu, bus) {
     cycles = 10;
@@ -16,7 +17,7 @@ ProgramCounterIndirectWithIndexMode::ProgramCounterIndirectWithIndexMode(GenieSy
 
 uint32_t ProgramCounterIndirectWithIndexMode::getAddress(uint8_t regAddr) {
     uint32_t baseAddr = cpu->getPc();
-    auto extWord = ExtensionWord(bus->readWord(cpu->getPc()));
+    auto extWord = GenieSys::ExtensionWord(bus->readWord(cpu->getPc()));
     cpu->incrementPc(2);
     uint8_t idxRegAddr = extWord.getIdxRegAddr();
     if (extWord.isBrief()) {
@@ -97,7 +98,7 @@ uint8_t ProgramCounterIndirectWithIndexMode::getModeId() {
 }
 
 std::string ProgramCounterIndirectWithIndexMode::disassemble(uint8_t regAddr, uint8_t size) {
-    auto extWord = ExtensionWord(bus->readWord(cpu->getPc()));
+    auto extWord = GenieSys::ExtensionWord(bus->readWord(cpu->getPc()));
     cpu->incrementPc(2);
     uint8_t idxRegAddr = extWord.getIdxRegAddr();
     if (extWord.isBrief()) {

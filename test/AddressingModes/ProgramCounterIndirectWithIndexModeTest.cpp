@@ -7,6 +7,7 @@
 #include <GenieSys/ExtensionWord.h>
 
 
+
 struct ProgramCounterIndirectWithIndexModeTest : testing::Test {
     GenieSys::M68kCpu* cpu;
     Bus bus;
@@ -27,7 +28,7 @@ TEST_F(ProgramCounterIndirectWithIndexModeTest, ItHasTheCorrectModeId) {
 }
 
 TEST_F(ProgramCounterIndirectWithIndexModeTest, GetAddress_With8BitDisplacement_GetsTheCorrectAddress) {
-    ExtensionWord extWord = ExtensionWord();
+    GenieSys::ExtensionWord extWord = GenieSys::ExtensionWord();
     extWord.setIsBrief(true);
     extWord.setDisplacement(6);
     extWord.setIdxRegType(M68K_REG_TYPE_DATA);
@@ -44,7 +45,7 @@ TEST_F(ProgramCounterIndirectWithIndexModeTest, GetAddress_With8BitDisplacement_
 }
 
 TEST_F(ProgramCounterIndirectWithIndexModeTest, GetAddress_With8BitDisplacement_DisassemblesCorrectly) {
-    ExtensionWord extWord = ExtensionWord();
+    GenieSys::ExtensionWord extWord = GenieSys::ExtensionWord();
     extWord.setIsBrief(true);
     extWord.setDisplacement(6);
     extWord.setIdxRegType(M68K_REG_TYPE_DATA);
@@ -60,7 +61,7 @@ TEST_F(ProgramCounterIndirectWithIndexModeTest, GetAddress_With8BitDisplacement_
 }
 
 TEST_F(ProgramCounterIndirectWithIndexModeTest, GetAddress_EverythingSuppressed_GetsTheCorrectAddress) {
-    ExtensionWord extWord = ExtensionWord();
+    GenieSys::ExtensionWord extWord = GenieSys::ExtensionWord();
     extWord.setIsBrief(false);
     extWord.setIdxRegType(M68K_REG_TYPE_DATA);
     extWord.setIdxRegAddr(4);
@@ -79,7 +80,7 @@ TEST_F(ProgramCounterIndirectWithIndexModeTest, GetAddress_EverythingSuppressed_
 }
 
 TEST_F(ProgramCounterIndirectWithIndexModeTest, GetAddress_EverythingSuppressed_Disassemble) {
-    ExtensionWord extWord = ExtensionWord();
+    GenieSys::ExtensionWord extWord = GenieSys::ExtensionWord();
     extWord.setIsBrief(false);
     extWord.setIdxRegType(M68K_REG_TYPE_DATA);
     extWord.setIdxRegAddr(4);
@@ -98,7 +99,7 @@ TEST_F(ProgramCounterIndirectWithIndexModeTest, GetAddress_EverythingSuppressed_
 }
 
 TEST_F(ProgramCounterIndirectWithIndexModeTest, GetAddress_OnlyProgramCounter_GetsTheCorrectAddress) {
-    ExtensionWord extWord = ExtensionWord();
+    GenieSys::ExtensionWord extWord = GenieSys::ExtensionWord();
     extWord.setIsBrief(false);
     extWord.setIdxRegType(M68K_REG_TYPE_DATA);
     extWord.setIdxRegAddr(4);
@@ -116,7 +117,7 @@ TEST_F(ProgramCounterIndirectWithIndexModeTest, GetAddress_OnlyProgramCounter_Ge
 }
 
 TEST_F(ProgramCounterIndirectWithIndexModeTest, GetAddress_OnlyProgramCounter_Disassemble) {
-    ExtensionWord extWord = ExtensionWord();
+    GenieSys::ExtensionWord extWord = GenieSys::ExtensionWord();
     extWord.setIsBrief(false);
     extWord.setIdxRegType(M68K_REG_TYPE_DATA);
     extWord.setIdxRegAddr(4);
@@ -134,7 +135,7 @@ TEST_F(ProgramCounterIndirectWithIndexModeTest, GetAddress_OnlyProgramCounter_Di
 }
 
 TEST_F(ProgramCounterIndirectWithIndexModeTest, GetAddress_PcWithDisplacement_GetsTheCorrectAddress) {
-    ExtensionWord extWord = ExtensionWord();
+    GenieSys::ExtensionWord extWord = GenieSys::ExtensionWord();
     extWord.setIsBrief(false);
     extWord.setIdxRegType(M68K_REG_TYPE_DATA);
     extWord.setIdxRegAddr(4);
@@ -153,7 +154,7 @@ TEST_F(ProgramCounterIndirectWithIndexModeTest, GetAddress_PcWithDisplacement_Ge
 }
 
 TEST_F(ProgramCounterIndirectWithIndexModeTest, GetAddress_PcWithDisplacement_Disassemble) {
-    ExtensionWord extWord = ExtensionWord();
+    GenieSys::ExtensionWord extWord = GenieSys::ExtensionWord();
     extWord.setIsBrief(false);
     extWord.setIdxRegType(M68K_REG_TYPE_DATA);
     extWord.setIdxRegAddr(4);
@@ -171,7 +172,7 @@ TEST_F(ProgramCounterIndirectWithIndexModeTest, GetAddress_PcWithDisplacement_Di
 }
 
 TEST_F(ProgramCounterIndirectWithIndexModeTest, GetAddress_PcWithIndex_GetsTheCorrectAddress) {
-    ExtensionWord extWord = ExtensionWord();
+    GenieSys::ExtensionWord extWord = GenieSys::ExtensionWord();
     extWord.setIsBrief(false);
     extWord.setIdxRegType(M68K_REG_TYPE_DATA);
     extWord.setIdxRegAddr(4);
@@ -189,7 +190,7 @@ TEST_F(ProgramCounterIndirectWithIndexModeTest, GetAddress_PcWithIndex_GetsTheCo
 }
 
 TEST_F(ProgramCounterIndirectWithIndexModeTest, GetAddress_PcWithIndex_Disassemble) {
-    ExtensionWord extWord = ExtensionWord();
+    GenieSys::ExtensionWord extWord = GenieSys::ExtensionWord();
     extWord.setIsBrief(false);
     extWord.setIdxRegType(M68K_REG_TYPE_DATA);
     extWord.setIdxRegAddr(4);
@@ -206,7 +207,7 @@ TEST_F(ProgramCounterIndirectWithIndexModeTest, GetAddress_PcWithIndex_Disassemb
 }
 
 TEST_F(ProgramCounterIndirectWithIndexModeTest, GetAddress_PcWithIndexAndDisplacement_GetsTheCorrectAddress) {
-    ExtensionWord extWord = ExtensionWord();
+    GenieSys::ExtensionWord extWord = GenieSys::ExtensionWord();
     extWord.setIsBrief(false);
     extWord.setIdxRegType(M68K_REG_TYPE_DATA);
     extWord.setIdxRegAddr(4);
@@ -225,7 +226,7 @@ TEST_F(ProgramCounterIndirectWithIndexModeTest, GetAddress_PcWithIndexAndDisplac
 }
 
 TEST_F(ProgramCounterIndirectWithIndexModeTest, GetAddress_PcWithIndexAndDisplacement_Disassemble) {
-    ExtensionWord extWord = ExtensionWord();
+    GenieSys::ExtensionWord extWord = GenieSys::ExtensionWord();
     extWord.setIsBrief(false);
     extWord.setIdxRegType(M68K_REG_TYPE_DATA);
     extWord.setIdxRegAddr(4);
@@ -243,7 +244,7 @@ TEST_F(ProgramCounterIndirectWithIndexModeTest, GetAddress_PcWithIndexAndDisplac
 }
 
 TEST_F(ProgramCounterIndirectWithIndexModeTest, GetAddress_PcPreIndexedWithOuterDisplacement_GetsTheCorrectAddress) {
-    ExtensionWord extWord = ExtensionWord();
+    GenieSys::ExtensionWord extWord = GenieSys::ExtensionWord();
     extWord.setIsBrief(false);
     extWord.setIdxRegType(M68K_REG_TYPE_DATA);
     extWord.setIdxRegAddr(4);
@@ -264,7 +265,7 @@ TEST_F(ProgramCounterIndirectWithIndexModeTest, GetAddress_PcPreIndexedWithOuter
 }
 
 TEST_F(ProgramCounterIndirectWithIndexModeTest, GetAddress_PcPreIndexedWithOuterDisplacement_Disassemble) {
-    ExtensionWord extWord = ExtensionWord();
+    GenieSys::ExtensionWord extWord = GenieSys::ExtensionWord();
     extWord.setIsBrief(false);
     extWord.setIdxRegType(M68K_REG_TYPE_DATA);
     extWord.setIdxRegAddr(4);
@@ -284,7 +285,7 @@ TEST_F(ProgramCounterIndirectWithIndexModeTest, GetAddress_PcPreIndexedWithOuter
 }
 
 TEST_F(ProgramCounterIndirectWithIndexModeTest, GetAddress_AddressRegisterPostIndexedWithOuterDisplacement_GetsTheCorrectAddress) {
-    ExtensionWord extWord = ExtensionWord();
+    GenieSys::ExtensionWord extWord = GenieSys::ExtensionWord();
     extWord.setIsBrief(false);
     extWord.setIdxRegType(M68K_REG_TYPE_DATA);
     extWord.setIdxRegAddr(4);
@@ -306,7 +307,7 @@ TEST_F(ProgramCounterIndirectWithIndexModeTest, GetAddress_AddressRegisterPostIn
 }
 
 TEST_F(ProgramCounterIndirectWithIndexModeTest, GetAddress_AddressRegisterPostIndexedWithOuterDisplacement_Disassemble) {
-    ExtensionWord extWord = ExtensionWord();
+    GenieSys::ExtensionWord extWord = GenieSys::ExtensionWord();
     extWord.setIsBrief(false);
     extWord.setIdxRegType(M68K_REG_TYPE_DATA);
     extWord.setIdxRegAddr(4);

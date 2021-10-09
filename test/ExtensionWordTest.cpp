@@ -4,9 +4,10 @@
 #include <gtest/gtest.h>
 #include <GenieSys/ExtensionWord.h>
 
+
 TEST(ExtensionWord, DecodeBriefExtensionWord) {
     uint16_t word = 0b1010101000000011;
-    auto result = ExtensionWord(word);
+    auto result = GenieSys::ExtensionWord(word);
     EXPECT_EQ(M68K_REG_TYPE_ADDR, result.getIdxRegType());
     EXPECT_EQ((uint8_t)2, result.getIdxRegAddr());
     EXPECT_EQ(EXT_WORD_IDX_SIZE_LONG_WORD, result.getIdxSize());
@@ -17,7 +18,7 @@ TEST(ExtensionWord, DecodeBriefExtensionWord) {
 
 TEST(ExtensionWord, DecodeExtensionWord) {
     uint16_t word = 0b1010101110100011;
-    auto result = ExtensionWord(word);
+    auto result = GenieSys::ExtensionWord(word);
     EXPECT_EQ(M68K_REG_TYPE_ADDR, result.getIdxRegType());
     EXPECT_EQ((uint8_t)2, result.getIdxRegAddr());
     EXPECT_EQ(EXT_WORD_IDX_SIZE_LONG_WORD, result.getIdxSize());
