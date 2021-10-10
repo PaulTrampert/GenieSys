@@ -46,9 +46,9 @@ uint8_t Add::execute(uint16_t opWord) {
             if (direction == 1) {
                 return 12 + addrResult->getCycles();
             }
-            else if (eaMode == DataRegisterDirectMode::MODE_ID
-                || eaMode == AddressRegisterDirectMode::MODE_ID
-                || (eaMode == ProgramCounterAddressingMode::MODE_ID && eaRegAddr == ImmediateDataMode::MODE_ID)) {
+            else if (eaMode == GenieSys::DataRegisterDirectMode::MODE_ID
+                || eaMode == GenieSys::AddressRegisterDirectMode::MODE_ID
+                || (eaMode == GenieSys::ProgramCounterAddressingMode::MODE_ID && eaRegAddr == GenieSys::ImmediateDataMode::MODE_ID)) {
                 return 8 + addrResult->getCycles();
             }
             else {

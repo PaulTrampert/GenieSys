@@ -40,7 +40,7 @@ uint8_t CLR::execute(uint16_t opWord) {
     eaResult->write(zeros);
     auto initCcrX = cpu->getCcrFlags() & GenieSys::CCR_EXTEND;
     cpu->setCcrFlags(initCcrX | GenieSys::CCR_ZERO);
-    bool isRegisterEa = eaModeId == DataRegisterDirectMode::MODE_ID || eaModeId == AddressRegisterDirectMode::MODE_ID;
+    bool isRegisterEa = eaModeId == GenieSys::DataRegisterDirectMode::MODE_ID || eaModeId == GenieSys::AddressRegisterDirectMode::MODE_ID;
     switch(size) {
         case 0:
         case 1:

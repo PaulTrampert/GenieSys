@@ -21,7 +21,7 @@ std::vector<uint16_t> EORItoCCR::getOpcodes() {
 }
 
 uint8_t EORItoCCR::execute(uint16_t opWord) {
-    ImmediateDataMode mode(cpu, bus);
+    GenieSys::ImmediateDataMode mode(cpu, bus);
     auto addressingResult = mode.getData(0, 1);
     auto immediate = addressingResult->getDataAsByte();
     auto ccr = cpu->getCcrFlags();
@@ -30,7 +30,7 @@ uint8_t EORItoCCR::execute(uint16_t opWord) {
 }
 
 std::string EORItoCCR::disassemble(uint16_t opWord) {
-    ImmediateDataMode mode(cpu, bus);
+    GenieSys::ImmediateDataMode mode(cpu, bus);
     std::stringstream stream;
     stream << "EORI " << mode.disassemble(0, 1) << ",CCR";
     return stream.str();

@@ -34,7 +34,7 @@ uint8_t NEG::execute(uint16_t opWord) {
     uint8_t eaReg = eaRegMask.apply(opWord);
     auto eaMode = cpu->getAddressingMode(eaModeId);
     auto eaResult = eaMode->getData(eaReg, pow(2, size));
-    bool isRegisterEa = eaModeId == DataRegisterDirectMode::MODE_ID || eaModeId == AddressRegisterDirectMode::MODE_ID;
+    bool isRegisterEa = eaModeId == GenieSys::DataRegisterDirectMode::MODE_ID || eaModeId == GenieSys::AddressRegisterDirectMode::MODE_ID;
     uint8_t cycles = 4;
     uint8_t byteResult;
     uint16_t wordResult;

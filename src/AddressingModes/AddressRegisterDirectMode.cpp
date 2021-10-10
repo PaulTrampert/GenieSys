@@ -10,40 +10,40 @@
 #include <GenieSys/numberUtils.h>
 
 
-AddressRegisterDirectMode::AddressRegisterDirectMode(GenieSys::M68kCpu *cpu, GenieSys::Bus *bus)
+GenieSys::AddressRegisterDirectMode::AddressRegisterDirectMode(GenieSys::M68kCpu *cpu, GenieSys::Bus *bus)
     : AddressingMode(cpu, bus) {
     cycles = 0;
     longCycles = 0;
 }
 
-uint32_t AddressRegisterDirectMode::getAddress(uint8_t regAddr) {
+uint32_t GenieSys::AddressRegisterDirectMode::getAddress(uint8_t regAddr) {
     return regAddr;
 }
 
-uint8_t AddressRegisterDirectMode::getModeId() {
+uint8_t GenieSys::AddressRegisterDirectMode::getModeId() {
     return MODE_ID;
 }
 
-std::unique_ptr<GenieSys::AddressingResult> AddressRegisterDirectMode::getData(uint8_t regAddr, uint8_t size) {
+std::unique_ptr<GenieSys::AddressingResult> GenieSys::AddressRegisterDirectMode::getData(uint8_t regAddr, uint8_t size) {
     uint32_t data = cpu->getAddressRegister(regAddr);
     std::vector<uint8_t> result(size);
     for (int i = 0; i < size; i++) {
         uint32_t mask = 0xFF << (8 * ((size - 1) - i));
         result[i] = (data & mask) >> (8 * (size - 1 - i));
     }
-    return std::make_unique<AddressRegisterDirectResult>(cpu, bus, regAddr, result);
+    return std::make_unique<GenieSys::AddressRegisterDirectResult>(cpu, bus, regAddr, result);
 }
 
-std::string AddressRegisterDirectMode::disassemble(uint8_t regAddr, uint8_t size) {
+std::string GenieSys::AddressRegisterDirectMode::disassemble(uint8_t regAddr, uint8_t size) {
     return "A" + std::to_string(regAddr);
 }
 
-AddressRegisterDirectResult::AddressRegisterDirectResult(GenieSys::M68kCpu *cpu, GenieSys::Bus *bus, uint32_t address, std::vector<uint8_t> data)
+GenieSys::AddressRegisterDirectResult::AddressRegisterDirectResult(GenieSys::M68kCpu *cpu, GenieSys::Bus *bus, uint32_t address, std::vector<uint8_t> data)
     : AddressingResult(cpu, bus, address, std::move(data), 0, AddressRegisterDirectMode::MODE_ID) {
 
 }
 
-void AddressRegisterDirectResult::write(std::vector<uint8_t> data) {
+void GenieSys::AddressRegisterDirectResult::write(std::vector<uint8_t> data) {
     switch(data.size()) {
         case 1:
             cpu->setAddressRegister(address, GenieSys::bytesToByte(data));
@@ -57,14 +57,14 @@ void AddressRegisterDirectResult::write(std::vector<uint8_t> data) {
     }
 }
 
-void AddressRegisterDirectResult::write(uint8_t data) {
+void GenieSys::AddressRegisterDirectResult::write(uint8_t data) {
     cpu->setAddressRegister(address, data);
 }
 
-void AddressRegisterDirectResult::write(uint16_t data) {
+void GenieSys::AddressRegisterDirectResult::write(uint16_t data) {
     cpu->setAddressRegister(address, data);
 }
 
-void AddressRegisterDirectResult::write(uint32_t data) {
+void GenieSys::AddressRegisterDirectResult::write(uint32_t data) {
     cpu->setAddressRegister(address, data);
 }

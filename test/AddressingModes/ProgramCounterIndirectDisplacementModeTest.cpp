@@ -10,12 +10,12 @@
 struct ProgramCounterIndirectDisplacementModeTest : testing::Test {
     GenieSys::Bus bus;
     GenieSys::M68kCpu* cpu;
-    ProgramCounterIndirectDisplacementMode* subject;
+    GenieSys::ProgramCounterIndirectDisplacementMode* subject;
 
     ProgramCounterIndirectDisplacementModeTest() {
         cpu = bus.getCpu();
         cpu->setPc(0x1111);
-        subject = new ProgramCounterIndirectDisplacementMode(cpu, &bus);
+        subject = new GenieSys::ProgramCounterIndirectDisplacementMode(cpu, &bus);
         bus.writeWord(0x1111, 0x1111);
         bus.writeWord(0x2222, 0x3344);
     }

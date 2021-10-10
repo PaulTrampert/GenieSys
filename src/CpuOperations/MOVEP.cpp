@@ -19,8 +19,8 @@ MOVEP::MOVEP(GenieSys::M68kCpu *cpu, GenieSys::Bus *bus) : CpuOperation(cpu, bus
 std::string MOVEP::disassemble(uint16_t opWord) {
     auto dn = DnMask.apply(opWord);
     auto opMode = (OpMode)OpModeMask.apply(opWord);
-    auto dnMode = cpu->getAddressingMode(DataRegisterDirectMode::MODE_ID);
-    auto addrMode = cpu->getAddressingMode(AddressRegisterIndirectDisplacementMode::MODE_ID);
+    auto dnMode = cpu->getAddressingMode(GenieSys::DataRegisterDirectMode::MODE_ID);
+    auto addrMode = cpu->getAddressingMode(GenieSys::AddressRegisterIndirectDisplacementMode::MODE_ID);
     auto an = AnMask.apply(opWord);
     std::stringstream stream;
     stream << "MOVEP";
@@ -43,7 +43,7 @@ std::string MOVEP::disassemble(uint16_t opWord) {
 uint8_t MOVEP::execute(uint16_t opWord) {
     auto dn = DnMask.apply(opWord);
     auto opMode = (OpMode)OpModeMask.apply(opWord);
-    auto addrMode = cpu->getAddressingMode(AddressRegisterIndirectDisplacementMode::MODE_ID);
+    auto addrMode = cpu->getAddressingMode(GenieSys::AddressRegisterIndirectDisplacementMode::MODE_ID);
     auto an = AnMask.apply(opWord);
     auto anAddr = addrMode->getAddress(an);
     switch (opMode) {

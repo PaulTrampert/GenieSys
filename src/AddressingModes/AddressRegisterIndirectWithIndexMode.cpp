@@ -9,13 +9,13 @@
 
 
 
-AddressRegisterIndirectWithIndexMode::AddressRegisterIndirectWithIndexMode(GenieSys::M68kCpu *cpu, GenieSys::Bus *bus)
+GenieSys::AddressRegisterIndirectWithIndexMode::AddressRegisterIndirectWithIndexMode(GenieSys::M68kCpu *cpu, GenieSys::Bus *bus)
     : GenieSys::AddressingMode(cpu, bus) {
     cycles = 10;
     longCycles = 14;
 }
 
-uint32_t AddressRegisterIndirectWithIndexMode::getAddress(uint8_t regAddr) {
+uint32_t GenieSys::AddressRegisterIndirectWithIndexMode::getAddress(uint8_t regAddr) {
     auto extWord = GenieSys::ExtensionWord(bus->readWord(cpu->getPc()));
     cpu->incrementPc(2);
     uint8_t idxRegAddr = extWord.getIdxRegAddr();
@@ -93,11 +93,11 @@ uint32_t AddressRegisterIndirectWithIndexMode::getAddress(uint8_t regAddr) {
     }
 }
 
-uint8_t AddressRegisterIndirectWithIndexMode::getModeId() {
+uint8_t GenieSys::AddressRegisterIndirectWithIndexMode::getModeId() {
     return MODE_ID;
 }
 
-std::string AddressRegisterIndirectWithIndexMode::disassemble(uint8_t regAddr, uint8_t size) {
+std::string GenieSys::AddressRegisterIndirectWithIndexMode::disassemble(uint8_t regAddr, uint8_t size) {
     auto extWord = GenieSys::ExtensionWord(bus->readWord(cpu->getPc()));
     cpu->incrementPc(2);
     uint8_t idxRegAddr = extWord.getIdxRegAddr();

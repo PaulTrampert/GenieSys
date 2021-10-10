@@ -10,12 +10,12 @@
 struct AddressRegisterDirectModeTest : testing::Test {
     GenieSys::Bus bus;
     GenieSys::M68kCpu* cpu;
-    AddressRegisterDirectMode* subject;
+    GenieSys::AddressRegisterDirectMode* subject;
 
     AddressRegisterDirectModeTest() {
         cpu = bus.getCpu();
         cpu->setAddressRegister(3, 9999);
-        subject = new AddressRegisterDirectMode(cpu, &bus);
+        subject = new GenieSys::AddressRegisterDirectMode(cpu, &bus);
     }
 
     ~AddressRegisterDirectModeTest() override {

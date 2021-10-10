@@ -22,8 +22,8 @@ uint8_t EORItoSR::getSpecificity() {
 }
 
 uint8_t EORItoSR::execute(uint16_t opWord) {
-    GenieSys::AddressingMode *mode = cpu->getAddressingMode(ProgramCounterAddressingMode::MODE_ID);
-    auto imm = mode->getData(ImmediateDataMode::MODE_ID, 2);
+    GenieSys::AddressingMode *mode = cpu->getAddressingMode(GenieSys::ProgramCounterAddressingMode::MODE_ID);
+    auto imm = mode->getData(GenieSys::ImmediateDataMode::MODE_ID, 2);
     if (!cpu->isSupervisor()) {
         cpu->trap(GenieSys::TV_PRIVILEGE);
     } else {
@@ -33,8 +33,8 @@ uint8_t EORItoSR::execute(uint16_t opWord) {
 }
 
 std::string EORItoSR::disassemble(uint16_t opWord) {
-    GenieSys::AddressingMode* mode = cpu->getAddressingMode(ProgramCounterAddressingMode::MODE_ID);
+    GenieSys::AddressingMode* mode = cpu->getAddressingMode(GenieSys::ProgramCounterAddressingMode::MODE_ID);
     std::stringstream stream;
-    stream << "EORI " << mode->disassemble(ImmediateDataMode::MODE_ID, 2) << ",SR";
+    stream << "EORI " << mode->disassemble(GenieSys::ImmediateDataMode::MODE_ID, 2) << ",SR";
     return stream.str();
 }

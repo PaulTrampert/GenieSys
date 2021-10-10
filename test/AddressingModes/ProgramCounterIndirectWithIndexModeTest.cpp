@@ -11,11 +11,11 @@
 struct ProgramCounterIndirectWithIndexModeTest : testing::Test {
     GenieSys::M68kCpu* cpu;
     GenieSys::Bus bus;
-    ProgramCounterIndirectWithIndexMode* subject;
+    GenieSys::ProgramCounterIndirectWithIndexMode* subject;
 
     ProgramCounterIndirectWithIndexModeTest() {
         cpu = bus.getCpu();
-        subject = new ProgramCounterIndirectWithIndexMode(cpu, &bus);
+        subject = new GenieSys::ProgramCounterIndirectWithIndexMode(cpu, &bus);
     }
 
     ~ProgramCounterIndirectWithIndexModeTest() override {

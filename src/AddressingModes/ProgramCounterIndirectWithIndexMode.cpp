@@ -9,13 +9,13 @@
 
 
 
-ProgramCounterIndirectWithIndexMode::ProgramCounterIndirectWithIndexMode(GenieSys::M68kCpu *cpu, GenieSys::Bus *bus)
+GenieSys::ProgramCounterIndirectWithIndexMode::ProgramCounterIndirectWithIndexMode(GenieSys::M68kCpu *cpu, GenieSys::Bus *bus)
     : AddressingMode(cpu, bus) {
     cycles = 10;
     longCycles = 14;
 }
 
-uint32_t ProgramCounterIndirectWithIndexMode::getAddress(uint8_t regAddr) {
+uint32_t GenieSys::ProgramCounterIndirectWithIndexMode::getAddress(uint8_t regAddr) {
     uint32_t baseAddr = cpu->getPc();
     auto extWord = GenieSys::ExtensionWord(bus->readWord(cpu->getPc()));
     cpu->incrementPc(2);
@@ -93,11 +93,11 @@ uint32_t ProgramCounterIndirectWithIndexMode::getAddress(uint8_t regAddr) {
 
 }
 
-uint8_t ProgramCounterIndirectWithIndexMode::getModeId() {
+uint8_t GenieSys::ProgramCounterIndirectWithIndexMode::getModeId() {
     return MODE_ID;
 }
 
-std::string ProgramCounterIndirectWithIndexMode::disassemble(uint8_t regAddr, uint8_t size) {
+std::string GenieSys::ProgramCounterIndirectWithIndexMode::disassemble(uint8_t regAddr, uint8_t size) {
     auto extWord = GenieSys::ExtensionWord(bus->readWord(cpu->getPc()));
     cpu->incrementPc(2);
     uint8_t idxRegAddr = extWord.getIdxRegAddr();
@@ -176,6 +176,6 @@ std::string ProgramCounterIndirectWithIndexMode::disassemble(uint8_t regAddr, ui
 
 }
 
-uint8_t ProgramCounterIndirectWithIndexMode::getMoveCycleKey() {
+uint8_t GenieSys::ProgramCounterIndirectWithIndexMode::getMoveCycleKey() {
     return 10;
 }

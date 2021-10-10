@@ -8,16 +8,17 @@
 #include "AddressingMode.h"
 
 
+namespace GenieSys {
+    class AddressRegisterIndirectWithIndexMode : public GenieSys::AddressingMode {
+    public:
+        static const uint8_t MODE_ID = 0b110u;
 
-class AddressRegisterIndirectWithIndexMode : public GenieSys::AddressingMode {
-public:
-    static const uint8_t MODE_ID = 0b110u;
+        AddressRegisterIndirectWithIndexMode(M68kCpu *cpu, Bus *bus);
 
-    AddressRegisterIndirectWithIndexMode(GenieSys::M68kCpu *cpu, GenieSys::Bus *bus);
-
-    uint32_t getAddress(uint8_t regAddr) override;
-    uint8_t getModeId() override;
-    std::string disassemble(uint8_t regAddr, uint8_t size) override;
-};
+        uint32_t getAddress(uint8_t regAddr) override;
+        uint8_t getModeId() override;
+        std::string disassemble(uint8_t regAddr, uint8_t size) override;
+    };
+}
 
 

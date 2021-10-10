@@ -55,7 +55,7 @@ uint8_t NOT::notByte(GenieSys::AddressingResult* eaResult, uint8_t eaModeId) {
     uint8_t result = ~data;
     eaResult->write(result);
     cpu->setCcrFlags(getCcrFlags<uint8_t, int8_t>(result));
-    return (eaModeId == DataRegisterDirectMode::MODE_ID || eaModeId == AddressRegisterDirectMode::MODE_ID) ? 4 : (8 + eaResult->getCycles());
+    return (eaModeId == GenieSys::DataRegisterDirectMode::MODE_ID || eaModeId == GenieSys::AddressRegisterDirectMode::MODE_ID) ? 4 : (8 + eaResult->getCycles());
 }
 
 uint8_t NOT::notWord(GenieSys::AddressingResult *eaResult, uint8_t eaModeId) {
@@ -63,7 +63,7 @@ uint8_t NOT::notWord(GenieSys::AddressingResult *eaResult, uint8_t eaModeId) {
     uint16_t result = ~data;
     eaResult->write(result);
     cpu->setCcrFlags(getCcrFlags<uint16_t, int16_t>(result));
-    return (eaModeId == DataRegisterDirectMode::MODE_ID || eaModeId == AddressRegisterDirectMode::MODE_ID) ? 4 : (8 + eaResult->getCycles());
+    return (eaModeId == GenieSys::DataRegisterDirectMode::MODE_ID || eaModeId == GenieSys::AddressRegisterDirectMode::MODE_ID) ? 4 : (8 + eaResult->getCycles());
 }
 
 uint8_t NOT::notLong(GenieSys::AddressingResult *eaResult, uint8_t eaModeId) {
@@ -71,7 +71,7 @@ uint8_t NOT::notLong(GenieSys::AddressingResult *eaResult, uint8_t eaModeId) {
     uint32_t result = ~data;
     eaResult->write(result);
     cpu->setCcrFlags(getCcrFlags<uint32_t, int32_t>(result));
-    return (eaModeId == DataRegisterDirectMode::MODE_ID || eaModeId == AddressRegisterDirectMode::MODE_ID) ? 6 : (12 + eaResult->getCycles());
+    return (eaModeId == GenieSys::DataRegisterDirectMode::MODE_ID || eaModeId == GenieSys::AddressRegisterDirectMode::MODE_ID) ? 6 : (12 + eaResult->getCycles());
 }
 
 std::string NOT::disassemble(uint16_t opWord) {

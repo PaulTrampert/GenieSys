@@ -15,11 +15,11 @@
 struct AddressRegisterIndirectPreDecrementModeTest : testing::Test {
     GenieSys::Bus bus;
     GenieSys::M68kCpu* cpu;
-    AddressRegisterIndirectPreDecrementMode* subject;
+    GenieSys::AddressRegisterIndirectPreDecrementMode* subject;
 
     AddressRegisterIndirectPreDecrementModeTest() {
         cpu = bus.getCpu();
-        subject = new AddressRegisterIndirectPreDecrementMode(cpu, &bus);
+        subject = new GenieSys::AddressRegisterIndirectPreDecrementMode(cpu, &bus);
         cpu->setAddressRegister(2, 14);
         bus.writeLong(10, 0x12345678);
     }

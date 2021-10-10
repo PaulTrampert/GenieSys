@@ -11,11 +11,11 @@
 struct AddressRegisterIndirectWithIndexModeTest : testing::Test {
     GenieSys::M68kCpu* cpu;
     GenieSys::Bus bus;
-    AddressRegisterIndirectWithIndexMode* subject;
+    GenieSys::AddressRegisterIndirectWithIndexMode* subject;
 
     AddressRegisterIndirectWithIndexModeTest() {
         cpu = bus.getCpu();
-        subject = new AddressRegisterIndirectWithIndexMode(cpu, &bus);
+        subject = new GenieSys::AddressRegisterIndirectWithIndexMode(cpu, &bus);
     }
 
     ~AddressRegisterIndirectWithIndexModeTest() override {

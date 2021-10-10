@@ -14,12 +14,12 @@
 struct DataRegisterDirectModeTest : testing::Test {
     GenieSys::Bus bus;
     GenieSys::M68kCpu* cpu;
-    DataRegisterDirectMode* subject;
+    GenieSys::DataRegisterDirectMode* subject;
 
     DataRegisterDirectModeTest() {
         cpu = bus.getCpu();
         cpu->setDataRegister(3, (uint32_t)9999);
-        subject = new DataRegisterDirectMode(cpu, &bus);
+        subject = new GenieSys::DataRegisterDirectMode(cpu, &bus);
     }
 
     ~DataRegisterDirectModeTest() override {

@@ -21,7 +21,7 @@ std::vector<uint16_t> ANDItoCCR::getOpcodes() {
 }
 
 uint8_t ANDItoCCR::execute(uint16_t opWord) {
-    ImmediateDataMode mode(cpu, bus);
+    GenieSys::ImmediateDataMode mode(cpu, bus);
     auto addressingResult = mode.getData(0, 1);
     auto immediate = addressingResult->getDataAsByte();
     auto ccr = cpu->getCcrFlags();
@@ -30,7 +30,7 @@ uint8_t ANDItoCCR::execute(uint16_t opWord) {
 }
 
 std::string ANDItoCCR::disassemble(uint16_t opWord) {
-    ImmediateDataMode mode(cpu, bus);
+    GenieSys::ImmediateDataMode mode(cpu, bus);
     std::stringstream stream;
     stream << "ANDI " << mode.disassemble(0, 1) << ",CCR";
     return stream.str();

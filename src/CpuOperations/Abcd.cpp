@@ -25,10 +25,10 @@ uint8_t Abcd::execute(uint16_t opWord) {
     uint16_t rm = RM_MASK.apply(opWord);
     GenieSys::AddressingMode* mode;
     if (rm > 0) {
-        mode = cpu->getAddressingMode(AddressRegisterIndirectPreDecrementMode::MODE_ID);
+        mode = cpu->getAddressingMode(GenieSys::AddressRegisterIndirectPreDecrementMode::MODE_ID);
     }
     else {
-        mode = cpu->getAddressingMode(DataRegisterDirectMode::MODE_ID);
+        mode = cpu->getAddressingMode(GenieSys::DataRegisterDirectMode::MODE_ID);
     }
     auto dest = mode->getData(destReg, 1);
     auto src = mode->getData(srcReg, 1);
@@ -87,10 +87,10 @@ std::string Abcd::disassemble(uint16_t opWord) {
     uint16_t rm = RM_MASK.apply(opWord);
     GenieSys::AddressingMode* mode;
     if (rm > 0) {
-        mode = cpu->getAddressingMode(AddressRegisterIndirectPreDecrementMode::MODE_ID);
+        mode = cpu->getAddressingMode(GenieSys::AddressRegisterIndirectPreDecrementMode::MODE_ID);
     }
     else {
-        mode = cpu->getAddressingMode(DataRegisterDirectMode::MODE_ID);
+        mode = cpu->getAddressingMode(GenieSys::DataRegisterDirectMode::MODE_ID);
     }
     stream << "ABCD " << mode->disassemble(srcReg, 1) << "," << mode->disassemble(destReg, 1);
     return stream.str();

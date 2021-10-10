@@ -11,11 +11,11 @@
 struct AddressRegisterIndirectPostIncrementModeTest : testing::Test {
     GenieSys::Bus bus;
     GenieSys::M68kCpu* cpu;
-    AddressRegisterIndirectPostIncrementMode* subject;
+    GenieSys::AddressRegisterIndirectPostIncrementMode* subject;
 
     AddressRegisterIndirectPostIncrementModeTest() {
         cpu = bus.getCpu();
-        subject = new AddressRegisterIndirectPostIncrementMode(cpu, &bus);
+        subject = new GenieSys::AddressRegisterIndirectPostIncrementMode(cpu, &bus);
         cpu->setAddressRegister(2, 10);
         bus.writeLong(10, 0x12345678);
     }

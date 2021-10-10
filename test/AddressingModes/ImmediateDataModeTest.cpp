@@ -11,12 +11,12 @@
 struct ImmediateDataModeTest : testing::Test {
     GenieSys::Bus bus;
     GenieSys::M68kCpu* cpu;
-    ImmediateDataMode* subject;
+    GenieSys::ImmediateDataMode* subject;
 
     ImmediateDataModeTest() {
         cpu = bus.getCpu();
         cpu->setPc(32);
-        subject = new ImmediateDataMode(cpu, &bus);
+        subject = new GenieSys::ImmediateDataMode(cpu, &bus);
         bus.writeWord(32, 0x1111);
         bus.writeWord(34, 0x0a00);
     }

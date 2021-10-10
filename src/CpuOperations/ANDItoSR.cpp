@@ -22,8 +22,8 @@ uint8_t ANDItoSR::getSpecificity() {
 }
 
 uint8_t ANDItoSR::execute(uint16_t opWord) {
-    GenieSys::AddressingMode *mode = cpu->getAddressingMode(ProgramCounterAddressingMode::MODE_ID);
-    auto imm = mode->getData(ImmediateDataMode::MODE_ID, 2);
+    GenieSys::AddressingMode *mode = cpu->getAddressingMode(GenieSys::ProgramCounterAddressingMode::MODE_ID);
+    auto imm = mode->getData(GenieSys::ImmediateDataMode::MODE_ID, 2);
     if (!cpu->isSupervisor()) {
         cpu->trap(GenieSys::TV_PRIVILEGE);
     } else {
@@ -33,8 +33,8 @@ uint8_t ANDItoSR::execute(uint16_t opWord) {
 }
 
 std::string ANDItoSR::disassemble(uint16_t opWord) {
-    GenieSys::AddressingMode* mode = cpu->getAddressingMode(ProgramCounterAddressingMode::MODE_ID);
+    GenieSys::AddressingMode* mode = cpu->getAddressingMode(GenieSys::ProgramCounterAddressingMode::MODE_ID);
     std::stringstream stream;
-    stream << "ANDI " << mode->disassemble(ImmediateDataMode::MODE_ID, 2) << ",SR";
+    stream << "ANDI " << mode->disassemble(GenieSys::ImmediateDataMode::MODE_ID, 2) << ",SR";
     return stream.str();
 }

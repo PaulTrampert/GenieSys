@@ -28,7 +28,7 @@ uint8_t MOVEfromSR::execute(uint16_t opWord) {
     uint8_t eaReg = eaRegMask.apply(opWord);
     auto eaResult = eaMode->getData(eaReg, 2);
     eaResult->write(cpu->getSR());
-    return (eaModeId == DataRegisterDirectMode::MODE_ID ? 6 : 8) + eaResult->getCycles();
+    return (eaModeId == GenieSys::DataRegisterDirectMode::MODE_ID ? 6 : 8) + eaResult->getCycles();
 }
 
 std::string MOVEfromSR::disassemble(uint16_t opWord) {

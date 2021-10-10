@@ -8,27 +8,27 @@
 
 
 
-AbsoluteLongAddressingMode::AbsoluteLongAddressingMode(GenieSys::M68kCpu *cpu, GenieSys::Bus *bus) : GenieSys::AddressingMode(cpu, bus) {
+GenieSys::AbsoluteLongAddressingMode::AbsoluteLongAddressingMode(GenieSys::M68kCpu *cpu, GenieSys::Bus *bus) : GenieSys::AddressingMode(cpu, bus) {
     cycles = 12;
     longCycles = 16;
 }
 
-uint32_t AbsoluteLongAddressingMode::getAddress(uint8_t regAddr) {
+uint32_t GenieSys::AbsoluteLongAddressingMode::getAddress(uint8_t regAddr) {
     uint32_t address = bus->readLong(cpu->getPc());
     cpu->incrementPc(4);
     return address;
 }
 
-uint8_t AbsoluteLongAddressingMode::getModeId() {
+uint8_t GenieSys::AbsoluteLongAddressingMode::getModeId() {
     return MODE_ID;
 }
 
-std::string AbsoluteLongAddressingMode::disassemble(uint8_t regAddr, uint8_t size) {
+std::string GenieSys::AbsoluteLongAddressingMode::disassemble(uint8_t regAddr, uint8_t size) {
     std::stringstream stream;
     stream << "(" << getAddress(regAddr) << ").L";
     return stream.str();
 }
 
-uint8_t AbsoluteLongAddressingMode::getMoveCycleKey() {
+uint8_t GenieSys::AbsoluteLongAddressingMode::getMoveCycleKey() {
     return 8;
 }
