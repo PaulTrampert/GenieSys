@@ -6,14 +6,15 @@
 #include <GenieSys/Bus.h>
 
 
+
 struct EORItoSRTest : testing::Test {
     GenieSys::M68kCpu* cpu;
     GenieSys::Bus bus;
-    EORItoSR* subject;
+    GenieSys::EORItoSR* subject;
 
     EORItoSRTest() {
         cpu = bus.getCpu();
-        subject = new EORItoSR(cpu, &bus);
+        subject = new GenieSys::EORItoSR(cpu, &bus);
     }
 
     ~EORItoSRTest() override {

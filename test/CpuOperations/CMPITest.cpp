@@ -7,16 +7,17 @@
 #include <GenieSys/Bus.h>
 
 
+
 static uint16_t BASE_OPCODE = 0b0000010000000000;
 
 struct CMPITest : testing::Test {
     GenieSys::M68kCpu* cpu;
     GenieSys::Bus bus;
-    CMPI* subject;
+    GenieSys::CMPI* subject;
 
     CMPITest() {
         cpu = bus.getCpu();
-        subject = new CMPI(cpu, &bus);
+        subject = new GenieSys::CMPI(cpu, &bus);
     }
 
     ~CMPITest() override {

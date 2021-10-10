@@ -6,14 +6,15 @@
 #include <GenieSys/Bus.h>
 
 
+
 struct ANDItoSRTest : testing::Test {
     GenieSys::M68kCpu* cpu;
     GenieSys::Bus bus;
-    ANDItoSR* subject;
+    GenieSys::ANDItoSR* subject;
 
     ANDItoSRTest() {
         cpu = bus.getCpu();
-        subject = new ANDItoSR(cpu, &bus);
+        subject = new GenieSys::ANDItoSR(cpu, &bus);
     }
 
     ~ANDItoSRTest() override {

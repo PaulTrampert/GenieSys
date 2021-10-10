@@ -14,11 +14,11 @@
 
 
 
-EORI::EORI(GenieSys::M68kCpu *cpu, GenieSys::Bus *bus) : GenieSys::CpuOperation(cpu, bus) {
+GenieSys::EORI::EORI(GenieSys::M68kCpu *cpu, GenieSys::Bus *bus) : GenieSys::CpuOperation(cpu, bus) {
 
 }
 
-std::vector<uint16_t> EORI::getOpcodes() {
+std::vector<uint16_t> GenieSys::EORI::getOpcodes() {
     return GenieSys::getPossibleOpcodes(BASE_OPCODE, std::vector<GenieSys::BitMask<uint16_t>*>{
         &sizeMask,
         &eaModeMask,
@@ -26,11 +26,11 @@ std::vector<uint16_t> EORI::getOpcodes() {
     });
 }
 
-uint8_t EORI::getSpecificity() {
+uint8_t GenieSys::EORI::getSpecificity() {
     return sizeMask.getWidth() + eaModeMask.getWidth() + eaRegMask.getWidth();
 }
 
-uint8_t EORI::execute(uint16_t opWord) {
+uint8_t GenieSys::EORI::execute(uint16_t opWord) {
     uint8_t size = pow(2, sizeMask.apply(opWord));
     uint8_t eaModeCode = eaModeMask.apply(opWord);
     uint8_t eaReg = eaRegMask.apply(opWord);
@@ -70,7 +70,7 @@ uint8_t EORI::execute(uint16_t opWord) {
     return baseCycles + eaResult->getCycles();
 }
 
-std::string EORI::disassemble(uint16_t opWord) {
+std::string GenieSys::EORI::disassemble(uint16_t opWord) {
     uint8_t size = pow(2, sizeMask.apply(opWord));
     uint8_t eaModeCode = eaModeMask.apply(opWord);
     uint8_t eaReg = eaRegMask.apply(opWord);

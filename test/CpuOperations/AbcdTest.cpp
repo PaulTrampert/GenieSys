@@ -7,14 +7,15 @@
 #include <GenieSys/Bus.h>
 
 
+
 struct AbcdTest : testing::Test {
     GenieSys::M68kCpu* cpu;
     GenieSys::Bus bus;
-    Abcd* subject;
+    GenieSys::Abcd* subject;
 
     AbcdTest() {
         cpu = bus.getCpu();
-        subject = new Abcd(cpu, &bus);
+        subject = new GenieSys::Abcd(cpu, &bus);
     }
 
     ~AbcdTest() override {

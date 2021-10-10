@@ -6,17 +6,19 @@
 #include "./CpuOperation.h"
 #include "../BitMask.h"
 
-class MOVEA : public GenieSys::CpuOperation {
-private:
-    GenieSys::BitMask<uint16_t> sizeMask = GenieSys::BitMask<uint16_t>(13, 2, 2, 3);
-    GenieSys::BitMask<uint16_t> destMask = GenieSys::BitMask<uint16_t>(11, 3);
-    GenieSys::BitMask<uint16_t> eaModeMask = GenieSys::BitMask<uint16_t>(5, 3);
-    GenieSys::BitMask<uint16_t> eaAddrMask = GenieSys::BitMask<uint16_t>(2, 3);
+namespace GenieSys {
+    class MOVEA : public GenieSys::CpuOperation {
+    private:
+        BitMask<uint16_t> sizeMask = BitMask<uint16_t>(13, 2, 2, 3);
+        BitMask<uint16_t> destMask = BitMask<uint16_t>(11, 3);
+        BitMask<uint16_t> eaModeMask = BitMask<uint16_t>(5, 3);
+        BitMask<uint16_t> eaAddrMask = BitMask<uint16_t>(2, 3);
 
-public:
-    MOVEA(GenieSys::M68kCpu* cpu, GenieSys::Bus* bus);
-    uint8_t getSpecificity() override;
-    std::vector<uint16_t> getOpcodes() override;
-    uint8_t execute(uint16_t opWord) override;
-    std::string disassemble(uint16_t opWord) override;
-};
+    public:
+        MOVEA(M68kCpu* cpu, Bus* bus);
+        uint8_t getSpecificity() override;
+        std::vector<uint16_t> getOpcodes() override;
+        uint8_t execute(uint16_t opWord) override;
+        std::string disassemble(uint16_t opWord) override;
+    };
+}

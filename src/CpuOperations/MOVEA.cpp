@@ -11,15 +11,15 @@
 
 
 
-MOVEA::MOVEA(GenieSys::M68kCpu *cpu, GenieSys::Bus *bus) : GenieSys::CpuOperation(cpu, bus) {
+GenieSys::MOVEA::MOVEA(GenieSys::M68kCpu *cpu, GenieSys::Bus *bus) : GenieSys::CpuOperation(cpu, bus) {
 
 }
 
-uint8_t MOVEA::getSpecificity() {
+uint8_t GenieSys::MOVEA::getSpecificity() {
     return sizeMask.getWidth() + destMask.getWidth() + eaModeMask.getWidth() + eaAddrMask.getWidth();
 }
 
-std::vector<uint16_t> MOVEA::getOpcodes() {
+std::vector<uint16_t> GenieSys::MOVEA::getOpcodes() {
     return GenieSys::getPossibleOpcodes((uint16_t) 0b0000000001000000, std::vector<GenieSys::BitMask<uint16_t>*> {
        &sizeMask,
        &destMask,
@@ -28,7 +28,7 @@ std::vector<uint16_t> MOVEA::getOpcodes() {
     });
 }
 
-uint8_t MOVEA::execute(uint16_t opWord) {
+uint8_t GenieSys::MOVEA::execute(uint16_t opWord) {
     uint8_t size = sizeMask.apply(opWord);
     uint8_t sizeBytes = size == 3 ? 2 : 4;
     uint8_t destReg = destMask.apply(opWord);
@@ -47,7 +47,7 @@ uint8_t MOVEA::execute(uint16_t opWord) {
     return 4 + eaResult->getCycles();
 }
 
-std::string MOVEA::disassemble(uint16_t opWord) {
+std::string GenieSys::MOVEA::disassemble(uint16_t opWord) {
     uint8_t size = sizeMask.apply(opWord);
     uint8_t sizeBytes = size == 3 ? 2 : 4;
     uint8_t destReg = destMask.apply(opWord);

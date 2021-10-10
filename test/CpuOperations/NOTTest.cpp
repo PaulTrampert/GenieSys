@@ -6,9 +6,10 @@
 #include <GenieSys/Bus.h>
 
 
+
 class NOTTest : public ::testing::Test {
 public:
-    NOT* subject;
+    GenieSys::NOT* subject;
     GenieSys::M68kCpu* cpu;
     GenieSys::Bus bus;
 
@@ -19,7 +20,7 @@ public:
 
     NOTTest() : Test() {
         cpu = bus.getCpu();
-        subject = new NOT(cpu, &bus);
+        subject = new GenieSys::NOT(cpu, &bus);
     }
 
     ~NOTTest() override {

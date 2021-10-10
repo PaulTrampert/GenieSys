@@ -6,14 +6,16 @@
 #include "./CpuOperation.h"
 
 
-class EORItoCCR : public GenieSys::CpuOperation {
-private:
-    const uint16_t BASE_OPCODE = 0b0000101000111100;
+namespace GenieSys {
+    class EORItoCCR : public GenieSys::CpuOperation {
+    private:
+        const uint16_t BASE_OPCODE = 0b0000101000111100;
 
-public:
-    EORItoCCR(GenieSys::M68kCpu* cpu, GenieSys::Bus* bus);
-    uint8_t getSpecificity() override;
-    uint8_t execute(uint16_t opWord) override;
-    std::vector<uint16_t> getOpcodes() override;
-    std::string disassemble(uint16_t opWord) override;
-};
+    public:
+        EORItoCCR(M68kCpu* cpu, Bus* bus);
+        uint8_t getSpecificity() override;
+        uint8_t execute(uint16_t opWord) override;
+        std::vector<uint16_t> getOpcodes() override;
+        std::string disassemble(uint16_t opWord) override;
+    };
+}

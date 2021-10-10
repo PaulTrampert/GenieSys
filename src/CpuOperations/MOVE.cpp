@@ -39,11 +39,11 @@ static uint8_t longCycleTable[12][9] = {
         {12, 12, 20, 20, 20, 24, 26, 24, 28},
 };
 
-MOVE::MOVE(GenieSys::M68kCpu *cpu, GenieSys::Bus *bus) : CpuOperation(cpu, bus) {
+GenieSys::MOVE::MOVE(GenieSys::M68kCpu *cpu, GenieSys::Bus *bus) : CpuOperation(cpu, bus) {
 
 }
 
-std::vector<uint16_t> MOVE::getOpcodes() {
+std::vector<uint16_t> GenieSys::MOVE::getOpcodes() {
     return GenieSys::getPossibleOpcodes((uint16_t) 0b0000000000000000, std::vector<GenieSys::BitMask<uint16_t>*> {
        &sizeMask,
        &destEaModeMask,
@@ -53,11 +53,11 @@ std::vector<uint16_t> MOVE::getOpcodes() {
     });
 }
 
-uint8_t MOVE::getSpecificity() {
+uint8_t GenieSys::MOVE::getSpecificity() {
     return sizeMask.getWidth() + destEaModeMask.getWidth() + destEaRegMask.getWidth() + srcEaRegMask.getWidth() + srcEaModeMask.getWidth();
 }
 
-uint8_t MOVE::execute(uint16_t opWord) {
+uint8_t GenieSys::MOVE::execute(uint16_t opWord) {
     uint8_t size = sizeMask.apply(opWord);
     uint8_t sizeBytes;
     switch (size) {
@@ -97,7 +97,7 @@ uint8_t MOVE::execute(uint16_t opWord) {
         : byteWordCycleTable[srcResult->getMoveCycleKey()][destResult->getMoveCycleKey()];
 }
 
-std::string MOVE::disassemble(uint16_t opWord) {
+std::string GenieSys::MOVE::disassemble(uint16_t opWord) {
     uint8_t size = sizeMask.apply(opWord);
     uint8_t sizeBytes;
     std::string sizeStr;

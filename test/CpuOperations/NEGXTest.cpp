@@ -15,11 +15,11 @@ struct NEGXTest : public ::testing::Test {
     uint16_t longOpWord = 0b0100000010000001u;
     GenieSys::M68kCpu* cpu;
     GenieSys::Bus bus;
-    NEGX* subject;
+    GenieSys::NEGX* subject;
 
     NEGXTest() {
         cpu = bus.getCpu();
-        subject = new NEGX(cpu, &bus);
+        subject = new GenieSys::NEGX(cpu, &bus);
     }
 
     ~NEGXTest() override {

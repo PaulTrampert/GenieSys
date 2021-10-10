@@ -12,13 +12,13 @@
 struct BCLRTest : testing::Test {
     GenieSys::M68kCpu* cpu;
     GenieSys::Bus bus;
-    BCLR* subject;
+    GenieSys::BCLR* subject;
     uint16_t immModeOpWord = 0b0000100000000001; // BCLR $06,D1
     uint16_t dnModeOpWord = 0b0000011100000001; // BCLR D3,D1
 
     BCLRTest() {
         cpu = bus.getCpu();
-        subject = new BCLR(cpu, &bus);
+        subject = new GenieSys::BCLR(cpu, &bus);
     }
 
     ~BCLRTest() override {

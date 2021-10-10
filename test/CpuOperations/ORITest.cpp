@@ -7,16 +7,17 @@
 #include <GenieSys/Bus.h>
 
 
+
 static uint16_t BASE_OPCODE = 0b0000010000000000;
 
 struct ORITest : testing::Test {
     GenieSys::M68kCpu* cpu;
     GenieSys::Bus bus;
-    ORI* subject;
+    GenieSys::ORI* subject;
 
     ORITest() {
         cpu = bus.getCpu();
-        subject = new ORI(cpu, &bus);
+        subject = new GenieSys::ORI(cpu, &bus);
     }
 
     ~ORITest() override {

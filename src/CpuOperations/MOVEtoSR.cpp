@@ -10,18 +10,18 @@
 
 
 
-MOVEtoSR::MOVEtoSR(GenieSys::M68kCpu *cpu, GenieSys::Bus *bus) : GenieSys::CpuOperation(cpu, bus) {
+GenieSys::MOVEtoSR::MOVEtoSR(GenieSys::M68kCpu *cpu, GenieSys::Bus *bus) : GenieSys::CpuOperation(cpu, bus) {
 
 }
 
-std::vector<uint16_t> MOVEtoSR::getOpcodes() {
+std::vector<uint16_t> GenieSys::MOVEtoSR::getOpcodes() {
     return GenieSys::getPossibleOpcodes((uint16_t) 0b0100011011000000, std::vector<GenieSys::BitMask<uint16_t>*> {
         &eaRegMask,
         &eaModeMask
     });
 }
 
-uint8_t MOVEtoSR::execute(uint16_t opWord) {
+uint8_t GenieSys::MOVEtoSR::execute(uint16_t opWord) {
     uint8_t eaModeId = eaModeMask.apply(opWord);
     auto eaMode = cpu->getAddressingMode(eaModeId);
     uint8_t eaReg = eaRegMask.apply(opWord);
@@ -35,7 +35,7 @@ uint8_t MOVEtoSR::execute(uint16_t opWord) {
     return 12 + eaResult->getCycles();
 }
 
-std::string MOVEtoSR::disassemble(uint16_t opWord) {
+std::string GenieSys::MOVEtoSR::disassemble(uint16_t opWord) {
     std::stringstream stream;
     uint8_t eaModeId = eaModeMask.apply(opWord);
     auto eaMode = cpu->getAddressingMode(eaModeId);
@@ -44,6 +44,6 @@ std::string MOVEtoSR::disassemble(uint16_t opWord) {
     return stream.str();
 }
 
-uint8_t MOVEtoSR::getSpecificity() {
+uint8_t GenieSys::MOVEtoSR::getSpecificity() {
     return eaModeMask.getWidth() + eaRegMask.getWidth();
 }

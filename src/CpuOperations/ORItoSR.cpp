@@ -9,19 +9,19 @@
 
 
 
-ORItoSR::ORItoSR(GenieSys::M68kCpu *cpu, GenieSys::Bus *bus) : GenieSys::CpuOperation(cpu, bus) {
+GenieSys::ORItoSR::ORItoSR(GenieSys::M68kCpu *cpu, GenieSys::Bus *bus) : GenieSys::CpuOperation(cpu, bus) {
 
 }
 
-std::vector<uint16_t> ORItoSR::getOpcodes() {
+std::vector<uint16_t> GenieSys::ORItoSR::getOpcodes() {
     return std::vector<uint16_t> {0b0000000001111100};
 }
 
-uint8_t ORItoSR::getSpecificity() {
+uint8_t GenieSys::ORItoSR::getSpecificity() {
     return 0;
 }
 
-uint8_t ORItoSR::execute(uint16_t opWord) {
+uint8_t GenieSys::ORItoSR::execute(uint16_t opWord) {
     GenieSys::AddressingMode *mode = cpu->getAddressingMode(GenieSys::ProgramCounterAddressingMode::MODE_ID);
     auto imm = mode->getData(GenieSys::ImmediateDataMode::MODE_ID, 2);
     if (!cpu->isSupervisor()) {
@@ -32,7 +32,7 @@ uint8_t ORItoSR::execute(uint16_t opWord) {
     return 20;
 }
 
-std::string ORItoSR::disassemble(uint16_t opWord) {
+std::string GenieSys::ORItoSR::disassemble(uint16_t opWord) {
     GenieSys::AddressingMode* mode = cpu->getAddressingMode(GenieSys::ProgramCounterAddressingMode::MODE_ID);
     std::stringstream stream;
     stream << "ORI " << mode->disassemble(GenieSys::ImmediateDataMode::MODE_ID, 2) << ",SR";

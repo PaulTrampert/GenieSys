@@ -7,16 +7,17 @@
 #include <GenieSys/Bus.h>
 
 
+
 static uint16_t BASE_OPCODE = 0b0000001000000000;
 
 struct ANDITest : testing::Test {
     GenieSys::M68kCpu* cpu;
     GenieSys::Bus bus;
-    ANDI* subject;
+    GenieSys::ANDI* subject;
 
     ANDITest() {
         cpu = bus.getCpu();
-        subject = new ANDI(cpu, &bus);
+        subject = new GenieSys::ANDI(cpu, &bus);
     }
 
     ~ANDITest() override {

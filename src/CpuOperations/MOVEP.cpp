@@ -10,13 +10,13 @@
 
 
 
-MOVEP::MOVEP(GenieSys::M68kCpu *cpu, GenieSys::Bus *bus) : GenieSys::CpuOperation(cpu, bus) {
+GenieSys::MOVEP::MOVEP(GenieSys::M68kCpu *cpu, GenieSys::Bus *bus) : GenieSys::CpuOperation(cpu, bus) {
 
 }
 
 
 
-std::string MOVEP::disassemble(uint16_t opWord) {
+std::string GenieSys::MOVEP::disassemble(uint16_t opWord) {
     auto dn = DnMask.apply(opWord);
     auto opMode = (OpMode)OpModeMask.apply(opWord);
     auto dnMode = cpu->getAddressingMode(GenieSys::DataRegisterDirectMode::MODE_ID);
@@ -40,7 +40,7 @@ std::string MOVEP::disassemble(uint16_t opWord) {
     return stream.str();
 }
 
-uint8_t MOVEP::execute(uint16_t opWord) {
+uint8_t GenieSys::MOVEP::execute(uint16_t opWord) {
     auto dn = DnMask.apply(opWord);
     auto opMode = (OpMode)OpModeMask.apply(opWord);
     auto addrMode = cpu->getAddressingMode(GenieSys::AddressRegisterIndirectDisplacementMode::MODE_ID);
@@ -63,7 +63,7 @@ uint8_t MOVEP::execute(uint16_t opWord) {
     return opMode == LONG_REG_MEM || opMode == LONG_MEM_REG ? 24 : 16;
 }
 
-std::vector<uint16_t> MOVEP::getOpcodes() {
+std::vector<uint16_t> GenieSys::MOVEP::getOpcodes() {
     return GenieSys::getPossibleOpcodes((uint16_t) 0b0000000000001000, std::vector<GenieSys::BitMask<uint16_t>*> {
         &DnMask,
         &AnMask,
@@ -71,16 +71,16 @@ std::vector<uint16_t> MOVEP::getOpcodes() {
     });
 }
 
-uint8_t MOVEP::getSpecificity() {
+uint8_t GenieSys::MOVEP::getSpecificity() {
     return DnMask.getWidth() + AnMask.getWidth() + OpModeMask.getWidth();
 }
 
-void MOVEP::WordMemToReg(uint32_t anAddr, uint8_t dn) {
+void GenieSys::MOVEP::WordMemToReg(uint32_t anAddr, uint8_t dn) {
     uint16_t dnData = ((uint16_t) bus->read(anAddr) << 8) + bus->read(anAddr + 2);
     cpu->setDataRegister(dn, dnData);
 }
 
-void MOVEP::LongMemToReg(uint32_t anAddr, uint8_t dn) {
+void GenieSys::MOVEP::LongMemToReg(uint32_t anAddr, uint8_t dn) {
     uint32_t dnData = 0;
     for (int i = 0; i < 4; i++) {
         uint32_t shift = (3 - i) * 8;
@@ -90,13 +90,13 @@ void MOVEP::LongMemToReg(uint32_t anAddr, uint8_t dn) {
     cpu->setDataRegister(dn, dnData);
 }
 
-void MOVEP::WordRegToMem(uint32_t anAddr, uint8_t dn) {
+void GenieSys::MOVEP::WordRegToMem(uint32_t anAddr, uint8_t dn) {
     uint16_t dnData = (cpu->getDataRegister(dn) & 0x0000FFFF);
     bus->writeByte(anAddr, ((dnData & 0xFF00) >> 8));
     bus->writeByte(anAddr + 2, (dnData & 0x00FF));
 }
 
-void MOVEP::LongRegToMem(uint32_t anAddr, uint8_t dn) {
+void GenieSys::MOVEP::LongRegToMem(uint32_t anAddr, uint8_t dn) {
     uint32_t dnData = cpu->getDataRegister(dn);
     for (int i = 0; i < 4; i++) {
         uint32_t shift = (3 - i) * 8;

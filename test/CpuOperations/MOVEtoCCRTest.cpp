@@ -6,16 +6,17 @@
 #include <GenieSys/Bus.h>
 
 
+
 struct MOVEtoCCRTest : testing::Test {
     GenieSys::M68kCpu* cpu;
     GenieSys::Bus bus;
-    MOVEtoCCR* subject;
+    GenieSys::MOVEtoCCR* subject;
 
     uint16_t opWord = 0b0100010011010000;
 
     MOVEtoCCRTest() {
         cpu = bus.getCpu();
-        subject = new MOVEtoCCR(cpu, &bus);
+        subject = new GenieSys::MOVEtoCCR(cpu, &bus);
     }
 
     ~MOVEtoCCRTest() override {

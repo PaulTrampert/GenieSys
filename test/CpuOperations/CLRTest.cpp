@@ -6,9 +6,10 @@
 #include <GenieSys/Bus.h>
 
 
+
 class CLRTest : public ::testing::Test {
 public:
-    CLR* subject;
+    GenieSys::CLR* subject;
     GenieSys::M68kCpu* cpu;
     GenieSys::Bus bus;
 
@@ -19,7 +20,7 @@ public:
 
     CLRTest() : Test() {
         cpu = bus.getCpu();
-        subject = new CLR(cpu, &bus);
+        subject = new GenieSys::CLR(cpu, &bus);
     }
 
     ~CLRTest() override {

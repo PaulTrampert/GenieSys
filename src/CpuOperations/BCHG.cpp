@@ -10,11 +10,11 @@
 
 
 
-BCHG::BCHG(GenieSys::M68kCpu *cpu, GenieSys::Bus *bus) : GenieSys::CpuOperation(cpu, bus) {
+GenieSys::BCHG::BCHG(GenieSys::M68kCpu *cpu, GenieSys::Bus *bus) : GenieSys::CpuOperation(cpu, bus) {
 
 }
 
-std::vector<uint16_t> BCHG::getOpcodes() {
+std::vector<uint16_t> GenieSys::BCHG::getOpcodes() {
     auto results = GenieSys::getPossibleOpcodes((uint16_t)0b0000000101000000, std::vector<GenieSys::BitMask<uint16_t>*> {
         &DnMask,
         &EaModeMask,
@@ -32,11 +32,11 @@ std::vector<uint16_t> BCHG::getOpcodes() {
     return results;
 }
 
-uint8_t BCHG::getSpecificity() {
+uint8_t GenieSys::BCHG::getSpecificity() {
     return DnMask.getWidth() + ImmMask.getWidth() + EaModeMask.getWidth() + EaAddrMask.getWidth();
 }
 
-uint8_t BCHG::execute(uint16_t opWord) {
+uint8_t GenieSys::BCHG::execute(uint16_t opWord) {
     uint8_t cycles;
     bool imm = !ImmMask.apply(opWord);
     uint8_t eaModeId = EaModeMask.apply(opWord);
@@ -74,7 +74,7 @@ uint8_t BCHG::execute(uint16_t opWord) {
     return cycles + eaData->getCycles();
 }
 
-std::string BCHG::disassemble(uint16_t opWord) {
+std::string GenieSys::BCHG::disassemble(uint16_t opWord) {
     bool immMode = !ImmMask.apply(opWord);
     uint8_t eaModeId = EaModeMask.apply(opWord);
     uint8_t eaAddr = EaAddrMask.apply(opWord);

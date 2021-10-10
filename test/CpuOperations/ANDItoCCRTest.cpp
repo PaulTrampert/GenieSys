@@ -7,14 +7,15 @@
 #include <GenieSys/Bus.h>
 
 
+
 struct ANDItoCCRTest : testing::Test {
     GenieSys::M68kCpu* cpu;
     GenieSys::Bus bus;
-    ANDItoCCR* subject;
+    GenieSys::ANDItoCCR* subject;
 
     ANDItoCCRTest() {
         cpu = bus.getCpu();
-        subject = new ANDItoCCR(cpu, &bus);
+        subject = new GenieSys::ANDItoCCR(cpu, &bus);
     }
 
     ~ANDItoCCRTest() override {

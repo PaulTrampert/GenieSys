@@ -15,11 +15,11 @@
 
 
 
-SUBI::SUBI(GenieSys::M68kCpu *cpu, GenieSys::Bus *bus) : CpuOperation(cpu, bus) {
+GenieSys::SUBI::SUBI(GenieSys::M68kCpu *cpu, GenieSys::Bus *bus) : CpuOperation(cpu, bus) {
 
 }
 
-std::vector<uint16_t> SUBI::getOpcodes() {
+std::vector<uint16_t> GenieSys::SUBI::getOpcodes() {
     return GenieSys::getPossibleOpcodes(BASE_OPCODE, std::vector<GenieSys::BitMask<uint16_t>*>{
         &sizeMask,
         &eaModeMask,
@@ -27,11 +27,11 @@ std::vector<uint16_t> SUBI::getOpcodes() {
     });
 }
 
-uint8_t SUBI::getSpecificity() {
+uint8_t GenieSys::SUBI::getSpecificity() {
     return sizeMask.getWidth() + eaModeMask.getWidth() + eaRegMask.getWidth();
 }
 
-uint8_t SUBI::execute(uint16_t opWord) {
+uint8_t GenieSys::SUBI::execute(uint16_t opWord) {
     uint8_t size = pow(2, sizeMask.apply(opWord));
     uint8_t eaModeCode = eaModeMask.apply(opWord);
     uint8_t eaReg = eaRegMask.apply(opWord);
@@ -76,7 +76,7 @@ uint8_t SUBI::execute(uint16_t opWord) {
     return baseCycles + eaResult->getCycles();
 }
 
-std::string SUBI::disassemble(uint16_t opWord) {
+std::string GenieSys::SUBI::disassemble(uint16_t opWord) {
     uint8_t size = pow(2, sizeMask.apply(opWord));
     uint8_t eaModeCode = eaModeMask.apply(opWord);
     uint8_t eaReg = eaRegMask.apply(opWord);

@@ -6,16 +6,17 @@
 #include <GenieSys/Bus.h>
 
 
+
 struct MOVEfromSRTest : testing::Test {
     GenieSys::M68kCpu* cpu;
     GenieSys::Bus bus;
-    MOVEfromSR* subject;
+    GenieSys::MOVEfromSR* subject;
 
     uint16_t opWord = 0b0100000011010000;
 
     MOVEfromSRTest() {
         cpu = bus.getCpu();
-        subject = new MOVEfromSR(cpu, &bus);
+        subject = new GenieSys::MOVEfromSR(cpu, &bus);
     }
 
     ~MOVEfromSRTest() {

@@ -9,19 +9,19 @@
 
 
 
-ANDItoSR::ANDItoSR(GenieSys::M68kCpu *cpu, GenieSys::Bus *bus) : CpuOperation(cpu, bus) {
+GenieSys::ANDItoSR::ANDItoSR(GenieSys::M68kCpu *cpu, GenieSys::Bus *bus) : CpuOperation(cpu, bus) {
 
 }
 
-std::vector<uint16_t> ANDItoSR::getOpcodes() {
+std::vector<uint16_t> GenieSys::ANDItoSR::getOpcodes() {
     return std::vector<uint16_t> {0b0000001001111100};
 }
 
-uint8_t ANDItoSR::getSpecificity() {
+uint8_t GenieSys::ANDItoSR::getSpecificity() {
     return 0;
 }
 
-uint8_t ANDItoSR::execute(uint16_t opWord) {
+uint8_t GenieSys::ANDItoSR::execute(uint16_t opWord) {
     GenieSys::AddressingMode *mode = cpu->getAddressingMode(GenieSys::ProgramCounterAddressingMode::MODE_ID);
     auto imm = mode->getData(GenieSys::ImmediateDataMode::MODE_ID, 2);
     if (!cpu->isSupervisor()) {
@@ -32,7 +32,7 @@ uint8_t ANDItoSR::execute(uint16_t opWord) {
     return 20;
 }
 
-std::string ANDItoSR::disassemble(uint16_t opWord) {
+std::string GenieSys::ANDItoSR::disassemble(uint16_t opWord) {
     GenieSys::AddressingMode* mode = cpu->getAddressingMode(GenieSys::ProgramCounterAddressingMode::MODE_ID);
     std::stringstream stream;
     stream << "ANDI " << mode->disassemble(GenieSys::ImmediateDataMode::MODE_ID, 2) << ",SR";

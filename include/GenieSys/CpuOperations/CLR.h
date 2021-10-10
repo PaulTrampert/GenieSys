@@ -7,17 +7,19 @@
 #include "../BitMask.h"
 
 
-class CLR : public GenieSys::CpuOperation {
-private:
-    GenieSys::BitMask<uint16_t> sizeMask = GenieSys::BitMask<uint16_t>(7, 2, 0, 2);
-    GenieSys::BitMask<uint16_t> eaModeMask = GenieSys::BitMask<uint16_t>(5, 3);
-    GenieSys::BitMask<uint16_t> eaRegMask = GenieSys::BitMask<uint16_t>(2, 3);
+namespace GenieSys {
+    class CLR : public GenieSys::CpuOperation {
+    private:
+        BitMask<uint16_t> sizeMask = BitMask<uint16_t>(7, 2, 0, 2);
+        BitMask<uint16_t> eaModeMask = BitMask<uint16_t>(5, 3);
+        BitMask<uint16_t> eaRegMask = BitMask<uint16_t>(2, 3);
 
-public:
-    CLR(GenieSys::M68kCpu* cpu, GenieSys::Bus* bus);
+    public:
+        CLR(M68kCpu* cpu, Bus* bus);
 
-    uint8_t getSpecificity() override;
-    std::vector<uint16_t> getOpcodes() override;
-    uint8_t execute(uint16_t opWord) override;
-    std::string disassemble(uint16_t opWord) override;
-};
+        uint8_t getSpecificity() override;
+        std::vector<uint16_t> getOpcodes() override;
+        uint8_t execute(uint16_t opWord) override;
+        std::string disassemble(uint16_t opWord) override;
+    };
+}

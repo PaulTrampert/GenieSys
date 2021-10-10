@@ -12,13 +12,13 @@
 struct BSETTest : testing::Test {
     GenieSys::M68kCpu* cpu;
     GenieSys::Bus bus;
-    BSET* subject;
+    GenieSys::BSET* subject;
     uint16_t immModeOpWord = 0b0000100011000001; // BSET $06,D1
     uint16_t dnModeOpWord = 0b0000011111000001; // BSET D3,D1
 
     BSETTest() {
         cpu = bus.getCpu();
-        subject = new BSET(cpu, &bus);
+        subject = new GenieSys::BSET(cpu, &bus);
     }
 
     ~BSETTest() override {

@@ -12,14 +12,14 @@
 struct MOVEATest : testing::Test {
     GenieSys::M68kCpu* cpu;
     GenieSys::Bus bus;
-    MOVEA* subject;
+    GenieSys::MOVEA* subject;
 
     uint16_t moveWord = 0b0011001001010000;
     uint16_t moveLong = 0b0010001001010000;
 
     MOVEATest() {
         cpu = bus.getCpu();
-        subject = new MOVEA(cpu, &bus);
+        subject = new GenieSys::MOVEA(cpu, &bus);
     }
 
     ~MOVEATest() override {

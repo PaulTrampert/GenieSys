@@ -7,16 +7,17 @@
 #include <GenieSys/Bus.h>
 
 
+
 static uint16_t BASE_OPCODE = 0b0000010000000000;
 
 struct SUBITest : testing::Test {
     GenieSys::M68kCpu* cpu;
     GenieSys::Bus bus;
-    SUBI* subject;
+    GenieSys::SUBI* subject;
 
     SUBITest() {
         cpu = bus.getCpu();
-        subject = new SUBI(cpu, &bus);
+        subject = new GenieSys::SUBI(cpu, &bus);
     }
 
     ~SUBITest() override {

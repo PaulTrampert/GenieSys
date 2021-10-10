@@ -7,14 +7,15 @@
 #include <GenieSys/Bus.h>
 
 
+
 struct EORItoCCRTest : testing::Test {
     GenieSys::M68kCpu* cpu;
     GenieSys::Bus bus;
-    EORItoCCR* subject;
+    GenieSys::EORItoCCR* subject;
 
     EORItoCCRTest() {
         cpu = bus.getCpu();
-        subject = new EORItoCCR(cpu, &bus);
+        subject = new GenieSys::EORItoCCR(cpu, &bus);
     }
 
     ~EORItoCCRTest() override {

@@ -13,15 +13,15 @@
 
 
 
-CLR::CLR(GenieSys::M68kCpu *cpu, GenieSys::Bus *bus) : GenieSys::CpuOperation(cpu, bus) {
+GenieSys::CLR::CLR(GenieSys::M68kCpu *cpu, GenieSys::Bus *bus) : GenieSys::CpuOperation(cpu, bus) {
 
 }
 
-uint8_t CLR::getSpecificity() {
+uint8_t GenieSys::CLR::getSpecificity() {
     return sizeMask.getWidth() + eaModeMask.getWidth() + eaRegMask.getWidth();
 }
 
-std::vector<uint16_t> CLR::getOpcodes() {
+std::vector<uint16_t> GenieSys::CLR::getOpcodes() {
     return GenieSys::getPossibleOpcodes((uint16_t)0b0100001000000000u, std::vector<GenieSys::BitMask<uint16_t>*> {
         &sizeMask,
         &eaModeMask,
@@ -29,7 +29,7 @@ std::vector<uint16_t> CLR::getOpcodes() {
     });
 }
 
-uint8_t CLR::execute(uint16_t opWord) {
+uint8_t GenieSys::CLR::execute(uint16_t opWord) {
     uint8_t size = sizeMask.apply(opWord);
     uint8_t sizeBytes = pow(2, size);
     uint8_t eaModeId = eaModeMask.apply(opWord);
@@ -51,7 +51,7 @@ uint8_t CLR::execute(uint16_t opWord) {
     }
 }
 
-std::string CLR::disassemble(uint16_t opWord) {
+std::string GenieSys::CLR::disassemble(uint16_t opWord) {
     std::stringstream stream;
     uint8_t size = sizeMask.apply(opWord);
     uint8_t eaModeId = eaModeMask.apply(opWord);

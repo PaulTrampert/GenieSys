@@ -8,18 +8,19 @@
 #include "../BitMask.h"
 
 
+namespace GenieSys {
+    class ADDI : public GenieSys::CpuOperation {
+    private:
+        const uint16_t BASE_OPCODE = 0b0000011000000000;
+        BitMask<uint16_t> sizeMask = BitMask<uint16_t>(7, 2, 0, 2);
+        BitMask<uint16_t> eaModeMask = BitMask<uint16_t>(5, 3);
+        BitMask<uint16_t> eaRegMask = BitMask<uint16_t>(2, 3);
 
-class ADDI : public GenieSys::CpuOperation {
-private:
-    const uint16_t BASE_OPCODE = 0b0000011000000000;
-    GenieSys::BitMask<uint16_t> sizeMask = GenieSys::BitMask<uint16_t>(7, 2, 0, 2);
-    GenieSys::BitMask<uint16_t> eaModeMask = GenieSys::BitMask<uint16_t>(5, 3);
-    GenieSys::BitMask<uint16_t> eaRegMask = GenieSys::BitMask<uint16_t>(2, 3);
-
-public:
-    ADDI(GenieSys::M68kCpu* cpu, GenieSys::Bus* bus);
-    std::string disassemble(uint16_t opWord) override;
-    uint8_t getSpecificity() override;
-    uint8_t execute(uint16_t opWord) override;
-    std::vector<uint16_t> getOpcodes() override;
-};
+    public:
+        ADDI(M68kCpu* cpu, Bus* bus);
+        std::string disassemble(uint16_t opWord) override;
+        uint8_t getSpecificity() override;
+        uint8_t execute(uint16_t opWord) override;
+        std::vector<uint16_t> getOpcodes() override;
+    };
+}

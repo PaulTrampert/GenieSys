@@ -11,7 +11,7 @@
 struct MOVETest : testing::Test {
     GenieSys::M68kCpu* cpu;
     GenieSys::Bus bus;
-    MOVE* subject;
+    GenieSys::MOVE* subject;
 
     uint16_t moveByte = 0b0001000010010001; // MOVE.b (A1),(A0)
     uint16_t moveWord = 0b0011000010010001; // MOVE.w (A1),(A0)
@@ -19,7 +19,7 @@ struct MOVETest : testing::Test {
 
     MOVETest() {
         cpu = bus.getCpu();
-        subject = new MOVE(cpu, &bus);
+        subject = new GenieSys::MOVE(cpu, &bus);
     }
 
     ~MOVETest() override {

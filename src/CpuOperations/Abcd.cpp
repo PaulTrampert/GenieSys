@@ -19,7 +19,7 @@ static GenieSys::BitMask<uint8_t> ONES_DIGIT = GenieSys::BitMask<uint8_t>(3, 4);
 static GenieSys::BitMask<uint8_t> TENS_DIGIT = GenieSys::BitMask<uint8_t>(7, 4);
 static std::array<uint8_t, 2> cycles = {6,18};
 
-uint8_t Abcd::execute(uint16_t opWord) {
+uint8_t GenieSys::Abcd::execute(uint16_t opWord) {
     uint16_t destReg = RX_MASK.apply(opWord);
     uint16_t srcReg = RY_MASK.apply(opWord);
     uint16_t rm = RM_MASK.apply(opWord);
@@ -65,10 +65,10 @@ uint8_t Abcd::execute(uint16_t opWord) {
     return cycles[rm];
 }
 
-Abcd::Abcd(GenieSys::M68kCpu *cpu, GenieSys::Bus *bus) : GenieSys::CpuOperation(cpu, bus) {
+GenieSys::Abcd::Abcd(GenieSys::M68kCpu *cpu, GenieSys::Bus *bus) : GenieSys::CpuOperation(cpu, bus) {
 }
 
-std::vector<uint16_t> Abcd::getOpcodes() {
+std::vector<uint16_t> GenieSys::Abcd::getOpcodes() {
     return GenieSys::getPossibleOpcodes(OPCODE_BASE, std::vector<GenieSys::BitMask<uint16_t>*>{
         &RX_MASK,
         &RY_MASK,
@@ -76,11 +76,11 @@ std::vector<uint16_t> Abcd::getOpcodes() {
     });
 }
 
-uint8_t Abcd::getSpecificity() {
+uint8_t GenieSys::Abcd::getSpecificity() {
     return RX_MASK.getWidth() + RY_MASK.getWidth() + RM_MASK.getWidth();
 }
 
-std::string Abcd::disassemble(uint16_t opWord) {
+std::string GenieSys::Abcd::disassemble(uint16_t opWord) {
     std::stringstream stream;
     uint16_t destReg = RX_MASK.apply(opWord);
     uint16_t srcReg = RY_MASK.apply(opWord);

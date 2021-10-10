@@ -7,14 +7,15 @@
 #include <GenieSys/Bus.h>
 
 
+
 struct BTSTTest : testing::Test {
     GenieSys::M68kCpu* cpu;
     GenieSys::Bus bus;
-    BTST* subject;
+    GenieSys::BTST* subject;
 
     BTSTTest() {
         cpu = bus.getCpu();
-        subject = new BTST(cpu, &bus);
+        subject = new GenieSys::BTST(cpu, &bus);
     }
 
     ~BTSTTest() override {

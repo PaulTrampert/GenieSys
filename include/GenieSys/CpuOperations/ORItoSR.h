@@ -6,11 +6,13 @@
 #include "./CpuOperation.h"
 
 
-class ORItoSR : public GenieSys::CpuOperation {
-public:
-    ORItoSR(GenieSys::M68kCpu* cpu, GenieSys::Bus* bus);
-    std::vector<uint16_t> getOpcodes() override;
-    uint8_t execute(uint16_t opWord) override;
-    uint8_t getSpecificity() override;
-    std::string disassemble(uint16_t opWord) override;
-};
+namespace GenieSys {
+    class ORItoSR : public GenieSys::CpuOperation {
+    public:
+        ORItoSR(M68kCpu* cpu, Bus* bus);
+        std::vector<uint16_t> getOpcodes() override;
+        uint8_t execute(uint16_t opWord) override;
+        uint8_t getSpecificity() override;
+        std::string disassemble(uint16_t opWord) override;
+    };
+}

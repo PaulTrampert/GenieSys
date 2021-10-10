@@ -6,9 +6,10 @@
 #include <GenieSys/Bus.h>
 
 
+
 class NEGTest : public ::testing::Test {
 public:
-    NEG* subject;
+    GenieSys::NEG* subject;
     GenieSys::M68kCpu* cpu;
     GenieSys::Bus bus;
 
@@ -19,7 +20,7 @@ public:
 
     NEGTest() : Test() {
         cpu = bus.getCpu();
-        subject = new NEG(cpu, &bus);
+        subject = new GenieSys::NEG(cpu, &bus);
     }
 
     ~NEGTest() override {

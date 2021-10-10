@@ -7,14 +7,15 @@
 #include <GenieSys/Bus.h>
 
 
+
 struct BCHGTest : testing::Test {
     GenieSys::M68kCpu* cpu;
     GenieSys::Bus bus;
-    BCHG* subject;
+    GenieSys::BCHG* subject;
 
     BCHGTest() {
         cpu = bus.getCpu();
-        subject = new BCHG(cpu, &bus);
+        subject = new GenieSys::BCHG(cpu, &bus);
     }
 
     ~BCHGTest() override {

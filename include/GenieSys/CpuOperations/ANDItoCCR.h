@@ -6,11 +6,13 @@
 #include "./CpuOperation.h"
 
 
-class ANDItoCCR : public GenieSys::CpuOperation {
-public:
-    ANDItoCCR(GenieSys::M68kCpu* cpu, GenieSys::Bus* bus);
-    uint8_t getSpecificity() override;
-    uint8_t execute(uint16_t opWord) override;
-    std::vector<uint16_t> getOpcodes() override;
-    std::string disassemble(uint16_t opWord) override;
-};
+namespace GenieSys {
+    class ANDItoCCR : public GenieSys::CpuOperation {
+    public:
+        ANDItoCCR(M68kCpu* cpu, Bus* bus);
+        uint8_t getSpecificity() override;
+        uint8_t execute(uint16_t opWord) override;
+        std::vector<uint16_t> getOpcodes() override;
+        std::string disassemble(uint16_t opWord) override;
+    };
+}

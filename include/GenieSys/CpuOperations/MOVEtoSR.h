@@ -8,15 +8,17 @@
 #include "../BitMask.h"
 
 
-class MOVEtoSR : public GenieSys::CpuOperation {
-private:
-    GenieSys::BitMask<uint16_t> eaModeMask = GenieSys::BitMask<uint16_t>(5, 3);
-    GenieSys::BitMask<uint16_t> eaRegMask = GenieSys::BitMask<uint16_t>(2, 3);
+namespace GenieSys {
+    class MOVEtoSR : public GenieSys::CpuOperation {
+    private:
+        BitMask<uint16_t> eaModeMask = BitMask<uint16_t>(5, 3);
+        BitMask<uint16_t> eaRegMask = BitMask<uint16_t>(2, 3);
 
-public:
-    MOVEtoSR(GenieSys::M68kCpu* cpu, GenieSys::Bus* bus);
-    std::vector<uint16_t> getOpcodes() override;
-    uint8_t execute(uint16_t opWord) override;
-    std::string disassemble(uint16_t opWord) override;
-    uint8_t getSpecificity() override;
-};
+    public:
+        MOVEtoSR(M68kCpu* cpu, Bus* bus);
+        std::vector<uint16_t> getOpcodes() override;
+        uint8_t execute(uint16_t opWord) override;
+        std::string disassemble(uint16_t opWord) override;
+        uint8_t getSpecificity() override;
+    };
+}

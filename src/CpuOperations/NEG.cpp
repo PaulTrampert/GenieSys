@@ -12,15 +12,15 @@
 
 
 
-NEG::NEG(GenieSys::M68kCpu *cpu, GenieSys::Bus *bus) : GenieSys::CpuOperation(cpu, bus) {
+GenieSys::NEG::NEG(GenieSys::M68kCpu *cpu, GenieSys::Bus *bus) : GenieSys::CpuOperation(cpu, bus) {
 
 }
 
-uint8_t NEG::getSpecificity() {
+uint8_t GenieSys::NEG::getSpecificity() {
     return sizeMask.getWidth() + eaModeMask.getWidth() + eaRegMask.getWidth();
 }
 
-std::vector<uint16_t> NEG::getOpcodes() {
+std::vector<uint16_t> GenieSys::NEG::getOpcodes() {
     return GenieSys::getPossibleOpcodes((uint16_t)0b0100010000000000, std::vector<GenieSys::BitMask<uint16_t>*> {
         &sizeMask,
         &eaModeMask,
@@ -28,7 +28,7 @@ std::vector<uint16_t> NEG::getOpcodes() {
     });
 }
 
-uint8_t NEG::execute(uint16_t opWord) {
+uint8_t GenieSys::NEG::execute(uint16_t opWord) {
     uint8_t size = sizeMask.apply(opWord);
     uint8_t eaModeId = eaModeMask.apply(opWord);
     uint8_t eaReg = eaRegMask.apply(opWord);
@@ -64,7 +64,7 @@ uint8_t NEG::execute(uint16_t opWord) {
     return cycles;
 }
 
-std::string NEG::disassemble(uint16_t opWord) {
+std::string GenieSys::NEG::disassemble(uint16_t opWord) {
     std::stringstream stream;
     uint8_t size = sizeMask.apply(opWord);
     uint8_t eaModeId = eaModeMask.apply(opWord);

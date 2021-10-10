@@ -15,11 +15,11 @@
 
 
 
-CMPI::CMPI(GenieSys::M68kCpu *cpu, GenieSys::Bus *bus) : CpuOperation(cpu, bus) {
+GenieSys::CMPI::CMPI(GenieSys::M68kCpu *cpu, GenieSys::Bus *bus) : CpuOperation(cpu, bus) {
 
 }
 
-std::vector<uint16_t> CMPI::getOpcodes() {
+std::vector<uint16_t> GenieSys::CMPI::getOpcodes() {
     return GenieSys::getPossibleOpcodes(BASE_OPCODE, std::vector<GenieSys::BitMask<uint16_t>*>{
         &sizeMask,
         &eaModeMask,
@@ -27,11 +27,11 @@ std::vector<uint16_t> CMPI::getOpcodes() {
     });
 }
 
-uint8_t CMPI::getSpecificity() {
+uint8_t GenieSys::CMPI::getSpecificity() {
     return sizeMask.getWidth() + eaModeMask.getWidth() + eaRegMask.getWidth();
 }
 
-uint8_t CMPI::execute(uint16_t opWord) {
+uint8_t GenieSys::CMPI::execute(uint16_t opWord) {
     uint8_t size = pow(2, sizeMask.apply(opWord));
     uint8_t eaModeCode = eaModeMask.apply(opWord);
     uint8_t eaReg = eaRegMask.apply(opWord);
@@ -73,7 +73,7 @@ uint8_t CMPI::execute(uint16_t opWord) {
     return baseCycles + eaResult->getCycles();
 }
 
-std::string CMPI::disassemble(uint16_t opWord) {
+std::string GenieSys::CMPI::disassemble(uint16_t opWord) {
     uint8_t size = pow(2, sizeMask.apply(opWord));
     uint8_t eaModeCode = eaModeMask.apply(opWord);
     uint8_t eaReg = eaRegMask.apply(opWord);

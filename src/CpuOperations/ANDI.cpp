@@ -14,11 +14,11 @@
 
 
 
-ANDI::ANDI(GenieSys::M68kCpu *cpu, GenieSys::Bus *bus) : CpuOperation(cpu, bus) {
+GenieSys::ANDI::ANDI(GenieSys::M68kCpu *cpu, GenieSys::Bus *bus) : CpuOperation(cpu, bus) {
 
 }
 
-std::vector<uint16_t> ANDI::getOpcodes() {
+std::vector<uint16_t> GenieSys::ANDI::getOpcodes() {
     return GenieSys::getPossibleOpcodes((uint16_t)0b0000001000000000, std::vector<GenieSys::BitMask<uint16_t>*>{
         &sizeMask,
         &eaModeMask,
@@ -26,11 +26,11 @@ std::vector<uint16_t> ANDI::getOpcodes() {
     });
 }
 
-uint8_t ANDI::getSpecificity() {
+uint8_t GenieSys::ANDI::getSpecificity() {
     return sizeMask.getWidth() + eaModeMask.getWidth() + eaRegMask.getWidth();
 }
 
-uint8_t ANDI::execute(uint16_t opWord) {
+uint8_t GenieSys::ANDI::execute(uint16_t opWord) {
     uint8_t size = pow(2, sizeMask.apply(opWord));
     uint8_t eaModeCode = eaModeMask.apply(opWord);
     uint8_t eaReg = eaRegMask.apply(opWord);
@@ -70,7 +70,7 @@ uint8_t ANDI::execute(uint16_t opWord) {
     return baseCycles + eaResult->getCycles();
 }
 
-std::string ANDI::disassemble(uint16_t opWord) {
+std::string GenieSys::ANDI::disassemble(uint16_t opWord) {
     uint8_t size = pow(2, sizeMask.apply(opWord));
     uint8_t eaModeCode = eaModeMask.apply(opWord);
     uint8_t eaReg = eaRegMask.apply(opWord);

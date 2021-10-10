@@ -14,11 +14,11 @@
 
 
 
-ADDI::ADDI(GenieSys::M68kCpu *cpu, GenieSys::Bus *bus) : GenieSys::CpuOperation(cpu, bus) {
+GenieSys::ADDI::ADDI(GenieSys::M68kCpu *cpu, GenieSys::Bus *bus) : GenieSys::CpuOperation(cpu, bus) {
 
 }
 
-std::vector<uint16_t> ADDI::getOpcodes() {
+std::vector<uint16_t> GenieSys::ADDI::getOpcodes() {
     return GenieSys::getPossibleOpcodes(BASE_OPCODE, std::vector<GenieSys::BitMask<uint16_t>*>{
         &sizeMask,
         &eaModeMask,
@@ -26,11 +26,11 @@ std::vector<uint16_t> ADDI::getOpcodes() {
     });
 }
 
-uint8_t ADDI::getSpecificity() {
+uint8_t GenieSys::ADDI::getSpecificity() {
     return sizeMask.getWidth() + eaModeMask.getWidth() + eaRegMask.getWidth();
 }
 
-uint8_t ADDI::execute(uint16_t opWord) {
+uint8_t GenieSys::ADDI::execute(uint16_t opWord) {
     uint8_t size = pow(2, sizeMask.apply(opWord));
     uint8_t eaModeCode = eaModeMask.apply(opWord);
     uint8_t eaReg = eaRegMask.apply(opWord);
@@ -72,7 +72,7 @@ uint8_t ADDI::execute(uint16_t opWord) {
     return baseCycles + eaResult->getCycles();
 }
 
-std::string ADDI::disassemble(uint16_t opWord) {
+std::string GenieSys::ADDI::disassemble(uint16_t opWord) {
     uint8_t size = pow(2, sizeMask.apply(opWord));
     uint8_t eaModeCode = eaModeMask.apply(opWord);
     uint8_t eaReg = eaRegMask.apply(opWord);
