@@ -3,7 +3,7 @@
 //
 
 #include <gtest/gtest.h>
-#include <GenieSys/CpuOperations/Add.h>
+#include <GenieSys/CpuOperations/ADD.h>
 #include <GenieSys/Bus.h>
 
 
@@ -11,11 +11,11 @@
 struct AddTest : testing::Test {
     GenieSys::M68kCpu* cpu;
     GenieSys::Bus bus;
-    GenieSys::Add* subject;
+    GenieSys::ADD* subject;
 
     AddTest() {
         cpu = bus.getCpu();
-        subject = new GenieSys::Add(cpu, &bus);
+        subject = new GenieSys::ADD(cpu, &bus);
     }
 
     ~AddTest() override {

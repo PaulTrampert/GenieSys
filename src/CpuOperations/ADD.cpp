@@ -2,7 +2,7 @@
 // Created by paul.trampert on 12/6/2020.
 //
 #include <GenieSys/AddressingModes/AddressingMode.h>
-#include <GenieSys/CpuOperations/Add.h>
+#include <GenieSys/CpuOperations/ADD.h>
 #include <GenieSys/BitMask.h>
 #include <cmath>
 #include <GenieSys/getPossibleOpcodes.h>
@@ -22,11 +22,11 @@ static GenieSys::BitMask<uint16_t> SIZE = GenieSys::BitMask<uint16_t>(7, 2, 0, 2
 static GenieSys::BitMask<uint16_t> EA_MODE = GenieSys::BitMask<uint16_t>(5, 3);
 static GenieSys::BitMask<uint16_t> EA_REG = GenieSys::BitMask<uint16_t>(2, 3);
 
-GenieSys::Add::Add(GenieSys::M68kCpu *cpu, GenieSys::Bus *bus) : CpuOperation(cpu, bus) {
+GenieSys::ADD::ADD(GenieSys::M68kCpu *cpu, GenieSys::Bus *bus) : CpuOperation(cpu, bus) {
 
 }
 
-uint8_t GenieSys::Add::execute(uint16_t opWord) {
+uint8_t GenieSys::ADD::execute(uint16_t opWord) {
     uint8_t direction = DIRECTION.apply(opWord);
     uint8_t size = pow(2, SIZE.apply(opWord));
     uint8_t eaMode = EA_MODE.apply(opWord);
@@ -59,7 +59,7 @@ uint8_t GenieSys::Add::execute(uint16_t opWord) {
     }
 }
 
-void GenieSys::Add::addBytes(uint8_t direction, uint8_t dataRegAddr, GenieSys::AddressingResult *eaResult) {
+void GenieSys::ADD::addBytes(uint8_t direction, uint8_t dataRegAddr, GenieSys::AddressingResult *eaResult) {
     uint8_t regOp = cpu->getDataRegister(dataRegAddr) & 0x000000FF;
     uint8_t eaOp = eaResult->getDataAsByte();
     uint8_t result = direction == 1 ? regOp + eaOp : eaOp + regOp;
@@ -68,7 +68,7 @@ void GenieSys::Add::addBytes(uint8_t direction, uint8_t dataRegAddr, GenieSys::A
     direction == 1 ? eaResult->write(result) : cpu->setDataRegister(dataRegAddr, result);
 }
 
-void GenieSys::Add::addWords(uint8_t direction, uint8_t dataRegAddr, GenieSys::AddressingResult *eaResult) {
+void GenieSys::ADD::addWords(uint8_t direction, uint8_t dataRegAddr, GenieSys::AddressingResult *eaResult) {
     uint16_t regOp = cpu->getDataRegister(dataRegAddr) & 0x0000FFFF;
     uint16_t eaOp = eaResult->getDataAsWord();
     uint16_t result = direction == 1 ? regOp + eaOp : eaOp + regOp;
@@ -77,7 +77,7 @@ void GenieSys::Add::addWords(uint8_t direction, uint8_t dataRegAddr, GenieSys::A
     direction == 1 ? eaResult->write(result) : cpu->setDataRegister(dataRegAddr, result);
 }
 
-void GenieSys::Add::addLongs(uint8_t direction, uint8_t dataRegAddr, GenieSys::AddressingResult *eaResult) {
+void GenieSys::ADD::addLongs(uint8_t direction, uint8_t dataRegAddr, GenieSys::AddressingResult *eaResult) {
     uint32_t regOp = cpu->getDataRegister(dataRegAddr);
     uint32_t eaOp = eaResult->getDataAsWord();
     uint32_t result = direction == 1 ? regOp + eaOp : eaOp + regOp;
@@ -86,7 +86,7 @@ void GenieSys::Add::addLongs(uint8_t direction, uint8_t dataRegAddr, GenieSys::A
     direction == 1 ? eaResult->write(result) : cpu->setDataRegister(dataRegAddr, result);
 }
 
-std::vector<uint16_t> GenieSys::Add::getOpcodes() {
+std::vector<uint16_t> GenieSys::ADD::getOpcodes() {
     return GenieSys::getPossibleOpcodes(OPCODE_BASE, std::vector<GenieSys::BitMask<uint16_t>*> {
         &REG_MASK,
         &DIRECTION,
@@ -96,11 +96,11 @@ std::vector<uint16_t> GenieSys::Add::getOpcodes() {
     });
 }
 
-uint8_t GenieSys::Add::getSpecificity() {
+uint8_t GenieSys::ADD::getSpecificity() {
     return REG_MASK.getWidth() + DIRECTION.getWidth() + SIZE.getWidth() + EA_MODE.getWidth() + EA_REG.getWidth();
 }
 
-std::string GenieSys::Add::disassemble(uint16_t opWord) {
+std::string GenieSys::ADD::disassemble(uint16_t opWord) {
     const std::string mnemonic = "ADD";
     uint8_t direction = DIRECTION.apply(opWord);
     uint8_t size = pow(2, SIZE.apply(opWord));

@@ -16,7 +16,7 @@
 #include <GenieSys/AddressingModes/AddressRegisterIndirectWithIndexMode.h>
 #include <GenieSys/AddressingModes/ProgramCounterAddressingMode.h>
 #include <GenieSys/CpuOperations/CpuOperation.h>
-#include <GenieSys/CpuOperations/Nop.h>
+#include <GenieSys/CpuOperations/NOP.h>
 
 
 
@@ -33,7 +33,7 @@ GenieSys::M68kCpu::M68kCpu() {
     addressingModes[AddressRegisterIndirectWithIndexMode::MODE_ID] = std::unique_ptr<AddressingMode>(new AddressRegisterIndirectWithIndexMode(this, bus));
     addressingModes[ProgramCounterAddressingMode::MODE_ID] = std::unique_ptr<AddressingMode>(new ProgramCounterAddressingMode(this, bus));
 
-    nop = std::shared_ptr<CpuOperation>(new Nop(this, bus));
+    nop = std::shared_ptr<CpuOperation>(new NOP(this, bus));
     std::fill(opTable.begin(), opTable.end(), nop);
     for (auto & op : getOperations(this, bus)) {
         for (auto & opcode : op->getOpcodes()) {

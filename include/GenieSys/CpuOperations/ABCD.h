@@ -10,10 +10,10 @@ namespace GenieSys {
     /**
      * Add Decimal With Extend (M68KPM.pdf, page 107)
      */
-    class Abcd : public GenieSys::CpuOperation {
+    class ABCD : public GenieSys::CpuOperation {
 
     public:
-        Abcd(M68kCpu* cpu, Bus* bus);
+        ABCD(M68kCpu* cpu, Bus* bus);
         uint8_t execute(uint16_t opWord) override;
         std::vector<uint16_t> getOpcodes() override;
         uint8_t getSpecificity() override;

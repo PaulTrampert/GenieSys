@@ -9,9 +9,9 @@
 
 
 namespace GenieSys {
-    class Nop : public GenieSys::CpuOperation {
+    class NOP : public GenieSys::CpuOperation {
     public:
-        Nop(M68kCpu* cpu, Bus* bus);
+        NOP(M68kCpu* cpu, Bus* bus);
         std::vector<uint16_t> getOpcodes() override;
         uint8_t execute(uint16_t opWord) override;
         uint8_t getSpecificity() override;

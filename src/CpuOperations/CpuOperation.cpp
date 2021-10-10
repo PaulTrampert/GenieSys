@@ -3,8 +3,8 @@
 //
 
 #include <GenieSys/CpuOperations/CpuOperation.h>
-#include <GenieSys/CpuOperations/Abcd.h>
-#include <GenieSys/CpuOperations/Add.h>
+#include <GenieSys/CpuOperations/ABCD.h>
+#include <GenieSys/CpuOperations/ADD.h>
 #include <algorithm>
 #include <GenieSys/CpuOperations/ORItoCCR.h>
 #include <GenieSys/CpuOperations/ORItoSR.h>
@@ -13,7 +13,7 @@
 #include <GenieSys/CpuOperations/SUBI.h>
 #include <GenieSys/CpuOperations/ANDItoCCR.h>
 #include <GenieSys/CpuOperations/ANDItoSR.h>
-#include <GenieSys/CpuOperations/Nop.h>
+#include <GenieSys/CpuOperations/NOP.h>
 #include <GenieSys/CpuOperations/ORI.h>
 #include <GenieSys/CpuOperations/EORItoCCR.h>
 #include <GenieSys/CpuOperations/EORItoSR.h>
@@ -43,8 +43,8 @@ GenieSys::CpuOperation::CpuOperation(GenieSys::M68kCpu *cpu, GenieSys::Bus *bus)
 
 std::vector<std::shared_ptr<GenieSys::CpuOperation>> GenieSys::getOperations(GenieSys::M68kCpu *cpu, GenieSys::Bus *bus) {
     std::vector<std::shared_ptr<GenieSys::CpuOperation>> operations{
-            std::shared_ptr<GenieSys::CpuOperation>(new Abcd(cpu, bus)),
-            std::shared_ptr<GenieSys::CpuOperation>(new Add(cpu, bus)),
+            std::shared_ptr<GenieSys::CpuOperation>(new ABCD(cpu, bus)),
+            std::shared_ptr<GenieSys::CpuOperation>(new ADD(cpu, bus)),
             std::shared_ptr<GenieSys::CpuOperation>(new ADDI(cpu, bus)),
             std::shared_ptr<GenieSys::CpuOperation>(new ANDI(cpu, bus)),
             std::shared_ptr<GenieSys::CpuOperation>(new ANDItoCCR(cpu, bus)),
@@ -66,7 +66,7 @@ std::vector<std::shared_ptr<GenieSys::CpuOperation>> GenieSys::getOperations(Gen
             std::shared_ptr<GenieSys::CpuOperation>(new MOVEP(cpu, bus)),
             std::shared_ptr<GenieSys::CpuOperation>(new NEG(cpu, bus)),
             std::shared_ptr<GenieSys::CpuOperation>(new NEGX(cpu, bus)),
-            std::shared_ptr<GenieSys::CpuOperation>(new Nop(cpu, bus)),
+            std::shared_ptr<GenieSys::CpuOperation>(new NOP(cpu, bus)),
             std::shared_ptr<GenieSys::CpuOperation>(new NOT(cpu, bus)),
             std::shared_ptr<GenieSys::CpuOperation>(new ORI(cpu, bus)),
             std::shared_ptr<GenieSys::CpuOperation>(new ORItoCCR(cpu, bus)),
