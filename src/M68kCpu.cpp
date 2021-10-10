@@ -19,6 +19,7 @@
 #include <GenieSys/CpuOperations/Nop.h>
 
 
+
 GenieSys::M68kCpu::M68kCpu() {
     for (auto & mode : addressingModes) {
         mode = nullptr;
@@ -115,7 +116,7 @@ void GenieSys::M68kCpu::tick() {
     clock--;
 }
 
-AddressingMode *GenieSys::M68kCpu::getAddressingMode(int modeId) {
+GenieSys::AddressingMode *GenieSys::M68kCpu::getAddressingMode(int modeId) {
     return addressingModes[modeId].get();
 }
 

@@ -59,7 +59,7 @@ uint8_t Add::execute(uint16_t opWord) {
     }
 }
 
-void Add::addBytes(uint8_t direction, uint8_t dataRegAddr, AddressingResult *eaResult) {
+void Add::addBytes(uint8_t direction, uint8_t dataRegAddr, GenieSys::AddressingResult *eaResult) {
     uint8_t regOp = cpu->getDataRegister(dataRegAddr) & 0x000000FF;
     uint8_t eaOp = eaResult->getDataAsByte();
     uint8_t result = direction == 1 ? regOp + eaOp : eaOp + regOp;
@@ -68,7 +68,7 @@ void Add::addBytes(uint8_t direction, uint8_t dataRegAddr, AddressingResult *eaR
     direction == 1 ? eaResult->write(result) : cpu->setDataRegister(dataRegAddr, result);
 }
 
-void Add::addWords(uint8_t direction, uint8_t dataRegAddr, AddressingResult *eaResult) {
+void Add::addWords(uint8_t direction, uint8_t dataRegAddr, GenieSys::AddressingResult *eaResult) {
     uint16_t regOp = cpu->getDataRegister(dataRegAddr) & 0x0000FFFF;
     uint16_t eaOp = eaResult->getDataAsWord();
     uint16_t result = direction == 1 ? regOp + eaOp : eaOp + regOp;
@@ -77,7 +77,7 @@ void Add::addWords(uint8_t direction, uint8_t dataRegAddr, AddressingResult *eaR
     direction == 1 ? eaResult->write(result) : cpu->setDataRegister(dataRegAddr, result);
 }
 
-void Add::addLongs(uint8_t direction, uint8_t dataRegAddr, AddressingResult *eaResult) {
+void Add::addLongs(uint8_t direction, uint8_t dataRegAddr, GenieSys::AddressingResult *eaResult) {
     uint32_t regOp = cpu->getDataRegister(dataRegAddr);
     uint32_t eaOp = eaResult->getDataAsWord();
     uint32_t result = direction == 1 ? regOp + eaOp : eaOp + regOp;

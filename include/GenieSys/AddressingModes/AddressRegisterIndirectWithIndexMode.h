@@ -9,7 +9,7 @@
 
 
 
-class AddressRegisterIndirectWithIndexMode : public AddressingMode {
+class AddressRegisterIndirectWithIndexMode : public GenieSys::AddressingMode {
 public:
     static const uint8_t MODE_ID = 0b110u;
 

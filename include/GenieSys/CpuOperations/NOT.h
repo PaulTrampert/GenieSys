@@ -17,9 +17,9 @@ private:
     GenieSys::BitMask<uint16_t> eaModeMask = GenieSys::BitMask<uint16_t>(5, 3);
     GenieSys::BitMask<uint16_t> eaRegMask = GenieSys::BitMask<uint16_t>(2, 3);
 
-    uint8_t notByte(AddressingResult* eaResult, uint8_t eaModeId);
-    uint8_t notWord(AddressingResult* eaResult, uint8_t eaModeId);
-    uint8_t notLong(AddressingResult* eaResult, uint8_t eaModeId);
+    uint8_t notByte(GenieSys::AddressingResult* eaResult, uint8_t eaModeId);
+    uint8_t notWord(GenieSys::AddressingResult* eaResult, uint8_t eaModeId);
+    uint8_t notLong(GenieSys::AddressingResult* eaResult, uint8_t eaModeId);
 
     template <class U, class S>
     uint8_t getCcrFlags(U result) {

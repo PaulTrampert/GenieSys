@@ -20,8 +20,8 @@ std::string ORI::disassemble(uint16_t opWord) {
     uint8_t size = pow(2, sizeMask.apply(opWord));
     uint8_t eaModeId = eaModeMask.apply(opWord);
     uint8_t eaReg = eaRegMask.apply(opWord);
-    AddressingMode* immMode = cpu->getAddressingMode(ProgramCounterAddressingMode::MODE_ID);
-    AddressingMode* eaMode = cpu->getAddressingMode(eaModeId);
+    GenieSys::AddressingMode* immMode = cpu->getAddressingMode(ProgramCounterAddressingMode::MODE_ID);
+    GenieSys::AddressingMode* eaMode = cpu->getAddressingMode(eaModeId);
     std::stringstream stream;
 
     stream << "ORI " << immMode->disassemble(ImmediateDataMode::MODE_ID, size) << ", " << eaMode->disassemble(eaReg, size);
@@ -45,9 +45,9 @@ uint8_t ORI::execute(uint16_t opWord) {
     uint8_t size = pow(2, sizeMask.apply(opWord));
     uint8_t eaModeCode = eaModeMask.apply(opWord);
     uint8_t eaReg = eaRegMask.apply(opWord);
-    AddressingMode* immMode = cpu->getAddressingMode(ProgramCounterAddressingMode::MODE_ID);
+    GenieSys::AddressingMode* immMode = cpu->getAddressingMode(ProgramCounterAddressingMode::MODE_ID);
     auto immData = immMode->getData(ImmediateDataMode::MODE_ID, size);
-    AddressingMode* eaMode = cpu->getAddressingMode(eaModeCode);
+    GenieSys::AddressingMode* eaMode = cpu->getAddressingMode(eaModeCode);
     auto eaResult = eaMode->getData(eaReg, size);
     bool isMemory = eaModeCode != DataRegisterDirectMode::MODE_ID && eaModeCode != AddressRegisterDirectMode::MODE_ID;
     uint8_t oldCcr = cpu->getCcrFlags();

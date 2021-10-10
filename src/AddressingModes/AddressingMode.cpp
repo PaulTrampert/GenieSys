@@ -9,30 +9,30 @@
 
 
 
-GenieSys::BitMask<uint16_t> AddressingMode::EA_MODE_MASK = GenieSys::BitMask<uint16_t>(5, 3);
-GenieSys::BitMask<uint16_t> AddressingMode::EA_REG_MASK = GenieSys::BitMask<uint16_t>(2, 3);
+GenieSys::BitMask<uint16_t> GenieSys::AddressingMode::EA_MODE_MASK = GenieSys::BitMask<uint16_t>(5, 3);
+GenieSys::BitMask<uint16_t> GenieSys::AddressingMode::EA_REG_MASK = GenieSys::BitMask<uint16_t>(2, 3);
 
-AddressingMode::AddressingMode(GenieSys::M68kCpu *cpu, GenieSys::Bus *bus) {
+GenieSys::AddressingMode::AddressingMode(GenieSys::M68kCpu *cpu, GenieSys::Bus *bus) {
     this->cpu = cpu;
     this->bus = bus;
 }
 
-void AddressingMode::setBus(GenieSys::Bus *b) {
+void GenieSys::AddressingMode::setBus(GenieSys::Bus *b) {
     this->bus = b;
 }
 
-std::unique_ptr<AddressingResult> AddressingMode::getData(uint8_t regAddr, uint8_t size) {
+std::unique_ptr<GenieSys::AddressingResult> GenieSys::AddressingMode::getData(uint8_t regAddr, uint8_t size) {
     uint32_t address = getAddress(regAddr);
     auto data = bus->read(address, size);
     return std::make_unique<AddressingResult>( cpu, bus, address, data, size > 2 ? longCycles : cycles, this->getMoveCycleKey());
 }
 
-uint8_t AddressingMode::getMoveCycleKey() {
+uint8_t GenieSys::AddressingMode::getMoveCycleKey() {
     return this->getModeId();
 }
 
-AddressingResult::AddressingResult(GenieSys::M68kCpu *cpu, GenieSys::Bus *bus, uint32_t address, std::vector<uint8_t> data,
-                                   uint8_t cycles, uint8_t moveCycleKey) {
+GenieSys::AddressingResult::AddressingResult(GenieSys::M68kCpu *cpu, GenieSys::Bus *bus, uint32_t address, std::vector<uint8_t> data,
+                                             uint8_t cycles, uint8_t moveCycleKey) {
     this->cpu = cpu;
     this->bus = bus;
     this->address = address;
@@ -41,42 +41,42 @@ AddressingResult::AddressingResult(GenieSys::M68kCpu *cpu, GenieSys::Bus *bus, u
     this->moveCycleKey = moveCycleKey;
 }
 
-std::vector<uint8_t> AddressingResult::getData() {
+std::vector<uint8_t> GenieSys::AddressingResult::getData() {
     return data;
 }
 
-uint8_t AddressingResult::getDataAsByte() {
+uint8_t GenieSys::AddressingResult::getDataAsByte() {
     return GenieSys::bytesToByte(data);
 }
 
-uint16_t AddressingResult::getDataAsWord() {
+uint16_t GenieSys::AddressingResult::getDataAsWord() {
     return GenieSys::bytesToWord(data);
 }
 
-uint32_t AddressingResult::getDataAsLong() {
+uint32_t GenieSys::AddressingResult::getDataAsLong() {
     return GenieSys::bytesToLong(data);
 }
 
-void AddressingResult::write(std::vector<uint8_t> data) {
+void GenieSys::AddressingResult::write(std::vector<uint8_t> data) {
     bus->write(address, std::move(data));
 }
 
-void AddressingResult::write(uint8_t data) {
+void GenieSys::AddressingResult::write(uint8_t data) {
     bus->writeByte(address, data);
 }
 
-void AddressingResult::write(uint16_t data) {
+void GenieSys::AddressingResult::write(uint16_t data) {
     bus->writeWord(address, data);
 }
 
-void AddressingResult::write(uint32_t data) {
+void GenieSys::AddressingResult::write(uint32_t data) {
     bus->writeLong(address, data);
 }
 
-uint8_t AddressingResult::getCycles() {
+uint8_t GenieSys::AddressingResult::getCycles() {
     return cycles;
 }
 
-uint8_t AddressingResult::getMoveCycleKey() {
+uint8_t GenieSys::AddressingResult::getMoveCycleKey() {
     return moveCycleKey;
 }

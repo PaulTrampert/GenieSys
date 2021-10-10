@@ -9,7 +9,7 @@
 
 
 
-class ProgramCounterIndirectWithIndexMode : public AddressingMode {
+class ProgramCounterIndirectWithIndexMode : public GenieSys::AddressingMode {
 public:
     static const uint8_t MODE_ID = 0b011u;
 

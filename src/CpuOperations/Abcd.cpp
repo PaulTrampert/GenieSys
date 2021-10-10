@@ -23,7 +23,7 @@ uint8_t Abcd::execute(uint16_t opWord) {
     uint16_t destReg = RX_MASK.apply(opWord);
     uint16_t srcReg = RY_MASK.apply(opWord);
     uint16_t rm = RM_MASK.apply(opWord);
-    AddressingMode* mode;
+    GenieSys::AddressingMode* mode;
     if (rm > 0) {
         mode = cpu->getAddressingMode(AddressRegisterIndirectPreDecrementMode::MODE_ID);
     }
@@ -85,7 +85,7 @@ std::string Abcd::disassemble(uint16_t opWord) {
     uint16_t destReg = RX_MASK.apply(opWord);
     uint16_t srcReg = RY_MASK.apply(opWord);
     uint16_t rm = RM_MASK.apply(opWord);
-    AddressingMode* mode;
+    GenieSys::AddressingMode* mode;
     if (rm > 0) {
         mode = cpu->getAddressingMode(AddressRegisterIndirectPreDecrementMode::MODE_ID);
     }

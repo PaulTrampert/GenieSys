@@ -10,14 +10,15 @@
 #include "GenieSys/enums.h"
 #include "./BitMask.h"
 
+
 class CpuOperation;
-class AddressingMode;
 
 namespace GenieSys {
+    class AddressingMode;
     class Bus;
     /**
-         * The CPU used in the Sega Genesis.
-         */
+     * The CPU used in the Sega Genesis.
+     */
     class M68kCpu {
 
     private:

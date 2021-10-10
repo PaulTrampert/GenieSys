@@ -7,9 +7,7 @@
 
 #include "AddressingMode.h"
 
-
-
-class AbsoluteLongAddressingMode : public AddressingMode {
+class AbsoluteLongAddressingMode : public GenieSys::AddressingMode {
 public:
     static const uint8_t MODE_ID = 0b001u;
 

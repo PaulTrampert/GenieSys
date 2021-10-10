@@ -10,7 +10,7 @@
 
 
 AddressRegisterIndirectWithIndexMode::AddressRegisterIndirectWithIndexMode(GenieSys::M68kCpu *cpu, GenieSys::Bus *bus)
-    : AddressingMode(cpu, bus) {
+    : GenieSys::AddressingMode(cpu, bus) {
     cycles = 10;
     longCycles = 14;
 }

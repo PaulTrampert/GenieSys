@@ -22,7 +22,7 @@ uint8_t DataRegisterDirectMode::getModeId() {
     return 0b000;
 }
 
-std::unique_ptr<AddressingResult> DataRegisterDirectMode::getData(uint8_t regAddr, uint8_t size) {
+std::unique_ptr<GenieSys::AddressingResult> DataRegisterDirectMode::getData(uint8_t regAddr, uint8_t size) {
     uint32_t data = cpu->getDataRegister(regAddr);
     std::vector<uint8_t> result(size);
     for (int i = 0; i < size; i++) {

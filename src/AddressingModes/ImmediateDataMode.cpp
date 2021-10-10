@@ -21,7 +21,7 @@ uint8_t ImmediateDataMode::getModeId() {
     return MODE_ID;
 }
 
-std::unique_ptr<AddressingResult> ImmediateDataMode::getData(uint8_t regAddr, uint8_t size) {
+std::unique_ptr<GenieSys::AddressingResult> ImmediateDataMode::getData(uint8_t regAddr, uint8_t size) {
     uint32_t address = getAddress(regAddr);
     uint8_t incrSize = size;
     if (size == 1) {
@@ -29,7 +29,7 @@ std::unique_ptr<AddressingResult> ImmediateDataMode::getData(uint8_t regAddr, ui
         address++;
     }
     cpu->incrementPc(incrSize);
-    return std::make_unique<AddressingResult>(cpu, bus, address, bus->read(address, size), size > 2 ? longCycles : cycles, this->getMoveCycleKey());
+    return std::make_unique<GenieSys::AddressingResult>(cpu, bus, address, bus->read(address, size), size > 2 ? longCycles : cycles, this->getMoveCycleKey());
 }
 
 std::string ImmediateDataMode::disassemble(uint8_t regAddr, uint8_t size) {

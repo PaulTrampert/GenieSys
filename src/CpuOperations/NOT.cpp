@@ -36,7 +36,7 @@ uint8_t NOT::execute(uint16_t opWord) {
     uint8_t eaReg = eaRegMask.apply(opWord);
     auto eaMode = cpu->getAddressingMode(eaModeId);
     auto eaResult = eaMode->getData(eaReg, sizeBytes);
-    AddressingResult* eaResultPtr = eaResult.get();
+    GenieSys::AddressingResult* eaResultPtr = eaResult.get();
     switch(size) {
         case 0:
             return notByte(eaResultPtr, eaModeId);
@@ -50,7 +50,7 @@ uint8_t NOT::execute(uint16_t opWord) {
     return 1;
 }
 
-uint8_t NOT::notByte(AddressingResult* eaResult, uint8_t eaModeId) {
+uint8_t NOT::notByte(GenieSys::AddressingResult* eaResult, uint8_t eaModeId) {
     uint8_t data = eaResult->getDataAsByte();
     uint8_t result = ~data;
     eaResult->write(result);
@@ -58,7 +58,7 @@ uint8_t NOT::notByte(AddressingResult* eaResult, uint8_t eaModeId) {
     return (eaModeId == DataRegisterDirectMode::MODE_ID || eaModeId == AddressRegisterDirectMode::MODE_ID) ? 4 : (8 + eaResult->getCycles());
 }
 
-uint8_t NOT::notWord(AddressingResult *eaResult, uint8_t eaModeId) {
+uint8_t NOT::notWord(GenieSys::AddressingResult *eaResult, uint8_t eaModeId) {
     uint16_t data = eaResult->getDataAsWord();
     uint16_t result = ~data;
     eaResult->write(result);
@@ -66,7 +66,7 @@ uint8_t NOT::notWord(AddressingResult *eaResult, uint8_t eaModeId) {
     return (eaModeId == DataRegisterDirectMode::MODE_ID || eaModeId == AddressRegisterDirectMode::MODE_ID) ? 4 : (8 + eaResult->getCycles());
 }
 
-uint8_t NOT::notLong(AddressingResult *eaResult, uint8_t eaModeId) {
+uint8_t NOT::notLong(GenieSys::AddressingResult *eaResult, uint8_t eaModeId) {
     uint32_t data = eaResult->getDataAsLong();
     uint32_t result = ~data;
     eaResult->write(result);

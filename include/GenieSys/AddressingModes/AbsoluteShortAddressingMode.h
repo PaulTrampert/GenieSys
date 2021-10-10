@@ -9,7 +9,7 @@
 
 
 
-class AbsoluteShortAddressingMode : public AddressingMode {
+class AbsoluteShortAddressingMode : public GenieSys::AddressingMode {
 public:
     static const uint8_t MODE_ID = 0b000u;
 

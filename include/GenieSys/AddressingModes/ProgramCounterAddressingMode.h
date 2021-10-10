@@ -10,7 +10,7 @@
 
 
 
-class ProgramCounterAddressingMode : public AddressingMode {
+class ProgramCounterAddressingMode : public GenieSys::AddressingMode {
 private:
     std::array<std::unique_ptr<AddressingMode>, 8> subModes;
 public:
@@ -21,7 +21,7 @@ public:
     uint32_t getAddress(uint8_t regAddr) override;
     uint8_t getModeId() override;
     void setBus(GenieSys::Bus *b) override;
-    std::unique_ptr<AddressingResult> getData(uint8_t regAddr, uint8_t size) override;
+    std::unique_ptr<GenieSys::AddressingResult> getData(uint8_t regAddr, uint8_t size) override;
     std::string disassemble(uint8_t regAddr, uint8_t size) override;
 };
 

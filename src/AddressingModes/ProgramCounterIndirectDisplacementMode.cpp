@@ -9,7 +9,7 @@
 
 
 ProgramCounterIndirectDisplacementMode::ProgramCounterIndirectDisplacementMode(GenieSys::M68kCpu *cpu, GenieSys::Bus *bus)
-    : AddressingMode(cpu, bus) {
+    : GenieSys::AddressingMode(cpu, bus) {
     cycles = 8;
     longCycles = 12;
 }

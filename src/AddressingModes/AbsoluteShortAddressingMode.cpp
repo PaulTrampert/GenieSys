@@ -8,7 +8,7 @@
 
 
 
-AbsoluteShortAddressingMode::AbsoluteShortAddressingMode(GenieSys::M68kCpu *cpu, GenieSys::Bus *bus) : AddressingMode(cpu, bus) {
+AbsoluteShortAddressingMode::AbsoluteShortAddressingMode(GenieSys::M68kCpu *cpu, GenieSys::Bus *bus) : GenieSys::AddressingMode(cpu, bus) {
     cycles = 8;
     longCycles = 12;
 }

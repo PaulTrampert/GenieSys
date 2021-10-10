@@ -22,7 +22,7 @@ uint8_t ORItoSR::getSpecificity() {
 }
 
 uint8_t ORItoSR::execute(uint16_t opWord) {
-    AddressingMode *mode = cpu->getAddressingMode(ProgramCounterAddressingMode::MODE_ID);
+    GenieSys::AddressingMode *mode = cpu->getAddressingMode(ProgramCounterAddressingMode::MODE_ID);
     auto imm = mode->getData(ImmediateDataMode::MODE_ID, 2);
     if (!cpu->isSupervisor()) {
         cpu->trap(GenieSys::TV_PRIVILEGE);
@@ -33,7 +33,7 @@ uint8_t ORItoSR::execute(uint16_t opWord) {
 }
 
 std::string ORItoSR::disassemble(uint16_t opWord) {
-    AddressingMode* mode = cpu->getAddressingMode(ProgramCounterAddressingMode::MODE_ID);
+    GenieSys::AddressingMode* mode = cpu->getAddressingMode(ProgramCounterAddressingMode::MODE_ID);
     std::stringstream stream;
     stream << "ORI " << mode->disassemble(ImmediateDataMode::MODE_ID, 2) << ",SR";
     return stream.str();
