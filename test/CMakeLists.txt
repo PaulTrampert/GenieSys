@@ -28,8 +28,8 @@ add_executable(testGenieSys
         AddressingModes/ProgramCounterIndirectDisplacementModeTest.cpp
         AddressingModes/ProgramCounterIndirectWithIndexModeTest.cpp
         BitMaskTest.cpp
-        CpuOperations/AbcdTest.cpp
-        CpuOperations/AddTest.cpp
+        CpuOperations/ABCDTest.cpp
+        CpuOperations/ADDTest.cpp
         GetPossibleOpcodesTest.cpp
         CpuOperations/ORItoCCRTest.cpp
         CpuOperations/CpuOperationTest.cpp
@@ -60,6 +60,6 @@ add_executable(testGenieSys
         CpuOperations/NOTTest.cpp
         getCcrFlags.cpp)
 
-target_link_libraries(testGenieSys PRIVATE libGenieSys gtest gmock)
+target_link_libraries(testGenieSys PRIVATE GenieSys gtest gmock)
 
 gtest_discover_tests(testGenieSys)

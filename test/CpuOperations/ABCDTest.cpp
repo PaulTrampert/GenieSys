@@ -8,22 +8,22 @@
 
 
 
-struct AbcdTest : testing::Test {
+struct ABCDTest : testing::Test {
     GenieSys::M68kCpu* cpu;
     GenieSys::Bus bus;
     GenieSys::ABCD* subject;
 
-    AbcdTest() {
+    ABCDTest() {
         cpu = bus.getCpu();
         subject = new GenieSys::ABCD(cpu, &bus);
     }
 
-    ~AbcdTest() override {
+    ~ABCDTest() override {
         delete subject;
     }
 };
 
-TEST_F(AbcdTest, ItCorrectlyAddsDecimalsFromRegistersWithNoCarry) {
+TEST_F(ABCDTest, ItCorrectlyAddsDecimalsFromRegistersWithNoCarry) {
     cpu->setDataRegister(2, (uint8_t)0x11);
     cpu->setDataRegister(3, (uint8_t)0x11);
     subject->execute(0b1100010100000011);
@@ -32,11 +32,11 @@ TEST_F(AbcdTest, ItCorrectlyAddsDecimalsFromRegistersWithNoCarry) {
     ASSERT_EQ(0, cpu->getCcrFlags());
 }
 
-TEST_F(AbcdTest, ItCorrectlyDisassemblesDecimalsFromRegisters) {
+TEST_F(ABCDTest, ItCorrectlyDisassemblesDecimalsFromRegisters) {
     ASSERT_EQ("ABCD D3,D2", subject->disassemble(0b1100010100000011));
 }
 
-TEST_F(AbcdTest, ItCorrectlyAddsDecimalsFromMemoryWithNoCarry) {
+TEST_F(ABCDTest, ItCorrectlyAddsDecimalsFromMemoryWithNoCarry) {
     cpu->setAddressRegister(2, 0x20);
     cpu->setAddressRegister(3, 0x30);
     bus.writeByte(0x1F, 0x11);
@@ -47,11 +47,11 @@ TEST_F(AbcdTest, ItCorrectlyAddsDecimalsFromMemoryWithNoCarry) {
     ASSERT_EQ(0, cpu->getCcrFlags());
 }
 
-TEST_F(AbcdTest, ItCorrectlyDisassemblesDecimalsFromMemory) {
+TEST_F(ABCDTest, ItCorrectlyDisassemblesDecimalsFromMemory) {
     ASSERT_EQ("ABCD -(A3),-(A2)", subject->disassemble(0b1100010100001011));
 }
 
-TEST_F(AbcdTest, ItCorrectlyAddsDecimalsFromRegistersWithCarry) {
+TEST_F(ABCDTest, ItCorrectlyAddsDecimalsFromRegistersWithCarry) {
     cpu->setDataRegister(2, (uint8_t)0x88);
     cpu->setDataRegister(3, (uint8_t)0x11);
     cpu->setCcrFlags(GenieSys::CCR_EXTEND | GenieSys::CCR_CARRY);
@@ -62,7 +62,7 @@ TEST_F(AbcdTest, ItCorrectlyAddsDecimalsFromRegistersWithCarry) {
     ASSERT_EQ(GenieSys::CCR_EXTEND | GenieSys::CCR_CARRY | GenieSys::CCR_ZERO, cpu->getCcrFlags());
 }
 
-TEST_F(AbcdTest, ItCorrectlyAddsDecimalsFromMemoryWithCarry) {
+TEST_F(ABCDTest, ItCorrectlyAddsDecimalsFromMemoryWithCarry) {
     cpu->setAddressRegister(2, 0x20);
     cpu->setAddressRegister(3, 0x30);
     cpu->setCcrFlags(GenieSys::CCR_EXTEND | GenieSys::CCR_CARRY);
@@ -75,10 +75,10 @@ TEST_F(AbcdTest, ItCorrectlyAddsDecimalsFromMemoryWithCarry) {
     ASSERT_EQ(GenieSys::CCR_EXTEND | GenieSys::CCR_CARRY | GenieSys::CCR_ZERO, cpu->getCcrFlags());
 }
 
-TEST_F(AbcdTest, ItReturnsTheCorrectClockCycles_ForDataRegisters) {
+TEST_F(ABCDTest, ItReturnsTheCorrectClockCycles_ForDataRegisters) {
     ASSERT_EQ(6, subject->execute(0b1100010100000011));
 }
 
-TEST_F(AbcdTest, ItReturnsTheCorrectClockCycles_ForAddressRegisterPreDecrement) {
+TEST_F(ABCDTest, ItReturnsTheCorrectClockCycles_ForAddressRegisterPreDecrement) {
     ASSERT_EQ(18, subject->execute(0b1100010100001011));
 }
