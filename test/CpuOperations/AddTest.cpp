@@ -4,7 +4,7 @@
 
 #include <gtest/gtest.h>
 #include <GenieSys/CpuOperations/Add.h>
-
+#include <GenieSys/Bus.h>
 
 
 struct AddTest : testing::Test {

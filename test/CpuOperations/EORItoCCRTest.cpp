@@ -4,7 +4,7 @@
 
 #include <gtest/gtest.h>
 #include <GenieSys/CpuOperations/EORItoCCR.h>
-
+#include <GenieSys/Bus.h>
 
 
 struct EORItoCCRTest : testing::Test {

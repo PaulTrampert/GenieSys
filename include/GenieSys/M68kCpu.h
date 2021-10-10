@@ -11,11 +11,12 @@
 #include "./BitMask.h"
 
 
-class CpuOperation;
+
 
 namespace GenieSys {
-    class AddressingMode;
     class Bus;
+    class AddressingMode;
+    class CpuOperation;
     /**
      * The CPU used in the Sega Genesis.
      */
@@ -26,7 +27,7 @@ namespace GenieSys {
         /**
          * The 32-bit addressable bus.
          */
-        Bus* bus = nullptr;
+        GenieSys::Bus* bus = nullptr;
 
         /**
          * Data registers

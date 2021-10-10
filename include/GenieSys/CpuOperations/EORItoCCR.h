@@ -6,8 +6,7 @@
 #include "./CpuOperation.h"
 
 
-
-class EORItoCCR : public CpuOperation {
+class EORItoCCR : public GenieSys::CpuOperation {
 private:
     const uint16_t BASE_OPCODE = 0b0000101000111100;
 

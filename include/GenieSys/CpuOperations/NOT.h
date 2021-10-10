@@ -5,13 +5,13 @@
 #pragma once
 #include "CpuOperation.h"
 #include "../AddressingModes/AddressingMode.h"
-
+#include "../BitMask.h"
 
 
 /**
  * Documented on page 253 of docs/68KPM.pdf
  */
-class NOT : public CpuOperation {
+class NOT : public GenieSys::CpuOperation {
 private:
     GenieSys::BitMask<uint16_t> sizeMask = GenieSys::BitMask<uint16_t>(7, 2, 0, 2);
     GenieSys::BitMask<uint16_t> eaModeMask = GenieSys::BitMask<uint16_t>(5, 3);

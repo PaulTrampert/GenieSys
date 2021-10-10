@@ -4,7 +4,7 @@
 
 #include <gtest/gtest.h>
 #include <GenieSys/CpuOperations/BTST.h>
-
+#include <GenieSys/Bus.h>
 
 
 struct BTSTTest : testing::Test {

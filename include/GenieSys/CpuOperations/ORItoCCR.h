@@ -6,8 +6,7 @@
 #include "./CpuOperation.h"
 
 
-
-class ORItoCCR : public CpuOperation {
+class ORItoCCR : public GenieSys::CpuOperation {
 public:
     ORItoCCR(GenieSys::M68kCpu* cpu, GenieSys::Bus* bus);
     uint8_t getSpecificity() override;

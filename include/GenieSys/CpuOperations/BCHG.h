@@ -7,8 +7,7 @@
 #include "../BitMask.h"
 
 
-
-class BCHG : public CpuOperation {
+class BCHG : public GenieSys::CpuOperation {
 private:
     GenieSys::BitMask<uint16_t> DnMask = GenieSys::BitMask<uint16_t>(11, 3);
     GenieSys::BitMask<uint16_t> EaModeMask = GenieSys::BitMask<uint16_t>(5, 3);

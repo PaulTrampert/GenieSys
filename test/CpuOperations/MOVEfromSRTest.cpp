@@ -3,7 +3,7 @@
 //
 #include <gtest/gtest.h>
 #include <GenieSys/CpuOperations/MOVEfromSR.h>
-
+#include <GenieSys/Bus.h>
 
 
 struct MOVEfromSRTest : testing::Test {

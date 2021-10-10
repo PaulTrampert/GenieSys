@@ -8,7 +8,7 @@
 
 
 
-EORItoCCR::EORItoCCR(GenieSys::M68kCpu *cpu, GenieSys::Bus *bus) : CpuOperation(cpu, bus) {
+EORItoCCR::EORItoCCR(GenieSys::M68kCpu *cpu, GenieSys::Bus *bus) : GenieSys::CpuOperation(cpu, bus) {
 
 }
 

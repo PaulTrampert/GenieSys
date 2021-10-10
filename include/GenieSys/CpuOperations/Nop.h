@@ -8,8 +8,7 @@
 #include "./CpuOperation.h"
 
 
-
-class Nop : public CpuOperation {
+class Nop : public GenieSys::CpuOperation {
 public:
     Nop(GenieSys::M68kCpu* cpu, GenieSys::Bus* bus);
     std::vector<uint16_t> getOpcodes() override;

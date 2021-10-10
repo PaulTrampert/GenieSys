@@ -4,7 +4,7 @@
 #include <gtest/gtest.h>
 #include <GenieSys/CpuOperations/MOVEtoSR.h>
 #include <GenieSys/M68kCpu.h>
-
+#include <GenieSys/Bus.h>
 
 
 struct MOVEtoSRTest : testing::Test {

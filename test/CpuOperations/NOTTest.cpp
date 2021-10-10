@@ -3,7 +3,7 @@
 //
 #include <gtest/gtest.h>
 #include <GenieSys/CpuOperations/NOT.h>
-
+#include <GenieSys/Bus.h>
 
 
 class NOTTest : public ::testing::Test {

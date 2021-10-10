@@ -3,7 +3,7 @@
 //
 #include <gtest/gtest.h>
 #include <GenieSys/CpuOperations/CLR.h>
-
+#include <GenieSys/Bus.h>
 
 
 class CLRTest : public ::testing::Test {

@@ -6,8 +6,7 @@
 #include "./CpuOperation.h"
 
 
-
-class ORItoSR : public CpuOperation {
+class ORItoSR : public GenieSys::CpuOperation {
 public:
     ORItoSR(GenieSys::M68kCpu* cpu, GenieSys::Bus* bus);
     std::vector<uint16_t> getOpcodes() override;

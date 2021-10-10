@@ -3,7 +3,7 @@
 //
 #include <gtest/gtest.h>
 #include <GenieSys/CpuOperations/MOVEtoCCR.h>
-
+#include <GenieSys/Bus.h>
 
 
 struct MOVEtoCCRTest : testing::Test {

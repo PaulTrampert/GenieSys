@@ -4,10 +4,9 @@
 
 #pragma once
 #include "./CpuOperation.h"
+#include "../BitMask.h"
 
-
-
-class MOVEA : public CpuOperation {
+class MOVEA : public GenieSys::CpuOperation {
 private:
     GenieSys::BitMask<uint16_t> sizeMask = GenieSys::BitMask<uint16_t>(13, 2, 2, 3);
     GenieSys::BitMask<uint16_t> destMask = GenieSys::BitMask<uint16_t>(11, 3);

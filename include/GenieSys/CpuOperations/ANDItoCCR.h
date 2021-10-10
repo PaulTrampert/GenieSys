@@ -6,8 +6,7 @@
 #include "./CpuOperation.h"
 
 
-
-class ANDItoCCR : public CpuOperation {
+class ANDItoCCR : public GenieSys::CpuOperation {
 public:
     ANDItoCCR(GenieSys::M68kCpu* cpu, GenieSys::Bus* bus);
     uint8_t getSpecificity() override;

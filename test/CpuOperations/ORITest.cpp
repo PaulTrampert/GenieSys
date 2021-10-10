@@ -4,7 +4,7 @@
 
 #include <gtest/gtest.h>
 #include <GenieSys/CpuOperations/ORI.h>
-
+#include <GenieSys/Bus.h>
 
 
 static uint16_t BASE_OPCODE = 0b0000010000000000;

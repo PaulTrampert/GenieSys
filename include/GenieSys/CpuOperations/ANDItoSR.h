@@ -6,8 +6,7 @@
 #include "./CpuOperation.h"
 
 
-
-class ANDItoSR : public CpuOperation {
+class ANDItoSR : public GenieSys::CpuOperation {
 public:
     ANDItoSR(GenieSys::M68kCpu* cpu, GenieSys::Bus* bus);
     std::vector<uint16_t> getOpcodes() override;

@@ -4,14 +4,15 @@
 
 #include <gtest/gtest.h>
 #include <GenieSys/CpuOperations/CpuOperation.h>
+#include <GenieSys/Bus.h>
 
 
 
 TEST(CpuOperationTest, getOperationsReturnsOperationsInTheCorrectOrder) {
     GenieSys::Bus bus;
     GenieSys::M68kCpu* cpu = bus.getCpu();
-    CpuOperation* previous = nullptr;
-    auto operations = getOperations(cpu, &bus);
+    GenieSys::CpuOperation* previous = nullptr;
+    auto operations = GenieSys::getOperations(cpu, &bus);
     for(auto & op : operations) {
         if (previous != nullptr) {
             ASSERT_TRUE(previous->getSpecificity() >= op->getSpecificity());

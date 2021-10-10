@@ -3,7 +3,7 @@
 //
 #include <gtest/gtest.h>
 #include <GenieSys/CpuOperations/EORItoSR.h>
-
+#include <GenieSys/Bus.h>
 
 
 struct EORItoSRTest : testing::Test {

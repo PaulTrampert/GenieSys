@@ -4,7 +4,7 @@
 
 #include <gtest/gtest.h>
 #include <GenieSys/CpuOperations/ANDItoCCR.h>
-
+#include <GenieSys/Bus.h>
 
 
 struct ANDItoCCRTest : testing::Test {

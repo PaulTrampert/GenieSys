@@ -9,7 +9,7 @@
 #include "M68kCpu.h"
 
 namespace GenieSys {
-#define RAM_SIZE 1024*72
+#define RAM_SIZE (1024*72)
 
     class Bus {
     private:
@@ -84,5 +84,3 @@ namespace GenieSys {
         GenieSys::M68kCpu* getCpu();
     };
 }
-
-

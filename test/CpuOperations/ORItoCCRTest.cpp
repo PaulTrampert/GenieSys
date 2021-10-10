@@ -4,7 +4,7 @@
 
 #include <gtest/gtest.h>
 #include <GenieSys/CpuOperations/ORItoCCR.h>
-
+#include <GenieSys/Bus.h>
 
 
 struct ORItoCCRTest : testing::Test {

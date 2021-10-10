@@ -6,11 +6,10 @@
 #include "./CpuOperation.h"
 
 
-
 /**
  * Add Decimal With Extend (M68KPM.pdf, page 107)
  */
-class Abcd : public CpuOperation {
+class Abcd : public GenieSys::CpuOperation {
 
 public:
     Abcd(GenieSys::M68kCpu* cpu, GenieSys::Bus* bus);

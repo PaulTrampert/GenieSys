@@ -5,10 +5,10 @@
 #pragma once
 
 #include "CpuOperation.h"
+#include "../BitMask.h"
 
 
-
-class MOVEfromSR : public CpuOperation {
+class MOVEfromSR : public GenieSys::CpuOperation {
 private:
     GenieSys::BitMask<uint16_t> eaModeMask = GenieSys::BitMask<uint16_t>(5, 3);
     GenieSys::BitMask<uint16_t> eaRegMask = GenieSys::BitMask<uint16_t>(2, 3);

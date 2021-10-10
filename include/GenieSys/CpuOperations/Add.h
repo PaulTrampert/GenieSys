@@ -7,8 +7,7 @@
 #include "./CpuOperation.h"
 
 
-
-class Add : public CpuOperation {
+class Add : public GenieSys::CpuOperation {
 private:
     void addBytes(uint8_t direction, uint8_t dataRegAddr, GenieSys::AddressingResult* eaResult);
     void addWords(uint8_t direction, uint8_t dataRegAddr, GenieSys::AddressingResult* eaResult);

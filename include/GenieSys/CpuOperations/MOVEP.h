@@ -8,8 +8,7 @@
 #include "../BitMask.h"
 
 
-
-class MOVEP : public CpuOperation {
+class MOVEP : public GenieSys::CpuOperation {
 private:
     enum OpMode {
         WORD_MEM_REG = 0b100u,

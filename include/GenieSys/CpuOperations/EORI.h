@@ -5,10 +5,10 @@
 #pragma once
 
 #include "CpuOperation.h"
+#include "../BitMask.h"
 
 
-
-class EORI : public CpuOperation {
+class EORI : public GenieSys::CpuOperation {
 private:
     uint16_t BASE_OPCODE = 0b0000101000000000;
     GenieSys::BitMask<uint16_t> sizeMask = GenieSys::BitMask<uint16_t>(7, 2, 0, 2);

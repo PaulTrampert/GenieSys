@@ -3,7 +3,7 @@
 //
 #include <gtest/gtest.h>
 #include <GenieSys/CpuOperations/ANDItoSR.h>
-
+#include <GenieSys/Bus.h>
 
 
 struct ANDItoSRTest : testing::Test {
