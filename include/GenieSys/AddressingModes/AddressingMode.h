@@ -6,12 +6,14 @@
 #include <cstdint>
 #include <memory>
 #include <string>
-#include "GenieSys/M68kCpu.h"
-#include "GenieSys/Bus.h"
+#include <vector>
 #include "GenieSys/BitMask.h"
 
 
 namespace GenieSys {
+    class M68kCpu;
+    class Bus;
+
     class AddressingResult {
     protected:
         M68kCpu* cpu;

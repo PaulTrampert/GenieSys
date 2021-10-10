@@ -9,7 +9,9 @@
 #include <vector>
 #include <cmath>
 #include <sstream>
-
+#include <GenieSys/M68kCpu.h>
+#include <GenieSys/AddressingModes/DataRegisterDirectMode.h>
+#include <GenieSys/AddressingModes/AddressRegisterDirectMode.h>
 
 
 GenieSys::NEG::NEG(GenieSys::M68kCpu *cpu, GenieSys::Bus *bus) : GenieSys::CpuOperation(cpu, bus) {

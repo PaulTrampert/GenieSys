@@ -5,6 +5,8 @@
 #include <GenieSys/signExtend.h>
 #include <stdexcept>
 #include <GenieSys/ExtensionWord.h>
+#include <GenieSys/M68kCpu.h>
+#include <GenieSys/Bus.h>
 #include "GenieSys/AddressingModes/ProgramCounterIndirectWithIndexMode.h"
 
 

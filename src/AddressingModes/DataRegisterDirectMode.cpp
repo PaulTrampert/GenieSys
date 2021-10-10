@@ -4,6 +4,7 @@
 
 #include <memory>
 #include <utility>
+#include <GenieSys/M68kCpu.h>
 #include "GenieSys/AddressingModes/DataRegisterDirectMode.h"
 #include "GenieSys/numberUtils.h"
 

@@ -5,7 +5,7 @@
 #include <GenieSys/CpuOperations/EORItoCCR.h>
 #include <GenieSys/AddressingModes/ImmediateDataMode.h>
 #include <sstream>
-
+#include <GenieSys/M68kCpu.h>
 
 
 GenieSys::EORItoCCR::EORItoCCR(GenieSys::M68kCpu *cpu, GenieSys::Bus *bus) : GenieSys::CpuOperation(cpu, bus) {

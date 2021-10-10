@@ -4,6 +4,8 @@
 #include <cmath>
 #include <GenieSys/signExtend.h>
 #include <GenieSys/ExtensionWord.h>
+#include <GenieSys/M68kCpu.h>
+#include <GenieSys/Bus.h>
 #include <stdexcept>
 #include "GenieSys/AddressingModes/AddressRegisterIndirectWithIndexMode.h"
 

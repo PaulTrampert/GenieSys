@@ -5,6 +5,7 @@
 #include <GenieSys/CpuOperations/ANDItoSR.h>
 #include <GenieSys/AddressingModes/ProgramCounterAddressingMode.h>
 #include <GenieSys/AddressingModes/ImmediateDataMode.h>
+#include <GenieSys/M68kCpu.h>
 #include <sstream>
 
 

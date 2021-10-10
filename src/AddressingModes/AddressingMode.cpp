@@ -1,7 +1,7 @@
 //
 // Created by paul.trampert on 11/27/2020.
 //
-
+#include <GenieSys/Bus.h>
 #include <GenieSys/AddressingModes/AddressingMode.h>
 #include <GenieSys/numberUtils.h>
 #include <memory>

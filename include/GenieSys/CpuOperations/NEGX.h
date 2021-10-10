@@ -5,12 +5,13 @@
 #pragma once
 
 
-#include "../AddressingModes/AddressingMode.h"
 #include "CpuOperation.h"
 #include "../BitMask.h"
 
 
 namespace GenieSys {
+    class AddressingResult;
+
     class NEGX : public GenieSys::CpuOperation {
     private:
         BitMask<uint16_t> sizeMask = BitMask<uint16_t>(7, 2, 0, 2);

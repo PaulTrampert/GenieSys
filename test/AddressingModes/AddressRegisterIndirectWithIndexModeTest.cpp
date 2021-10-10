@@ -5,7 +5,7 @@
 #include <gtest/gtest.h>
 #include <GenieSys/AddressingModes/AddressRegisterIndirectWithIndexMode.h>
 #include <GenieSys/ExtensionWord.h>
-
+#include <GenieSys/Bus.h>
 
 
 struct AddressRegisterIndirectWithIndexModeTest : testing::Test {

@@ -6,7 +6,7 @@
 #include <GenieSys/AddressingModes/ProgramCounterAddressingMode.h>
 #include <GenieSys/AddressingModes/ImmediateDataMode.h>
 #include <sstream>
-
+#include <GenieSys/M68kCpu.h>
 
 
 GenieSys::ORItoSR::ORItoSR(GenieSys::M68kCpu *cpu, GenieSys::Bus *bus) : GenieSys::CpuOperation(cpu, bus) {

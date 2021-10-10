@@ -3,9 +3,7 @@
 //
 
 #include "GenieSys/AddressingModes/AddressRegisterDirectMode.h"
-
-
-
+#include "GenieSys/M68kCpu.h"
 #include <utility>
 #include <GenieSys/numberUtils.h>
 

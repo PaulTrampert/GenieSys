@@ -6,6 +6,7 @@
 
 
 #include <memory>
+#include <array>
 #include "AddressingMode.h"
 
 

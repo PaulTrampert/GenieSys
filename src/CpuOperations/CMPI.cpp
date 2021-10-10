@@ -12,7 +12,7 @@
 #include <GenieSys/getCcrFlags.h>
 #include <sstream>
 #include <cmath>
-
+#include <GenieSys/M68kCpu.h>
 
 
 GenieSys::CMPI::CMPI(GenieSys::M68kCpu *cpu, GenieSys::Bus *bus) : CpuOperation(cpu, bus) {

@@ -16,14 +16,14 @@ namespace GenieSys {
         explicit ExtensionWord(uint16_t word);
         ~ExtensionWord() = default;
 
-        M68K_REG_TYPE getIdxRegType();
-        void setIdxRegType(M68K_REG_TYPE type);
+        GenieSys::M68K_REG_TYPE getIdxRegType();
+        void setIdxRegType(GenieSys::M68K_REG_TYPE type);
 
         uint8_t getIdxRegAddr();
         void setIdxRegAddr(uint8_t value);
 
-        EXT_WORD_IDX_SIZE getIdxSize();
-        void setIdxSize(EXT_WORD_IDX_SIZE size);
+        GenieSys::EXT_WORD_IDX_SIZE getIdxSize();
+        void setIdxSize(GenieSys::EXT_WORD_IDX_SIZE size);
 
         uint8_t getScale();
         void setScale(uint8_t scale);
@@ -34,8 +34,8 @@ namespace GenieSys {
         bool getIndexSuppress();
         void setIndexSuppress(bool suppress);
 
-        EXT_WORD_BD_SIZE getBaseDisplacementSize();
-        void setBaseDisplacementSize(EXT_WORD_BD_SIZE size);
+        GenieSys::EXT_WORD_BD_SIZE getBaseDisplacementSize();
+        void setBaseDisplacementSize(GenieSys::EXT_WORD_BD_SIZE size);
 
         uint8_t getIndexIndirectSelection();
         void setIndexIndirectSelection(uint8_t sel);
@@ -46,7 +46,7 @@ namespace GenieSys {
         int8_t getDisplacement();
         void setDisplacement(int8_t displacement);
 
-        ExtensionWord& operator = (uint16_t value);
+        GenieSys::ExtensionWord& operator = (uint16_t value);
         explicit operator uint16_t() const { return word; };
     };
 }

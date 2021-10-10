@@ -4,17 +4,9 @@
 
 #pragma once
 
-#include <GenieSys/CpuOperations/ADDI.h>
-#include <GenieSys/getPossibleOpcodes.h>
-#include <GenieSys/AddressingModes/AddressingMode.h>
-#include <GenieSys/AddressingModes/DataRegisterDirectMode.h>
-#include <GenieSys/AddressingModes/AddressRegisterDirectMode.h>
-#include <GenieSys/AddressingModes/ProgramCounterAddressingMode.h>
-#include <GenieSys/AddressingModes/ImmediateDataMode.h>
-#include <GenieSys/getCcrFlags.h>
 #include <sstream>
 #include <cmath>
-#include <GenieSys/CpuOperations/SUBI.h>
+#include "./enums.h"
 
 namespace GenieSys {
     template<class U, class S>

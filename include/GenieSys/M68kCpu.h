@@ -10,9 +10,6 @@
 #include "GenieSys/enums.h"
 #include "./BitMask.h"
 
-
-
-
 namespace GenieSys {
     class Bus;
     class AddressingMode;

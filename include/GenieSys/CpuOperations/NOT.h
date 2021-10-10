@@ -4,14 +4,17 @@
 
 #pragma once
 #include "CpuOperation.h"
-#include "../AddressingModes/AddressingMode.h"
 #include "../BitMask.h"
+#include "../enums.h"
+#include "../M68kCpu.h"
 
 
 namespace GenieSys {
+    class AddressingResult;
+
     /**
-         * Documented on page 253 of docs/68KPM.pdf
-         */
+     * Documented on page 253 of docs/68KPM.pdf
+     */
     class NOT : public GenieSys::CpuOperation {
     private:
         BitMask<uint16_t> sizeMask = BitMask<uint16_t>(7, 2, 0, 2);

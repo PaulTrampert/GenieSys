@@ -6,7 +6,7 @@
 #include <GenieSys/getPossibleOpcodes.h>
 #include <GenieSys/AddressingModes/AddressingMode.h>
 #include <sstream>
-
+#include <GenieSys/M68kCpu.h>
 
 
 static uint8_t byteWordCycleTable[12][9] = {

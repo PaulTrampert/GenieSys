@@ -3,7 +3,6 @@
 //
 #include <GenieSys/AddressingModes/AddressingMode.h>
 #include <GenieSys/CpuOperations/ADD.h>
-#include <GenieSys/BitMask.h>
 #include <cmath>
 #include <GenieSys/getPossibleOpcodes.h>
 #include <sstream>
@@ -12,6 +11,7 @@
 #include <GenieSys/AddressingModes/ImmediateDataMode.h>
 #include <GenieSys/AddressingModes/ProgramCounterAddressingMode.h>
 #include <GenieSys/getCcrFlags.h>
+#include <GenieSys/M68kCpu.h>
 
 
 

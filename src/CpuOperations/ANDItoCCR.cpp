@@ -4,6 +4,7 @@
 
 #include <GenieSys/CpuOperations/ANDItoCCR.h>
 #include <GenieSys/AddressingModes/ImmediateDataMode.h>
+#include <GenieSys/M68kCpu.h>
 #include <sstream>
 
 

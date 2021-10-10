@@ -11,7 +11,7 @@
 #include <GenieSys/AddressingModes/ImmediateDataMode.h>
 #include <sstream>
 #include <cmath>
-
+#include <GenieSys/M68kCpu.h>
 
 
 GenieSys::EORI::EORI(GenieSys::M68kCpu *cpu, GenieSys::Bus *bus) : GenieSys::CpuOperation(cpu, bus) {

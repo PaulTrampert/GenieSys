@@ -3,7 +3,7 @@
 //
 
 #include "GenieSys/AddressingModes/AddressRegisterIndirectMode.h"
-
+#include <GenieSys/M68kCpu.h>
 
 
 GenieSys::AddressRegisterIndirectMode::AddressRegisterIndirectMode(GenieSys::M68kCpu *cpu, GenieSys::Bus *bus) : AddressingMode(cpu, bus) {

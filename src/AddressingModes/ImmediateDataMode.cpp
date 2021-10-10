@@ -4,6 +4,8 @@
 
 #include <memory>
 #include <GenieSys/numberUtils.h>
+#include <GenieSys/M68kCpu.h>
+#include <GenieSys/Bus.h>
 #include "GenieSys/AddressingModes/ImmediateDataMode.h"
 
 

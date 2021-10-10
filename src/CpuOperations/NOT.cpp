@@ -12,7 +12,6 @@
 #include <GenieSys/AddressingModes/AddressRegisterDirectMode.h>
 
 
-
 GenieSys::NOT::NOT(GenieSys::M68kCpu *cpu, GenieSys::Bus *bus) : CpuOperation(cpu, bus) {
 
 }

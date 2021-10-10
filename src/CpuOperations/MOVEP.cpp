@@ -7,7 +7,8 @@
 #include <GenieSys/AddressingModes/AddressRegisterIndirectDisplacementMode.h>
 #include <sstream>
 #include <GenieSys/AddressingModes/DataRegisterDirectMode.h>
-
+#include <GenieSys/M68kCpu.h>
+#include <GenieSys/Bus.h>
 
 
 GenieSys::MOVEP::MOVEP(GenieSys::M68kCpu *cpu, GenieSys::Bus *bus) : GenieSys::CpuOperation(cpu, bus) {

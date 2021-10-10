@@ -3,11 +3,12 @@
 //
 
 #pragma once
-#include "../AddressingModes/AddressingMode.h"
 #include "./CpuOperation.h"
 
 
 namespace GenieSys {
+    class AddressingResult;
+
     class ADD : public GenieSys::CpuOperation {
     private:
         void addBytes(uint8_t direction, uint8_t dataRegAddr, AddressingResult* eaResult);

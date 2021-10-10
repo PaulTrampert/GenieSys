@@ -9,6 +9,7 @@
 #include <GenieSys/AddressingModes/ImmediateDataMode.h>
 #include <GenieSys/AddressingModes/ProgramCounterAddressingMode.h>
 #include <GenieSys/AddressingModes/DataRegisterDirectMode.h>
+#include <GenieSys/M68kCpu.h>
 
 
 

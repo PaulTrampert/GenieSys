@@ -9,7 +9,7 @@
 #include <GenieSys/AddressingModes/DataRegisterDirectMode.h>
 #include <GenieSys/AddressingModes/AddressRegisterDirectMode.h>
 #include <cmath>
-
+#include <GenieSys/M68kCpu.h>
 
 
 GenieSys::ORI::ORI(GenieSys::M68kCpu *cpu, GenieSys::Bus *bus) : GenieSys::CpuOperation(cpu, bus) {

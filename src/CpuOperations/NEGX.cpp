@@ -9,7 +9,7 @@
 #include <vector>
 #include <cmath>
 #include <sstream>
-
+#include <GenieSys/M68kCpu.h>
 
 
 GenieSys::NEGX::NEGX(GenieSys::M68kCpu *cpu, GenieSys::Bus *bus) : GenieSys::CpuOperation(cpu, bus) {

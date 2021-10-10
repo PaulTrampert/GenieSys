@@ -8,6 +8,8 @@
 #include <GenieSys/AddressingModes/DataRegisterDirectMode.h>
 #include <GenieSys/getPossibleOpcodes.h>
 #include <sstream>
+#include <array>
+#include <GenieSys/M68kCpu.h>
 
 
 

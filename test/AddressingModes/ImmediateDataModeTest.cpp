@@ -5,7 +5,7 @@
 #include <gtest/gtest.h>
 #include <GenieSys/AddressingModes/ImmediateDataMode.h>
 #include <GenieSys/numberUtils.h>
-
+#include <GenieSys/Bus.h>
 
 
 struct ImmediateDataModeTest : testing::Test {

@@ -5,7 +5,7 @@
 #include <gtest/gtest.h>
 #include <GenieSys/AddressingModes/ProgramCounterIndirectWithIndexMode.h>
 #include <GenieSys/ExtensionWord.h>
-
+#include <GenieSys/Bus.h>
 
 
 struct ProgramCounterIndirectWithIndexModeTest : testing::Test {

@@ -3,6 +3,8 @@
 //
 
 #include <memory>
+#include <GenieSys/M68kCpu.h>
+#include <GenieSys/Bus.h>
 #include "GenieSys/AddressingModes/AddressRegisterIndirectPreDecrementMode.h"
 
 

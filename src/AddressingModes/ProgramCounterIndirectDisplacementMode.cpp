@@ -4,6 +4,8 @@
 
 #include <GenieSys/signExtend.h>
 #include <sstream>
+#include <GenieSys/M68kCpu.h>
+#include <GenieSys/Bus.h>
 #include "GenieSys/AddressingModes/ProgramCounterIndirectDisplacementMode.h"
 
 

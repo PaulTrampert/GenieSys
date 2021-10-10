@@ -9,6 +9,8 @@
 #include <GenieSys/AddressingModes/ProgramCounterAddressingMode.h>
 #include <GenieSys/AddressingModes/ImmediateDataMode.h>
 #include <GenieSys/getCcrFlags.h>
+#include <GenieSys/CpuOperations/ADDI.h>
+#include <GenieSys/M68kCpu.h>
 #include <sstream>
 #include <cmath>
 

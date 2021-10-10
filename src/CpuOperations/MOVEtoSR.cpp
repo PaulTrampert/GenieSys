@@ -7,7 +7,7 @@
 #include <GenieSys/getPossibleOpcodes.h>
 #include <vector>
 #include <sstream>
-
+#include <GenieSys/M68kCpu.h>
 
 
 GenieSys::MOVEtoSR::MOVEtoSR(GenieSys::M68kCpu *cpu, GenieSys::Bus *bus) : GenieSys::CpuOperation(cpu, bus) {

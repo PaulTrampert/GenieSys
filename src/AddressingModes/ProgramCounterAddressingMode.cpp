@@ -54,6 +54,6 @@ std::unique_ptr<GenieSys::AddressingResult> GenieSys::ProgramCounterAddressingMo
 std::string GenieSys::ProgramCounterAddressingMode::disassemble(uint8_t regAddr, uint8_t size) {
     uint8_t submodeId = regAddr;
     AddressingMode* subMode = subModes[submodeId].get();
-    if (subMode == nullptr) return std::string();
+    if (subMode == nullptr) return {};
     return subMode->disassemble(regAddr, size);
 }
