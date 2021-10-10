@@ -4,17 +4,20 @@
 
 #include <gtest/gtest.h>
 #include <GenieSys/CpuOperations/ORI.h>
+#include <GenieSys/Bus.h>
+
+
 
 static uint16_t BASE_OPCODE = 0b0000010000000000;
 
 struct ORITest : testing::Test {
-    M68kCpu* cpu;
-    Bus bus;
-    ORI* subject;
+    GenieSys::M68kCpu* cpu;
+    GenieSys::Bus bus;
+    GenieSys::ORI* subject;
 
     ORITest() {
         cpu = bus.getCpu();
-        subject = new ORI(cpu, &bus);
+        subject = new GenieSys::ORI(cpu, &bus);
     }
 
     ~ORITest() override {
@@ -30,7 +33,7 @@ TEST_F(ORITest, ItOrsBytes) {
     uint8_t cycles = subject->execute(0b0000000000010000);
     ASSERT_EQ(16, cycles);
     ASSERT_EQ(0xFB, bus.read(600));
-    ASSERT_EQ(CCR_NEGATIVE, cpu->getCcrFlags());
+    ASSERT_EQ(GenieSys::CCR_NEGATIVE, cpu->getCcrFlags());
 }
 
 TEST_F(ORITest, ItOrsWords) {

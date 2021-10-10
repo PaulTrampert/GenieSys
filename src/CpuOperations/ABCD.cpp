@@ -2,31 +2,35 @@
 // Created by paul.trampert on 12/6/2020.
 //
 
-#include <GenieSys/CpuOperations/Abcd.h>
+#include <GenieSys/CpuOperations/ABCD.h>
 #include <GenieSys/BitMask.h>
 #include <GenieSys/AddressingModes/AddressRegisterIndirectPreDecrementMode.h>
 #include <GenieSys/AddressingModes/DataRegisterDirectMode.h>
 #include <GenieSys/getPossibleOpcodes.h>
 #include <sstream>
+#include <array>
+#include <GenieSys/M68kCpu.h>
+
+
 
 const uint16_t OPCODE_BASE = 0b1100000100000000;
-static BitMask<uint16_t> RX_MASK = BitMask<uint16_t>(11, 3);
-static BitMask<uint16_t> RY_MASK = BitMask<uint16_t>(2, 3);
-static BitMask<uint16_t> RM_MASK = BitMask<uint16_t>(3, 1);
-static BitMask<uint8_t> ONES_DIGIT = BitMask<uint8_t>(3, 4);
-static BitMask<uint8_t> TENS_DIGIT = BitMask<uint8_t>(7, 4);
+static GenieSys::BitMask<uint16_t> RX_MASK = GenieSys::BitMask<uint16_t>(11, 3);
+static GenieSys::BitMask<uint16_t> RY_MASK = GenieSys::BitMask<uint16_t>(2, 3);
+static GenieSys::BitMask<uint16_t> RM_MASK = GenieSys::BitMask<uint16_t>(3, 1);
+static GenieSys::BitMask<uint8_t> ONES_DIGIT = GenieSys::BitMask<uint8_t>(3, 4);
+static GenieSys::BitMask<uint8_t> TENS_DIGIT = GenieSys::BitMask<uint8_t>(7, 4);
 static std::array<uint8_t, 2> cycles = {6,18};
 
-uint8_t Abcd::execute(uint16_t opWord) {
+uint8_t GenieSys::ABCD::execute(uint16_t opWord) {
     uint16_t destReg = RX_MASK.apply(opWord);
     uint16_t srcReg = RY_MASK.apply(opWord);
     uint16_t rm = RM_MASK.apply(opWord);
-    AddressingMode* mode;
+    GenieSys::AddressingMode* mode;
     if (rm > 0) {
-        mode = cpu->getAddressingMode(AddressRegisterIndirectPreDecrementMode::MODE_ID);
+        mode = cpu->getAddressingMode(GenieSys::AddressRegisterIndirectPreDecrementMode::MODE_ID);
     }
     else {
-        mode = cpu->getAddressingMode(DataRegisterDirectMode::MODE_ID);
+        mode = cpu->getAddressingMode(GenieSys::DataRegisterDirectMode::MODE_ID);
     }
     auto dest = mode->getData(destReg, 1);
     auto src = mode->getData(srcReg, 1);
@@ -34,7 +38,7 @@ uint8_t Abcd::execute(uint16_t opWord) {
     auto destTensDigit = TENS_DIGIT.apply(dest->getDataAsByte());
     auto srcOnesDigit = ONES_DIGIT.apply(src->getDataAsByte());
     auto srcTensDigit = TENS_DIGIT.apply(src->getDataAsByte());
-    auto x = (cpu->getCcrFlags() & CCR_EXTEND) >> 4;
+    auto x = (cpu->getCcrFlags() & GenieSys::CCR_EXTEND) >> 4;
     destOnesDigit = destOnesDigit + srcOnesDigit + x;
     if (destOnesDigit >= 10) {
         x = 1;
@@ -53,42 +57,42 @@ uint8_t Abcd::execute(uint16_t opWord) {
     }
     uint8_t newCcrFlags = 0;
     if (x == 1) {
-        newCcrFlags |= CCR_EXTEND | CCR_CARRY;
+        newCcrFlags |= GenieSys::CCR_EXTEND | GenieSys::CCR_CARRY;
     }
     if (destTensDigit == 0 && destOnesDigit == 0) {
-        newCcrFlags |= CCR_ZERO;
+        newCcrFlags |= GenieSys::CCR_ZERO;
     }
     cpu->setCcrFlags(newCcrFlags);
     dest->write((uint8_t)((destTensDigit << 4) | destOnesDigit));
     return cycles[rm];
 }
 
-Abcd::Abcd(M68kCpu *cpu, Bus *bus) : CpuOperation(cpu, bus) {
+GenieSys::ABCD::ABCD(GenieSys::M68kCpu *cpu, GenieSys::Bus *bus) : GenieSys::CpuOperation(cpu, bus) {
 }
 
-std::vector<uint16_t> Abcd::getOpcodes() {
-    return getPossibleOpcodes(OPCODE_BASE, std::vector<BitMask<uint16_t>*>{
+std::vector<uint16_t> GenieSys::ABCD::getOpcodes() {
+    return GenieSys::getPossibleOpcodes(OPCODE_BASE, std::vector<GenieSys::BitMask<uint16_t>*>{
         &RX_MASK,
         &RY_MASK,
         &RM_MASK
     });
 }
 
-uint8_t Abcd::getSpecificity() {
+uint8_t GenieSys::ABCD::getSpecificity() {
     return RX_MASK.getWidth() + RY_MASK.getWidth() + RM_MASK.getWidth();
 }
 
-std::string Abcd::disassemble(uint16_t opWord) {
+std::string GenieSys::ABCD::disassemble(uint16_t opWord) {
     std::stringstream stream;
     uint16_t destReg = RX_MASK.apply(opWord);
     uint16_t srcReg = RY_MASK.apply(opWord);
     uint16_t rm = RM_MASK.apply(opWord);
-    AddressingMode* mode;
+    GenieSys::AddressingMode* mode;
     if (rm > 0) {
-        mode = cpu->getAddressingMode(AddressRegisterIndirectPreDecrementMode::MODE_ID);
+        mode = cpu->getAddressingMode(GenieSys::AddressRegisterIndirectPreDecrementMode::MODE_ID);
     }
     else {
-        mode = cpu->getAddressingMode(DataRegisterDirectMode::MODE_ID);
+        mode = cpu->getAddressingMode(GenieSys::DataRegisterDirectMode::MODE_ID);
     }
     stream << "ABCD " << mode->disassemble(srcReg, 1) << "," << mode->disassemble(destReg, 1);
     return stream.str();

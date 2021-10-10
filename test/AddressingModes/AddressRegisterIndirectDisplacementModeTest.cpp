@@ -5,14 +5,16 @@
 #include <GenieSys/Bus.h>
 #include <GenieSys/AddressingModes/AddressRegisterIndirectDisplacementMode.h>
 
+
+
 struct AddressRegisterIndirectDisplacementModeTest : testing::Test {
-    Bus bus;
-    M68kCpu* cpu;
-    AddressRegisterIndirectDisplacementMode* subject;
+    GenieSys::Bus bus;
+    GenieSys::M68kCpu* cpu;
+    GenieSys::AddressRegisterIndirectDisplacementMode* subject;
 
     AddressRegisterIndirectDisplacementModeTest() {
         cpu = bus.getCpu();
-        subject = new AddressRegisterIndirectDisplacementMode(cpu, &bus);
+        subject = new GenieSys::AddressRegisterIndirectDisplacementMode(cpu, &bus);
         bus.writeWord(0, -5);
         cpu->setAddressRegister(2, 11);
         bus.writeWord(6, 0xABCD);

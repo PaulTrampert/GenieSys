@@ -6,46 +6,48 @@
 #include <cstdint>
 #include "enums.h"
 
-class ExtensionWord {
-private:
-    uint16_t word;
+namespace GenieSys {
+    class ExtensionWord {
+    private:
+        uint16_t word;
 
-public:
-    ExtensionWord();
-    explicit ExtensionWord(uint16_t word);
-    ~ExtensionWord() = default;
+    public:
+        ExtensionWord();
+        explicit ExtensionWord(uint16_t word);
+        ~ExtensionWord() = default;
 
-    M68K_REG_TYPE getIdxRegType();
-    void setIdxRegType(M68K_REG_TYPE type);
+        GenieSys::M68K_REG_TYPE getIdxRegType();
+        void setIdxRegType(GenieSys::M68K_REG_TYPE type);
 
-    uint8_t getIdxRegAddr();
-    void setIdxRegAddr(uint8_t value);
+        uint8_t getIdxRegAddr();
+        void setIdxRegAddr(uint8_t value);
 
-    EXT_WORD_IDX_SIZE getIdxSize();
-    void setIdxSize(EXT_WORD_IDX_SIZE size);
+        GenieSys::EXT_WORD_IDX_SIZE getIdxSize();
+        void setIdxSize(GenieSys::EXT_WORD_IDX_SIZE size);
 
-    uint8_t getScale();
-    void setScale(uint8_t scale);
+        uint8_t getScale();
+        void setScale(uint8_t scale);
 
-    bool getBaseRegSuppress();
-    void setBaseRegSuppress(bool suppress);
+        bool getBaseRegSuppress();
+        void setBaseRegSuppress(bool suppress);
 
-    bool getIndexSuppress();
-    void setIndexSuppress(bool suppress);
+        bool getIndexSuppress();
+        void setIndexSuppress(bool suppress);
 
-    EXT_WORD_BD_SIZE getBaseDisplacementSize();
-    void setBaseDisplacementSize(EXT_WORD_BD_SIZE size);
+        GenieSys::EXT_WORD_BD_SIZE getBaseDisplacementSize();
+        void setBaseDisplacementSize(GenieSys::EXT_WORD_BD_SIZE size);
 
-    uint8_t getIndexIndirectSelection();
-    void setIndexIndirectSelection(uint8_t sel);
+        uint8_t getIndexIndirectSelection();
+        void setIndexIndirectSelection(uint8_t sel);
 
-    bool isBrief();
-    void setIsBrief(bool isBrief);
+        bool isBrief();
+        void setIsBrief(bool isBrief);
 
-    int8_t getDisplacement();
-    void setDisplacement(int8_t displacement);
+        int8_t getDisplacement();
+        void setDisplacement(int8_t displacement);
 
-    ExtensionWord& operator = (uint16_t value);
-    explicit operator uint16_t() const { return word; };
-};
+        GenieSys::ExtensionWord& operator = (uint16_t value);
+        explicit operator uint16_t() const { return word; };
+    };
+}
 

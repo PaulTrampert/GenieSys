@@ -5,15 +5,17 @@
 #include <gtest/gtest.h>
 #include <GenieSys/AddressingModes/ProgramCounterIndirectWithIndexMode.h>
 #include <GenieSys/ExtensionWord.h>
+#include <GenieSys/Bus.h>
+
 
 struct ProgramCounterIndirectWithIndexModeTest : testing::Test {
-    M68kCpu* cpu;
-    Bus bus;
-    ProgramCounterIndirectWithIndexMode* subject;
+    GenieSys::M68kCpu* cpu;
+    GenieSys::Bus bus;
+    GenieSys::ProgramCounterIndirectWithIndexMode* subject;
 
     ProgramCounterIndirectWithIndexModeTest() {
         cpu = bus.getCpu();
-        subject = new ProgramCounterIndirectWithIndexMode(cpu, &bus);
+        subject = new GenieSys::ProgramCounterIndirectWithIndexMode(cpu, &bus);
     }
 
     ~ProgramCounterIndirectWithIndexModeTest() override {
@@ -26,12 +28,12 @@ TEST_F(ProgramCounterIndirectWithIndexModeTest, ItHasTheCorrectModeId) {
 }
 
 TEST_F(ProgramCounterIndirectWithIndexModeTest, GetAddress_With8BitDisplacement_GetsTheCorrectAddress) {
-    ExtensionWord extWord = ExtensionWord();
+    GenieSys::ExtensionWord extWord = GenieSys::ExtensionWord();
     extWord.setIsBrief(true);
     extWord.setDisplacement(6);
-    extWord.setIdxRegType(M68K_REG_TYPE_DATA);
+    extWord.setIdxRegType(GenieSys::M68K_REG_TYPE_DATA);
     extWord.setIdxRegAddr(4);
-    extWord.setIdxSize(EXT_WORD_IDX_SIZE_SE_WORD);
+    extWord.setIdxSize(GenieSys::EXT_WORD_IDX_SIZE_SE_WORD);
     extWord.setScale(1);
     cpu->setPc(32);
     bus.writeWord(32, (uint16_t)extWord);
@@ -43,12 +45,12 @@ TEST_F(ProgramCounterIndirectWithIndexModeTest, GetAddress_With8BitDisplacement_
 }
 
 TEST_F(ProgramCounterIndirectWithIndexModeTest, GetAddress_With8BitDisplacement_DisassemblesCorrectly) {
-    ExtensionWord extWord = ExtensionWord();
+    GenieSys::ExtensionWord extWord = GenieSys::ExtensionWord();
     extWord.setIsBrief(true);
     extWord.setDisplacement(6);
-    extWord.setIdxRegType(M68K_REG_TYPE_DATA);
+    extWord.setIdxRegType(GenieSys::M68K_REG_TYPE_DATA);
     extWord.setIdxRegAddr(4);
-    extWord.setIdxSize(EXT_WORD_IDX_SIZE_SE_WORD);
+    extWord.setIdxSize(GenieSys::EXT_WORD_IDX_SIZE_SE_WORD);
     extWord.setScale(1);
     cpu->setPc(32);
     bus.writeWord(32, (uint16_t)extWord);
@@ -59,15 +61,15 @@ TEST_F(ProgramCounterIndirectWithIndexModeTest, GetAddress_With8BitDisplacement_
 }
 
 TEST_F(ProgramCounterIndirectWithIndexModeTest, GetAddress_EverythingSuppressed_GetsTheCorrectAddress) {
-    ExtensionWord extWord = ExtensionWord();
+    GenieSys::ExtensionWord extWord = GenieSys::ExtensionWord();
     extWord.setIsBrief(false);
-    extWord.setIdxRegType(M68K_REG_TYPE_DATA);
+    extWord.setIdxRegType(GenieSys::M68K_REG_TYPE_DATA);
     extWord.setIdxRegAddr(4);
-    extWord.setIdxSize(EXT_WORD_IDX_SIZE_SE_WORD);
+    extWord.setIdxSize(GenieSys::EXT_WORD_IDX_SIZE_SE_WORD);
     extWord.setScale(1);
     extWord.setIndexSuppress(true);
     extWord.setBaseRegSuppress(true);
-    extWord.setBaseDisplacementSize(EXT_WORD_BD_SIZE_NULL);
+    extWord.setBaseDisplacementSize(GenieSys::EXT_WORD_BD_SIZE_NULL);
     extWord.setIndexIndirectSelection(0);
     cpu->setPc(32);
     bus.writeWord(32, (uint16_t)extWord);
@@ -78,15 +80,15 @@ TEST_F(ProgramCounterIndirectWithIndexModeTest, GetAddress_EverythingSuppressed_
 }
 
 TEST_F(ProgramCounterIndirectWithIndexModeTest, GetAddress_EverythingSuppressed_Disassemble) {
-    ExtensionWord extWord = ExtensionWord();
+    GenieSys::ExtensionWord extWord = GenieSys::ExtensionWord();
     extWord.setIsBrief(false);
-    extWord.setIdxRegType(M68K_REG_TYPE_DATA);
+    extWord.setIdxRegType(GenieSys::M68K_REG_TYPE_DATA);
     extWord.setIdxRegAddr(4);
-    extWord.setIdxSize(EXT_WORD_IDX_SIZE_SE_WORD);
+    extWord.setIdxSize(GenieSys::EXT_WORD_IDX_SIZE_SE_WORD);
     extWord.setScale(1);
     extWord.setIndexSuppress(true);
     extWord.setBaseRegSuppress(true);
-    extWord.setBaseDisplacementSize(EXT_WORD_BD_SIZE_NULL);
+    extWord.setBaseDisplacementSize(GenieSys::EXT_WORD_BD_SIZE_NULL);
     extWord.setIndexIndirectSelection(0);
     cpu->setPc(32);
     bus.writeWord(32, (uint16_t)extWord);
@@ -97,14 +99,14 @@ TEST_F(ProgramCounterIndirectWithIndexModeTest, GetAddress_EverythingSuppressed_
 }
 
 TEST_F(ProgramCounterIndirectWithIndexModeTest, GetAddress_OnlyProgramCounter_GetsTheCorrectAddress) {
-    ExtensionWord extWord = ExtensionWord();
+    GenieSys::ExtensionWord extWord = GenieSys::ExtensionWord();
     extWord.setIsBrief(false);
-    extWord.setIdxRegType(M68K_REG_TYPE_DATA);
+    extWord.setIdxRegType(GenieSys::M68K_REG_TYPE_DATA);
     extWord.setIdxRegAddr(4);
-    extWord.setIdxSize(EXT_WORD_IDX_SIZE_SE_WORD);
+    extWord.setIdxSize(GenieSys::EXT_WORD_IDX_SIZE_SE_WORD);
     extWord.setScale(1);
     extWord.setIndexSuppress(true);
-    extWord.setBaseDisplacementSize(EXT_WORD_BD_SIZE_NULL);
+    extWord.setBaseDisplacementSize(GenieSys::EXT_WORD_BD_SIZE_NULL);
     extWord.setIndexIndirectSelection(0);
     cpu->setPc(32);
     bus.writeWord(32, (uint16_t)extWord);
@@ -115,14 +117,14 @@ TEST_F(ProgramCounterIndirectWithIndexModeTest, GetAddress_OnlyProgramCounter_Ge
 }
 
 TEST_F(ProgramCounterIndirectWithIndexModeTest, GetAddress_OnlyProgramCounter_Disassemble) {
-    ExtensionWord extWord = ExtensionWord();
+    GenieSys::ExtensionWord extWord = GenieSys::ExtensionWord();
     extWord.setIsBrief(false);
-    extWord.setIdxRegType(M68K_REG_TYPE_DATA);
+    extWord.setIdxRegType(GenieSys::M68K_REG_TYPE_DATA);
     extWord.setIdxRegAddr(4);
-    extWord.setIdxSize(EXT_WORD_IDX_SIZE_SE_WORD);
+    extWord.setIdxSize(GenieSys::EXT_WORD_IDX_SIZE_SE_WORD);
     extWord.setScale(1);
     extWord.setIndexSuppress(true);
-    extWord.setBaseDisplacementSize(EXT_WORD_BD_SIZE_NULL);
+    extWord.setBaseDisplacementSize(GenieSys::EXT_WORD_BD_SIZE_NULL);
     extWord.setIndexIndirectSelection(0);
     cpu->setPc(32);
     bus.writeWord(32, (uint16_t)extWord);
@@ -133,14 +135,14 @@ TEST_F(ProgramCounterIndirectWithIndexModeTest, GetAddress_OnlyProgramCounter_Di
 }
 
 TEST_F(ProgramCounterIndirectWithIndexModeTest, GetAddress_PcWithDisplacement_GetsTheCorrectAddress) {
-    ExtensionWord extWord = ExtensionWord();
+    GenieSys::ExtensionWord extWord = GenieSys::ExtensionWord();
     extWord.setIsBrief(false);
-    extWord.setIdxRegType(M68K_REG_TYPE_DATA);
+    extWord.setIdxRegType(GenieSys::M68K_REG_TYPE_DATA);
     extWord.setIdxRegAddr(4);
-    extWord.setIdxSize(EXT_WORD_IDX_SIZE_SE_WORD);
+    extWord.setIdxSize(GenieSys::EXT_WORD_IDX_SIZE_SE_WORD);
     extWord.setScale(1);
     extWord.setIndexSuppress(true);
-    extWord.setBaseDisplacementSize(EXT_WORD_BD_SIZE_WORD);
+    extWord.setBaseDisplacementSize(GenieSys::EXT_WORD_BD_SIZE_WORD);
     extWord.setIndexIndirectSelection(0);
     cpu->setPc(32);
     bus.writeWord(32, (uint16_t)extWord);
@@ -152,14 +154,14 @@ TEST_F(ProgramCounterIndirectWithIndexModeTest, GetAddress_PcWithDisplacement_Ge
 }
 
 TEST_F(ProgramCounterIndirectWithIndexModeTest, GetAddress_PcWithDisplacement_Disassemble) {
-    ExtensionWord extWord = ExtensionWord();
+    GenieSys::ExtensionWord extWord = GenieSys::ExtensionWord();
     extWord.setIsBrief(false);
-    extWord.setIdxRegType(M68K_REG_TYPE_DATA);
+    extWord.setIdxRegType(GenieSys::M68K_REG_TYPE_DATA);
     extWord.setIdxRegAddr(4);
-    extWord.setIdxSize(EXT_WORD_IDX_SIZE_SE_WORD);
+    extWord.setIdxSize(GenieSys::EXT_WORD_IDX_SIZE_SE_WORD);
     extWord.setScale(1);
     extWord.setIndexSuppress(true);
-    extWord.setBaseDisplacementSize(EXT_WORD_BD_SIZE_WORD);
+    extWord.setBaseDisplacementSize(GenieSys::EXT_WORD_BD_SIZE_WORD);
     extWord.setIndexIndirectSelection(0);
     cpu->setPc(32);
     bus.writeWord(32, (uint16_t)extWord);
@@ -170,14 +172,14 @@ TEST_F(ProgramCounterIndirectWithIndexModeTest, GetAddress_PcWithDisplacement_Di
 }
 
 TEST_F(ProgramCounterIndirectWithIndexModeTest, GetAddress_PcWithIndex_GetsTheCorrectAddress) {
-    ExtensionWord extWord = ExtensionWord();
+    GenieSys::ExtensionWord extWord = GenieSys::ExtensionWord();
     extWord.setIsBrief(false);
-    extWord.setIdxRegType(M68K_REG_TYPE_DATA);
+    extWord.setIdxRegType(GenieSys::M68K_REG_TYPE_DATA);
     extWord.setIdxRegAddr(4);
-    extWord.setIdxSize(EXT_WORD_IDX_SIZE_SE_WORD);
+    extWord.setIdxSize(GenieSys::EXT_WORD_IDX_SIZE_SE_WORD);
     extWord.setScale(2);
     extWord.setIndexSuppress(false);
-    extWord.setBaseDisplacementSize(EXT_WORD_BD_SIZE_NULL);
+    extWord.setBaseDisplacementSize(GenieSys::EXT_WORD_BD_SIZE_NULL);
     extWord.setIndexIndirectSelection(0);
     cpu->setPc(32);
     bus.writeWord(32, (uint16_t)extWord);
@@ -188,14 +190,14 @@ TEST_F(ProgramCounterIndirectWithIndexModeTest, GetAddress_PcWithIndex_GetsTheCo
 }
 
 TEST_F(ProgramCounterIndirectWithIndexModeTest, GetAddress_PcWithIndex_Disassemble) {
-    ExtensionWord extWord = ExtensionWord();
+    GenieSys::ExtensionWord extWord = GenieSys::ExtensionWord();
     extWord.setIsBrief(false);
-    extWord.setIdxRegType(M68K_REG_TYPE_DATA);
+    extWord.setIdxRegType(GenieSys::M68K_REG_TYPE_DATA);
     extWord.setIdxRegAddr(4);
-    extWord.setIdxSize(EXT_WORD_IDX_SIZE_SE_WORD);
+    extWord.setIdxSize(GenieSys::EXT_WORD_IDX_SIZE_SE_WORD);
     extWord.setScale(2);
     extWord.setIndexSuppress(false);
-    extWord.setBaseDisplacementSize(EXT_WORD_BD_SIZE_NULL);
+    extWord.setBaseDisplacementSize(GenieSys::EXT_WORD_BD_SIZE_NULL);
     extWord.setIndexIndirectSelection(0);
     cpu->setPc(32);
     bus.writeWord(32, (uint16_t)extWord);
@@ -205,14 +207,14 @@ TEST_F(ProgramCounterIndirectWithIndexModeTest, GetAddress_PcWithIndex_Disassemb
 }
 
 TEST_F(ProgramCounterIndirectWithIndexModeTest, GetAddress_PcWithIndexAndDisplacement_GetsTheCorrectAddress) {
-    ExtensionWord extWord = ExtensionWord();
+    GenieSys::ExtensionWord extWord = GenieSys::ExtensionWord();
     extWord.setIsBrief(false);
-    extWord.setIdxRegType(M68K_REG_TYPE_DATA);
+    extWord.setIdxRegType(GenieSys::M68K_REG_TYPE_DATA);
     extWord.setIdxRegAddr(4);
-    extWord.setIdxSize(EXT_WORD_IDX_SIZE_SE_WORD);
+    extWord.setIdxSize(GenieSys::EXT_WORD_IDX_SIZE_SE_WORD);
     extWord.setScale(2);
     extWord.setIndexSuppress(false);
-    extWord.setBaseDisplacementSize(EXT_WORD_BD_SIZE_WORD);
+    extWord.setBaseDisplacementSize(GenieSys::EXT_WORD_BD_SIZE_WORD);
     extWord.setIndexIndirectSelection(0);
     cpu->setPc(32);
     bus.writeWord(32, (uint16_t)extWord);
@@ -224,14 +226,14 @@ TEST_F(ProgramCounterIndirectWithIndexModeTest, GetAddress_PcWithIndexAndDisplac
 }
 
 TEST_F(ProgramCounterIndirectWithIndexModeTest, GetAddress_PcWithIndexAndDisplacement_Disassemble) {
-    ExtensionWord extWord = ExtensionWord();
+    GenieSys::ExtensionWord extWord = GenieSys::ExtensionWord();
     extWord.setIsBrief(false);
-    extWord.setIdxRegType(M68K_REG_TYPE_DATA);
+    extWord.setIdxRegType(GenieSys::M68K_REG_TYPE_DATA);
     extWord.setIdxRegAddr(4);
-    extWord.setIdxSize(EXT_WORD_IDX_SIZE_SE_WORD);
+    extWord.setIdxSize(GenieSys::EXT_WORD_IDX_SIZE_SE_WORD);
     extWord.setScale(2);
     extWord.setIndexSuppress(false);
-    extWord.setBaseDisplacementSize(EXT_WORD_BD_SIZE_WORD);
+    extWord.setBaseDisplacementSize(GenieSys::EXT_WORD_BD_SIZE_WORD);
     extWord.setIndexIndirectSelection(0);
     cpu->setPc(32);
     bus.writeWord(32, (uint16_t)extWord);
@@ -242,14 +244,14 @@ TEST_F(ProgramCounterIndirectWithIndexModeTest, GetAddress_PcWithIndexAndDisplac
 }
 
 TEST_F(ProgramCounterIndirectWithIndexModeTest, GetAddress_PcPreIndexedWithOuterDisplacement_GetsTheCorrectAddress) {
-    ExtensionWord extWord = ExtensionWord();
+    GenieSys::ExtensionWord extWord = GenieSys::ExtensionWord();
     extWord.setIsBrief(false);
-    extWord.setIdxRegType(M68K_REG_TYPE_DATA);
+    extWord.setIdxRegType(GenieSys::M68K_REG_TYPE_DATA);
     extWord.setIdxRegAddr(4);
-    extWord.setIdxSize(EXT_WORD_IDX_SIZE_SE_WORD);
+    extWord.setIdxSize(GenieSys::EXT_WORD_IDX_SIZE_SE_WORD);
     extWord.setScale(2);
     extWord.setIndexSuppress(false);
-    extWord.setBaseDisplacementSize(EXT_WORD_BD_SIZE_WORD);
+    extWord.setBaseDisplacementSize(GenieSys::EXT_WORD_BD_SIZE_WORD);
     extWord.setIndexIndirectSelection(2);
     cpu->setPc(32);
     bus.writeWord(32, (uint16_t)extWord);
@@ -263,14 +265,14 @@ TEST_F(ProgramCounterIndirectWithIndexModeTest, GetAddress_PcPreIndexedWithOuter
 }
 
 TEST_F(ProgramCounterIndirectWithIndexModeTest, GetAddress_PcPreIndexedWithOuterDisplacement_Disassemble) {
-    ExtensionWord extWord = ExtensionWord();
+    GenieSys::ExtensionWord extWord = GenieSys::ExtensionWord();
     extWord.setIsBrief(false);
-    extWord.setIdxRegType(M68K_REG_TYPE_DATA);
+    extWord.setIdxRegType(GenieSys::M68K_REG_TYPE_DATA);
     extWord.setIdxRegAddr(4);
-    extWord.setIdxSize(EXT_WORD_IDX_SIZE_SE_WORD);
+    extWord.setIdxSize(GenieSys::EXT_WORD_IDX_SIZE_SE_WORD);
     extWord.setScale(2);
     extWord.setIndexSuppress(false);
-    extWord.setBaseDisplacementSize(EXT_WORD_BD_SIZE_WORD);
+    extWord.setBaseDisplacementSize(GenieSys::EXT_WORD_BD_SIZE_WORD);
     extWord.setIndexIndirectSelection(2);
     cpu->setPc(32);
     bus.writeWord(32, (uint16_t)extWord);
@@ -283,14 +285,14 @@ TEST_F(ProgramCounterIndirectWithIndexModeTest, GetAddress_PcPreIndexedWithOuter
 }
 
 TEST_F(ProgramCounterIndirectWithIndexModeTest, GetAddress_AddressRegisterPostIndexedWithOuterDisplacement_GetsTheCorrectAddress) {
-    ExtensionWord extWord = ExtensionWord();
+    GenieSys::ExtensionWord extWord = GenieSys::ExtensionWord();
     extWord.setIsBrief(false);
-    extWord.setIdxRegType(M68K_REG_TYPE_DATA);
+    extWord.setIdxRegType(GenieSys::M68K_REG_TYPE_DATA);
     extWord.setIdxRegAddr(4);
-    extWord.setIdxSize(EXT_WORD_IDX_SIZE_SE_WORD);
+    extWord.setIdxSize(GenieSys::EXT_WORD_IDX_SIZE_SE_WORD);
     extWord.setScale(2);
     extWord.setIndexSuppress(false);
-    extWord.setBaseDisplacementSize(EXT_WORD_BD_SIZE_WORD);
+    extWord.setBaseDisplacementSize(GenieSys::EXT_WORD_BD_SIZE_WORD);
     extWord.setIndexIndirectSelection(6);
     cpu->setPc(32);
     bus.writeWord(32, (uint16_t)extWord);
@@ -305,14 +307,14 @@ TEST_F(ProgramCounterIndirectWithIndexModeTest, GetAddress_AddressRegisterPostIn
 }
 
 TEST_F(ProgramCounterIndirectWithIndexModeTest, GetAddress_AddressRegisterPostIndexedWithOuterDisplacement_Disassemble) {
-    ExtensionWord extWord = ExtensionWord();
+    GenieSys::ExtensionWord extWord = GenieSys::ExtensionWord();
     extWord.setIsBrief(false);
-    extWord.setIdxRegType(M68K_REG_TYPE_DATA);
+    extWord.setIdxRegType(GenieSys::M68K_REG_TYPE_DATA);
     extWord.setIdxRegAddr(4);
-    extWord.setIdxSize(EXT_WORD_IDX_SIZE_SE_WORD);
+    extWord.setIdxSize(GenieSys::EXT_WORD_IDX_SIZE_SE_WORD);
     extWord.setScale(2);
     extWord.setIndexSuppress(false);
-    extWord.setBaseDisplacementSize(EXT_WORD_BD_SIZE_WORD);
+    extWord.setBaseDisplacementSize(GenieSys::EXT_WORD_BD_SIZE_WORD);
     extWord.setIndexIndirectSelection(6);
     cpu->setPc(32);
     bus.writeWord(32, (uint16_t)extWord);

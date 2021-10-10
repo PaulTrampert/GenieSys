@@ -5,16 +5,18 @@
 #include <gtest/gtest.h>
 #include <GenieSys/AddressingModes/ImmediateDataMode.h>
 #include <GenieSys/numberUtils.h>
+#include <GenieSys/Bus.h>
+
 
 struct ImmediateDataModeTest : testing::Test {
-    Bus bus;
-    M68kCpu* cpu;
-    ImmediateDataMode* subject;
+    GenieSys::Bus bus;
+    GenieSys::M68kCpu* cpu;
+    GenieSys::ImmediateDataMode* subject;
 
     ImmediateDataModeTest() {
         cpu = bus.getCpu();
         cpu->setPc(32);
-        subject = new ImmediateDataMode(cpu, &bus);
+        subject = new GenieSys::ImmediateDataMode(cpu, &bus);
         bus.writeWord(32, 0x1111);
         bus.writeWord(34, 0x0a00);
     }
@@ -33,7 +35,7 @@ TEST_F(ImmediateDataModeTest, TheAddressIsTheCpusPc) {
 }
 
 TEST_F(ImmediateDataModeTest, GetData_GetsTheCorrectData) {
-    ASSERT_EQ(0x1111, bytesToWord(subject->getData(0b100u, 2)->getData()));
+    ASSERT_EQ(0x1111, GenieSys::bytesToWord(subject->getData(0b100u, 2)->getData()));
 }
 
 TEST_F(ImmediateDataModeTest, GetData_IncrementsTheProgramCounter) {

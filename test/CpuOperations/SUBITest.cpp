@@ -4,17 +4,20 @@
 
 #include <gtest/gtest.h>
 #include <GenieSys/CpuOperations/SUBI.h>
+#include <GenieSys/Bus.h>
+
+
 
 static uint16_t BASE_OPCODE = 0b0000010000000000;
 
 struct SUBITest : testing::Test {
-    M68kCpu* cpu;
-    Bus bus;
-    SUBI* subject;
+    GenieSys::M68kCpu* cpu;
+    GenieSys::Bus bus;
+    GenieSys::SUBI* subject;
 
     SUBITest() {
         cpu = bus.getCpu();
-        subject = new SUBI(cpu, &bus);
+        subject = new GenieSys::SUBI(cpu, &bus);
     }
 
     ~SUBITest() override {
@@ -30,7 +33,7 @@ TEST_F(SUBITest, ItSubtractsBytes) {
     uint8_t cycles = subject->execute(0b0000010000010000);
     ASSERT_EQ(16, cycles);
     ASSERT_EQ(0xBB, bus.read(600));
-    ASSERT_EQ(CCR_EXTEND | CCR_CARRY | CCR_NEGATIVE, cpu->getCcrFlags());
+    ASSERT_EQ(GenieSys::CCR_EXTEND | GenieSys::CCR_CARRY | GenieSys::CCR_NEGATIVE, cpu->getCcrFlags());
 }
 
 TEST_F(SUBITest, ItSubtractsWords) {

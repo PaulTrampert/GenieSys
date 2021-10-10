@@ -4,17 +4,20 @@
 #include <gtest/gtest.h>
 #include <GenieSys/CpuOperations/MOVEtoSR.h>
 #include <GenieSys/M68kCpu.h>
+#include <GenieSys/Bus.h>
+
+
 
 struct MOVEtoSRTest : testing::Test {
-    M68kCpu* cpu;
-    Bus bus;
-    MOVEtoSR* subject;
+    GenieSys::M68kCpu* cpu;
+    GenieSys::Bus bus;
+    GenieSys::MOVEtoSR* subject;
 
     uint16_t opWord = 0b0100010011010000;
 
     MOVEtoSRTest() {
         cpu = bus.getCpu();
-        subject = new MOVEtoSR(cpu, &bus);
+        subject = new GenieSys::MOVEtoSR(cpu, &bus);
     }
 
     ~MOVEtoSRTest() override {

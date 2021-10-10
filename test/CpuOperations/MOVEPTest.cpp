@@ -7,10 +7,12 @@
 #include <GenieSys/M68kCpu.h>
 #include <GenieSys/Bus.h>
 
+
+
 struct MOVEPTest : testing::Test {
-    M68kCpu* cpu;
-    Bus bus;
-    MOVEP* subject;
+    GenieSys::M68kCpu* cpu;
+    GenieSys::Bus bus;
+    GenieSys::MOVEP* subject;
 
     uint16_t longMemToReg = 0b0000001101001001;
     uint16_t longRegToMem = 0b0000001111001001;
@@ -19,7 +21,7 @@ struct MOVEPTest : testing::Test {
 
     MOVEPTest() {
         cpu = bus.getCpu();
-        subject = new MOVEP(cpu, &bus);
+        subject = new GenieSys::MOVEP(cpu, &bus);
     }
 
     ~MOVEPTest() override {

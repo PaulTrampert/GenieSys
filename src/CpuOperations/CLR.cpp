@@ -10,24 +10,26 @@
 #include <cmath>
 #include <GenieSys/AddressingModes/DataRegisterDirectMode.h>
 #include <GenieSys/AddressingModes/AddressRegisterDirectMode.h>
+#include <GenieSys/M68kCpu.h>
 
-CLR::CLR(M68kCpu *cpu, Bus *bus) : CpuOperation(cpu, bus) {
+
+GenieSys::CLR::CLR(GenieSys::M68kCpu *cpu, GenieSys::Bus *bus) : GenieSys::CpuOperation(cpu, bus) {
 
 }
 
-uint8_t CLR::getSpecificity() {
+uint8_t GenieSys::CLR::getSpecificity() {
     return sizeMask.getWidth() + eaModeMask.getWidth() + eaRegMask.getWidth();
 }
 
-std::vector<uint16_t> CLR::getOpcodes() {
-    return getPossibleOpcodes((uint16_t)0b0100001000000000u, std::vector<BitMask<uint16_t>*> {
+std::vector<uint16_t> GenieSys::CLR::getOpcodes() {
+    return GenieSys::getPossibleOpcodes((uint16_t)0b0100001000000000u, std::vector<GenieSys::BitMask<uint16_t>*> {
         &sizeMask,
         &eaModeMask,
         &eaRegMask
     });
 }
 
-uint8_t CLR::execute(uint16_t opWord) {
+uint8_t GenieSys::CLR::execute(uint16_t opWord) {
     uint8_t size = sizeMask.apply(opWord);
     uint8_t sizeBytes = pow(2, size);
     uint8_t eaModeId = eaModeMask.apply(opWord);
@@ -36,9 +38,9 @@ uint8_t CLR::execute(uint16_t opWord) {
     auto eaResult = eaMode->getData(eaReg, sizeBytes);
     std::vector<uint8_t> zeros(sizeBytes, 0);
     eaResult->write(zeros);
-    auto initCcrX = cpu->getCcrFlags() & CCR_EXTEND;
-    cpu->setCcrFlags(initCcrX | CCR_ZERO);
-    bool isRegisterEa = eaModeId == DataRegisterDirectMode::MODE_ID || eaModeId == AddressRegisterDirectMode::MODE_ID;
+    auto initCcrX = cpu->getCcrFlags() & GenieSys::CCR_EXTEND;
+    cpu->setCcrFlags(initCcrX | GenieSys::CCR_ZERO);
+    bool isRegisterEa = eaModeId == GenieSys::DataRegisterDirectMode::MODE_ID || eaModeId == GenieSys::AddressRegisterDirectMode::MODE_ID;
     switch(size) {
         case 0:
         case 1:
@@ -49,7 +51,7 @@ uint8_t CLR::execute(uint16_t opWord) {
     }
 }
 
-std::string CLR::disassemble(uint16_t opWord) {
+std::string GenieSys::CLR::disassemble(uint16_t opWord) {
     std::stringstream stream;
     uint8_t size = sizeMask.apply(opWord);
     uint8_t eaModeId = eaModeMask.apply(opWord);

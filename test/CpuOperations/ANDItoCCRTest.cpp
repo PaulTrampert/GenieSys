@@ -4,15 +4,18 @@
 
 #include <gtest/gtest.h>
 #include <GenieSys/CpuOperations/ANDItoCCR.h>
+#include <GenieSys/Bus.h>
+
+
 
 struct ANDItoCCRTest : testing::Test {
-    M68kCpu* cpu;
-    Bus bus;
-    ANDItoCCR* subject;
+    GenieSys::M68kCpu* cpu;
+    GenieSys::Bus bus;
+    GenieSys::ANDItoCCR* subject;
 
     ANDItoCCRTest() {
         cpu = bus.getCpu();
-        subject = new ANDItoCCR(cpu, &bus);
+        subject = new GenieSys::ANDItoCCR(cpu, &bus);
     }
 
     ~ANDItoCCRTest() override {
@@ -42,7 +45,7 @@ TEST_F(ANDItoCCRTest, ItCorrectlyUpdatesTheCcr) {
 
     subject->execute(0b0000000000111100);
 
-    ASSERT_EQ(CCR_EXTEND | CCR_ZERO | CCR_CARRY, cpu->getCcrFlags());
+    ASSERT_EQ(GenieSys::CCR_EXTEND | GenieSys::CCR_ZERO | GenieSys::CCR_CARRY, cpu->getCcrFlags());
 }
 
 TEST_F(ANDItoCCRTest, ItReturnsTheCorrectNumberOfClockCycles) {

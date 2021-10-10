@@ -7,16 +7,18 @@
 #include <GenieSys/Bus.h>
 #include <GenieSys/CpuOperations/BCLR.h>
 
+
+
 struct BCLRTest : testing::Test {
-    M68kCpu* cpu;
-    Bus bus;
-    BCLR* subject;
+    GenieSys::M68kCpu* cpu;
+    GenieSys::Bus bus;
+    GenieSys::BCLR* subject;
     uint16_t immModeOpWord = 0b0000100000000001; // BCLR $06,D1
     uint16_t dnModeOpWord = 0b0000011100000001; // BCLR D3,D1
 
     BCLRTest() {
         cpu = bus.getCpu();
-        subject = new BCLR(cpu, &bus);
+        subject = new GenieSys::BCLR(cpu, &bus);
     }
 
     ~BCLRTest() override {
@@ -48,7 +50,7 @@ TEST_F(BCLRTest, ImmMode_SetsCcrZero_WhenSpecifiedBitIsZero) {
     uint8_t cycles = subject->execute(immModeOpWord);
 
     ASSERT_EQ(14, cycles);
-    ASSERT_EQ(CCR_ZERO, (cpu->getCcrFlags() & CCR_ZERO));
+    ASSERT_EQ(GenieSys::CCR_ZERO, (cpu->getCcrFlags() & GenieSys::CCR_ZERO));
     ASSERT_EQ(0, cpu->getDataRegister(1));
 }
 
@@ -58,7 +60,7 @@ TEST_F(BCLRTest, ImmMode_DoesntSetCcrZero_WhenSpecifiedBitIsOne) {
     uint8_t cycles = subject->execute(immModeOpWord);
 
     ASSERT_EQ(14, cycles);
-    ASSERT_EQ(0, (cpu->getCcrFlags() & CCR_ZERO));
+    ASSERT_EQ(0, (cpu->getCcrFlags() & GenieSys::CCR_ZERO));
     ASSERT_EQ(0, cpu->getDataRegister(1));
 }
 
@@ -69,7 +71,7 @@ TEST_F(BCLRTest, DnMode_SetsCcrZero_WhenSpecifiedBitIsZero) {
     uint8_t cycles = subject->execute(dnModeOpWord);
 
     ASSERT_EQ(10, cycles);
-    ASSERT_EQ(CCR_ZERO, (cpu->getCcrFlags() & CCR_ZERO));
+    ASSERT_EQ(GenieSys::CCR_ZERO, (cpu->getCcrFlags() & GenieSys::CCR_ZERO));
     ASSERT_EQ(0, cpu->getDataRegister(1));
 }
 
@@ -80,6 +82,6 @@ TEST_F(BCLRTest, DnMode_DoesntSetCcrZero_WhenSpecifiedBitIsOne) {
     uint8_t cycles = subject->execute(dnModeOpWord);
 
     ASSERT_EQ(10, cycles);
-    ASSERT_EQ(0, (cpu->getCcrFlags() & CCR_ZERO));
+    ASSERT_EQ(0, (cpu->getCcrFlags() & GenieSys::CCR_ZERO));
     ASSERT_EQ(0, cpu->getDataRegister(1));
 }

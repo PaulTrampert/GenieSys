@@ -4,38 +4,45 @@
 
 #pragma once
 #include "CpuOperation.h"
-#include "../AddressingModes/AddressingMode.h"
+#include "../BitMask.h"
+#include "../enums.h"
+#include "../M68kCpu.h"
 
-/**
- * Documented on page 253 of docs/68KPM.pdf
- */
-class NOT : public CpuOperation {
-private:
-    BitMask<uint16_t> sizeMask = BitMask<uint16_t>(7, 2, 0, 2);
-    BitMask<uint16_t> eaModeMask = BitMask<uint16_t>(5, 3);
-    BitMask<uint16_t> eaRegMask = BitMask<uint16_t>(2, 3);
 
-    uint8_t notByte(AddressingResult* eaResult, uint8_t eaModeId);
-    uint8_t notWord(AddressingResult* eaResult, uint8_t eaModeId);
-    uint8_t notLong(AddressingResult* eaResult, uint8_t eaModeId);
+namespace GenieSys {
+    class AddressingResult;
 
-    template <class U, class S>
-    uint8_t getCcrFlags(U result) {
-        uint8_t ccr = cpu->getCcrFlags() & CCR_EXTEND;
-        if ((S) result < 0) {
-            ccr |= CCR_NEGATIVE;
+    /**
+     * Documented on page 253 of docs/68KPM.pdf
+     */
+    class NOT : public GenieSys::CpuOperation {
+    private:
+        BitMask<uint16_t> sizeMask = BitMask<uint16_t>(7, 2, 0, 2);
+        BitMask<uint16_t> eaModeMask = BitMask<uint16_t>(5, 3);
+        BitMask<uint16_t> eaRegMask = BitMask<uint16_t>(2, 3);
+
+        uint8_t notByte(AddressingResult* eaResult, uint8_t eaModeId);
+        uint8_t notWord(AddressingResult* eaResult, uint8_t eaModeId);
+        uint8_t notLong(AddressingResult* eaResult, uint8_t eaModeId);
+
+        template <class U, class S>
+        uint8_t getCcrFlags(U result) {
+            uint8_t ccr = cpu->getCcrFlags() & CCR_EXTEND;
+            if ((S) result < 0) {
+                ccr |= CCR_NEGATIVE;
+            }
+            if (result == 0) {
+                ccr |= CCR_ZERO;
+            }
+            return ccr;
         }
-        if (result == 0) {
-            ccr |= CCR_ZERO;
-        }
-        return ccr;
-    }
 
-public:
-    NOT(M68kCpu* cpu, Bus* bus);
+    public:
+        NOT(M68kCpu* cpu, Bus* bus);
 
-    uint8_t getSpecificity() override;
-    std::vector<uint16_t> getOpcodes() override;
-    uint8_t execute(uint16_t opWord) override;
-    std::string disassemble(uint16_t opWord) override;
-};
+        uint8_t getSpecificity() override;
+        std::vector<uint16_t> getOpcodes() override;
+        uint8_t execute(uint16_t opWord) override;
+        std::string disassemble(uint16_t opWord) override;
+    };
+}

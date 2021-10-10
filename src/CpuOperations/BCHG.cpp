@@ -6,20 +6,23 @@
 #include <GenieSys/AddressingModes/DataRegisterDirectMode.h>
 #include <GenieSys/AddressingModes/ProgramCounterAddressingMode.h>
 #include <GenieSys/AddressingModes/ImmediateDataMode.h>
+#include <GenieSys/M68kCpu.h>
 #include <sstream>
 
-BCHG::BCHG(M68kCpu *cpu, Bus *bus) : CpuOperation(cpu, bus) {
+
+
+GenieSys::BCHG::BCHG(GenieSys::M68kCpu *cpu, GenieSys::Bus *bus) : GenieSys::CpuOperation(cpu, bus) {
 
 }
 
-std::vector<uint16_t> BCHG::getOpcodes() {
-    auto results = getPossibleOpcodes((uint16_t)0b0000000101000000, std::vector<BitMask<uint16_t>*> {
+std::vector<uint16_t> GenieSys::BCHG::getOpcodes() {
+    auto results = GenieSys::getPossibleOpcodes((uint16_t)0b0000000101000000, std::vector<GenieSys::BitMask<uint16_t>*> {
         &DnMask,
         &EaModeMask,
         &EaAddrMask
     });
 
-    auto immModeResults = getPossibleOpcodes((uint16_t)0b0000100001000000, std::vector<BitMask<uint16_t>*> {
+    auto immModeResults = GenieSys::getPossibleOpcodes((uint16_t)0b0000100001000000, std::vector<GenieSys::BitMask<uint16_t>*> {
         &EaModeMask,
         &EaAddrMask
     });
@@ -30,27 +33,27 @@ std::vector<uint16_t> BCHG::getOpcodes() {
     return results;
 }
 
-uint8_t BCHG::getSpecificity() {
+uint8_t GenieSys::BCHG::getSpecificity() {
     return DnMask.getWidth() + ImmMask.getWidth() + EaModeMask.getWidth() + EaAddrMask.getWidth();
 }
 
-uint8_t BCHG::execute(uint16_t opWord) {
+uint8_t GenieSys::BCHG::execute(uint16_t opWord) {
     uint8_t cycles;
     bool imm = !ImmMask.apply(opWord);
     uint8_t eaModeId = EaModeMask.apply(opWord);
     uint8_t eaAddr = EaAddrMask.apply(opWord);
-    uint8_t destSize = eaModeId == DataRegisterDirectMode::MODE_ID ? 4 : 1;
+    uint8_t destSize = eaModeId == GenieSys::DataRegisterDirectMode::MODE_ID ? 4 : 1;
     uint8_t destSizeBits = destSize * 8;
     auto eaMode = cpu->getAddressingMode(eaModeId);
     uint32_t bitNum;
     if (imm) {
-        auto immMode = cpu->getAddressingMode(ProgramCounterAddressingMode::MODE_ID);
-        auto immData = immMode->getData(ImmediateDataMode::MODE_ID, 1);
+        auto immMode = cpu->getAddressingMode(GenieSys::ProgramCounterAddressingMode::MODE_ID);
+        auto immData = immMode->getData(GenieSys::ImmediateDataMode::MODE_ID, 1);
         bitNum = immData->getDataAsByte();
         cycles = 12;
     }
     else {
-        auto dn = cpu->getAddressingMode(DataRegisterDirectMode::MODE_ID);
+        auto dn = cpu->getAddressingMode(GenieSys::DataRegisterDirectMode::MODE_ID);
         auto dnData = dn->getData(DnMask.apply(opWord), 4);
         bitNum = dnData->getDataAsWord();
         cycles = 8;
@@ -58,9 +61,9 @@ uint8_t BCHG::execute(uint16_t opWord) {
     bitNum = bitNum % destSizeBits;
     auto eaData = eaMode->getData(eaAddr, destSize);
     uint32_t data = destSize == 4 ? eaData->getDataAsLong() : eaData->getDataAsByte();
-    BitMask<uint32_t> mask(bitNum, 1);
+    GenieSys::BitMask<uint32_t> mask(bitNum, 1);
     uint32_t bit = mask.apply(data);
-    auto result = bit == 0 ? CCR_ZERO : 0;
+    auto result = bit == 0 ? GenieSys::CCR_ZERO : 0;
     cpu->setCcrFlags((cpu->getCcrFlags() & ~result) | result);
     data = mask.compose(data, bit == 1 ? 0 : 1);
     if (destSize == 4) {
@@ -72,20 +75,20 @@ uint8_t BCHG::execute(uint16_t opWord) {
     return cycles + eaData->getCycles();
 }
 
-std::string BCHG::disassemble(uint16_t opWord) {
+std::string GenieSys::BCHG::disassemble(uint16_t opWord) {
     bool immMode = !ImmMask.apply(opWord);
     uint8_t eaModeId = EaModeMask.apply(opWord);
     uint8_t eaAddr = EaAddrMask.apply(opWord);
-    uint8_t destSize = eaModeId == DataRegisterDirectMode::MODE_ID ? 4 : 1;
+    uint8_t destSize = eaModeId == GenieSys::DataRegisterDirectMode::MODE_ID ? 4 : 1;
     auto eaMode = cpu->getAddressingMode(eaModeId);
     std::stringstream stream;
     if (immMode) {
-        auto imm = cpu->getAddressingMode(ProgramCounterAddressingMode::MODE_ID);
+        auto imm = cpu->getAddressingMode(GenieSys::ProgramCounterAddressingMode::MODE_ID);
         auto destData = eaMode->disassemble(eaAddr, destSize);
-        stream << "BCHG " << imm->disassemble(ImmediateDataMode::MODE_ID, 1) << "," << destData;
+        stream << "BCHG " << imm->disassemble(GenieSys::ImmediateDataMode::MODE_ID, 1) << "," << destData;
     }
     else {
-        auto dn = cpu->getAddressingMode(DataRegisterDirectMode::MODE_ID);
+        auto dn = cpu->getAddressingMode(GenieSys::DataRegisterDirectMode::MODE_ID);
         stream << "BCHG " << dn->disassemble(DnMask.apply(opWord), 4) << "," << eaMode->disassemble(eaAddr, destSize);
     }
     return stream.str();

@@ -6,14 +6,15 @@
 #include <GenieSys/Bus.h>
 #include <GenieSys/AddressingModes/AbsoluteLongAddressingMode.h>
 
+
 struct AbsoluteLongAddressingModeTest : testing::Test {
-    Bus bus;
-    M68kCpu* cpu;
-    AbsoluteLongAddressingMode* subject;
+    GenieSys::Bus bus;
+    GenieSys::M68kCpu* cpu;
+    GenieSys::AbsoluteLongAddressingMode* subject;
 
     AbsoluteLongAddressingModeTest() {
         cpu = bus.getCpu();
-        subject = new AbsoluteLongAddressingMode(cpu, &bus);
+        subject = new GenieSys::AbsoluteLongAddressingMode(cpu, &bus);
         cpu->setPc(32);
         bus.writeLong(32, 4096);
         bus.writeByte(4096, 55);

@@ -1,6 +1,6 @@
 set(GLOB HEADER_LIST "${GenieSys_SOURCE_DIR}/include/GenieSys/*.h")
 
-add_library(libGenieSys
+add_library(GenieSys
         Bus.cpp
         M68kCpu.cpp
         ExtensionWord.cpp
@@ -19,10 +19,10 @@ add_library(libGenieSys
         AddressingModes/ImmediateDataMode.cpp
         AddressingModes/ProgramCounterAddressingMode.cpp
         numberUtils.cpp
-        CpuOperations/Abcd.cpp
+        CpuOperations/ABCD.cpp
         CpuOperations/CpuOperation.cpp
-        CpuOperations/Add.cpp
-        CpuOperations/Nop.cpp
+        CpuOperations/ADD.cpp
+        CpuOperations/NOP.cpp
         CpuOperations/ORItoCCR.cpp
         CpuOperations/ORItoSR.cpp
         CpuOperations/ANDI.cpp
@@ -47,7 +47,7 @@ add_library(libGenieSys
         CpuOperations/MOVEtoSR.cpp
         CpuOperations/NEGX.cpp CpuOperations/CLR.cpp CpuOperations/NEG.cpp CpuOperations/NOT.cpp)
 
-target_include_directories(libGenieSys PUBLIC ../include)
+target_include_directories(GenieSys PUBLIC ../include)
 
 source_group(
         TREE "${PROJECT_SOURCE_DIR}/include"

@@ -3,13 +3,15 @@
 //
 #include <gtest/gtest.h>
 #include <GenieSys/CpuOperations/NEG.h>
+#include <GenieSys/Bus.h>
+
 
 
 class NEGTest : public ::testing::Test {
 public:
-    NEG* subject;
-    M68kCpu* cpu;
-    Bus bus;
+    GenieSys::NEG* subject;
+    GenieSys::M68kCpu* cpu;
+    GenieSys::Bus bus;
 
     uint16_t byteOp = 0b0100010000010000;
     uint16_t wordOp = 0b0100010001010000;
@@ -18,7 +20,7 @@ public:
 
     NEGTest() : Test() {
         cpu = bus.getCpu();
-        subject = new NEG(cpu, &bus);
+        subject = new GenieSys::NEG(cpu, &bus);
     }
 
     ~NEGTest() override {
@@ -48,7 +50,7 @@ TEST_F(NEGTest, ExecuteByte) {
 
     ASSERT_EQ(12, subject->execute(byteOp));
     ASSERT_EQ(-100, (int8_t)bus.read(600));
-    ASSERT_EQ(CCR_CARRY | CCR_EXTEND | CCR_NEGATIVE, cpu->getCcrFlags());
+    ASSERT_EQ(GenieSys::CCR_CARRY | GenieSys::CCR_EXTEND | GenieSys::CCR_NEGATIVE, cpu->getCcrFlags());
 }
 
 TEST_F(NEGTest, ExecuteWord) {
@@ -56,7 +58,7 @@ TEST_F(NEGTest, ExecuteWord) {
 
     ASSERT_EQ(12, subject->execute(wordOp));
     ASSERT_EQ(-100, (int16_t)bus.readWord(600));
-    ASSERT_EQ(CCR_CARRY | CCR_EXTEND | CCR_NEGATIVE, cpu->getCcrFlags());
+    ASSERT_EQ(GenieSys::CCR_CARRY | GenieSys::CCR_EXTEND | GenieSys::CCR_NEGATIVE, cpu->getCcrFlags());
 }
 
 TEST_F(NEGTest, ExecuteLong) {
@@ -64,5 +66,5 @@ TEST_F(NEGTest, ExecuteLong) {
 
     ASSERT_EQ(20, subject->execute(longOp));
     ASSERT_EQ(-100, (int32_t)bus.readLong(600));
-    ASSERT_EQ(CCR_CARRY | CCR_EXTEND | CCR_NEGATIVE, cpu->getCcrFlags());
+    ASSERT_EQ(GenieSys::CCR_CARRY | GenieSys::CCR_EXTEND | GenieSys::CCR_NEGATIVE, cpu->getCcrFlags());
 }

@@ -6,14 +6,16 @@
 #include <GenieSys/AddressingModes/AddressRegisterIndirectPostIncrementMode.h>
 #include <GenieSys/numberUtils.h>
 
+
+
 struct AddressRegisterIndirectPostIncrementModeTest : testing::Test {
-    Bus bus;
-    M68kCpu* cpu;
-    AddressRegisterIndirectPostIncrementMode* subject;
+    GenieSys::Bus bus;
+    GenieSys::M68kCpu* cpu;
+    GenieSys::AddressRegisterIndirectPostIncrementMode* subject;
 
     AddressRegisterIndirectPostIncrementModeTest() {
         cpu = bus.getCpu();
-        subject = new AddressRegisterIndirectPostIncrementMode(cpu, &bus);
+        subject = new GenieSys::AddressRegisterIndirectPostIncrementMode(cpu, &bus);
         cpu->setAddressRegister(2, 10);
         bus.writeLong(10, 0x12345678);
     }
@@ -34,12 +36,12 @@ TEST_F(AddressRegisterIndirectPostIncrementModeTest, ItGetsTheExpectedDataWhenSi
 
 TEST_F(AddressRegisterIndirectPostIncrementModeTest, ItGetsTheExpectedDataWhenSizeIsTwo) {
     const std::vector<uint8_t> &result = subject->getData(2, 2)->getData();
-    EXPECT_EQ(0x1234, bytesToWord(result));
+    EXPECT_EQ(0x1234, GenieSys::bytesToWord(result));
 }
 
 TEST_F(AddressRegisterIndirectPostIncrementModeTest, ItGetsTheExpectedDataWhenSizeIsFour) {
     const std::vector<uint8_t> &result = subject->getData(2, 4)->getData();
-    EXPECT_EQ(0x12345678, bytesToLong(result));
+    EXPECT_EQ(0x12345678, GenieSys::bytesToLong(result));
 }
 
 TEST_F(AddressRegisterIndirectPostIncrementModeTest, ItIncrementsTheAddressRegisterBySizeOne) {

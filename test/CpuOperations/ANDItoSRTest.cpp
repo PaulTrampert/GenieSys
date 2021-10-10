@@ -3,15 +3,18 @@
 //
 #include <gtest/gtest.h>
 #include <GenieSys/CpuOperations/ANDItoSR.h>
+#include <GenieSys/Bus.h>
+
+
 
 struct ANDItoSRTest : testing::Test {
-    M68kCpu* cpu;
-    Bus bus;
-    ANDItoSR* subject;
+    GenieSys::M68kCpu* cpu;
+    GenieSys::Bus bus;
+    GenieSys::ANDItoSR* subject;
 
     ANDItoSRTest() {
         cpu = bus.getCpu();
-        subject = new ANDItoSR(cpu, &bus);
+        subject = new GenieSys::ANDItoSR(cpu, &bus);
     }
 
     ~ANDItoSRTest() override {

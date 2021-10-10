@@ -4,15 +4,18 @@
 
 #include <gtest/gtest.h>
 #include <GenieSys/CpuOperations/ORItoCCR.h>
+#include <GenieSys/Bus.h>
+
+
 
 struct ORItoCCRTest : testing::Test {
-    M68kCpu* cpu;
-    Bus bus;
-    ORItoCCR* subject;
+    GenieSys::M68kCpu* cpu;
+    GenieSys::Bus bus;
+    GenieSys::ORItoCCR* subject;
 
     ORItoCCRTest() {
         cpu = bus.getCpu();
-        subject = new ORItoCCR(cpu, &bus);
+        subject = new GenieSys::ORItoCCR(cpu, &bus);
     }
 
     ~ORItoCCRTest() override {
@@ -42,7 +45,7 @@ TEST_F(ORItoCCRTest, ItCorrectlyUpdatesTheCcr) {
 
     subject->execute(0b0000000000111100);
 
-    ASSERT_EQ(CCR_EXTEND | CCR_ZERO | CCR_CARRY, cpu->getCcrFlags());
+    ASSERT_EQ(GenieSys::CCR_EXTEND | GenieSys::CCR_ZERO | GenieSys::CCR_CARRY, cpu->getCcrFlags());
 }
 
 TEST_F(ORItoCCRTest, ItReturnsTheCorrectNumberOfClockCycles) {

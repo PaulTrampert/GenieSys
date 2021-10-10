@@ -9,15 +9,17 @@
 #include <GenieSys/Bus.h>
 #include <GenieSys/AddressingModes/DataRegisterDirectMode.h>
 
+
+
 struct DataRegisterDirectModeTest : testing::Test {
-    Bus bus;
-    M68kCpu* cpu;
-    DataRegisterDirectMode* subject;
+    GenieSys::Bus bus;
+    GenieSys::M68kCpu* cpu;
+    GenieSys::DataRegisterDirectMode* subject;
 
     DataRegisterDirectModeTest() {
         cpu = bus.getCpu();
         cpu->setDataRegister(3, (uint32_t)9999);
-        subject = new DataRegisterDirectMode(cpu, &bus);
+        subject = new GenieSys::DataRegisterDirectMode(cpu, &bus);
     }
 
     ~DataRegisterDirectModeTest() override {

@@ -4,17 +4,20 @@
 
 #include <gtest/gtest.h>
 #include <GenieSys/CpuOperations/ANDI.h>
+#include <GenieSys/Bus.h>
+
+
 
 static uint16_t BASE_OPCODE = 0b0000001000000000;
 
 struct ANDITest : testing::Test {
-    M68kCpu* cpu;
-    Bus bus;
-    ANDI* subject;
+    GenieSys::M68kCpu* cpu;
+    GenieSys::Bus bus;
+    GenieSys::ANDI* subject;
 
     ANDITest() {
         cpu = bus.getCpu();
-        subject = new ANDI(cpu, &bus);
+        subject = new GenieSys::ANDI(cpu, &bus);
     }
 
     ~ANDITest() override {
@@ -30,7 +33,7 @@ TEST_F(ANDITest, ItAndsBytes) {
     uint8_t cycles = subject->execute(0b0000001000010000);
     ASSERT_EQ(16, cycles);
     ASSERT_EQ(0xA0, bus.read(600));
-    ASSERT_EQ(CCR_NEGATIVE, cpu->getCcrFlags());
+    ASSERT_EQ(GenieSys::CCR_NEGATIVE, cpu->getCcrFlags());
 }
 
 TEST_F(ANDITest, ItAndsWords) {

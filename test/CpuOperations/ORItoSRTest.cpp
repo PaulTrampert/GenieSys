@@ -3,15 +3,18 @@
 //
 #include <gtest/gtest.h>
 #include <GenieSys/CpuOperations/ORItoSR.h>
+#include <GenieSys/Bus.h>
+
+
 
 struct ORItoSRTest : testing::Test {
-    M68kCpu* cpu;
-    Bus bus;
-    ORItoSR* subject;
+    GenieSys::M68kCpu* cpu;
+    GenieSys::Bus bus;
+    GenieSys::ORItoSR* subject;
 
     ORItoSRTest() {
         cpu = bus.getCpu();
-        subject = new ORItoSR(cpu, &bus);
+        subject = new GenieSys::ORItoSR(cpu, &bus);
     }
 
     ~ORItoSRTest() override {

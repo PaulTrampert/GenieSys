@@ -6,14 +6,16 @@
 #include <GenieSys/Bus.h>
 #include <GenieSys/AddressingModes/AbsoluteShortAddressingMode.h>
 
+
+
 struct AbsoluteShortAddressingModeTest : testing::Test {
-    Bus bus;
-    M68kCpu* cpu;
-    AbsoluteShortAddressingMode* subject;
+    GenieSys::Bus bus;
+    GenieSys::M68kCpu* cpu;
+    GenieSys::AbsoluteShortAddressingMode* subject;
 
     AbsoluteShortAddressingModeTest() {
         cpu = bus.getCpu();
-        subject = new AbsoluteShortAddressingMode(cpu, &bus);
+        subject = new GenieSys::AbsoluteShortAddressingMode(cpu, &bus);
         cpu->setPc(32);
         bus.writeWord(32, 9001);
         bus.writeByte(9001, 42);

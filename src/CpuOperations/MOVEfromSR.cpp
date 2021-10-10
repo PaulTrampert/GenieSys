@@ -8,28 +8,30 @@
 #include <vector>
 #include <GenieSys/AddressingModes/DataRegisterDirectMode.h>
 #include <sstream>
+#include <GenieSys/M68kCpu.h>
 
-MOVEfromSR::MOVEfromSR(M68kCpu *cpu, Bus *bus) : CpuOperation(cpu, bus) {
+
+GenieSys::MOVEfromSR::MOVEfromSR(GenieSys::M68kCpu *cpu, GenieSys::Bus *bus) : GenieSys::CpuOperation(cpu, bus) {
 
 }
 
-std::vector<uint16_t> MOVEfromSR::getOpcodes() {
-    return getPossibleOpcodes((uint16_t)0b0100001011000000, std::vector<BitMask<uint16_t>*> {
+std::vector<uint16_t> GenieSys::MOVEfromSR::getOpcodes() {
+    return GenieSys::getPossibleOpcodes((uint16_t)0b0100001011000000, std::vector<GenieSys::BitMask<uint16_t>*> {
         &eaModeMask,
         &eaRegMask
     });
 }
 
-uint8_t MOVEfromSR::execute(uint16_t opWord) {
+uint8_t GenieSys::MOVEfromSR::execute(uint16_t opWord) {
     uint8_t eaModeId = eaModeMask.apply(opWord);
     auto eaMode = cpu->getAddressingMode(eaModeId);
     uint8_t eaReg = eaRegMask.apply(opWord);
     auto eaResult = eaMode->getData(eaReg, 2);
     eaResult->write(cpu->getSR());
-    return (eaModeId == DataRegisterDirectMode::MODE_ID ? 6 : 8) + eaResult->getCycles();
+    return (eaModeId == GenieSys::DataRegisterDirectMode::MODE_ID ? 6 : 8) + eaResult->getCycles();
 }
 
-std::string MOVEfromSR::disassemble(uint16_t opWord) {
+std::string GenieSys::MOVEfromSR::disassemble(uint16_t opWord) {
     uint8_t eaModeId = eaModeMask.apply(opWord);
     auto eaMode = cpu->getAddressingMode(eaModeId);
     uint8_t eaReg = eaRegMask.apply(opWord);
@@ -38,6 +40,6 @@ std::string MOVEfromSR::disassemble(uint16_t opWord) {
     return stream.str();
 }
 
-uint8_t MOVEfromSR::getSpecificity() {
+uint8_t GenieSys::MOVEfromSR::getSpecificity() {
     return eaModeMask.getWidth() + eaRegMask.getWidth();
 }

@@ -1,3 +1,3 @@
-add_executable(GenieSys main.cpp)
+add_executable(GenieSysEmu main.cpp)
 
-target_link_libraries(GenieSys PRIVATE libGenieSys)
+target_link_libraries(GenieSysEmu PRIVATE GenieSys)

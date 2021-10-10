@@ -4,15 +4,18 @@
 
 #include <gtest/gtest.h>
 #include <GenieSys/CpuOperations/EORI.h>
+#include <GenieSys/Bus.h>
+
+
 
 struct EORITest : testing::Test {
-    M68kCpu* cpu;
-    Bus bus;
-    EORI* subject;
+    GenieSys::M68kCpu* cpu;
+    GenieSys::Bus bus;
+    GenieSys::EORI* subject;
 
     EORITest() {
         cpu = bus.getCpu();
-        subject = new EORI(cpu, &bus);
+        subject = new GenieSys::EORI(cpu, &bus);
     }
 
     ~EORITest() override {

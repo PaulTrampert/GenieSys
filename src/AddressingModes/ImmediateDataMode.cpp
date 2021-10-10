@@ -4,22 +4,26 @@
 
 #include <memory>
 #include <GenieSys/numberUtils.h>
+#include <GenieSys/M68kCpu.h>
+#include <GenieSys/Bus.h>
 #include "GenieSys/AddressingModes/ImmediateDataMode.h"
 
-ImmediateDataMode::ImmediateDataMode(M68kCpu *cpu, Bus *bus) : AddressingMode(cpu, bus) {
+
+
+GenieSys::ImmediateDataMode::ImmediateDataMode(GenieSys::M68kCpu *cpu, GenieSys::Bus *bus) : AddressingMode(cpu, bus) {
     cycles = 4;
     longCycles = 8;
 }
 
-uint32_t ImmediateDataMode::getAddress(uint8_t regAddr) {
+uint32_t GenieSys::ImmediateDataMode::getAddress(uint8_t regAddr) {
     return cpu->getPc();
 }
 
-uint8_t ImmediateDataMode::getModeId() {
+uint8_t GenieSys::ImmediateDataMode::getModeId() {
     return MODE_ID;
 }
 
-std::unique_ptr<AddressingResult> ImmediateDataMode::getData(uint8_t regAddr, uint8_t size) {
+std::unique_ptr<GenieSys::AddressingResult> GenieSys::ImmediateDataMode::getData(uint8_t regAddr, uint8_t size) {
     uint32_t address = getAddress(regAddr);
     uint8_t incrSize = size;
     if (size == 1) {
@@ -27,10 +31,10 @@ std::unique_ptr<AddressingResult> ImmediateDataMode::getData(uint8_t regAddr, ui
         address++;
     }
     cpu->incrementPc(incrSize);
-    return std::make_unique<AddressingResult>(cpu, bus, address, bus->read(address, size), size > 2 ? longCycles : cycles, this->getMoveCycleKey());
+    return std::make_unique<GenieSys::AddressingResult>(cpu, bus, address, bus->read(address, size), size > 2 ? longCycles : cycles, this->getMoveCycleKey());
 }
 
-std::string ImmediateDataMode::disassemble(uint8_t regAddr, uint8_t size) {
+std::string GenieSys::ImmediateDataMode::disassemble(uint8_t regAddr, uint8_t size) {
     uint32_t address = getAddress(regAddr);
     uint8_t incrSize = size;
     if (size == 1) {
@@ -38,9 +42,9 @@ std::string ImmediateDataMode::disassemble(uint8_t regAddr, uint8_t size) {
         address++;
     }
     cpu->incrementPc(incrSize);
-    return "$" + toHex(bus->read(address, size));
+    return "$" + GenieSys::toHex(bus->read(address, size));
 }
 
-uint8_t ImmediateDataMode::getMoveCycleKey() {
+uint8_t GenieSys::ImmediateDataMode::getMoveCycleKey() {
     return 11;
 }

@@ -7,8 +7,9 @@
 #include <gtest/gtest.h>
 #include <GenieSys/Bus.h>
 
+
 struct BusTest : testing::Test {
-    Bus* bus;
+    GenieSys::Bus* bus;
 
     BusTest();
     virtual ~BusTest();

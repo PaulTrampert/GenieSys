@@ -3,17 +3,20 @@
 //
 #include <gtest/gtest.h>
 #include <GenieSys/CpuOperations/MOVEtoCCR.h>
+#include <GenieSys/Bus.h>
+
+
 
 struct MOVEtoCCRTest : testing::Test {
-    M68kCpu* cpu;
-    Bus bus;
-    MOVEtoCCR* subject;
+    GenieSys::M68kCpu* cpu;
+    GenieSys::Bus bus;
+    GenieSys::MOVEtoCCR* subject;
 
     uint16_t opWord = 0b0100010011010000;
 
     MOVEtoCCRTest() {
         cpu = bus.getCpu();
-        subject = new MOVEtoCCR(cpu, &bus);
+        subject = new GenieSys::MOVEtoCCR(cpu, &bus);
     }
 
     ~MOVEtoCCRTest() override {

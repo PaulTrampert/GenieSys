@@ -3,20 +3,22 @@
 //
 
 #include "GenieSys/AddressingModes/AddressRegisterIndirectMode.h"
+#include <GenieSys/M68kCpu.h>
 
-AddressRegisterIndirectMode::AddressRegisterIndirectMode(M68kCpu *cpu, Bus *bus) : AddressingMode(cpu, bus) {
+
+GenieSys::AddressRegisterIndirectMode::AddressRegisterIndirectMode(GenieSys::M68kCpu *cpu, GenieSys::Bus *bus) : AddressingMode(cpu, bus) {
     cycles = 4;
     longCycles = 8;
 }
 
-uint32_t AddressRegisterIndirectMode::getAddress(uint8_t regAddr) {
+uint32_t GenieSys::AddressRegisterIndirectMode::getAddress(uint8_t regAddr) {
     return cpu->getAddressRegister(regAddr);
 }
 
-uint8_t AddressRegisterIndirectMode::getModeId() {
+uint8_t GenieSys::AddressRegisterIndirectMode::getModeId() {
     return MODE_ID;
 }
 
-std::string AddressRegisterIndirectMode::disassemble(uint8_t regAddr, uint8_t size) {
+std::string GenieSys::AddressRegisterIndirectMode::disassemble(uint8_t regAddr, uint8_t size) {
     return "(A" + std::to_string(regAddr) + ")";
 }

@@ -6,12 +6,12 @@
 
 TEST(signExtend, ItSignExtendsByteToInt) {
     uint8_t byte = 0xF0;
-    int32_t result = signExtend<int32_t>(byte, 8);
+    int32_t result = GenieSys::signExtend<int32_t>(byte, 8);
     EXPECT_EQ(-16, result);
 }
 
 TEST(signExtend, ItSignExtendsInt16ToInt) {
     uint16_t uint16 = 0xFFF0;
-    int32_t result = signExtend<int32_t>(uint16, 16);
+    int32_t result = GenieSys::signExtend<int32_t>(uint16, 16);
     EXPECT_EQ(-16, result);
 }

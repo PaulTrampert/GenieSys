@@ -4,17 +4,20 @@
 
 #include <gtest/gtest.h>
 #include <GenieSys/CpuOperations/CMPI.h>
+#include <GenieSys/Bus.h>
+
+
 
 static uint16_t BASE_OPCODE = 0b0000010000000000;
 
 struct CMPITest : testing::Test {
-    M68kCpu* cpu;
-    Bus bus;
-    CMPI* subject;
+    GenieSys::M68kCpu* cpu;
+    GenieSys::Bus bus;
+    GenieSys::CMPI* subject;
 
     CMPITest() {
         cpu = bus.getCpu();
-        subject = new CMPI(cpu, &bus);
+        subject = new GenieSys::CMPI(cpu, &bus);
     }
 
     ~CMPITest() override {
@@ -30,7 +33,7 @@ TEST_F(CMPITest, ItComparesBytes) {
     uint8_t cycles = subject->execute(0b0000110000010000);
     ASSERT_EQ(12, cycles);
     ASSERT_EQ(0xAB, bus.read(600));
-    ASSERT_EQ(CCR_EXTEND | CCR_CARRY | CCR_NEGATIVE, cpu->getCcrFlags());
+    ASSERT_EQ(GenieSys::CCR_EXTEND | GenieSys::CCR_CARRY | GenieSys::CCR_NEGATIVE, cpu->getCcrFlags());
 }
 
 TEST_F(CMPITest, ItComparesWords) {

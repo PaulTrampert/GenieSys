@@ -8,17 +8,19 @@
 #include <GenieSys/signExtend.h>
 #include <cmath>
 #include <sstream>
+#include <GenieSys/M68kCpu.h>
 
-MOVEA::MOVEA(M68kCpu *cpu, Bus *bus) : CpuOperation(cpu, bus) {
+
+GenieSys::MOVEA::MOVEA(GenieSys::M68kCpu *cpu, GenieSys::Bus *bus) : GenieSys::CpuOperation(cpu, bus) {
 
 }
 
-uint8_t MOVEA::getSpecificity() {
+uint8_t GenieSys::MOVEA::getSpecificity() {
     return sizeMask.getWidth() + destMask.getWidth() + eaModeMask.getWidth() + eaAddrMask.getWidth();
 }
 
-std::vector<uint16_t> MOVEA::getOpcodes() {
-    return getPossibleOpcodes((uint16_t) 0b0000000001000000, std::vector<BitMask<uint16_t>*> {
+std::vector<uint16_t> GenieSys::MOVEA::getOpcodes() {
+    return GenieSys::getPossibleOpcodes((uint16_t) 0b0000000001000000, std::vector<GenieSys::BitMask<uint16_t>*> {
        &sizeMask,
        &destMask,
        &eaModeMask,
@@ -26,7 +28,7 @@ std::vector<uint16_t> MOVEA::getOpcodes() {
     });
 }
 
-uint8_t MOVEA::execute(uint16_t opWord) {
+uint8_t GenieSys::MOVEA::execute(uint16_t opWord) {
     uint8_t size = sizeMask.apply(opWord);
     uint8_t sizeBytes = size == 3 ? 2 : 4;
     uint8_t destReg = destMask.apply(opWord);
@@ -36,7 +38,7 @@ uint8_t MOVEA::execute(uint16_t opWord) {
     auto eaResult = eaMode->getData(eaAddr, sizeBytes);
     uint32_t regData;
     if (sizeBytes == 2) {
-        regData = signExtend<uint32_t>(eaResult->getDataAsWord(), 16);
+        regData = GenieSys::signExtend<uint32_t>(eaResult->getDataAsWord(), 16);
     }
     else {
         regData = eaResult->getDataAsLong();
@@ -45,7 +47,7 @@ uint8_t MOVEA::execute(uint16_t opWord) {
     return 4 + eaResult->getCycles();
 }
 
-std::string MOVEA::disassemble(uint16_t opWord) {
+std::string GenieSys::MOVEA::disassemble(uint16_t opWord) {
     uint8_t size = sizeMask.apply(opWord);
     uint8_t sizeBytes = size == 3 ? 2 : 4;
     uint8_t destReg = destMask.apply(opWord);
