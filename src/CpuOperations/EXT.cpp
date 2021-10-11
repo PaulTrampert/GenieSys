@@ -10,6 +10,10 @@
 #include <GenieSys/CpuOperations/EXT.h>
 #include <GenieSys/AddressingModes/DataRegisterDirectMode.h>
 
+GenieSys::EXT::EXT(GenieSys::M68kCpu *cpu, GenieSys::Bus *bus) : CpuOperation(cpu, bus) {
+
+}
+
 std::vector<uint16_t> GenieSys::EXT::getOpcodes() {
     std::vector<uint16_t> btw = getPossibleOpcodes((uint16_t)0b0100100010000000, &regMask);
     std::vector<uint16_t> wtl = getPossibleOpcodes((uint16_t)0b0100100011000000, &regMask);
@@ -37,7 +41,7 @@ uint8_t GenieSys::EXT::execute(uint16_t opWord) {
             break;
         case CPU_INSTR_EXT_WORD_TO_LONG:
             regData &= 0x0000FFFF;
-            regData = signExtend<uint32_t>((uint8_t)regData, 16);
+            regData = signExtend<uint32_t>((uint16_t)regData, 16);
             cpu->setDataRegister(reg, regData);
             negative = (int32_t)regData < 0;
             break;
