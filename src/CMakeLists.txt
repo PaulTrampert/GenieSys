@@ -45,7 +45,12 @@ add_library(GenieSys
         CpuOperations/MOVEfromSR.cpp
         CpuOperations/MOVEtoCCR.cpp
         CpuOperations/MOVEtoSR.cpp
-        CpuOperations/NEGX.cpp CpuOperations/CLR.cpp CpuOperations/NEG.cpp CpuOperations/NOT.cpp CpuOperations/EXT.cpp CpuOperations/NBCD.cpp)
+        CpuOperations/NEGX.cpp
+        CpuOperations/CLR.cpp
+        CpuOperations/NEG.cpp
+        CpuOperations/NOT.cpp
+        CpuOperations/EXT.cpp
+        CpuOperations/NBCD.cpp CpuOperations/SWAP.cpp)
 
 target_include_directories(GenieSys PUBLIC ../include)
 
