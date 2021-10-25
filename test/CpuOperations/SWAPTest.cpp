@@ -30,4 +30,5 @@ TEST_F(SWAPTest, Execute) {
     cpu->setDataRegister(2, 0xBBBBAAAA);
     ASSERT_EQ(4, subject->execute(opWord));
     ASSERT_EQ(0xAAAABBBB, cpu->getDataRegister(2));
+    ASSERT_EQ(GenieSys::CCR_NEGATIVE, cpu->getCcrFlags());
 }

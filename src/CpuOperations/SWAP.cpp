@@ -26,6 +26,14 @@ uint8_t GenieSys::SWAP::execute(uint16_t opWord) {
     uint32_t data = cpu->getDataRegister(reg);
     uint32_t result = ((data << 16) & 0xFFFF0000) | ((data >> 16) & 0x0000FFFF);
     cpu->setDataRegister(reg, result);
+    uint8_t ccr = cpu->getCcrFlags() & CCR_EXTEND;
+    if ((int32_t)result < 0) {
+        ccr |= CCR_NEGATIVE;
+    }
+    if (result == 0) {
+        ccr |= CCR_ZERO;
+    }
+    cpu->setCcrFlags(ccr);
     return 4;
 }
 
