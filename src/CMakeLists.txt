@@ -50,7 +50,9 @@ add_library(GenieSys
         CpuOperations/NEG.cpp
         CpuOperations/NOT.cpp
         CpuOperations/EXT.cpp
-        CpuOperations/NBCD.cpp CpuOperations/SWAP.cpp)
+        CpuOperations/NBCD.cpp
+        CpuOperations/SWAP.cpp
+        CpuOperations/PEA.cpp)
 
 target_include_directories(GenieSys PUBLIC ../include)
 

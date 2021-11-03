@@ -80,3 +80,7 @@ uint8_t GenieSys::AddressingResult::getCycles() {
 uint8_t GenieSys::AddressingResult::getMoveCycleKey() {
     return moveCycleKey;
 }
+
+uint32_t GenieSys::AddressingResult::getAddress() {
+    return address;
+}
