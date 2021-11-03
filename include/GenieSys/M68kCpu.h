@@ -49,6 +49,7 @@ namespace GenieSys {
          * Condition code register
          */
         uint16_t SRandCCR = 0;
+        uint32_t ssp = 0;
 
         BitMask<uint16_t> supervisorState = BitMask<uint16_t>(13, 1);
         BitMask<uint16_t> masterInterruptState = BitMask<uint16_t>(12, 1);

@@ -142,10 +142,10 @@ bool GenieSys::M68kCpu::isSupervisor() {
 
 void GenieSys::M68kCpu::trap(uint8_t vector) {
     SRandCCR = supervisorState.compose(SRandCCR, 1);
-    SP -= 4;
-    bus->writeLong(SP, pc);
-    SP -= 2;
-    bus->writeWord(SP, SRandCCR);
+    ssp -= 4;
+    bus->writeLong(ssp, pc);
+    ssp -= 2;
+    bus->writeWord(ssp, SRandCCR);
     pc = bus->readLong(4 * vector);
 }
 
