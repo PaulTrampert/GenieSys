@@ -18,7 +18,7 @@
 #include <GenieSys/CpuOperations/CpuOperation.h>
 #include <GenieSys/CpuOperations/NOP.h>
 
-
+#define SP addressRegisters[7]
 
 GenieSys::M68kCpu::M68kCpu() {
     for (auto & mode : addressingModes) {
@@ -147,4 +147,8 @@ void GenieSys::M68kCpu::trap(uint8_t vector) {
     ssp -= 2;
     bus->writeWord(ssp, SRandCCR);
     pc = bus->readLong(4 * vector);
+}
+
+uint8_t GenieSys::M68kCpu::getUspRegister() {
+    return 7;
 }

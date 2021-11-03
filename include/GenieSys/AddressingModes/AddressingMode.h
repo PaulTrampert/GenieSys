@@ -32,6 +32,7 @@ namespace GenieSys {
         uint8_t getDataAsByte();
         uint16_t getDataAsWord();
         uint32_t getDataAsLong();
+        uint32_t getAddress();
         virtual void write(std::vector<uint8_t> data);
         virtual void write(uint8_t data);
         virtual void write(uint16_t data);

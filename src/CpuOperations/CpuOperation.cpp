@@ -33,7 +33,7 @@
 #include <GenieSys/CpuOperations/CLR.h>
 #include <GenieSys/CpuOperations/NEG.h>
 #include <GenieSys/CpuOperations/NOT.h>
-
+#include <GenieSys/CpuOperations/PEA.h>
 
 
 GenieSys::CpuOperation::CpuOperation(GenieSys::M68kCpu *cpu, GenieSys::Bus *bus) {
@@ -71,6 +71,7 @@ std::vector<std::shared_ptr<GenieSys::CpuOperation>> GenieSys::getOperations(Gen
             std::shared_ptr<GenieSys::CpuOperation>(new ORI(cpu, bus)),
             std::shared_ptr<GenieSys::CpuOperation>(new ORItoCCR(cpu, bus)),
             std::shared_ptr<GenieSys::CpuOperation>(new ORItoSR(cpu, bus)),
+            std::shared_ptr<GenieSys::CpuOperation>(new PEA(cpu, bus)),
             std::shared_ptr<GenieSys::CpuOperation>(new SUBI(cpu, bus))
     };
 
