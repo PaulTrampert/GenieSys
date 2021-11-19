@@ -52,7 +52,7 @@ add_library(GenieSys
         CpuOperations/EXT.cpp
         CpuOperations/NBCD.cpp
         CpuOperations/SWAP.cpp
-        CpuOperations/PEA.cpp CpuOperations/ILLEGAL.cpp)
+        CpuOperations/PEA.cpp CpuOperations/ILLEGAL.cpp CpuOperations/TAS.cpp)
 
 target_include_directories(GenieSys PUBLIC ../include)
 

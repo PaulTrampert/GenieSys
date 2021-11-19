@@ -35,6 +35,7 @@
 #include <GenieSys/CpuOperations/NOT.h>
 #include <GenieSys/CpuOperations/PEA.h>
 #include <GenieSys/CpuOperations/ILLEGAL.h>
+#include <GenieSys/CpuOperations/TAS.h>
 
 
 GenieSys::CpuOperation::CpuOperation(GenieSys::M68kCpu *cpu, GenieSys::Bus *bus) {
@@ -74,7 +75,8 @@ std::vector<std::shared_ptr<GenieSys::CpuOperation>> GenieSys::getOperations(Gen
             std::shared_ptr<GenieSys::CpuOperation>(new ORItoCCR(cpu, bus)),
             std::shared_ptr<GenieSys::CpuOperation>(new ORItoSR(cpu, bus)),
             std::shared_ptr<GenieSys::CpuOperation>(new PEA(cpu, bus)),
-            std::shared_ptr<GenieSys::CpuOperation>(new SUBI(cpu, bus))
+            std::shared_ptr<GenieSys::CpuOperation>(new SUBI(cpu, bus)),
+            std::shared_ptr<GenieSys::CpuOperation>(new TAS(cpu, bus))
     };
 
     std::sort(operations.begin(), operations.end(), GenieSys::compare);
