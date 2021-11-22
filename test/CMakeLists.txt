@@ -59,7 +59,12 @@ add_executable(testGenieSys
         CpuOperations/NEGTest.cpp
         CpuOperations/NOTTest.cpp
         CpuOperations/EXTTest.cpp
-        getCcrFlags.cpp CpuOperations/NBCDTest.cpp CpuOperations/SWAPTest.cpp CpuOperations/PEATest.cpp CpuOperations/ILLEGALTest.cpp)
+        getCcrFlags.cpp
+        CpuOperations/NBCDTest.cpp
+        CpuOperations/SWAPTest.cpp
+        CpuOperations/PEATest.cpp
+        CpuOperations/ILLEGALTest.cpp
+        CpuOperations/TASTest.cpp CpuOperations/TSTTest.cpp)
 
 target_link_libraries(testGenieSys PRIVATE GenieSys gtest gmock)
 

@@ -61,14 +61,94 @@ TEST_P(TASTest, Disassemble) {
 
 INSTANTIATE_TEST_SUITE_P(TAS, TASTest,
     testing::Values(
-            TASTestParams{"Data_register_EA_with_value_0_and_cleared_CCR", 0, 0, 0, 1, 4, 0b10000000, CCR_ZERO, "TAS D1"},
-            TASTestParams{"Data_register_EA_with_negative_value_and_cleared_CCR", 0xF4, 0, 0, 1, 4, 0xF4, CCR_NEGATIVE, "TAS D1"},
-            TASTestParams{"Data_register_EA_with_positive_value_and_cleared_CCR", 0x04, 0, 0, 1, 4, 0x84, 0, "TAS D1"},
-            TASTestParams{"Data_register_EA_with_positive_value_and_full_CCR", 0x04, 0xFF, 0, 1, 4, 0x84, CCR_EXTEND, "TAS D1"},
-            TASTestParams{"Address_register_indirect_EA_with_value_0_and_cleared_CCR", 0, 0, 2, 1, 12, 0b10000000, CCR_ZERO, "TAS (A1)"},
-            TASTestParams{"Address_register_indirect_EA_with_negative_value_and_cleared_CCR", 0xF4, 0, 2, 1, 12, 0xF4, CCR_NEGATIVE, "TAS (A1)"},
-            TASTestParams{"Address_register_indirect_EA_with_positive_value_and_cleared_CCR", 0x04, 0, 2, 1, 12, 0x84, 0, "TAS (A1)"},
-            TASTestParams{"Address_register_indirect_EA_with_positive_value_and_full_CCR", 0x04, 0xFF, 2, 1, 12, 0x84, CCR_EXTEND, "TAS (A1)"}
+            TASTestParams {
+                .name = "Data_register_EA_with_value_0_and_cleared_CCR",
+                .data = 0,
+                .ccr = 0,
+                .eaMode = 0,
+                .eaReg = 1,
+                .expectedCycles = 4,
+                .expectedResultData = 0b10000000,
+                .expectedCcr = CCR_ZERO,
+                .expectedDisassembly = "TAS D1"
+            },
+            TASTestParams {
+                .name = "Data_register_EA_with_negative_value_and_cleared_CCR",
+                .data = 0xF4,
+                .ccr = 0,
+                .eaMode = 0,
+                .eaReg = 1,
+                .expectedCycles = 4,
+                .expectedResultData = 0xF4,
+                .expectedCcr = CCR_NEGATIVE,
+                .expectedDisassembly = "TAS D1"
+            },
+            TASTestParams {
+                .name = "Data_register_EA_with_positive_value_and_cleared_CCR",
+                .data = 0x04,
+                .ccr = 0,
+                .eaMode = 0,
+                .eaReg = 1,
+                .expectedCycles = 4,
+                .expectedResultData = 0x84,
+                .expectedCcr = 0,
+                .expectedDisassembly = "TAS D1"
+            },
+            TASTestParams {
+                .name = "Data_register_EA_with_positive_value_and_full_CCR",
+                .data = 0x04,
+                .ccr = 0xFF,
+                .eaMode = 0,
+                .eaReg = 1,
+                .expectedCycles = 4,
+                .expectedResultData = 0x84,
+                .expectedCcr = CCR_EXTEND,
+                .expectedDisassembly = "TAS D1"
+            },
+            TASTestParams {
+                .name = "Address_register_indirect_EA_with_value_0_and_cleared_CCR",
+                .data = 0,
+                .ccr = 0,
+                .eaMode = 2,
+                .eaReg = 1,
+                .expectedCycles = 12,
+                .expectedResultData = 0b10000000,
+                .expectedCcr = CCR_ZERO,
+                .expectedDisassembly = "TAS (A1)"
+            },
+            TASTestParams {
+                .name = "Address_register_indirect_EA_with_negative_value_and_cleared_CCR",
+                .data = 0xF4,
+                .ccr = 0,
+                .eaMode = 2,
+                .eaReg = 1,
+                .expectedCycles = 12,
+                .expectedResultData = 0xF4,
+                .expectedCcr = CCR_NEGATIVE,
+                .expectedDisassembly = "TAS (A1)"
+            },
+            TASTestParams {
+                .name = "Address_register_indirect_EA_with_positive_value_and_cleared_CCR",
+                .data = 0x04,
+                .ccr = 0,
+                .eaMode = 2,
+                .eaReg = 1,
+                .expectedCycles = 12,
+                .expectedResultData = 0x84,
+                .expectedCcr = 0,
+                .expectedDisassembly = "TAS (A1)"
+            },
+            TASTestParams {
+                .name = "Address_register_indirect_EA_with_positive_value_and_full_CCR",
+                .data = 0x04,
+                .ccr = 0xFF,
+                .eaMode = 2,
+                .eaReg = 1,
+                .expectedCycles = 12,
+                .expectedResultData = 0x84,
+                .expectedCcr = CCR_EXTEND,
+                .expectedDisassembly = "TAS (A1)"
+            }
     ),
     [](const ::testing::TestParamInfo<TASTestParams>& info) {
         return info.param.name;
