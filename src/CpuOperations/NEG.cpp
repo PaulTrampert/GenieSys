@@ -61,7 +61,7 @@ uint8_t GenieSys::NEG::execute(uint16_t opWord) {
             cycles = isRegisterEa ? 6 : (12 + eaResult->getCycles());
             break;
         default:
-            cpu->trap(GenieSys::TV_ILLEGAL_INSTR);
+            return cpu->trap(GenieSys::TV_ILLEGAL_INSTR);
     }
     return cycles;
 }

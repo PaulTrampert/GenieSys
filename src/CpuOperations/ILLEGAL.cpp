@@ -18,8 +18,7 @@ std::vector<uint16_t> GenieSys::ILLEGAL::getOpcodes() {
 }
 
 uint8_t GenieSys::ILLEGAL::execute(uint16_t opWord) {
-    cpu->trap(TV_ILLEGAL_INSTR);
-    return 34;
+    return cpu->trap(TV_ILLEGAL_INSTR);
 }
 
 std::string GenieSys::ILLEGAL::disassemble(uint16_t opWord) {

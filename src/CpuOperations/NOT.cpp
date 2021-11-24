@@ -44,7 +44,7 @@ uint8_t GenieSys::NOT::execute(uint16_t opWord) {
         case 2:
             return notLong(eaResultPtr, eaModeId);
         default:
-            cpu->trap(GenieSys::TV_ILLEGAL_INSTR);
+            return cpu->trap(GenieSys::TV_ILLEGAL_INSTR);
     }
     return 1;
 }

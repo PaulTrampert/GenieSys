@@ -55,7 +55,7 @@ add_library(GenieSys
         CpuOperations/PEA.cpp
         CpuOperations/ILLEGAL.cpp
         CpuOperations/TAS.cpp
-        CpuOperations/TST.cpp)
+        CpuOperations/TST.cpp CpuOperations/TRAP.cpp)
 
 target_include_directories(GenieSys PUBLIC ../include)
 

@@ -46,7 +46,7 @@ uint8_t GenieSys::EXT::execute(uint16_t opWord) {
             negative = (int32_t)regData < 0;
             break;
         default:
-            cpu->trap(TV_ILLEGAL_INSTR);
+            return cpu->trap(TV_ILLEGAL_INSTR);
     }
     uint8_t ccr = cpu->getCcrFlags() & CCR_EXTEND;
     if (regData == 0) {

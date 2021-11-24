@@ -49,7 +49,7 @@ uint8_t GenieSys::NEGX::execute(uint16_t opWord) {
             break;
         default:
             cycles = 4;
-            cpu->trap(GenieSys::TV_ILLEGAL_INSTR);
+            return cpu->trap(GenieSys::TV_ILLEGAL_INSTR);
     }
     return cycles;
 }

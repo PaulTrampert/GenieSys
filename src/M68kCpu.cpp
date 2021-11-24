@@ -140,13 +140,14 @@ bool GenieSys::M68kCpu::isSupervisor() {
     return supervisorState.apply(SRandCCR) == 1;
 }
 
-void GenieSys::M68kCpu::trap(uint8_t vector) {
+uint8_t GenieSys::M68kCpu::trap(uint8_t vector) {
     SRandCCR = supervisorState.compose(SRandCCR, 1);
     ssp -= 4;
     bus->writeLong(ssp, pc);
     ssp -= 2;
     bus->writeWord(ssp, SRandCCR);
     pc = bus->readLong(4 * vector);
+    return 34;
 }
 
 uint8_t GenieSys::M68kCpu::getUspRegister() {
