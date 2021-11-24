@@ -37,6 +37,7 @@
 #include <GenieSys/CpuOperations/ILLEGAL.h>
 #include <GenieSys/CpuOperations/TAS.h>
 #include <GenieSys/CpuOperations/TST.h>
+#include <GenieSys/CpuOperations/TRAP.h>
 
 
 GenieSys::CpuOperation::CpuOperation(GenieSys::M68kCpu *cpu, GenieSys::Bus *bus) {
@@ -78,6 +79,7 @@ std::vector<std::shared_ptr<GenieSys::CpuOperation>> GenieSys::getOperations(Gen
             std::shared_ptr<GenieSys::CpuOperation>(new PEA(cpu, bus)),
             std::shared_ptr<GenieSys::CpuOperation>(new SUBI(cpu, bus)),
             std::shared_ptr<GenieSys::CpuOperation>(new TAS(cpu, bus)),
+            std::shared_ptr<GenieSys::CpuOperation>(new TRAP(cpu, bus)),
             std::shared_ptr<GenieSys::CpuOperation>(new TST(cpu, bus))
     };
 
