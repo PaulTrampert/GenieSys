@@ -18,7 +18,7 @@ public:
     Bus bus;
     M68kCpu* cpu;
 
-    uint16_t baseOpWord = 0b010011100100000;
+    uint16_t baseOpWord = 0b0100111001000000;
     BitMask<uint16_t> vectorMask = BitMask<uint16_t>(3, 4);
 
     TRAPTest() : TestWithParam() {

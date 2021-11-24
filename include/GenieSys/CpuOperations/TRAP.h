@@ -9,7 +9,7 @@
 namespace GenieSys {
     class TRAP : public CpuOperation {
     private:
-        uint16_t baseOpCode = 0b010011100100000;
+        uint16_t baseOpCode = 0b0100111001000000;
         BitMask<uint16_t> vectorMask = BitMask<uint16_t>(3, 4);
 
     public:
