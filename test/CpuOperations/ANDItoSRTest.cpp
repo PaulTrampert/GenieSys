@@ -60,5 +60,5 @@ TEST_F(ANDItoSRTest, ItTraps_WhenNotInSupervisorMode) {
 }
 
 TEST_F(ANDItoSRTest, ItReturnsTheCorrectNumberOfClockCycles) {
-    ASSERT_EQ(20, subject->execute(0b0000000000111100));
+    ASSERT_EQ(34, subject->execute(0b0000000000111100));
 }

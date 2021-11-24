@@ -37,7 +37,7 @@ TEST_F(MOVEtoSRTest, Disassemble) {
 }
 
 TEST_F(MOVEtoSRTest, ExecuteWhenUnpriveledged) {
-    ASSERT_EQ(16, subject->execute(opWord));
+    ASSERT_EQ(34, subject->execute(opWord));
     ASSERT_EQ(8192, cpu->getSR());
 }
 

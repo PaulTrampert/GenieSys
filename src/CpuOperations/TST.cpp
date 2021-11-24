@@ -43,7 +43,7 @@ uint8_t GenieSys::TST::execute(uint16_t opWord) {
             ccr = exec<uint32_t, int32_t>(eaResult->getDataAsLong(), ccr);
             break;
         default:
-            cpu->trap(TV_ILLEGAL_INSTR);
+            return cpu->trap(TV_ILLEGAL_INSTR);
     }
     cpu->setCcrFlags(ccr);
     return 4 + eaResult->getCycles();

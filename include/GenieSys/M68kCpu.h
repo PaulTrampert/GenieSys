@@ -101,7 +101,7 @@ namespace GenieSys {
         uint16_t getSR();
         void setSR(uint16_t sr);
         bool isSupervisor();
-        void trap(uint8_t vector);
+        uint8_t trap(uint8_t vector);
 
         AddressingMode *getAddressingMode(int modeId);
 

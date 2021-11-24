@@ -60,5 +60,5 @@ TEST_F(EORItoSRTest, ItTraps_WhenNotInSupervisorMode) {
 }
 
 TEST_F(EORItoSRTest, ItReturnsTheCorrectNumberOfClockCycles) {
-    ASSERT_EQ(20, subject->execute(0b0000101001111100));
+    ASSERT_EQ(34, subject->execute(0b0000101001111100));
 }
