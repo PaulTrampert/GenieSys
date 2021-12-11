@@ -142,14 +142,50 @@ bool GenieSys::M68kCpu::isSupervisor() {
 
 uint8_t GenieSys::M68kCpu::trap(uint8_t vector) {
     SRandCCR = supervisorState.compose(SRandCCR, 1);
-    ssp -= 4;
-    bus->writeLong(ssp, pc);
-    ssp -= 2;
-    bus->writeWord(ssp, SRandCCR);
+    stackPush(pc);
+    stackPush(SRandCCR);
     pc = bus->readLong(4 * vector);
     return 34;
 }
 
 uint8_t GenieSys::M68kCpu::getUspRegister() {
     return 7;
+}
+
+void GenieSys::M68kCpu::stackPush(uint16_t value) {
+    uint32_t spAddr = this->getAddressRegister(getUspRegister());
+    spAddr -= 2;
+    this->setAddressRegister(getUspRegister(), spAddr);
+    bus->writeWord(spAddr, value);
+}
+
+void GenieSys::M68kCpu::stackPush(uint32_t value) {
+    uint32_t spAddr = this->getAddressRegister(getUspRegister());
+    spAddr -= 4;
+    this->setAddressRegister(getUspRegister(), spAddr);
+    bus->writeLong(spAddr, value);
+}
+
+uint16_t GenieSys::M68kCpu::stackPopWord() {
+    uint32_t spAddr = this->getAddressRegister(getUspRegister());
+    auto result = bus->readWord(spAddr);
+    spAddr += 2;
+    this->setAddressRegister(getUspRegister(), spAddr);
+    return result;
+}
+
+uint32_t GenieSys::M68kCpu::stackPopLong() {
+    uint32_t spAddr = this->getAddressRegister(getUspRegister());
+    auto result = bus->readLong(spAddr);
+    spAddr += 4;
+    this->setAddressRegister(getUspRegister(), spAddr);
+    return result;
+}
+
+uint32_t GenieSys::M68kCpu::getStackPointer() {
+    return getAddressRegister(getUspRegister());
+}
+
+uint32_t GenieSys::M68kCpu::setStackPointer(uint32_t p) {
+    setAddressRegister(getUspRegister(), p);
 }
