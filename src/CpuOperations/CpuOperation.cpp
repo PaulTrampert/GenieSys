@@ -39,6 +39,7 @@
 #include <GenieSys/CpuOperations/TST.h>
 #include <GenieSys/CpuOperations/TRAP.h>
 #include "GenieSys/CpuOperations/LINK.h"
+#include "GenieSys/CpuOperations/UNLK.h"
 
 
 GenieSys::CpuOperation::CpuOperation(GenieSys::M68kCpu *cpu, GenieSys::Bus *bus) {
@@ -82,13 +83,14 @@ std::vector<std::shared_ptr<GenieSys::CpuOperation>> GenieSys::getOperations(Gen
             std::shared_ptr<GenieSys::CpuOperation>(new SUBI(cpu, bus)),
             std::shared_ptr<GenieSys::CpuOperation>(new TAS(cpu, bus)),
             std::shared_ptr<GenieSys::CpuOperation>(new TRAP(cpu, bus)),
-            std::shared_ptr<GenieSys::CpuOperation>(new TST(cpu, bus))
+            std::shared_ptr<GenieSys::CpuOperation>(new TST(cpu, bus)),
+            std::shared_ptr<GenieSys::CpuOperation>(new UNLK(cpu, bus))
     };
 
-    std::sort(operations.begin(), operations.end(), GenieSys::compare);
+    std::sort(operations.begin(), operations.end(), GenieSys::compareOps);
     return operations;
 }
 
-bool GenieSys::compare(const std::shared_ptr<GenieSys::CpuOperation>& a, const std::shared_ptr<GenieSys::CpuOperation>& b) {
+bool GenieSys::compareOps(const std::shared_ptr<GenieSys::CpuOperation>& a, const std::shared_ptr<GenieSys::CpuOperation>& b) {
     return a->getSpecificity() > b->getSpecificity();
 }

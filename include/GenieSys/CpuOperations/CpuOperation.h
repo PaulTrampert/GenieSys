@@ -27,7 +27,7 @@ namespace GenieSys {
     };
 
     std::vector<std::shared_ptr<GenieSys::CpuOperation>> getOperations(GenieSys::M68kCpu *cpu, GenieSys::Bus *bus);
-    bool compare(const std::shared_ptr<GenieSys::CpuOperation>& a, const std::shared_ptr<GenieSys::CpuOperation>& b);
+    bool compareOps(const std::shared_ptr<GenieSys::CpuOperation>& a, const std::shared_ptr<GenieSys::CpuOperation>& b);
 
 
 }
