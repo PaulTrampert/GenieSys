@@ -186,6 +186,6 @@ uint32_t GenieSys::M68kCpu::getStackPointer() {
     return getAddressRegister(getUspRegister());
 }
 
-uint32_t GenieSys::M68kCpu::setStackPointer(uint32_t p) {
+void GenieSys::M68kCpu::setStackPointer(uint32_t p) {
     setAddressRegister(getUspRegister(), p);
 }

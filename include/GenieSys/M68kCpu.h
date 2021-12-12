@@ -110,7 +110,7 @@ namespace GenieSys {
         uint32_t stackPopLong();
         uint8_t getUspRegister();
         uint32_t getStackPointer();
-        uint32_t setStackPointer(uint32_t p);
+        void setStackPointer(uint32_t p);
     };
 }
 
