@@ -104,8 +104,13 @@ namespace GenieSys {
         uint8_t trap(uint8_t vector);
 
         AddressingMode *getAddressingMode(int modeId);
-
+        void stackPush(uint16_t value);
+        void stackPush(uint32_t value);
+        uint16_t stackPopWord();
+        uint32_t stackPopLong();
         uint8_t getUspRegister();
+        uint32_t getStackPointer();
+        void setStackPointer(uint32_t p);
     };
 }
 
