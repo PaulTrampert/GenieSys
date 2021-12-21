@@ -55,7 +55,11 @@ add_library(GenieSys
         CpuOperations/PEA.cpp
         CpuOperations/ILLEGAL.cpp
         CpuOperations/TAS.cpp
-        CpuOperations/TST.cpp CpuOperations/TRAP.cpp CpuOperations/LINK.cpp CpuOperations/UNLK.cpp)
+        CpuOperations/TST.cpp
+        CpuOperations/TRAP.cpp
+        CpuOperations/LINK.cpp
+        CpuOperations/UNLK.cpp
+        CpuOperations/MOVE_USP.cpp)
 
 target_include_directories(GenieSys PUBLIC ../include)
 

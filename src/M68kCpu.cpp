@@ -189,3 +189,15 @@ uint32_t GenieSys::M68kCpu::getStackPointer() {
 void GenieSys::M68kCpu::setStackPointer(uint32_t p) {
     setAddressRegister(getUspRegister(), p);
 }
+
+void GenieSys::M68kCpu::setSupervisor(bool isSupervisor) {
+    SRandCCR = supervisorState.compose(this->SRandCCR, isSupervisor ? 1 : 0);
+}
+
+uint32_t GenieSys::M68kCpu::getUserStackPointer() {
+    return addressRegisters[getUspRegister()];
+}
+
+void GenieSys::M68kCpu::setUserStackPointer(uint32_t addr) {
+    addressRegisters[getUspRegister()] = addr;
+}

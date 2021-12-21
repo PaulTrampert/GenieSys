@@ -38,8 +38,9 @@
 #include <GenieSys/CpuOperations/TAS.h>
 #include <GenieSys/CpuOperations/TST.h>
 #include <GenieSys/CpuOperations/TRAP.h>
-#include "GenieSys/CpuOperations/LINK.h"
-#include "GenieSys/CpuOperations/UNLK.h"
+#include <GenieSys/CpuOperations/LINK.h>
+#include <GenieSys/CpuOperations/UNLK.h>
+#include <GenieSys/CpuOperations/MOVE_USP.h>
 
 
 GenieSys::CpuOperation::CpuOperation(GenieSys::M68kCpu *cpu, GenieSys::Bus *bus) {
@@ -72,6 +73,7 @@ std::vector<std::shared_ptr<GenieSys::CpuOperation>> GenieSys::getOperations(Gen
             std::shared_ptr<GenieSys::CpuOperation>(new MOVEtoCCR(cpu, bus)),
             std::shared_ptr<GenieSys::CpuOperation>(new MOVEtoSR(cpu, bus)),
             std::shared_ptr<GenieSys::CpuOperation>(new MOVEP(cpu, bus)),
+            std::shared_ptr<GenieSys::CpuOperation>(new MOVE_USP(cpu, bus)),
             std::shared_ptr<GenieSys::CpuOperation>(new NEG(cpu, bus)),
             std::shared_ptr<GenieSys::CpuOperation>(new NEGX(cpu, bus)),
             std::shared_ptr<GenieSys::CpuOperation>(new NOP(cpu, bus)),
