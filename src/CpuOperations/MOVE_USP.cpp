@@ -30,11 +30,14 @@ uint8_t GenieSys::MOVE_USP::execute(uint16_t opWord) {
     uint8_t reg = regMask.apply(opWord);
     auto addrRegMode = cpu->getAddressingMode(AddressRegisterDirectMode::MODE_ID);
     auto addrResult = addrRegMode->getData(reg, 4);
+    if (!cpu->isSupervisor()) {
+        return cpu->trap(GenieSys::TRAP_VECTORS::TV_PRIVILEGE);
+    }
     if (dir == 1) {
-        addrResult->write(cpu->getStackPointer());
+        addrResult->write(cpu->getUserStackPointer());
     }
     else if (dir == 0){
-        cpu->setStackPointer(addrResult->getDataAsLong());
+        cpu->setUserStackPointer(addrResult->getDataAsLong());
     }
     else {
         return cpu->trap(GenieSys::TRAP_VECTORS::TV_ILLEGAL_INSTR);

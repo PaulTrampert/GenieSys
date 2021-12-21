@@ -101,6 +101,7 @@ namespace GenieSys {
         uint16_t getSR();
         void setSR(uint16_t sr);
         bool isSupervisor();
+        void setSupervisor(bool isSupervisor);
         uint8_t trap(uint8_t vector);
 
         AddressingMode *getAddressingMode(int modeId);
@@ -109,6 +110,8 @@ namespace GenieSys {
         uint16_t stackPopWord();
         uint32_t stackPopLong();
         uint8_t getUspRegister();
+        uint32_t getUserStackPointer();
+        void  setUserStackPointer(uint32_t addr);
         uint32_t getStackPointer();
         void setStackPointer(uint32_t p);
     };

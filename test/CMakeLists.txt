@@ -64,7 +64,7 @@ add_executable(testGenieSys
         CpuOperations/SWAPTest.cpp
         CpuOperations/PEATest.cpp
         CpuOperations/ILLEGALTest.cpp
-        CpuOperations/TASTest.cpp CpuOperations/TSTTest.cpp CpuOperations/TRAPTest.cpp CpuOperations/LINKTest.cpp CpuOperations/UNLKTest.cpp)
+        CpuOperations/TASTest.cpp CpuOperations/TSTTest.cpp CpuOperations/TRAPTest.cpp CpuOperations/LINKTest.cpp CpuOperations/UNLKTest.cpp CpuOperations/MOVE_USPTest.cpp)
 
 target_link_libraries(testGenieSys PRIVATE GenieSys gtest gmock)
 
