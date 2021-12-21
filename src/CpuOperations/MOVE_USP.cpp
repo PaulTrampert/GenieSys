@@ -8,6 +8,7 @@
 #include <GenieSys/M68kCpu.h>
 #include <GenieSys/AddressingModes/AddressRegisterDirectMode.h>
 #include <GenieSys/enums.h>
+#include <sstream>
 
 GenieSys::MOVE_USP::MOVE_USP(GenieSys::M68kCpu *cpu, GenieSys::Bus *bus) : CpuOperation(cpu, bus) {
 
@@ -39,5 +40,20 @@ uint8_t GenieSys::MOVE_USP::execute(uint16_t opWord) {
         return cpu->trap(GenieSys::TRAP_VECTORS::TV_ILLEGAL_INSTR);
     }
     return 4;
+}
+
+std::string GenieSys::MOVE_USP::disassemble(uint16_t opWord) {
+    uint8_t dir = dirMask.apply(opWord);
+    uint8_t reg = regMask.apply(opWord);
+    std::stringstream stream;
+    auto addrMode = cpu->getAddressingMode(AddressRegisterDirectMode::MODE_ID);
+    stream << "MOVE ";
+    if (dir == 1) {
+        stream << "USP, " << addrMode->disassemble(reg, 4);
+    }
+    else {
+        stream << addrMode->disassemble(reg, 4) << ", USP";
+    }
+    return stream.str();
 }
 
