@@ -82,5 +82,10 @@ namespace GenieSys {
          * @return a reference to the Bus's M68kCpu.
          */
         GenieSys::M68kCpu* getCpu();
+
+        /**
+         * Reset all devices on the bus.
+         */
+        void reset();
     };
 }

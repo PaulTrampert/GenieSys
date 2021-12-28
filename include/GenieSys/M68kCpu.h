@@ -114,6 +114,10 @@ namespace GenieSys {
         void  setUserStackPointer(uint32_t addr);
         uint32_t getStackPointer();
         void setStackPointer(uint32_t p);
+        /**
+         * Resets the program counter to the value stored at 0x0004
+         */
+        void reset();
     };
 }
 

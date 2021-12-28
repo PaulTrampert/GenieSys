@@ -201,3 +201,7 @@ uint32_t GenieSys::M68kCpu::getUserStackPointer() {
 void GenieSys::M68kCpu::setUserStackPointer(uint32_t addr) {
     addressRegisters[getUspRegister()] = addr;
 }
+
+void GenieSys::M68kCpu::reset() {
+    pc = bus->readLong(TV_INIT_PC * 4);
+}
