@@ -31,3 +31,7 @@ TEST_F(RESETTest, ExecuteCallsResetOnBus) {
 
     ASSERT_EQ(124, cycles);
 }
+
+TEST_F(RESETTest, Disassemble) {
+    ASSERT_EQ("RESET", subject->disassemble(opWord));
+}
