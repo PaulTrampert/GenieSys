@@ -59,7 +59,7 @@ add_library(GenieSys
         CpuOperations/TRAP.cpp
         CpuOperations/LINK.cpp
         CpuOperations/UNLK.cpp
-        CpuOperations/MOVE_USP.cpp)
+        CpuOperations/MOVE_USP.cpp CpuOperations/RESET.cpp)
 
 target_include_directories(GenieSys PUBLIC ../include)
 

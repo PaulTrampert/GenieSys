@@ -47,7 +47,7 @@ TEST_P(TRAPTest, Disassemble) {
     ASSERT_EQ(params.expectedDisassembly, subject->disassemble(opWord));
 }
 
-INSTANTIATE_TEST_CASE_P(TRAP, TRAPTest,
+INSTANTIATE_TEST_SUITE_P(TRAP, TRAPTest,
     testing::Values(
         TRAPTestParams {
                 .name = "TRAP_32",

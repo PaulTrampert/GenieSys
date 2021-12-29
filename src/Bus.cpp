@@ -67,3 +67,7 @@ void GenieSys::Bus::write(uint32_t addr, std::vector<uint8_t> data) {
         writeByte(addr + i, data[i]);
     }
 }
+
+void GenieSys::Bus::reset() {
+    cpu.reset();
+}
