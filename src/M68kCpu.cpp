@@ -51,7 +51,7 @@ void GenieSys::M68kCpu::ConnectBus(Bus *bus) {
             mode->setBus(bus);
         }
     }
-    opTable.clear();
+
     nop = std::shared_ptr<CpuOperation>(new NOP(this, bus));
     std::fill(opTable.begin(), opTable.end(), nop);
     for (auto &op : getOperations(this, bus)) {
