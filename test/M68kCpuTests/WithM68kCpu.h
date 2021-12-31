@@ -2,7 +2,7 @@
 // Created by pault on 12/29/2021.
 //
 
-#include "GenieSys/M68kCpu.h"
+#include <GenieSys/M68kCpu.h>
 #include "../MockBus.h"
 
 
