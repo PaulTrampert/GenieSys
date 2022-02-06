@@ -6,6 +6,7 @@
 #include <array>
 #include <vector>
 #include <cstdint>
+#include <thread>
 #include "M68kCpu.h"
 
 namespace GenieSys {
@@ -15,6 +16,11 @@ namespace GenieSys {
     private:
         std::vector<uint8_t> ram = std::vector<uint8_t>(RAM_SIZE);
         GenieSys::M68kCpu cpu;
+
+        bool running = false;
+        std::thread runThread;
+
+        virtual void run();
 
     public:
         Bus();
@@ -87,5 +93,20 @@ namespace GenieSys {
          * Reset all devices on the bus.
          */
         virtual void reset();
+
+        /**
+         * Stops the system.
+         */
+        virtual void stop();
+
+        /**
+         * Start the system.
+         */
+        virtual void start();
+
+        /**
+         * Gets whether or not the system is running.
+         */
+        virtual bool isRunning();
     };
 }

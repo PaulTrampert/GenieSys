@@ -276,6 +276,12 @@ namespace GenieSys {
          * Resets the program counter to the value stored at 0x0004
          */
         virtual void reset();
+
+        /**
+         * Gets whether or not tracing is enabled, as indicated by the highest 2 bits of the status register.
+         * @return The highest 2 bits of the status register.
+         */
+        virtual uint8_t isTraceEnabled();
     };
 }
 

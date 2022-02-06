@@ -19,5 +19,8 @@ namespace GenieSys {
         MOCK_METHOD(void, writeLong, (uint32_t addr, uint32_t data), (override));
         MOCK_METHOD(M68kCpu*, getCpu, (), (override));
         MOCK_METHOD(void, reset, (), (override));
+        MOCK_METHOD(void, stop, (), (override));
+        MOCK_METHOD(void, start, (), (override));
+        MOCK_METHOD(bool, isRunning, (), (override));
     };
 }

@@ -5,6 +5,13 @@
 #pragma once
 
 namespace GenieSys {
+    enum SR_TRACE_STATUS{
+        NO_TRACE = 0,
+        TRACE_ANY = 0b10,
+        TRACE_CHANGE = 0b01,
+        UNDEFINED = 0b11
+    };
+
     enum CCR_FLAGS {
         CCR_EXTEND = 1 << 4, // Extend - Set to the value of the C-bit for arithmetic operations
         CCR_NEGATIVE = 1 << 3, // Negative - Set if the most significant bit of the result is set.

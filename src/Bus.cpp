@@ -3,6 +3,7 @@
 //
 
 #include <vector>
+#include <thread>
 #include "GenieSys/Bus.h"
 
 
@@ -70,4 +71,24 @@ void GenieSys::Bus::write(uint32_t addr, std::vector<uint8_t> data) {
 
 void GenieSys::Bus::reset() {
     cpu.reset();
+}
+
+void GenieSys::Bus::stop() {
+    running = false;
+    runThread.join();
+}
+
+void GenieSys::Bus::start() {
+    running = true;
+    runThread = std::thread(&Bus::run, this);
+}
+
+void GenieSys::Bus::run() {
+    while (running) {
+        cpu.tick();
+    }
+}
+
+bool GenieSys::Bus::isRunning() {
+    return running;
 }

@@ -37,5 +37,6 @@ namespace GenieSys {
         MOCK_METHOD(uint32_t, getStackPointer, (), (override));
         MOCK_METHOD(void, setStackPointer, (uint32_t addr), (override));
         MOCK_METHOD(void, reset, (), (override));
+        MOCK_METHOD(uint8_t, isTraceEnabled, (), (override));
     };
 }
