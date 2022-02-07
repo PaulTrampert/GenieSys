@@ -1,5 +1,7 @@
 set(GLOB HEADER_LIST "${GenieSys_SOURCE_DIR}/include/GenieSys/*.h")
 
+find_package(Threads)
+
 add_library(GenieSys
         Bus.cpp
         M68kCpu.cpp
@@ -62,6 +64,7 @@ add_library(GenieSys
         CpuOperations/MOVE_USP.cpp CpuOperations/RESET.cpp CpuOperations/STOP.cpp)
 
 target_include_directories(GenieSys PUBLIC ../include)
+target_link_libraries(GenieSys Threads::Threads)
 
 source_group(
         TREE "${PROJECT_SOURCE_DIR}/include"
