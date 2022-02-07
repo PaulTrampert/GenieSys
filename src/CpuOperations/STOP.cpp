@@ -5,10 +5,10 @@
 #include <GenieSys/CpuOperations/STOP.h>
 #include <GenieSys/M68kCpu.h>
 #include <GenieSys/Bus.h>
-#include <GenieSys/AddressingModes/AddressingMode.h>
 #include <GenieSys/AddressingModes/ProgramCounterAddressingMode.h>
 #include <GenieSys/AddressingModes/ImmediateDataMode.h>
 #include <vector>
+#include <sstream>
 
 GenieSys::STOP::STOP(GenieSys::M68kCpu *cpu, GenieSys::Bus *bus) : CpuOperation(cpu, bus) {
 
