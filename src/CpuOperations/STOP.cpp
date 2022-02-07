@@ -24,14 +24,14 @@ uint8_t GenieSys::STOP::getSpecificity() {
 
 uint8_t GenieSys::STOP::execute(uint16_t opWord) {
     if (!cpu->isSupervisor()) {
-        cpu->trap(GenieSys::TV_PRIVILEGE);
+        return cpu->trap(GenieSys::TV_PRIVILEGE);
     }
     auto traceEnabled = cpu->isTraceEnabled();
     auto immMode = cpu->getAddressingMode(ProgramCounterAddressingMode::MODE_ID);
     auto immData = immMode->getData(ImmediateDataMode::MODE_ID, 2);
     cpu->setSR(immData->getDataAsWord());
     if (traceEnabled == GenieSys::TRACE_CHANGE) {
-        cpu->trap(GenieSys::TV_TRACE);
+        return cpu->trap(GenieSys::TV_TRACE);
     }
     else {
         bus->stop();

@@ -9,6 +9,14 @@
 namespace GenieSys {
     class MockBus : public Bus {
     public:
+        MockBus() : Bus() {
+
+        }
+
+        explicit MockBus(M68kCpu *cpu) : Bus(cpu){
+
+        }
+
         MOCK_METHOD(uint8_t, read, (uint32_t addr), (override));
         MOCK_METHOD(std::vector<uint8_t>, read, (uint32_t addr, uint8_t size), (override));
         MOCK_METHOD(uint16_t, readWord, (uint32_t addr), (override));
