@@ -7,23 +7,26 @@
 #include <vector>
 #include <cstdint>
 #include <thread>
-#include "M68kCpu.h"
 
 namespace GenieSys {
 #define RAM_SIZE (1024*72)
+    class M68kCpu;
 
     class Bus {
     private:
         std::vector<uint8_t> ram = std::vector<uint8_t>(RAM_SIZE);
-        GenieSys::M68kCpu cpu;
+        GenieSys::M68kCpu *cpu;
 
         bool running = false;
         std::thread runThread;
+
+        bool ownsCpu = false;
 
         virtual void run();
 
     public:
         Bus();
+        Bus(M68kCpu *cpu);
         ~Bus();
 
         /**

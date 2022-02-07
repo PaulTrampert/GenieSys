@@ -5,7 +5,7 @@
 #include <gtest/gtest.h>
 #include <GenieSys/CpuOperations/BCHG.h>
 #include <GenieSys/Bus.h>
-
+#include <GenieSys/M68kCpu.h>
 
 
 struct BCHGTest : testing::Test {

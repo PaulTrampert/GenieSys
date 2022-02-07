@@ -5,7 +5,7 @@
 #include <gtest/gtest.h>
 #include <GenieSys/CpuOperations/ABCD.h>
 #include <GenieSys/Bus.h>
-
+#include <GenieSys/M68kCpu.h>
 
 
 struct ABCDTest : testing::Test {

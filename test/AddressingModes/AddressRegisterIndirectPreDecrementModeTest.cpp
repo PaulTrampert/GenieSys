@@ -7,6 +7,7 @@
 //
 #include <gtest/gtest.h>
 #include <GenieSys/Bus.h>
+#include <GenieSys/M68kCpu.h>
 #include <GenieSys/numberUtils.h>
 #include <GenieSys/AddressingModes/AddressRegisterIndirectPreDecrementMode.h>
 

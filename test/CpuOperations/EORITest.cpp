@@ -5,7 +5,7 @@
 #include <gtest/gtest.h>
 #include <GenieSys/CpuOperations/EORI.h>
 #include <GenieSys/Bus.h>
-
+#include <GenieSys/M68kCpu.h>
 
 
 struct EORITest : testing::Test {

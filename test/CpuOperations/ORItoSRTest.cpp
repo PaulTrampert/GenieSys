@@ -4,6 +4,7 @@
 #include <gtest/gtest.h>
 #include <GenieSys/CpuOperations/ORItoSR.h>
 #include <GenieSys/Bus.h>
+#include <GenieSys/M68kCpu.h>
 
 
 

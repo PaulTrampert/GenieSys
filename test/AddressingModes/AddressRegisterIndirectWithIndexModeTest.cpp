@@ -6,7 +6,7 @@
 #include <GenieSys/AddressingModes/AddressRegisterIndirectWithIndexMode.h>
 #include <GenieSys/ExtensionWord.h>
 #include <GenieSys/Bus.h>
-
+#include <GenieSys/M68kCpu.h>
 
 struct AddressRegisterIndirectWithIndexModeTest : testing::Test {
     GenieSys::M68kCpu* cpu;
