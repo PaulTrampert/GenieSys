@@ -23,6 +23,7 @@ namespace GenieSys {
         MOCK_METHOD(uint8_t, getCcrFlags, (), (override));
         MOCK_METHOD(void, tick, (), (override));
         MOCK_METHOD(void, setSR, (uint16_t sr), (override));
+        MOCK_METHOD(uint16_t, getSR, (), (override));
         MOCK_METHOD(bool, isSupervisor, (), (override));
         MOCK_METHOD(void, setSupervisor, (bool isSupervisor), (override));
         MOCK_METHOD(uint8_t, trap, (uint8_t vector), (override));
@@ -37,5 +38,6 @@ namespace GenieSys {
         MOCK_METHOD(uint32_t, getStackPointer, (), (override));
         MOCK_METHOD(void, setStackPointer, (uint32_t addr), (override));
         MOCK_METHOD(void, reset, (), (override));
+        MOCK_METHOD(uint8_t, isTraceEnabled, (), (override));
     };
 }

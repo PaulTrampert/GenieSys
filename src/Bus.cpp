@@ -3,19 +3,28 @@
 //
 
 #include <vector>
+#include <thread>
 #include "GenieSys/Bus.h"
+#include <GenieSys/M68kCpu.h>
 
 
 
-GenieSys::Bus::Bus() {
+GenieSys::Bus::Bus(GenieSys::M68kCpu *cpu) {
+    this->cpu = cpu;
     for (uint32_t i = 0; i < RAM_SIZE; i++) {
         ram[i] = 0x00;
     }
-    cpu.ConnectBus(this);
+    cpu->ConnectBus(this);
+}
+
+GenieSys::Bus::Bus() : Bus(new M68kCpu()) {
+    ownsCpu = true;
 }
 
 GenieSys::Bus::~Bus() {
-
+    if (ownsCpu) {
+        delete cpu;
+    }
 }
 
 uint8_t GenieSys::Bus::read(uint32_t addr) {
@@ -51,7 +60,7 @@ void GenieSys::Bus::writeLong(uint32_t addr, uint32_t data) {
 }
 
 GenieSys::M68kCpu *GenieSys::Bus::getCpu() {
-    return &cpu;
+    return cpu;
 }
 
 std::vector<uint8_t> GenieSys::Bus::read(uint32_t addr, uint8_t size) {
@@ -69,5 +78,25 @@ void GenieSys::Bus::write(uint32_t addr, std::vector<uint8_t> data) {
 }
 
 void GenieSys::Bus::reset() {
-    cpu.reset();
+    cpu->reset();
+}
+
+void GenieSys::Bus::stop() {
+    running = false;
+    runThread.join();
+}
+
+void GenieSys::Bus::start() {
+    running = true;
+    runThread = std::thread(&Bus::run, this);
+}
+
+void GenieSys::Bus::run() {
+    while (running) {
+        cpu->tick();
+    }
+}
+
+bool GenieSys::Bus::isRunning() {
+    return running;
 }

@@ -6,6 +6,7 @@
 #include <GenieSys/AddressingModes/ImmediateDataMode.h>
 #include <GenieSys/numberUtils.h>
 #include <GenieSys/Bus.h>
+#include <GenieSys/M68kCpu.h>
 
 
 struct ImmediateDataModeTest : testing::Test {

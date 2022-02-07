@@ -4,7 +4,7 @@
 #include <gtest/gtest.h>
 #include <GenieSys/CpuOperations/ANDItoSR.h>
 #include <GenieSys/Bus.h>
-
+#include <GenieSys/M68kCpu.h>
 
 
 struct ANDItoSRTest : testing::Test {

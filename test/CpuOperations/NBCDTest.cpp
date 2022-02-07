@@ -4,7 +4,7 @@
 #include <GenieSys/CpuOperations/NBCD.h>
 #include <gtest/gtest.h>
 #include <GenieSys/Bus.h>
-
+#include <GenieSys/M68kCpu.h>
 
 class NBCDTest : public ::testing::Test {
 public:

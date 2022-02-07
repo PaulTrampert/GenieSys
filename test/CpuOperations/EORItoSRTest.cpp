@@ -4,7 +4,7 @@
 #include <gtest/gtest.h>
 #include <GenieSys/CpuOperations/EORItoSR.h>
 #include <GenieSys/Bus.h>
-
+#include <GenieSys/M68kCpu.h>
 
 
 struct EORItoSRTest : testing::Test {

@@ -5,7 +5,7 @@
 #include <gtest/gtest.h>
 #include <GenieSys/CpuOperations/ANDI.h>
 #include <GenieSys/Bus.h>
-
+#include <GenieSys/M68kCpu.h>
 
 
 static uint16_t BASE_OPCODE = 0b0000001000000000;

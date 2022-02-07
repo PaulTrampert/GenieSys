@@ -4,7 +4,7 @@
 #include <gtest/gtest.h>
 #include <GenieSys/CpuOperations/CLR.h>
 #include <GenieSys/Bus.h>
-
+#include <GenieSys/M68kCpu.h>
 
 
 class CLRTest : public ::testing::Test {

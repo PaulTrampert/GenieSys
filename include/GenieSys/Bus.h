@@ -6,18 +6,27 @@
 #include <array>
 #include <vector>
 #include <cstdint>
-#include "M68kCpu.h"
+#include <thread>
 
 namespace GenieSys {
 #define RAM_SIZE (1024*72)
+    class M68kCpu;
 
     class Bus {
     private:
         std::vector<uint8_t> ram = std::vector<uint8_t>(RAM_SIZE);
-        GenieSys::M68kCpu cpu;
+        GenieSys::M68kCpu *cpu;
+
+        bool running = false;
+        std::thread runThread;
+
+        bool ownsCpu = false;
+
+        virtual void run();
 
     public:
         Bus();
+        Bus(M68kCpu *cpu);
         ~Bus();
 
         /**
@@ -87,5 +96,20 @@ namespace GenieSys {
          * Reset all devices on the bus.
          */
         virtual void reset();
+
+        /**
+         * Stops the system.
+         */
+        virtual void stop();
+
+        /**
+         * Start the system.
+         */
+        virtual void start();
+
+        /**
+         * Gets whether or not the system is running.
+         */
+        virtual bool isRunning();
     };
 }

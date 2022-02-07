@@ -4,6 +4,7 @@
 #include <GenieSys/CpuOperations/SWAP.h>
 #include <gtest/gtest.h>
 #include <GenieSys/Bus.h>
+#include <GenieSys/M68kCpu.h>
 
 class SWAPTest : public ::testing::Test {
 public:

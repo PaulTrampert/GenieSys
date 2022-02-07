@@ -3,6 +3,7 @@
 //
 #include <gtest/gtest.h>
 #include <GenieSys/Bus.h>
+#include <GenieSys/M68kCpu.h>
 #include <GenieSys/AddressingModes/AddressRegisterIndirectPostIncrementMode.h>
 #include <GenieSys/numberUtils.h>
 

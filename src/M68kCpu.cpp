@@ -213,3 +213,7 @@ void GenieSys::M68kCpu::setUserStackPointer(uint32_t addr) {
 void GenieSys::M68kCpu::reset() {
     pc = bus->readLong(TV_INIT_PC * 4);
 }
+
+uint8_t GenieSys::M68kCpu::isTraceEnabled() {
+    return (SRandCCR & 0b1100000000000000) >> 14;
+}

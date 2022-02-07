@@ -4,14 +4,19 @@
 
 #include "BusTest.h"
 #include "GenieSys/Bus.h"
+#include <thread>
+#include <chrono>
 
 
 BusTest::BusTest() {
-    bus = new GenieSys::Bus();
+    cpu = new GenieSys::MockCpu();
+    EXPECT_CALL(*cpu, ConnectBus(testing::NotNull()));
+    bus = new GenieSys::Bus(cpu);
 }
 
 BusTest::~BusTest() {
     delete bus;
+    delete cpu;
 }
 
 TEST_F(BusTest, RamIsInitializedToZeros) {
@@ -46,4 +51,13 @@ TEST_F(BusTest, WritingLongsToRamWorks) {
     EXPECT_EQ(0xCD, bus->read(5));
     EXPECT_EQ(0x12, bus->read(6));
     EXPECT_EQ(0x34, bus->read(7));
+}
+
+TEST_F(BusTest, StartAndStop) {
+    EXPECT_CALL(*cpu, tick()).Times(testing::AtLeast(1));
+    bus->start();
+    std::this_thread::sleep_for(std::chrono::seconds(1));
+    EXPECT_TRUE(bus->isRunning());
+    bus->stop();
+    EXPECT_FALSE(bus->isRunning());
 }
