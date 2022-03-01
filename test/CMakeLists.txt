@@ -75,6 +75,7 @@ add_executable(testGenieSys
         M68kCpuTests/ResetTests.cpp
         CpuOperations/STOPTest.cpp
         CpuOperations/RTETest.cpp
+        CpuOperations/RTRTest.cpp
         CpuOperations/RTSTest.cpp
         CpuOperations/TRAPVTest.cpp)
 
