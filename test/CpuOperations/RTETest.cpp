@@ -26,7 +26,7 @@ public:
         subject = new RTE(cpu, bus);
     }
 
-    ~RTETest(){
+    ~RTETest() override {
         delete subject;
         delete bus;
         delete cpu;
