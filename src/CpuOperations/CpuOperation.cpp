@@ -45,6 +45,7 @@
 #include <GenieSys/CpuOperations/STOP.h>
 #include <GenieSys/CpuOperations/RTE.h>
 #include <GenieSys/CpuOperations/RTS.h>
+#include <GenieSys/CpuOperations/TRAPV.h>
 
 
 GenieSys::CpuOperation::CpuOperation(GenieSys::M68kCpu *cpu, GenieSys::Bus *bus) {
@@ -93,6 +94,7 @@ std::vector<std::shared_ptr<GenieSys::CpuOperation>> GenieSys::getOperations(Gen
             std::shared_ptr<GenieSys::CpuOperation>(new SUBI(cpu, bus)),
             std::shared_ptr<GenieSys::CpuOperation>(new TAS(cpu, bus)),
             std::shared_ptr<GenieSys::CpuOperation>(new TRAP(cpu, bus)),
+            std::shared_ptr<GenieSys::CpuOperation>(new TRAPV(cpu, bus)),
             std::shared_ptr<GenieSys::CpuOperation>(new TST(cpu, bus)),
             std::shared_ptr<GenieSys::CpuOperation>(new UNLK(cpu, bus))
     };
