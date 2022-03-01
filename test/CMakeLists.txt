@@ -70,7 +70,13 @@ add_executable(testGenieSys
         CpuOperations/LINKTest.cpp
         CpuOperations/UNLKTest.cpp
         CpuOperations/MOVE_USPTest.cpp
-        CpuOperations/RESETTest.cpp M68kCpuTests/SetDataRegisterTests.cpp M68kCpuTests/ResetTests.cpp CpuOperations/STOPTest.cpp CpuOperations/RTETest.cpp CpuOperations/RTSTest.cpp)
+        CpuOperations/RESETTest.cpp
+        M68kCpuTests/SetDataRegisterTests.cpp
+        M68kCpuTests/ResetTests.cpp
+        CpuOperations/STOPTest.cpp
+        CpuOperations/RTETest.cpp
+        CpuOperations/RTSTest.cpp
+        CpuOperations/TRAPVTest.cpp)
 
 target_link_libraries(testGenieSys PRIVATE GenieSys gtest gmock)
 
