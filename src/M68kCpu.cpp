@@ -150,8 +150,8 @@ bool GenieSys::M68kCpu::isSupervisor() {
 
 uint8_t GenieSys::M68kCpu::trap(uint8_t vector) {
     SRandCCR = supervisorState.compose(SRandCCR, 1);
-    stackPush(pc);
-    stackPush(SRandCCR);
+    stackPushLong(pc);
+    stackPushWord(SRandCCR);
     pc = bus->readLong(4 * vector);
     return 34;
 }
@@ -160,14 +160,14 @@ uint8_t GenieSys::M68kCpu::getUspRegister() {
     return 7;
 }
 
-void GenieSys::M68kCpu::stackPush(uint16_t value) {
+void GenieSys::M68kCpu::stackPushWord(uint16_t value) {
     uint32_t spAddr = this->getAddressRegister(getUspRegister());
     spAddr -= 2;
     this->setAddressRegister(getUspRegister(), spAddr);
     bus->writeWord(spAddr, value);
 }
 
-void GenieSys::M68kCpu::stackPush(uint32_t value) {
+void GenieSys::M68kCpu::stackPushLong(uint32_t value) {
     uint32_t spAddr = this->getAddressRegister(getUspRegister());
     spAddr -= 4;
     this->setAddressRegister(getUspRegister(), spAddr);

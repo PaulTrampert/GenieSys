@@ -25,7 +25,7 @@ uint8_t GenieSys::JSR::execute(uint16_t opWord) {
     auto eaReg = eaRegMask.apply(opWord);
     auto eaMode = cpu->getAddressingMode(eaModeId);
     auto eaData = eaMode->getData(eaReg, 4);
-    cpu->stackPush(cpu->getPc());
+    cpu->stackPushLong(cpu->getPc());
     cpu->setPc(eaData->getDataAsLong());
     return 8 + eaData->getCycles();
 }
