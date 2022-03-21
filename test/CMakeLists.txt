@@ -77,7 +77,7 @@ add_executable(testGenieSys
         CpuOperations/RTETest.cpp
         CpuOperations/RTRTest.cpp
         CpuOperations/RTSTest.cpp
-        CpuOperations/TRAPVTest.cpp)
+        CpuOperations/TRAPVTest.cpp CpuOperations/JSRTest.cpp MockAddressingMode.h)
 
 target_link_libraries(testGenieSys PRIVATE GenieSys gtest gmock)
 

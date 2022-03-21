@@ -26,13 +26,13 @@ namespace GenieSys {
     public:
         AddressingResult(M68kCpu *cpu, Bus *bus, uint32_t address, std::vector<uint8_t> data, uint8_t cycles, uint8_t moveCycleKey);
         ~AddressingResult() = default;
-        uint8_t getCycles();
-        uint8_t getMoveCycleKey();
-        std::vector<uint8_t> getData();
-        uint8_t getDataAsByte();
-        uint16_t getDataAsWord();
-        uint32_t getDataAsLong();
-        uint32_t getAddress();
+        virtual uint8_t getCycles();
+        virtual uint8_t getMoveCycleKey();
+        virtual std::vector<uint8_t> getData();
+        virtual uint8_t getDataAsByte();
+        virtual uint16_t getDataAsWord();
+        virtual uint32_t getDataAsLong();
+        virtual uint32_t getAddress();
         virtual void write(std::vector<uint8_t> data);
         virtual void write(uint8_t data);
         virtual void write(uint16_t data);

@@ -28,7 +28,7 @@ uint8_t GenieSys::LINK::getSpecificity() {
 uint8_t GenieSys::LINK::execute(uint16_t opWord) {
     uint8_t regAddr = regMask.apply(opWord);
     uint32_t addr = cpu->getAddressRegister(regAddr);
-    cpu->stackPush(addr);
+    cpu->stackPushLong(addr);
     cpu->setAddressRegister(regAddr, cpu->getStackPointer());
     uint32_t displacement = signExtend(bus->readWord(cpu->getPc()), 16);
     cpu->incrementPc(2);

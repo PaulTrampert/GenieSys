@@ -28,8 +28,8 @@ namespace GenieSys {
         MOCK_METHOD(void, setSupervisor, (bool isSupervisor), (override));
         MOCK_METHOD(uint8_t, trap, (uint8_t vector), (override));
         MOCK_METHOD(AddressingMode *, getAddressingMode, (int modeId), (override));
-        MOCK_METHOD(void, stackPush, (uint16_t value), (override));
-        MOCK_METHOD(void, stackPush, (uint32_t value), (override));
+        MOCK_METHOD(void, stackPushWord, (uint16_t value), (override));
+        MOCK_METHOD(void, stackPushLong, (uint32_t value), (override));
         MOCK_METHOD(uint16_t, stackPopWord, (), (override));
         MOCK_METHOD(uint32_t, stackPopLong, (), (override));
         MOCK_METHOD(uint8_t, getUspRegister, (), (override));

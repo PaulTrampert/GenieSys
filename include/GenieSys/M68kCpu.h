@@ -221,13 +221,13 @@ namespace GenieSys {
          * Pushes a word onto the current stack.
          * @param value The 16-bit word to push onto the stack.
          */
-        virtual void stackPush(uint16_t value);
+        virtual void stackPushWord(uint16_t value);
 
         /**
          * Pushes a long onto the current stack.
          * @param value The 32-bit long to push onto the stack.
          */
-        virtual void stackPush(uint32_t value);
+        virtual void stackPushLong(uint32_t value);
 
         /**
          * Pops a word off of the stack.
