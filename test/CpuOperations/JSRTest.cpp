@@ -65,6 +65,7 @@ TEST_P(JSRTest, Execute) {
         .WillByDefault(Return(param.eaData));
     ON_CALL(*addressingResult, getCycles())
         .WillByDefault(Return(param.eaCycles));
+    Mock::AllowLeak(addressingResult);
 
     EXPECT_CALL(*cpu, getAddressingMode(param.eaModeId));
     EXPECT_CALL(*addressingMode, getDataProxy(param.eaReg, 4));
@@ -87,6 +88,9 @@ TEST_P(JSRTest, Disassemble) {
         .WillByDefault(Return(addressingMode));
     ON_CALL(*addressingMode, disassemble(param.eaReg, 4))
         .WillByDefault(Return(std::to_string(param.eaReg)));
+
+    EXPECT_CALL(*cpu, getAddressingMode(param.eaModeId));
+    EXPECT_CALL(*addressingMode, disassemble(param.eaReg, 4));
 
     ASSERT_EQ(param.expectedDisassembly, subject->disassemble(opWord));
     delete addressingResult;
