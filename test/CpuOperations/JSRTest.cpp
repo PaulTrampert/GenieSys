@@ -72,6 +72,7 @@ TEST_P(JSRTest, Execute) {
     EXPECT_CALL(*cpu, stackPushLong(param.initPc));
     EXPECT_CALL(*addressingResult, getDataAsLong());
     EXPECT_CALL(*cpu, setPc(param.eaData));
+    EXPECT_CALL(*addressingResult, getCycles());
 
     ASSERT_EQ(param.expectedCycles, subject->execute(opWord));
 }
@@ -88,6 +89,7 @@ TEST_P(JSRTest, Disassemble) {
         .WillByDefault(Return(std::to_string(param.eaReg)));
 
     ASSERT_EQ(param.expectedDisassembly, subject->disassemble(opWord));
+    delete addressingResult;
 }
 
 INSTANTIATE_TEST_CASE_P(JSR, JSRTest,
