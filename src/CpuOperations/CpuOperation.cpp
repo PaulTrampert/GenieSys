@@ -48,6 +48,7 @@
 #include <GenieSys/CpuOperations/TRAPV.h>
 #include <GenieSys/CpuOperations/RTR.h>
 #include <GenieSys/CpuOperations/JSR.h>
+#include "GenieSys/CpuOperations/JMP.h"
 
 
 GenieSys::CpuOperation::CpuOperation(GenieSys::M68kCpu *cpu, GenieSys::Bus *bus) {
@@ -73,6 +74,7 @@ std::vector<std::shared_ptr<GenieSys::CpuOperation>> GenieSys::getOperations(Gen
             std::shared_ptr<GenieSys::CpuOperation>(new EORItoCCR(cpu, bus)),
             std::shared_ptr<GenieSys::CpuOperation>(new EORItoSR(cpu, bus)),
             std::shared_ptr<GenieSys::CpuOperation>(new ILLEGAL(cpu, bus)),
+            std::shared_ptr<GenieSys::CpuOperation>(new JMP(cpu, bus)),
             std::shared_ptr<GenieSys::CpuOperation>(new JSR(cpu, bus)),
             std::shared_ptr<GenieSys::CpuOperation>(new LINK(cpu, bus)),
             std::shared_ptr<GenieSys::CpuOperation>(new MOVE(cpu, bus)),

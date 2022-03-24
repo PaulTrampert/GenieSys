@@ -67,7 +67,9 @@ add_library(GenieSys
         CpuOperations/RTE.cpp
         CpuOperations/RTS.cpp
         CpuOperations/TRAPV.cpp
-        CpuOperations/RTR.cpp CpuOperations/JSR.cpp)
+        CpuOperations/RTR.cpp
+        CpuOperations/JSR.cpp
+        CpuOperations/JMP.cpp)
 
 target_include_directories(GenieSys PUBLIC ../include)
 target_link_libraries(GenieSys Threads::Threads)
