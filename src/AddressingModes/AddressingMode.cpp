@@ -2,11 +2,12 @@
 // Created by paul.trampert on 11/27/2020.
 //
 #include <GenieSys/Bus.h>
+#include <GenieSys/M68kCpu.h>
 #include <GenieSys/AddressingModes/AddressingMode.h>
 #include <GenieSys/numberUtils.h>
 #include <memory>
 #include <utility>
-
+#include <cassert>
 
 
 GenieSys::BitMask<uint16_t> GenieSys::AddressingMode::EA_MODE_MASK = GenieSys::BitMask<uint16_t>(5, 3);
@@ -25,6 +26,20 @@ std::unique_ptr<GenieSys::AddressingResult> GenieSys::AddressingMode::getData(ui
     uint32_t address = getAddress(regAddr);
     auto data = bus->read(address, size);
     return std::make_unique<AddressingResult>( cpu, bus, address, data, size > 2 ? longCycles : cycles, this->getMoveCycleKey());
+}
+
+std::unique_ptr<GenieSys::AddressingResult> GenieSys::AddressingMode::movemToReg(uint8_t regAddr, uint8_t size, uint16_t mask) {
+    uint32_t address = getAddress(regAddr);
+    std::vector<uint8_t> data;
+    uint8_t count = 0;
+    for (uint8_t i = 15; i >= 0; i--) {
+        bool masked = (mask >> i) % 2;
+        if (masked) {
+            count++;
+
+        }
+    }
+    return std::make_unique<AddressingResult>(cpu, bus, address, data, (size > 2 ? longCycles : cycles) * count, this->getMoveCycleKey());
 }
 
 uint8_t GenieSys::AddressingMode::getMoveCycleKey() {
