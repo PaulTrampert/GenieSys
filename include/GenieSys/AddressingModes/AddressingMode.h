@@ -60,6 +60,8 @@ namespace GenieSys {
         virtual void setBus(Bus* b);
         virtual std::string disassemble(uint8_t regAddr, uint8_t size) = 0;
         virtual uint8_t getMoveCycleKey();
+
+        std::unique_ptr<AddressingResult> movemToMem(uint8_t regAddr, uint8_t size, uint16_t mask);
     };
 }
 

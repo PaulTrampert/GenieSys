@@ -36,3 +36,10 @@ std::unique_ptr<GenieSys::AddressingResult> GenieSys::AddressRegisterIndirectPos
 std::string GenieSys::AddressRegisterIndirectPostIncrementMode::disassemble(uint8_t regAddr, uint8_t size) {
     return "(A" + std::to_string(regAddr) + ")+";
 }
+
+std::unique_ptr<GenieSys::AddressingResult>
+GenieSys::AddressRegisterIndirectPostIncrementMode::movemToReg(uint8_t regAddr, uint8_t size, uint16_t mask) {
+    auto result = AddressingMode::movemToReg(regAddr, size, mask);
+    cpu->setAddressRegister(regAddr, result->getAddress() + (size * result->getData().size()));
+    return result;
+}

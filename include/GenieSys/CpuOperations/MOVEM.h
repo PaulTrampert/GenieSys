@@ -16,9 +16,6 @@ namespace GenieSys {
         BitMask<uint16_t> eaModeMask = BitMask<uint16_t>(5, 3);
         BitMask<uint16_t> eaRegMask = BitMask<uint16_t>(2, 3);
 
-        std::vector<uint16_t> memToRegEas;
-        std::vector<uint16_t> regToMemEas;
-
     public:
         MOVEM(M68kCpu *cpu, Bus *bus);
 
