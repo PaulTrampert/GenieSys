@@ -6,7 +6,7 @@
 #include <GenieSys/M68kCpu.h>
 #include <GenieSys/Bus.h>
 #include "GenieSys/AddressingModes/AddressRegisterIndirectPreDecrementMode.h"
-
+#include "GenieSys/TrapException.h"
 
 
 GenieSys::AddressRegisterIndirectPreDecrementMode::AddressRegisterIndirectPreDecrementMode(GenieSys::M68kCpu *cpu, GenieSys::Bus *bus)
@@ -36,4 +36,9 @@ std::unique_ptr<GenieSys::AddressingResult> GenieSys::AddressRegisterIndirectPre
 
 std::string GenieSys::AddressRegisterIndirectPreDecrementMode::disassemble(uint8_t regAddr, uint8_t size) {
     return "-(A" + std::to_string((int)regAddr) + ")";
+}
+
+std::unique_ptr<GenieSys::AddressingResult>
+GenieSys::AddressRegisterIndirectPreDecrementMode::movemToReg(uint8_t regAddr, uint8_t size, uint16_t mask) {
+    throw GenieSys::TrapException(TV_ILLEGAL_INSTR);
 }

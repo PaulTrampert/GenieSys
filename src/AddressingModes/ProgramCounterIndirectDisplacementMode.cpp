@@ -7,7 +7,7 @@
 #include <GenieSys/M68kCpu.h>
 #include <GenieSys/Bus.h>
 #include "GenieSys/AddressingModes/ProgramCounterIndirectDisplacementMode.h"
-
+#include "GenieSys/TrapException.h"
 
 
 GenieSys::ProgramCounterIndirectDisplacementMode::ProgramCounterIndirectDisplacementMode(GenieSys::M68kCpu *cpu, GenieSys::Bus *bus)

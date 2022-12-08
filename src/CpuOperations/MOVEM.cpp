@@ -18,6 +18,7 @@
 #include <GenieSys/Bus.h>
 #include <vector>
 #include <algorithm>
+#include "GenieSys/TrapException.h"
 
 
 #define DIR_REG_TO_MEM 0
@@ -28,35 +29,6 @@
 using namespace GenieSys;
 
 GenieSys::MOVEM::MOVEM(GenieSys::M68kCpu *cpu, GenieSys::Bus *bus) : CpuOperation(cpu, bus) {
-    std::vector<uint16_t> tmpRegToMemEas[] = {
-            getPossibleOpcodes<uint16_t>(AddressRegisterIndirectMode::MODE_ID, &eaRegMask),
-            getPossibleOpcodes<uint16_t>(AddressRegisterIndirectPreDecrementMode::MODE_ID, &eaRegMask),
-            getPossibleOpcodes<uint16_t>(AddressRegisterIndirectDisplacementMode::MODE_ID, &eaRegMask),
-            getPossibleOpcodes<uint16_t>(AddressRegisterIndirectWithIndexMode::MODE_ID, &eaRegMask),
-            std::vector<uint16_t>{(ProgramCounterAddressingMode::MODE_ID << 3) | AbsoluteShortAddressingMode::MODE_ID},
-            std::vector<uint16_t>{(ProgramCounterAddressingMode::MODE_ID << 3) | AbsoluteLongAddressingMode::MODE_ID}
-    };
-
-    std::vector<uint16_t> tmpMemToRegEas[] = {
-            getPossibleOpcodes<uint16_t>(AddressRegisterIndirectMode::MODE_ID, &eaRegMask),
-            getPossibleOpcodes<uint16_t>(AddressRegisterIndirectPostIncrementMode::MODE_ID, &eaRegMask),
-            getPossibleOpcodes<uint16_t>(AddressRegisterIndirectDisplacementMode::MODE_ID, &eaRegMask),
-            getPossibleOpcodes<uint16_t>(AddressRegisterIndirectWithIndexMode::MODE_ID, &eaRegMask),
-            std::vector<uint16_t>{(ProgramCounterAddressingMode::MODE_ID << 3) | AbsoluteShortAddressingMode::MODE_ID},
-            std::vector<uint16_t>{(ProgramCounterAddressingMode::MODE_ID << 3) | AbsoluteLongAddressingMode::MODE_ID},
-            std::vector<uint16_t>{(ProgramCounterAddressingMode::MODE_ID << 3) | ProgramCounterIndirectDisplacementMode::MODE_ID},
-            std::vector<uint16_t>{(ProgramCounterAddressingMode::MODE_ID << 3) | ProgramCounterIndirectWithIndexMode::MODE_ID}
-    };
-
-    for (auto eas : tmpRegToMemEas) {
-        regToMemEas.insert(regToMemEas.end(), eas.begin(), eas.end());
-    }
-    std::sort(regToMemEas.begin(), regToMemEas.end());
-
-    for (auto eas : tmpMemToRegEas) {
-        memToRegEas.insert(memToRegEas.end(), eas.begin(), eas.end());
-    }
-    std::sort(memToRegEas.begin(), memToRegEas.end());
 }
 
 std::vector<uint16_t> GenieSys::MOVEM::getOpcodes() {
@@ -74,22 +46,24 @@ uint8_t GenieSys::MOVEM::getSpecificity() {
 
 uint8_t GenieSys::MOVEM::execute(uint16_t opWord) {
     uint8_t dir = dirMask.apply(opWord);
-    uint8_t size = sizeMask.apply(opWord);
+    uint8_t size = sizeMask.apply(opWord) == SZ_WORD ? 2 : 4;
     uint8_t eaModeId = eaModeMask.apply(opWord);
     uint8_t eaReg = eaRegMask.apply(opWord);
-    uint8_t ea = (eaModeId << 3) | eaReg;
     uint16_t regListWord = bus->readWord(cpu->getPc());
     cpu->incrementPc(2);
-    if (dir == DIR_MEM_TO_REG && !std::binary_search(memToRegEas.begin(), memToRegEas.end(), ea)) {
-        return cpu->trap(TV_ILLEGAL_INSTR);
-    }
-    else if (dir == DIR_REG_TO_MEM && !std::binary_search(regToMemEas.begin(), regToMemEas.end(), ea)) {
-        return cpu->trap(TV_ILLEGAL_INSTR);
-    }
-    bool selfIncrMode = eaModeId == AddressRegisterIndirectPostIncrementMode::MODE_ID
-            || eaModeId == AddressRegisterIndirectPreDecrementMode::MODE_ID;
     auto eaMode = cpu->getAddressingMode(eaModeId);
-    return 0;
+    std::unique_ptr<AddressingResult> result;
+    try {
+        if (dir == DIR_MEM_TO_REG) {
+            result = eaMode->movemToReg(eaReg, size, regListWord);
+        }
+        else {
+            result = eaMode->movemToMem(eaReg, size, regListWord);
+        }
+    } catch (TrapException &e) {
+        return cpu->trap(e.getTrapVector());
+    }
+    return result->getCycles();
 }
 
 std::string MOVEM::disassemble(uint16_t opWord) {
