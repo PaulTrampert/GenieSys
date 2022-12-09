@@ -38,3 +38,8 @@ TEST(numberUtils, getBytesLong) {
     EXPECT_EQ(0x33, result[2]);
     EXPECT_EQ(0x44, result[3]);
 }
+
+TEST(numberUtils, bitwiseReverse) {
+    auto result = GenieSys::bitwiseReverse(0b1010101111010010);
+    EXPECT_EQ(0b0100101111010101, result);
+}

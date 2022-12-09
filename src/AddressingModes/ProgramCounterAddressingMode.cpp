@@ -65,3 +65,11 @@ GenieSys::ProgramCounterAddressingMode::movemToReg(uint8_t regAddr, uint8_t size
     if (subMode == nullptr) return std::make_unique<GenieSys::AddressingResult>(cpu, bus, 0, std::vector<uint8_t>(0), 0, 0);
     return subMode->movemToReg(regAddr, size, mask);
 }
+
+std::unique_ptr<GenieSys::AddressingResult>
+GenieSys::ProgramCounterAddressingMode::movemToMem(uint8_t regAddr, uint8_t size, uint16_t mask) {
+    uint8_t submodeId = regAddr;
+    AddressingMode* subMode = subModes[submodeId].get();
+    if (subMode == nullptr) return std::make_unique<GenieSys::AddressingResult>(cpu, bus, 0, std::vector<uint8_t>(0), 0, 0);
+    return subMode->movemToMem(regAddr, size, mask);
+}

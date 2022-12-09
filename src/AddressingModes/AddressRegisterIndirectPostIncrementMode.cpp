@@ -6,7 +6,7 @@
 #include <GenieSys/M68kCpu.h>
 #include <GenieSys/Bus.h>
 #include "GenieSys/AddressingModes/AddressRegisterIndirectPostIncrementMode.h"
-
+#include "GenieSys/TrapException.h"
 
 
 GenieSys::AddressRegisterIndirectPostIncrementMode::AddressRegisterIndirectPostIncrementMode(GenieSys::M68kCpu *cpu, GenieSys::Bus *bus)
@@ -42,4 +42,9 @@ GenieSys::AddressRegisterIndirectPostIncrementMode::movemToReg(uint8_t regAddr, 
     auto result = AddressingMode::movemToReg(regAddr, size, mask);
     cpu->setAddressRegister(regAddr, result->getAddress() + (size * result->getData().size()));
     return result;
+}
+
+std::unique_ptr<GenieSys::AddressingResult>
+GenieSys::AddressRegisterIndirectPostIncrementMode::movemToMem(uint8_t regAddr, uint8_t size, uint16_t mask) {
+    throw GenieSys::TrapException(TV_ILLEGAL_INSTR);
 }

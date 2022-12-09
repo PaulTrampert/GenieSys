@@ -181,3 +181,8 @@ std::string GenieSys::ProgramCounterIndirectWithIndexMode::disassemble(uint8_t r
 uint8_t GenieSys::ProgramCounterIndirectWithIndexMode::getMoveCycleKey() {
     return 10;
 }
+
+std::unique_ptr<GenieSys::AddressingResult>
+GenieSys::ProgramCounterIndirectWithIndexMode::movemToMem(uint8_t regAddr, uint8_t size, uint16_t mask) {
+    throw TrapException(TV_ILLEGAL_INSTR);
+}

@@ -7,7 +7,7 @@
 #include <GenieSys/Bus.h>
 #include "GenieSys/AddressingModes/AddressRegisterIndirectPreDecrementMode.h"
 #include "GenieSys/TrapException.h"
-
+#include "GenieSys/numberUtils.h"
 
 GenieSys::AddressRegisterIndirectPreDecrementMode::AddressRegisterIndirectPreDecrementMode(GenieSys::M68kCpu *cpu, GenieSys::Bus *bus)
         : GenieSys::AddressingMode(cpu, bus) {
@@ -41,4 +41,37 @@ std::string GenieSys::AddressRegisterIndirectPreDecrementMode::disassemble(uint8
 std::unique_ptr<GenieSys::AddressingResult>
 GenieSys::AddressRegisterIndirectPreDecrementMode::movemToReg(uint8_t regAddr, uint8_t size, uint16_t mask) {
     throw GenieSys::TrapException(TV_ILLEGAL_INSTR);
+}
+
+std::unique_ptr<GenieSys::AddressingResult>
+GenieSys::AddressRegisterIndirectPreDecrementMode::movemToMem(uint8_t regAddr, uint8_t size, uint16_t mask) {
+    uint32_t address = getAddress(regAddr);
+    std::vector<uint8_t> data;
+    uint8_t count = 0;
+    int i = 15;
+    while (mask > 0) {
+        bool masked = mask % 2;
+        if (masked) {
+            address -= (++count * size);
+            uint32_t nextElem;
+            auto srcAddr = i > 7 ? i - 8 : i;
+            if (i > 7) {
+                nextElem = cpu->getAddressRegister(srcAddr);
+            }
+            else {
+                nextElem = cpu->getDataRegister(srcAddr);
+            }
+            data.push_back(nextElem);
+            if (size == 2) {
+                bus->writeWord(address, nextElem & 0x0000FFFF);
+            }
+            else {
+                bus->writeLong(address, nextElem);
+            }
+        }
+        i--;
+        mask = mask >> 1;
+    }
+    cpu->setAddressRegister(regAddr, address);
+    return std::make_unique<AddressingResult>(cpu, bus, address, data, (size > 2 ? longCycles : cycles) * count, this->getMoveCycleKey());
 }

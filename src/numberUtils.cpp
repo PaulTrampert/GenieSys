@@ -49,3 +49,12 @@ std::string GenieSys::toHex(const std::vector<uint8_t>& data) {
     }
     return stream.str();
 }
+
+uint16_t GenieSys::bitwiseReverse(uint16_t word) {
+    uint16_t newWord = 0;
+    for (int i = 0; i < 16; i++) {
+        uint16_t nextBit = (word >> (15 - i)) & 1;
+        newWord |= nextBit << i;
+    }
+    return newWord;
+}

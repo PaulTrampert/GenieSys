@@ -65,7 +65,34 @@ uint8_t GenieSys::AddressingMode::getMoveCycleKey() {
 }
 
 std::unique_ptr<GenieSys::AddressingResult> GenieSys::AddressingMode::movemToMem(uint8_t regAddr, uint8_t size, uint16_t mask) {
-    return std::unique_ptr<AddressingResult>();
+    uint32_t address = getAddress(regAddr);
+    std::vector<uint8_t> data;
+    uint8_t count = 0;
+    int i = 0;
+    while (mask > 0) {
+        bool masked = mask % 2;
+        if (masked) {
+            uint32_t writeAddr = address + (count++ * size);
+            uint32_t nextElem;
+            auto srcAddr = i > 7 ? i - 8 : i;
+            if (i > 7) {
+                nextElem = cpu->getAddressRegister(srcAddr);
+            }
+            else {
+                nextElem = cpu->getDataRegister(srcAddr);
+            }
+            data.push_back(nextElem);
+            if (size == 2) {
+                bus->writeWord(writeAddr, nextElem & 0x0000FFFF);
+            }
+            else {
+                bus->writeLong(writeAddr, nextElem);
+            }
+        }
+        i++;
+        mask = mask >> 1;
+    }
+    return std::make_unique<AddressingResult>(cpu, bus, address, data, (size > 2 ? longCycles : cycles) * count, this->getMoveCycleKey());
 }
 
 GenieSys::AddressingResult::AddressingResult(GenieSys::M68kCpu *cpu, GenieSys::Bus *bus, uint32_t address, std::vector<uint8_t> data,
