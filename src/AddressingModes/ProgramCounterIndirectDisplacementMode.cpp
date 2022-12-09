@@ -37,3 +37,8 @@ std::string GenieSys::ProgramCounterIndirectDisplacementMode::disassemble(uint8_
 uint8_t GenieSys::ProgramCounterIndirectDisplacementMode::getMoveCycleKey() {
     return 9;
 }
+
+std::unique_ptr<GenieSys::AddressingResult>
+GenieSys::ProgramCounterIndirectDisplacementMode::movemToMem(uint8_t regAddr, uint8_t size, uint16_t mask) {
+    throw TrapException(TV_ILLEGAL_INSTR);
+}

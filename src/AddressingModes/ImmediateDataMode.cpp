@@ -53,3 +53,8 @@ std::unique_ptr<GenieSys::AddressingResult>
 GenieSys::ImmediateDataMode::movemToReg(uint8_t regAddr, uint8_t size, uint16_t mask) {
     throw GenieSys::TrapException(TV_ILLEGAL_INSTR);
 }
+
+std::unique_ptr<GenieSys::AddressingResult>
+GenieSys::ImmediateDataMode::movemToMem(uint8_t regAddr, uint8_t size, uint16_t mask) {
+    throw GenieSys::TrapException(TV_ILLEGAL_INSTR);
+}

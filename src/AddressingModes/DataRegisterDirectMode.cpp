@@ -42,6 +42,11 @@ GenieSys::DataRegisterDirectMode::movemToReg(uint8_t regAddr, uint8_t size, uint
     throw GenieSys::TrapException(TV_ILLEGAL_INSTR);
 }
 
+std::unique_ptr<GenieSys::AddressingResult>
+GenieSys::DataRegisterDirectMode::movemToMem(uint8_t regAddr, uint8_t size, uint16_t mask) {
+    throw GenieSys::TrapException(TV_ILLEGAL_INSTR);
+}
+
 GenieSys::DataRegisterDirectResult::DataRegisterDirectResult(GenieSys::M68kCpu *cpu, GenieSys::Bus *bus, uint32_t address, std::vector<uint8_t> data)
         : AddressingResult(cpu, bus, address, std::move(data), 0, DataRegisterDirectMode::MODE_ID) {
 }

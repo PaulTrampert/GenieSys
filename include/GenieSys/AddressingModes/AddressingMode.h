@@ -56,12 +56,11 @@ namespace GenieSys {
         virtual uint32_t getAddress(uint8_t regAddr) = 0;
         virtual std::unique_ptr<AddressingResult> getData(uint8_t regAddr, uint8_t size);
         virtual std::unique_ptr<AddressingResult> movemToReg(uint8_t regAddr, uint8_t size, uint16_t mask);
+        virtual std::unique_ptr<AddressingResult> movemToMem(uint8_t regAddr, uint8_t size, uint16_t mask);
         virtual uint8_t getModeId() = 0;
         virtual void setBus(Bus* b);
         virtual std::string disassemble(uint8_t regAddr, uint8_t size) = 0;
         virtual uint8_t getMoveCycleKey();
-
-        std::unique_ptr<AddressingResult> movemToMem(uint8_t regAddr, uint8_t size, uint16_t mask);
     };
 }
 
