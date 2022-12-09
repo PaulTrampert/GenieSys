@@ -7,6 +7,7 @@
 #include <GenieSys/numberUtils.h>
 #include <GenieSys/Bus.h>
 #include <GenieSys/M68kCpu.h>
+#include "GenieSys/TrapException.h"
 
 
 struct ImmediateDataModeTest : testing::Test {
@@ -51,4 +52,15 @@ TEST_F(ImmediateDataModeTest, Disassemble_ReturnsTheCorrectString) {
 TEST_F(ImmediateDataModeTest, Disassemble_ReturnsTheCorrectStringWithZeros) {
     cpu->setPc(34);
     ASSERT_EQ("$0a00", subject->disassemble(0b100, 2));
+}
+
+TEST_F(ImmediateDataModeTest, TestMovemToReg) {
+    EXPECT_THROW({
+                     try {
+                         subject->movemToReg(1, 2, 1);
+                     } catch (GenieSys::TrapException &e) {
+                         EXPECT_EQ(GenieSys::TV_ILLEGAL_INSTR, e.getTrapVector());
+                         throw;
+                     }
+                 }, GenieSys::TrapException);
 }

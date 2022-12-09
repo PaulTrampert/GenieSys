@@ -338,3 +338,55 @@ TEST_F(AddressRegisterIndirectWithIndexModeTest, GetAddress_AddressRegisterPostI
 
     ASSERT_EQ("([#-4,A5],D4.w*4,#-4)", subject->disassemble(5, 0));
 }
+
+TEST_F(AddressRegisterIndirectWithIndexModeTest, TestMovemToRegWord) {
+    GenieSys::ExtensionWord extWord = GenieSys::ExtensionWord();
+    extWord.setIsBrief(false);
+    extWord.setIdxRegType(GenieSys::M68K_REG_TYPE_DATA);
+    extWord.setIdxRegAddr(4);
+    extWord.setIdxSize(GenieSys::EXT_WORD_IDX_SIZE_SE_WORD);
+    extWord.setScale(2);
+    extWord.setIndexSuppress(false);
+    extWord.setBaseDisplacementSize(GenieSys::EXT_WORD_BD_SIZE_WORD);
+    extWord.setIndexIndirectSelection(6);
+    cpu->setPc(32);
+    bus.writeWord(32, (uint16_t)extWord);
+    bus.writeWord(34, -4);
+    bus.writeWord(36, -4);
+    bus.writeLong(90, 9000);
+    cpu->setAddressRegister(5, 94);
+    cpu->setDataRegister(4, (uint32_t)5);
+
+    bus.write(9016, std::vector<uint8_t> {0x55, 0x32, 0x42, 0x01, 0xFF, 0xF0, 0x44, 0x44});
+    auto result = subject->movemToReg(5, 2, 0b1000000010001001);
+    EXPECT_EQ(0x5532, cpu->getDataRegister(0));
+    EXPECT_EQ(0x4201, cpu->getDataRegister(3));
+    EXPECT_EQ(0xFFFFFFF0, cpu->getDataRegister(7));
+    EXPECT_EQ(0x4444, cpu->getAddressRegister(7));
+}
+
+TEST_F(AddressRegisterIndirectWithIndexModeTest, TestMovemToRegLong) {
+    GenieSys::ExtensionWord extWord = GenieSys::ExtensionWord();
+    extWord.setIsBrief(false);
+    extWord.setIdxRegType(GenieSys::M68K_REG_TYPE_DATA);
+    extWord.setIdxRegAddr(4);
+    extWord.setIdxSize(GenieSys::EXT_WORD_IDX_SIZE_SE_WORD);
+    extWord.setScale(2);
+    extWord.setIndexSuppress(false);
+    extWord.setBaseDisplacementSize(GenieSys::EXT_WORD_BD_SIZE_WORD);
+    extWord.setIndexIndirectSelection(6);
+    cpu->setPc(32);
+    bus.writeWord(32, (uint16_t)extWord);
+    bus.writeWord(34, -4);
+    bus.writeWord(36, -4);
+    bus.writeLong(90, 9000);
+    cpu->setAddressRegister(5, 94);
+    cpu->setDataRegister(4, (uint32_t)5);
+
+    bus.write(9016, std::vector<uint8_t> {0x55, 0x32, 0x42, 0x01, 0xFF, 0xF0, 0x44, 0x44});
+    auto result = subject->movemToReg(5, 4, 0b1000000000000001);
+    EXPECT_EQ(0x55324201, cpu->getDataRegister(0));
+    EXPECT_EQ(0, cpu->getDataRegister(3));
+    EXPECT_EQ(0, cpu->getDataRegister(7));
+    EXPECT_EQ(0xFFF04444, cpu->getAddressRegister(7));
+}
