@@ -55,3 +55,14 @@ TEST_F(AddressRegisterDirectModeTest, TestMovemToReg) {
         }
     }, GenieSys::TrapException);
 }
+
+TEST_F(AddressRegisterDirectModeTest, TestMovemToMem) {
+    EXPECT_THROW({
+                     try {
+                         subject->movemToMem(1, 2, 1);
+                     } catch (GenieSys::TrapException &e) {
+                         EXPECT_EQ(GenieSys::TV_ILLEGAL_INSTR, e.getTrapVector());
+                         throw;
+                     }
+                 }, GenieSys::TrapException);
+}
