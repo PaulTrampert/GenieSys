@@ -35,7 +35,6 @@ std::unique_ptr<GenieSys::AddressingResult> GenieSys::AddressingMode::movemToReg
     uint8_t count = 0;
     int i = 0;
     while (mask > 0) {
-        mask = mask >> i;
         bool masked = mask % 2;
         if (masked) {
             uint32_t readAddr = address + (count++ * size);
@@ -56,6 +55,7 @@ std::unique_ptr<GenieSys::AddressingResult> GenieSys::AddressingMode::movemToReg
             }
         }
         i++;
+        mask = mask >> 1;
     }
     return std::make_unique<AddressingResult>(cpu, bus, address, data, (size > 2 ? longCycles : cycles) * count, this->getMoveCycleKey());
 }

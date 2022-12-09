@@ -10,7 +10,7 @@
 #include <GenieSys/M68kCpu.h>
 #include <GenieSys/numberUtils.h>
 #include <GenieSys/AddressingModes/AddressRegisterIndirectPreDecrementMode.h>
-
+#include "GenieSys/TrapException.h"
 
 
 struct AddressRegisterIndirectPreDecrementModeTest : testing::Test {
@@ -76,4 +76,15 @@ TEST_F(AddressRegisterIndirectPreDecrementModeTest, TestGetModeId) {
 
 TEST_F(AddressRegisterIndirectPreDecrementModeTest, TestDisassemble) {
     EXPECT_EQ("-(A7)", subject->disassemble(7, 0));
+}
+
+TEST_F(AddressRegisterIndirectPreDecrementModeTest, TestMovemToReg) {
+    EXPECT_THROW({
+                     try {
+                         subject->movemToReg(1, 2, 1);
+                     } catch (GenieSys::TrapException &e) {
+                         EXPECT_EQ(GenieSys::TV_ILLEGAL_INSTR, e.getTrapVector());
+                         throw;
+                     }
+                 }, GenieSys::TrapException);
 }
