@@ -5,7 +5,7 @@
 #include <GenieSys/Bus.h>
 #include <GenieSys/M68kCpu.h>
 #include <GenieSys/AddressingModes/AddressRegisterIndirectDisplacementMode.h>
-
+#include "gmock/gmock-matchers.h"
 
 
 struct AddressRegisterIndirectDisplacementModeTest : testing::Test {
