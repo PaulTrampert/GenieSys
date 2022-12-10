@@ -11,6 +11,7 @@
 #include <GenieSys/numberUtils.h>
 #include <GenieSys/AddressingModes/AddressRegisterIndirectPreDecrementMode.h>
 #include "GenieSys/TrapException.h"
+#include "gmock/gmock-matchers.h"
 
 
 struct AddressRegisterIndirectPreDecrementModeTest : testing::Test {
@@ -87,4 +88,29 @@ TEST_F(AddressRegisterIndirectPreDecrementModeTest, TestMovemToReg) {
                          throw;
                      }
                  }, GenieSys::TrapException);
+}
+
+TEST_F(AddressRegisterIndirectPreDecrementModeTest, TestMovemToMemWord) {
+    cpu->setAddressRegister(7, 11);
+    cpu->setDataRegister(7, 0xFFFFFFF0);
+    cpu->setDataRegister(3, (uint32_t)0x4201);
+    cpu->setDataRegister(0, (uint32_t)0x5532);
+    bus.write(3, std::vector<uint8_t> {0, 0, 0, 0, 0, 0, 0, 0});
+
+    auto result = subject->movemToMem(7, 2, 0b1001000100000001);
+    auto written = bus.read(3, 8);
+    EXPECT_THAT(written, testing::ElementsAreArray({0x55, 0x32, 0x42, 0x01, 0xFF, 0xF0, 0x00, 0x0B}));
+    EXPECT_EQ(3, cpu->getAddressRegister(7));
+}
+
+TEST_F(AddressRegisterIndirectPreDecrementModeTest, TestMovemToMemLong) {
+    cpu->setAddressRegister(2, 11);
+    cpu->setAddressRegister(7, 0xFFF04444);
+    cpu->setDataRegister(0, (uint32_t)0x55324201);
+    bus.write(3, std::vector<uint8_t> {0, 0, 0, 0, 0, 0, 0, 0});
+
+    auto result = subject->movemToMem(2, 4, 0b1000000000000001);
+    auto written = bus.read(3, 8);
+    EXPECT_THAT(written, testing::ElementsAreArray({0x55, 0x32, 0x42, 0x01, 0xFF, 0xF0, 0x44, 0x44}));
+    EXPECT_EQ(3, cpu->getAddressRegister(2));
 }

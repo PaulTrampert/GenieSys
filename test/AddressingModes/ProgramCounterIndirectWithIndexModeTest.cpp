@@ -7,6 +7,7 @@
 #include <GenieSys/ExtensionWord.h>
 #include <GenieSys/Bus.h>
 #include <GenieSys/M68kCpu.h>
+#include "GenieSys/TrapException.h"
 
 struct ProgramCounterIndirectWithIndexModeTest : testing::Test {
     GenieSys::M68kCpu* cpu;
@@ -377,4 +378,15 @@ TEST_F(ProgramCounterIndirectWithIndexModeTest, TestMovemToRegLong) {
     EXPECT_EQ(0, cpu->getDataRegister(3));
     EXPECT_EQ(0, cpu->getDataRegister(7));
     EXPECT_EQ(0xFFF04444, cpu->getAddressRegister(7));
+}
+
+TEST_F(ProgramCounterIndirectWithIndexModeTest, TestMovemToMem) {
+    EXPECT_THROW({
+                     try {
+                         subject->movemToMem(GenieSys::ProgramCounterIndirectWithIndexMode::MODE_ID, 2, 1);
+                     } catch (GenieSys::TrapException &e) {
+                         EXPECT_EQ(GenieSys::TV_ILLEGAL_INSTR, e.getTrapVector());
+                         throw;
+                     }
+                 }, GenieSys::TrapException);
 }
