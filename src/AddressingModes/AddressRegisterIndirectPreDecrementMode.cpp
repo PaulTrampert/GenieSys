@@ -52,7 +52,8 @@ GenieSys::AddressRegisterIndirectPreDecrementMode::movemToMem(uint8_t regAddr, u
     while (mask > 0) {
         bool masked = mask % 2;
         if (masked) {
-            address -= (++count * size);
+            address -= size;
+            count++;
             uint32_t nextElem;
             auto srcAddr = i > 7 ? i - 8 : i;
             if (i > 7) {

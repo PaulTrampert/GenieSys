@@ -6,7 +6,7 @@
 #include <GenieSys/M68kCpu.h>
 #include <GenieSys/AddressingModes/AddressRegisterIndirectPostIncrementMode.h>
 #include <GenieSys/numberUtils.h>
-
+#include "GenieSys/TrapException.h"
 
 
 struct AddressRegisterIndirectPostIncrementModeTest : testing::Test {
@@ -90,4 +90,15 @@ TEST_F(AddressRegisterIndirectPostIncrementModeTest, TestMovemToRegLong) {
     EXPECT_EQ(0, cpu->getDataRegister(7));
     EXPECT_EQ(0xFFF04444, cpu->getAddressRegister(7));
     EXPECT_EQ(18, cpu->getAddressRegister(2));
+}
+
+TEST_F(AddressRegisterIndirectPostIncrementModeTest, TestMovemToMem) {
+    EXPECT_THROW({
+                     try {
+                         subject->movemToMem(1, 2, 1);
+                     } catch (GenieSys::TrapException &e) {
+                         EXPECT_EQ(GenieSys::TV_ILLEGAL_INSTR, e.getTrapVector());
+                         throw;
+                     }
+                 }, GenieSys::TrapException);
 }
