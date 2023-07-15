@@ -6,6 +6,7 @@
 
 #include <sstream>
 #include <cmath>
+#include <cstdint>
 #include "./enums.h"
 
 namespace GenieSys {
