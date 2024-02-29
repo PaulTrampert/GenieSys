@@ -6,6 +6,7 @@
 
 #include <exception>
 #include <string>
+#include <cstdint>
 
 namespace GenieSys {
 class TrapException : public std::exception {
