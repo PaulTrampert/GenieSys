@@ -18,6 +18,7 @@ namespace GenieSys {
         uint8_t getModeId() override;
         std::string disassemble(uint8_t regAddr, uint8_t size) override;
         uint8_t getMoveCycleKey() override;
+        std::unique_ptr<AddressingResult> movemToMem(uint8_t regAddr, uint8_t size, uint16_t mask) override;
     };
 }
 

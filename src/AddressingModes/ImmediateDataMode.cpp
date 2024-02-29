@@ -7,7 +7,7 @@
 #include <GenieSys/M68kCpu.h>
 #include <GenieSys/Bus.h>
 #include "GenieSys/AddressingModes/ImmediateDataMode.h"
-
+#include "GenieSys/TrapException.h"
 
 
 GenieSys::ImmediateDataMode::ImmediateDataMode(GenieSys::M68kCpu *cpu, GenieSys::Bus *bus) : AddressingMode(cpu, bus) {
@@ -47,4 +47,14 @@ std::string GenieSys::ImmediateDataMode::disassemble(uint8_t regAddr, uint8_t si
 
 uint8_t GenieSys::ImmediateDataMode::getMoveCycleKey() {
     return 11;
+}
+
+std::unique_ptr<GenieSys::AddressingResult>
+GenieSys::ImmediateDataMode::movemToReg(uint8_t regAddr, uint8_t size, uint16_t mask) {
+    throw GenieSys::TrapException(TV_ILLEGAL_INSTR);
+}
+
+std::unique_ptr<GenieSys::AddressingResult>
+GenieSys::ImmediateDataMode::movemToMem(uint8_t regAddr, uint8_t size, uint16_t mask) {
+    throw GenieSys::TrapException(TV_ILLEGAL_INSTR);
 }

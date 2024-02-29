@@ -21,4 +21,6 @@ namespace GenieSys {
     std::vector<uint8_t> getBytes(uint32_t byte);
 
     std::string toHex(const std::vector<uint8_t>& data);
+
+    uint16_t bitwiseReverse(uint16_t word);
 }
