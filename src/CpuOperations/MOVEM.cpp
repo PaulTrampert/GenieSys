@@ -18,7 +18,9 @@
 #include <GenieSys/Bus.h>
 #include <vector>
 #include <algorithm>
+#include <sstream>
 #include "GenieSys/TrapException.h"
+#include "GenieSys/numberUtils.h"
 
 
 #define DIR_REG_TO_MEM 0
@@ -67,5 +69,20 @@ uint8_t GenieSys::MOVEM::execute(uint16_t opWord) {
 }
 
 std::string MOVEM::disassemble(uint16_t opWord) {
-    return std::string();
+    uint8_t dir = dirMask.apply(opWord);
+    uint8_t size = sizeMask.apply(opWord) == SZ_WORD ? 2 : 4;
+    uint8_t eaModeId = eaModeMask.apply(opWord);
+    uint8_t eaReg = eaRegMask.apply(opWord);
+    auto regListWord = bus->read(cpu->getPc(), 2);
+    cpu->incrementPc(2);
+    auto eaMode = cpu->getAddressingMode(eaModeId);
+    std::stringstream stream;
+    stream << "MOVEM ";
+    if (dir == DIR_MEM_TO_REG) {
+        stream << eaMode->disassemble(eaReg, size) << ",(" << GenieSys::toHex(regListWord) << ")";
+    }
+    else {
+        stream << "(" << GenieSys::toHex(regListWord) << ")," << eaMode->disassemble(eaReg, size);
+    }
+    return stream.str();
 }
