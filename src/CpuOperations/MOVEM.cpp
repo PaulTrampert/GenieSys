@@ -77,12 +77,18 @@ std::string MOVEM::disassemble(uint16_t opWord) {
     cpu->incrementPc(2);
     auto eaMode = cpu->getAddressingMode(eaModeId);
     std::stringstream stream;
-    stream << "MOVEM ";
-    if (dir == DIR_MEM_TO_REG) {
-        stream << eaMode->disassemble(eaReg, size) << ",(" << GenieSys::toHex(regListWord) << ")";
+    stream << "MOVEM";
+    if (size == 2) {
+        stream << ".W ";
     }
     else {
-        stream << "(" << GenieSys::toHex(regListWord) << ")," << eaMode->disassemble(eaReg, size);
+        stream << ".L ";
+    }
+    if (dir == DIR_MEM_TO_REG) {
+        stream << eaMode->disassemble(eaReg, size) << ",$" << GenieSys::toHex(regListWord) << "";
+    }
+    else {
+        stream << "$" << GenieSys::toHex(regListWord) << "," << eaMode->disassemble(eaReg, size);
     }
     return stream.str();
 }
