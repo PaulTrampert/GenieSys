@@ -79,7 +79,10 @@ add_executable(testGenieSys
         CpuOperations/RTSTest.cpp
         CpuOperations/TRAPVTest.cpp
         CpuOperations/JSRTest.cpp
-        CpuOperations/JMPTest.cpp)
+        CpuOperations/JMPTest.cpp
+        CpuOperations/MOVEMTest.cpp
+        RegisterListTest.cpp
+)
 
 target_link_libraries(testGenieSys PRIVATE GenieSys gtest gmock)
 

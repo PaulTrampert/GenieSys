@@ -9,7 +9,7 @@
 #include <GenieSys/Bus.h>
 #include <GenieSys/M68kCpu.h>
 #include <GenieSys/AddressingModes/DataRegisterDirectMode.h>
-
+#include "GenieSys/TrapException.h"
 
 
 struct DataRegisterDirectModeTest : testing::Test {
@@ -47,4 +47,26 @@ TEST_F(DataRegisterDirectModeTest, TestGetModeId) {
 
 TEST_F(DataRegisterDirectModeTest, TestDisassemble) {
     EXPECT_EQ("D7", subject->disassemble(7, 0));
+}
+
+TEST_F(DataRegisterDirectModeTest, TestMovemToReg) {
+    EXPECT_THROW({
+                     try {
+                         subject->movemToReg(1, 2, 1);
+                     } catch (GenieSys::TrapException &e) {
+                         EXPECT_EQ(GenieSys::TV_ILLEGAL_INSTR, e.getTrapVector());
+                         throw;
+                     }
+                 }, GenieSys::TrapException);
+}
+
+TEST_F(DataRegisterDirectModeTest, TestMovemToMem) {
+    EXPECT_THROW({
+                     try {
+                         subject->movemToMem(1, 2, 1);
+                     } catch (GenieSys::TrapException &e) {
+                         EXPECT_EQ(GenieSys::TV_ILLEGAL_INSTR, e.getTrapVector());
+                         throw;
+                     }
+                 }, GenieSys::TrapException);
 }

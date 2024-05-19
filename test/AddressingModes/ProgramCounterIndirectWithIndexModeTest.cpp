@@ -7,6 +7,7 @@
 #include <GenieSys/ExtensionWord.h>
 #include <GenieSys/Bus.h>
 #include <GenieSys/M68kCpu.h>
+#include "GenieSys/TrapException.h"
 
 struct ProgramCounterIndirectWithIndexModeTest : testing::Test {
     GenieSys::M68kCpu* cpu;
@@ -325,4 +326,67 @@ TEST_F(ProgramCounterIndirectWithIndexModeTest, GetAddress_AddressRegisterPostIn
     cpu->setDataRegister(4, (uint32_t)5);
 
     ASSERT_EQ("([#-4,PC],D4.w*4,#-8)", subject->disassemble(5, 0));
+}
+
+TEST_F(ProgramCounterIndirectWithIndexModeTest, TestMovemToRegWord) {
+    GenieSys::ExtensionWord extWord = GenieSys::ExtensionWord();
+    extWord.setIsBrief(false);
+    extWord.setIdxRegType(GenieSys::M68K_REG_TYPE_DATA);
+    extWord.setIdxRegAddr(4);
+    extWord.setIdxSize(GenieSys::EXT_WORD_IDX_SIZE_SE_WORD);
+    extWord.setScale(2);
+    extWord.setIndexSuppress(false);
+    extWord.setBaseDisplacementSize(GenieSys::EXT_WORD_BD_SIZE_WORD);
+    extWord.setIndexIndirectSelection(6);
+    cpu->setPc(32);
+    bus.writeWord(32, (uint16_t)extWord);
+    bus.writeWord(34, -4);
+    bus.writeWord(36, -8);
+    bus.writeLong(28, 9000);
+    cpu->setAddressRegister(5, 94);
+    cpu->setDataRegister(4, (uint32_t)5);
+
+    bus.write(9012, std::vector<uint8_t> {0x55, 0x32, 0x42, 0x01, 0xFF, 0xF0, 0x44, 0x44});
+    auto result = subject->movemToReg(GenieSys::ProgramCounterIndirectWithIndexMode::MODE_ID, 2, 0b1000000010001001);
+    EXPECT_EQ(0x5532, cpu->getDataRegister(0));
+    EXPECT_EQ(0x4201, cpu->getDataRegister(3));
+    EXPECT_EQ(0xFFFFFFF0, cpu->getDataRegister(7));
+    EXPECT_EQ(0x4444, cpu->getAddressRegister(7));
+}
+
+TEST_F(ProgramCounterIndirectWithIndexModeTest, TestMovemToRegLong) {
+    GenieSys::ExtensionWord extWord = GenieSys::ExtensionWord();
+    extWord.setIsBrief(false);
+    extWord.setIdxRegType(GenieSys::M68K_REG_TYPE_DATA);
+    extWord.setIdxRegAddr(4);
+    extWord.setIdxSize(GenieSys::EXT_WORD_IDX_SIZE_SE_WORD);
+    extWord.setScale(2);
+    extWord.setIndexSuppress(false);
+    extWord.setBaseDisplacementSize(GenieSys::EXT_WORD_BD_SIZE_WORD);
+    extWord.setIndexIndirectSelection(6);
+    cpu->setPc(32);
+    bus.writeWord(32, (uint16_t)extWord);
+    bus.writeWord(34, -4);
+    bus.writeWord(36, -8);
+    bus.writeLong(28, 9000);
+    cpu->setAddressRegister(5, 94);
+    cpu->setDataRegister(4, (uint32_t)5);
+
+    bus.write(9012, std::vector<uint8_t> {0x55, 0x32, 0x42, 0x01, 0xFF, 0xF0, 0x44, 0x44});
+    auto result = subject->movemToReg(GenieSys::ProgramCounterIndirectWithIndexMode::MODE_ID, 4, 0b1000000000000001);
+    EXPECT_EQ(0x55324201, cpu->getDataRegister(0));
+    EXPECT_EQ(0, cpu->getDataRegister(3));
+    EXPECT_EQ(0, cpu->getDataRegister(7));
+    EXPECT_EQ(0xFFF04444, cpu->getAddressRegister(7));
+}
+
+TEST_F(ProgramCounterIndirectWithIndexModeTest, TestMovemToMem) {
+    EXPECT_THROW({
+                     try {
+                         subject->movemToMem(GenieSys::ProgramCounterIndirectWithIndexMode::MODE_ID, 2, 1);
+                     } catch (GenieSys::TrapException &e) {
+                         EXPECT_EQ(GenieSys::TV_ILLEGAL_INSTR, e.getTrapVector());
+                         throw;
+                     }
+                 }, GenieSys::TrapException);
 }

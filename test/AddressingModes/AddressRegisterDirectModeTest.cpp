@@ -5,7 +5,7 @@
 #include <GenieSys/Bus.h>
 #include <GenieSys/M68kCpu.h>
 #include <GenieSys/AddressingModes/AddressRegisterDirectMode.h>
-
+#include <GenieSys/TrapException.h>
 
 
 struct AddressRegisterDirectModeTest : testing::Test {
@@ -43,4 +43,26 @@ TEST_F(AddressRegisterDirectModeTest, TestGetModeId) {
 
 TEST_F(AddressRegisterDirectModeTest, TestDisassemble) {
     EXPECT_EQ("A7", subject->disassemble(7, 0));
+}
+
+TEST_F(AddressRegisterDirectModeTest, TestMovemToReg) {
+    EXPECT_THROW({
+        try {
+            subject->movemToReg(1, 2, 1);
+        } catch (GenieSys::TrapException &e) {
+            EXPECT_EQ(GenieSys::TV_ILLEGAL_INSTR, e.getTrapVector());
+            throw;
+        }
+    }, GenieSys::TrapException);
+}
+
+TEST_F(AddressRegisterDirectModeTest, TestMovemToMem) {
+    EXPECT_THROW({
+                     try {
+                         subject->movemToMem(1, 2, 1);
+                     } catch (GenieSys::TrapException &e) {
+                         EXPECT_EQ(GenieSys::TV_ILLEGAL_INSTR, e.getTrapVector());
+                         throw;
+                     }
+                 }, GenieSys::TrapException);
 }

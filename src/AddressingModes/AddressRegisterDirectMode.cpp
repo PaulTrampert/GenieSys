@@ -4,6 +4,7 @@
 
 #include "GenieSys/AddressingModes/AddressRegisterDirectMode.h"
 #include "GenieSys/M68kCpu.h"
+#include "GenieSys/TrapException.h"
 #include <utility>
 #include <GenieSys/numberUtils.h>
 
@@ -34,6 +35,16 @@ std::unique_ptr<GenieSys::AddressingResult> GenieSys::AddressRegisterDirectMode:
 
 std::string GenieSys::AddressRegisterDirectMode::disassemble(uint8_t regAddr, uint8_t size) {
     return "A" + std::to_string(regAddr);
+}
+
+std::unique_ptr<GenieSys::AddressingResult>
+GenieSys::AddressRegisterDirectMode::movemToReg(uint8_t regAddr, uint8_t size, uint16_t mask) {
+    throw GenieSys::TrapException(TV_ILLEGAL_INSTR);
+}
+
+std::unique_ptr<GenieSys::AddressingResult>
+GenieSys::AddressRegisterDirectMode::movemToMem(uint8_t regAddr, uint8_t size, uint16_t mask) {
+    throw GenieSys::TrapException(TV_ILLEGAL_INSTR);
 }
 
 GenieSys::AddressRegisterDirectResult::AddressRegisterDirectResult(GenieSys::M68kCpu *cpu, GenieSys::Bus *bus, uint32_t address, std::vector<uint8_t> data)

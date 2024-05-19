@@ -8,7 +8,7 @@
 #include <GenieSys/M68kCpu.h>
 #include <GenieSys/Bus.h>
 #include "GenieSys/AddressingModes/ProgramCounterIndirectWithIndexMode.h"
-
+#include "GenieSys/TrapException.h"
 
 
 GenieSys::ProgramCounterIndirectWithIndexMode::ProgramCounterIndirectWithIndexMode(GenieSys::M68kCpu *cpu, GenieSys::Bus *bus)
@@ -180,4 +180,9 @@ std::string GenieSys::ProgramCounterIndirectWithIndexMode::disassemble(uint8_t r
 
 uint8_t GenieSys::ProgramCounterIndirectWithIndexMode::getMoveCycleKey() {
     return 10;
+}
+
+std::unique_ptr<GenieSys::AddressingResult>
+GenieSys::ProgramCounterIndirectWithIndexMode::movemToMem(uint8_t regAddr, uint8_t size, uint16_t mask) {
+    throw TrapException(TV_ILLEGAL_INSTR);
 }
