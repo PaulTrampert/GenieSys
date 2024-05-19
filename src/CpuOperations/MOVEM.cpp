@@ -21,6 +21,7 @@
 #include <sstream>
 #include "GenieSys/TrapException.h"
 #include "GenieSys/numberUtils.h"
+#include "GenieSys/RegisterList.h"
 
 
 #define DIR_REG_TO_MEM 0
@@ -73,7 +74,7 @@ std::string MOVEM::disassemble(uint16_t opWord) {
     uint8_t size = sizeMask.apply(opWord) == SZ_WORD ? 2 : 4;
     uint8_t eaModeId = eaModeMask.apply(opWord);
     uint8_t eaReg = eaRegMask.apply(opWord);
-    auto regListWord = bus->read(cpu->getPc(), 2);
+    auto regListWord = bus->readWord(cpu->getPc());
     cpu->incrementPc(2);
     auto eaMode = cpu->getAddressingMode(eaModeId);
     std::stringstream stream;
@@ -84,11 +85,14 @@ std::string MOVEM::disassemble(uint16_t opWord) {
     else {
         stream << ".L ";
     }
+
+    auto regList = GenieSys::RegisterList(regListWord, eaModeId == AddressRegisterIndirectPreDecrementMode::MODE_ID);
+
     if (dir == DIR_MEM_TO_REG) {
-        stream << eaMode->disassemble(eaReg, size) << ",$" << GenieSys::toHex(regListWord) << "";
+        stream << eaMode->disassemble(eaReg, size) << "," << regList.toString() << "";
     }
     else {
-        stream << "$" << GenieSys::toHex(regListWord) << "," << eaMode->disassemble(eaReg, size);
+        stream << regList.toString() << "," << eaMode->disassemble(eaReg, size);
     }
     return stream.str();
 }
