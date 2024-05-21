@@ -29,6 +29,10 @@ uint8_t GenieSys::MOVEQ::execute(uint16_t opWord) {
     uint8_t dataRegister = destMask.apply(opWord);
     auto data = GenieSys::signExtend<uint32_t>(dataMask.apply(opWord), 8);
     cpu->setDataRegister(dataRegister, data);
+    uint8_t ccr = cpu->getCcrFlags() & 0x10;
+    ccr |= (int32_t)data < 0 ? CCR_NEGATIVE : 0;
+    ccr |= data == 0 ? CCR_ZERO : 0;
+    cpu->setCcrFlags(ccr);
     return 4;
 }
 
