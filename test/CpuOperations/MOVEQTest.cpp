@@ -30,12 +30,24 @@ TEST_F(MOVEQTest, MovePositiveDataToRegister) {
     data = 0x01;
     subject->execute(baseOpWord | data | (dest << 9));
     ASSERT_EQ(1, cpu->getDataRegister(dest));
+    ASSERT_EQ(0, cpu->getCcrFlags() & CCR_NEGATIVE);
+    ASSERT_EQ(0, cpu->getCcrFlags() & CCR_ZERO);
 }
 
 TEST_F(MOVEQTest, MoveNegativeDataToRegister) {
     data = 0xF0;
     subject->execute(baseOpWord | data | (dest << 9));
     ASSERT_EQ(0xFFFFFFF0, cpu->getDataRegister(dest));
+    ASSERT_EQ(CCR_NEGATIVE, cpu->getCcrFlags() & CCR_NEGATIVE);
+    ASSERT_EQ(0, cpu->getCcrFlags() & CCR_ZERO);
+}
+
+TEST_F(MOVEQTest, MoveZeroDataToRegister) {
+    data = 0x00;
+    subject->execute(baseOpWord | data | (dest << 9));
+    ASSERT_EQ(0, cpu->getDataRegister(dest));
+    ASSERT_EQ(0, cpu->getCcrFlags() & CCR_NEGATIVE);
+    ASSERT_EQ(CCR_ZERO, cpu->getCcrFlags() & CCR_ZERO);
 }
 
 TEST_F(MOVEQTest, Disassemble) {
