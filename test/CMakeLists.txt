@@ -83,6 +83,7 @@ add_executable(testGenieSys
         CpuOperations/MOVEMTest.cpp
         RegisterListTest.cpp
         CpuOperations/MOVEQTest.cpp
+        CpuOperations/BccTest.cpp
 )
 
 target_link_libraries(testGenieSys PRIVATE GenieSys gtest gmock)
