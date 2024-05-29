@@ -9,7 +9,7 @@ namespace GenieSys {
      * Sign extends a number from a given number of bits to the size of the type
      * @tparam T The type of the number to sign extend
      * @param x The number to sign extend
-     * @param bits The number of bits to sign extend to
+     * @param bits The number of bits to sign extend from
      * @return The sign extended number
      */
     template<class T>

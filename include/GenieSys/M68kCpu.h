@@ -282,13 +282,6 @@ namespace GenieSys {
          * @return The highest 2 bits of the status register.
          */
         virtual uint8_t isTraceEnabled();
-
-        /**
-         * Evaluates the condition code and returns whether or not the condition is met.
-         * @param condition The Bcc condition code.
-         * @return True if the condition is true, false otherwise.
-         */
-        virtual bool checkCondition(uint8_t condition);
     };
 }
 
