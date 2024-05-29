@@ -217,3 +217,38 @@ void GenieSys::M68kCpu::reset() {
 uint8_t GenieSys::M68kCpu::isTraceEnabled() {
     return (SRandCCR & 0b1100000000000000) >> 14;
 }
+
+bool GenieSys::M68kCpu::checkCondition(uint8_t condition) {
+    switch(condition) {
+        case 0b0100:
+            return (SRandCCR & CCR_CARRY) == 0;
+        case 0b0101:
+            return (SRandCCR & CCR_CARRY) == CCR_CARRY;
+        case 0b0111:
+            return (SRandCCR & CCR_ZERO) == CCR_ZERO;
+        case 0b1100:
+            return (SRandCCR & (CCR_NEGATIVE | CCR_OVERFLOW)) == (CCR_NEGATIVE | CCR_OVERFLOW) || (SRandCCR & (CCR_NEGATIVE | CCR_OVERFLOW)) == 0;
+        case 0b1110:
+            return (SRandCCR & (CCR_NEGATIVE | CCR_OVERFLOW | CCR_ZERO)) == (CCR_NEGATIVE | CCR_OVERFLOW) || (SRandCCR & (CCR_NEGATIVE | CCR_OVERFLOW | CCR_ZERO)) == 0;
+        case 0b0010:
+            return (SRandCCR & (CCR_CARRY | CCR_ZERO)) == 0;
+        case 0b1111:
+            return (SRandCCR & CCR_ZERO) == CCR_ZERO || (SRandCCR & (CCR_NEGATIVE | CCR_OVERFLOW)) == CCR_NEGATIVE || (SRandCCR & (CCR_NEGATIVE | CCR_OVERFLOW)) == CCR_OVERFLOW;
+        case 0b0011:
+            return (SRandCCR & CCR_CARRY) == CCR_CARRY || (SRandCCR & CCR_ZERO) == CCR_ZERO;
+        case 0b1101:
+            return (SRandCCR & (CCR_NEGATIVE | CCR_OVERFLOW)) == CCR_NEGATIVE || (SRandCCR & (CCR_NEGATIVE | CCR_OVERFLOW)) == CCR_OVERFLOW;
+        case 0b1011:
+            return (SRandCCR & CCR_NEGATIVE) == CCR_NEGATIVE;
+        case 0b0110:
+            return (SRandCCR & CCR_ZERO) == 0;
+        case 0b1010:
+            return (SRandCCR & CCR_NEGATIVE) == 0;
+        case 0b1000:
+            return (SRandCCR & CCR_OVERFLOW) == 0;
+        case 0b1001:
+            return (SRandCCR & CCR_OVERFLOW) == CCR_OVERFLOW;
+        default:
+            return false;
+    }
+}
