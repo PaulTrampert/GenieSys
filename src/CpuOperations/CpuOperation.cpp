@@ -48,14 +48,14 @@
 #include <GenieSys/CpuOperations/TRAPV.h>
 #include <GenieSys/CpuOperations/RTR.h>
 #include <GenieSys/CpuOperations/JSR.h>
-#include "GenieSys/CpuOperations/JMP.h"
-#include "GenieSys/CpuOperations/Bcc.h"
-#include "GenieSys/CpuOperations/BSR.h"
-#include "GenieSys/CpuOperations/EXT.h"
-#include "GenieSys/CpuOperations/MOVEM.h"
-#include "GenieSys/CpuOperations/MOVEQ.h"
-#include "GenieSys/CpuOperations/NBCD.h"
-#include "GenieSys/CpuOperations/SWAP.h"
+#include <GenieSys/CpuOperations/JMP.h>
+#include <GenieSys/CpuOperations/Bcc.h>
+#include <GenieSys/CpuOperations/BSR.h>
+#include <GenieSys/CpuOperations/EXT.h>
+#include <GenieSys/CpuOperations/MOVEM.h>
+#include <GenieSys/CpuOperations/MOVEQ.h>
+#include <GenieSys/CpuOperations/NBCD.h>
+#include <GenieSys/CpuOperations/SWAP.h>
 
 
 GenieSys::CpuOperation::CpuOperation(GenieSys::M68kCpu *cpu, GenieSys::Bus *bus) {
