@@ -72,7 +72,8 @@ add_library(GenieSys
         CpuOperations/JMP.cpp CpuOperations/MOVEM.cpp ../include/GenieSys/TrapException.h TrapException.cpp
         RegisterList.cpp
         CpuOperations/MOVEQ.cpp
-        CpuOperations/Bcc.cpp)
+        CpuOperations/Bcc.cpp
+        CpuOperations/BSR.cpp)
 
 target_include_directories(GenieSys PUBLIC ../include)
 target_link_libraries(GenieSys Threads::Threads)
