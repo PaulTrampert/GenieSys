@@ -48,7 +48,14 @@
 #include <GenieSys/CpuOperations/TRAPV.h>
 #include <GenieSys/CpuOperations/RTR.h>
 #include <GenieSys/CpuOperations/JSR.h>
-#include "GenieSys/CpuOperations/JMP.h"
+#include <GenieSys/CpuOperations/JMP.h>
+#include <GenieSys/CpuOperations/Bcc.h>
+#include <GenieSys/CpuOperations/BSR.h>
+#include <GenieSys/CpuOperations/EXT.h>
+#include <GenieSys/CpuOperations/MOVEM.h>
+#include <GenieSys/CpuOperations/MOVEQ.h>
+#include <GenieSys/CpuOperations/NBCD.h>
+#include <GenieSys/CpuOperations/SWAP.h>
 
 
 GenieSys::CpuOperation::CpuOperation(GenieSys::M68kCpu *cpu, GenieSys::Bus *bus) {
@@ -64,26 +71,32 @@ std::vector<std::shared_ptr<GenieSys::CpuOperation>> GenieSys::getOperations(Gen
             std::shared_ptr<GenieSys::CpuOperation>(new ANDI(cpu, bus)),
             std::shared_ptr<GenieSys::CpuOperation>(new ANDItoCCR(cpu, bus)),
             std::shared_ptr<GenieSys::CpuOperation>(new ANDItoSR(cpu, bus)),
+            std::shared_ptr<GenieSys::CpuOperation>(new Bcc(cpu, bus)),
             std::shared_ptr<GenieSys::CpuOperation>(new BCHG(cpu, bus)),
             std::shared_ptr<GenieSys::CpuOperation>(new BCLR(cpu, bus)),
             std::shared_ptr<GenieSys::CpuOperation>(new BSET(cpu, bus)),
+            std::shared_ptr<GenieSys::CpuOperation>(new BSR(cpu, bus)),
             std::shared_ptr<GenieSys::CpuOperation>(new BTST(cpu, bus)),
             std::shared_ptr<GenieSys::CpuOperation>(new CLR(cpu, bus)),
             std::shared_ptr<GenieSys::CpuOperation>(new CMPI(cpu, bus)),
             std::shared_ptr<GenieSys::CpuOperation>(new EORI(cpu, bus)),
             std::shared_ptr<GenieSys::CpuOperation>(new EORItoCCR(cpu, bus)),
             std::shared_ptr<GenieSys::CpuOperation>(new EORItoSR(cpu, bus)),
+            std::shared_ptr<GenieSys::CpuOperation>(new EXT(cpu, bus)),
             std::shared_ptr<GenieSys::CpuOperation>(new ILLEGAL(cpu, bus)),
             std::shared_ptr<GenieSys::CpuOperation>(new JMP(cpu, bus)),
             std::shared_ptr<GenieSys::CpuOperation>(new JSR(cpu, bus)),
             std::shared_ptr<GenieSys::CpuOperation>(new LINK(cpu, bus)),
             std::shared_ptr<GenieSys::CpuOperation>(new MOVE(cpu, bus)),
+            std::shared_ptr<GenieSys::CpuOperation>(new MOVE_USP(cpu, bus)),
             std::shared_ptr<GenieSys::CpuOperation>(new MOVEA(cpu, bus)),
             std::shared_ptr<GenieSys::CpuOperation>(new MOVEfromSR(cpu, bus)),
+            std::shared_ptr<GenieSys::CpuOperation>(new MOVEM(cpu, bus)),
+            std::shared_ptr<GenieSys::CpuOperation>(new MOVEP(cpu, bus)),
+            std::shared_ptr<GenieSys::CpuOperation>(new MOVEQ(cpu, bus)),
             std::shared_ptr<GenieSys::CpuOperation>(new MOVEtoCCR(cpu, bus)),
             std::shared_ptr<GenieSys::CpuOperation>(new MOVEtoSR(cpu, bus)),
-            std::shared_ptr<GenieSys::CpuOperation>(new MOVEP(cpu, bus)),
-            std::shared_ptr<GenieSys::CpuOperation>(new MOVE_USP(cpu, bus)),
+            std::shared_ptr<GenieSys::CpuOperation>(new NBCD(cpu, bus)),
             std::shared_ptr<GenieSys::CpuOperation>(new NEG(cpu, bus)),
             std::shared_ptr<GenieSys::CpuOperation>(new NEGX(cpu, bus)),
             std::shared_ptr<GenieSys::CpuOperation>(new NOP(cpu, bus)),
@@ -98,6 +111,7 @@ std::vector<std::shared_ptr<GenieSys::CpuOperation>> GenieSys::getOperations(Gen
             std::shared_ptr<GenieSys::CpuOperation>(new RTS(cpu, bus)),
             std::shared_ptr<GenieSys::CpuOperation>(new STOP(cpu, bus)),
             std::shared_ptr<GenieSys::CpuOperation>(new SUBI(cpu, bus)),
+            std::shared_ptr<GenieSys::CpuOperation>(new SWAP(cpu, bus)),
             std::shared_ptr<GenieSys::CpuOperation>(new TAS(cpu, bus)),
             std::shared_ptr<GenieSys::CpuOperation>(new TRAP(cpu, bus)),
             std::shared_ptr<GenieSys::CpuOperation>(new TRAPV(cpu, bus)),
