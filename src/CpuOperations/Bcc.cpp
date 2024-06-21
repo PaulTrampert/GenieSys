@@ -47,14 +47,15 @@ uint8_t GenieSys::Bcc::execute(uint16_t opWord) {
     uint8_t condition = conditionMask.apply(opWord);
     auto displacement = signExtend<uint32_t>((uint8_t)displacementMask.apply(opWord), 8);
     uint8_t cycles = 8;
-    uint32_t basePc = cpu->getPc();
+    uint32_t pc = cpu->getPc();
     if (displacement == 0) {
-        displacement = signExtend<uint32_t>(bus->readWord(basePc), 16);
+        displacement = signExtend<uint32_t>(bus->readWord(pc), 16);
         cpu->incrementPc(2);
         cycles += 4;
+        pc = cpu->getPc();
     }
     if (checkCondition(condition)) {
-        cpu->setPc(basePc + displacement);
+        cpu->setPc(pc + displacement);
         return 10;
     }
     return cycles;

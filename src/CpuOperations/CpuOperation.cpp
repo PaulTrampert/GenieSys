@@ -56,6 +56,7 @@
 #include <GenieSys/CpuOperations/MOVEQ.h>
 #include <GenieSys/CpuOperations/NBCD.h>
 #include <GenieSys/CpuOperations/SWAP.h>
+#include <GenieSys/CpuOperations/BRA.h>
 
 
 GenieSys::CpuOperation::CpuOperation(GenieSys::M68kCpu *cpu, GenieSys::Bus *bus) {
@@ -74,6 +75,7 @@ std::vector<std::shared_ptr<GenieSys::CpuOperation>> GenieSys::getOperations(Gen
             std::shared_ptr<GenieSys::CpuOperation>(new Bcc(cpu, bus)),
             std::shared_ptr<GenieSys::CpuOperation>(new BCHG(cpu, bus)),
             std::shared_ptr<GenieSys::CpuOperation>(new BCLR(cpu, bus)),
+            std::shared_ptr<GenieSys::CpuOperation>(new BRA(cpu, bus)),
             std::shared_ptr<GenieSys::CpuOperation>(new BSET(cpu, bus)),
             std::shared_ptr<GenieSys::CpuOperation>(new BSR(cpu, bus)),
             std::shared_ptr<GenieSys::CpuOperation>(new BTST(cpu, bus)),
