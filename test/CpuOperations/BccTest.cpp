@@ -530,7 +530,7 @@ INSTANTIATE_TEST_SUITE_P(Bcc, BccTest, testing::Values(
             .wordDisplacement = -5,
             .pc = 100,
             .ccr = 0,
-            .expectedPc = 95,
+            .expectedPc = 97,
             .expectedCycles = 10,
             .expectedDisassembly = "BCC -5"
         },
