@@ -7,7 +7,6 @@
 #include <GenieSys/M68kCpu.h>
 #include <GenieSys/ConditionCodes.h>
 #include <GenieSys/AddressingModes/AddressingMode.h>
-#include <GenieSys/ConditionCodes.h>
 #include "GenieSys/AddressingModes/DataRegisterDirectMode.h"
 #include "GenieSys/AddressingModes/AddressRegisterIndirectMode.h"
 
