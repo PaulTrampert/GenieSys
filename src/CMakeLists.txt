@@ -78,7 +78,8 @@ add_library(GenieSys
         CpuOperations/BSR.cpp
         CpuOperations/BRA.cpp
         CpuOperations/DBcc.cpp
-        ConditionCodes.cpp)
+        ConditionCodes.cpp
+        CpuOperations/Scc.cpp)
 
 target_include_directories(GenieSys PUBLIC ../include)
 target_link_libraries(GenieSys Threads::Threads)

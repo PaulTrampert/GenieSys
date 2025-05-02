@@ -40,7 +40,7 @@ struct DBccTest : testing::TestWithParam<DBccTestParams> {
 
 TEST_P(DBccTest, Execute) {
     DBccTestParams params = GetParam();
-    uint16_t opWord = baseOpcode | ((params.condition << 8) & 0b0000111100000000) | ((params.reg << 4) & 0b0000000011110000);
+    uint16_t opWord = baseOpcode | ((params.condition << 8) & 0b0000111100000000) | (params.reg);
     bus.writeWord(params.pc, params.wordDisplacement);
     cpu->setDataRegister(params.reg, params.data);
     cpu->setPc(params.pc);
