@@ -17,6 +17,7 @@
 #include <GenieSys/AddressingModes/ProgramCounterAddressingMode.h>
 #include <GenieSys/CpuOperations/CpuOperation.h>
 #include <GenieSys/CpuOperations/NOP.h>
+#include "GenieSys/ConditionCodes.h"
 
 #define SP addressRegisters[7]
 
@@ -216,4 +217,48 @@ void GenieSys::M68kCpu::reset() {
 
 uint8_t GenieSys::M68kCpu::isTraceEnabled() {
     return (SRandCCR & 0b1100000000000000) >> 14;
+}
+
+bool GenieSys::M68kCpu::testConditionCode(uint8_t condition) {
+    auto ccr = getCcrFlags();
+    switch(condition) {
+        case CC_T:
+            return true;
+        case CC_F:
+            return false;
+        case CC_CC:
+            return (ccr & CCR_CARRY) == 0;
+        case CC_CS:
+            return (ccr & CCR_CARRY) == CCR_CARRY;
+        case CC_EQ:
+            return (ccr & CCR_ZERO) == CCR_ZERO;
+        case CC_GE:
+            return (ccr & (CCR_NEGATIVE | CCR_OVERFLOW)) == (CCR_NEGATIVE | CCR_OVERFLOW) ||
+                   (ccr & (CCR_NEGATIVE | CCR_OVERFLOW)) == 0;
+        case CC_GT:
+            return (ccr & (CCR_NEGATIVE | CCR_OVERFLOW | CCR_ZERO)) == (CCR_NEGATIVE | CCR_OVERFLOW) ||
+                   (ccr & (CCR_NEGATIVE | CCR_OVERFLOW | CCR_ZERO)) == 0;
+        case CC_HI:
+            return (ccr & (CCR_CARRY | CCR_ZERO)) == 0;
+        case CC_LE:
+            return (ccr & CCR_ZERO) == CCR_ZERO || (ccr & (CCR_NEGATIVE | CCR_OVERFLOW)) == CCR_NEGATIVE ||
+                   (ccr & (CCR_NEGATIVE | CCR_OVERFLOW)) == CCR_OVERFLOW;
+        case CC_LS:
+            return (ccr & CCR_CARRY) == CCR_CARRY || (ccr & CCR_ZERO) == CCR_ZERO;
+        case CC_LT:
+            return (ccr & (CCR_NEGATIVE | CCR_OVERFLOW)) == CCR_NEGATIVE ||
+                   (ccr & (CCR_NEGATIVE | CCR_OVERFLOW)) == CCR_OVERFLOW;
+        case CC_MI:
+            return (ccr & CCR_NEGATIVE) == CCR_NEGATIVE;
+        case CC_NE:
+            return (ccr & CCR_ZERO) == 0;
+        case CC_PL:
+            return (ccr & CCR_NEGATIVE) == 0;
+        case CC_VC:
+            return (ccr & CCR_OVERFLOW) == 0;
+        case CC_VS:
+            return (ccr & CCR_OVERFLOW) == CCR_OVERFLOW;
+        default:
+            return false;
+    }
 }

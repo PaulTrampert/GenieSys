@@ -76,7 +76,9 @@ add_library(GenieSys
         CpuOperations/MOVEQ.cpp
         CpuOperations/Bcc.cpp
         CpuOperations/BSR.cpp
-        CpuOperations/BRA.cpp)
+        CpuOperations/BRA.cpp
+        CpuOperations/DBcc.cpp
+        ConditionCodes.cpp)
 
 target_include_directories(GenieSys PUBLIC ../include)
 target_link_libraries(GenieSys Threads::Threads)

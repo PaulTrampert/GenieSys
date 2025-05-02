@@ -8,6 +8,7 @@
 #include <GenieSys/CpuOperations/Bcc.h>
 #include <GenieSys/Bus.h>
 #include <GenieSys/M68kCpu.h>
+#include <GenieSys/ConditionCodes.h>
 
 using namespace GenieSys;
 
@@ -63,7 +64,7 @@ TEST_P(BccTest, Disassemble) {
 INSTANTIATE_TEST_SUITE_P(Bcc, BccTest, testing::Values(
         BccParams {
                 .testName = "BCC_Byte_WhenCarryClear",
-                .condition = BCC_CC,
+                .condition = CC_CC,
                 .byteDisplacement = -5,
                 .wordDisplacement = 0,
                 .pc = 100,
@@ -74,7 +75,7 @@ INSTANTIATE_TEST_SUITE_P(Bcc, BccTest, testing::Values(
         },
         BccParams {
                 .testName = "BCC_Byte_WhenCarrySet",
-                .condition = BCC_CC,
+                .condition = CC_CC,
                 .byteDisplacement = -5,
                 .wordDisplacement = 0,
                 .pc = 100,
@@ -85,7 +86,7 @@ INSTANTIATE_TEST_SUITE_P(Bcc, BccTest, testing::Values(
         },
         BccParams {
                 .testName = "BCS_Byte_WhenCarryClear",
-                .condition = BCC_CS,
+                .condition = CC_CS,
                 .byteDisplacement = -5,
                 .wordDisplacement = 0,
                 .pc = 100,
@@ -96,7 +97,7 @@ INSTANTIATE_TEST_SUITE_P(Bcc, BccTest, testing::Values(
         },
         BccParams {
                 .testName = "BCS_Byte_WhenCarrySet",
-                .condition = BCC_CS,
+                .condition = CC_CS,
                 .byteDisplacement = -5,
                 .wordDisplacement = 0,
                 .pc = 100,
@@ -107,7 +108,7 @@ INSTANTIATE_TEST_SUITE_P(Bcc, BccTest, testing::Values(
         },
         BccParams {
                 .testName = "BEQ_Byte_WhenZeroClear",
-                .condition = BCC_EQ,
+                .condition = CC_EQ,
                 .byteDisplacement = -5,
                 .wordDisplacement = 0,
                 .pc = 100,
@@ -118,7 +119,7 @@ INSTANTIATE_TEST_SUITE_P(Bcc, BccTest, testing::Values(
         },
         BccParams {
                 .testName = "BEQ_Byte_WhenZeroSet",
-                .condition = BCC_EQ,
+                .condition = CC_EQ,
                 .byteDisplacement = -5,
                 .wordDisplacement = 0,
                 .pc = 100,
@@ -129,7 +130,7 @@ INSTANTIATE_TEST_SUITE_P(Bcc, BccTest, testing::Values(
         },
         BccParams {
                 .testName = "BGE_Byte_WhenPositiveAndOverflow",
-                .condition = BCC_GE,
+                .condition = CC_GE,
                 .byteDisplacement = -5,
                 .wordDisplacement = 0,
                 .pc = 100,
@@ -140,7 +141,7 @@ INSTANTIATE_TEST_SUITE_P(Bcc, BccTest, testing::Values(
         },
         BccParams {
                 .testName = "BGE_Byte_WhenPositiveAndNoOverflow",
-                .condition = BCC_GE,
+                .condition = CC_GE,
                 .byteDisplacement = -5,
                 .wordDisplacement = 0,
                 .pc = 100,
@@ -151,7 +152,7 @@ INSTANTIATE_TEST_SUITE_P(Bcc, BccTest, testing::Values(
         },
         BccParams {
             .testName = "BGE_Byte_WhenNegativeAndOverflow",
-            .condition = BCC_GE,
+            .condition = CC_GE,
             .byteDisplacement = -5,
             .wordDisplacement = 0,
             .pc = 100,
@@ -162,7 +163,7 @@ INSTANTIATE_TEST_SUITE_P(Bcc, BccTest, testing::Values(
         },
         BccParams {
             .testName = "BGE_Byte_WhenNegativeAndNoOverflow",
-            .condition = BCC_GE,
+            .condition = CC_GE,
             .byteDisplacement = -5,
             .wordDisplacement = 0,
             .pc = 100,
@@ -173,7 +174,7 @@ INSTANTIATE_TEST_SUITE_P(Bcc, BccTest, testing::Values(
         },
         BccParams {
             .testName = "BGT_Byte_WhenZero",
-            .condition = BCC_GT,
+            .condition = CC_GT,
             .byteDisplacement = -5,
             .wordDisplacement = 0,
             .pc = 100,
@@ -184,7 +185,7 @@ INSTANTIATE_TEST_SUITE_P(Bcc, BccTest, testing::Values(
         },
         BccParams {
             .testName = "BGT_Byte_WhenPositiveAndOverflow",
-            .condition = BCC_GT,
+            .condition = CC_GT,
             .byteDisplacement = -5,
             .wordDisplacement = 0,
             .pc = 100,
@@ -195,7 +196,7 @@ INSTANTIATE_TEST_SUITE_P(Bcc, BccTest, testing::Values(
         },
         BccParams {
             .testName = "BGT_Byte_WhenPositiveAndNoOverflow",
-            .condition = BCC_GT,
+            .condition = CC_GT,
             .byteDisplacement = -5,
             .wordDisplacement = 0,
             .pc = 100,
@@ -206,7 +207,7 @@ INSTANTIATE_TEST_SUITE_P(Bcc, BccTest, testing::Values(
         },
         BccParams {
             .testName = "BGT_Byte_WhenNegativeAndOverflow",
-            .condition = BCC_GT,
+            .condition = CC_GT,
             .byteDisplacement = -5,
             .wordDisplacement = 0,
             .pc = 100,
@@ -217,7 +218,7 @@ INSTANTIATE_TEST_SUITE_P(Bcc, BccTest, testing::Values(
         },
         BccParams {
             .testName = "BGT_Byte_WhenNegativeAndNoOverflow",
-            .condition = BCC_GT,
+            .condition = CC_GT,
             .byteDisplacement = -5,
             .wordDisplacement = 0,
             .pc = 100,
@@ -228,7 +229,7 @@ INSTANTIATE_TEST_SUITE_P(Bcc, BccTest, testing::Values(
         },
         BccParams {
             .testName = "BHI_Byte_WhenCarryAndZeroClear",
-            .condition = BCC_HI,
+            .condition = CC_HI,
             .byteDisplacement = -5,
             .wordDisplacement = 0,
             .pc = 100,
@@ -239,7 +240,7 @@ INSTANTIATE_TEST_SUITE_P(Bcc, BccTest, testing::Values(
         },
         BccParams {
             .testName = "BHI_Byte_WhenCarryClearAndZeroSet",
-            .condition = BCC_HI,
+            .condition = CC_HI,
             .byteDisplacement = -5,
             .wordDisplacement = 0,
             .pc = 100,
@@ -250,7 +251,7 @@ INSTANTIATE_TEST_SUITE_P(Bcc, BccTest, testing::Values(
         },
         BccParams {
                 .testName = "BHI_Byte_WhenCarrySetAndZeroClear",
-                .condition = BCC_HI,
+                .condition = CC_HI,
                 .byteDisplacement = -5,
                 .wordDisplacement = 0,
                 .pc = 100,
@@ -261,7 +262,7 @@ INSTANTIATE_TEST_SUITE_P(Bcc, BccTest, testing::Values(
         },
         BccParams{
                 .testName = "BHI_Byte_WhenCarryAndZeroSet",
-                .condition = BCC_HI,
+                .condition = CC_HI,
                 .byteDisplacement = -5,
                 .wordDisplacement = 0,
                 .pc = 100,
@@ -272,7 +273,7 @@ INSTANTIATE_TEST_SUITE_P(Bcc, BccTest, testing::Values(
         },
         BccParams {
                 .testName = "BLE_Byte_WhenZero",
-                .condition = BCC_LE,
+                .condition = CC_LE,
                 .byteDisplacement = -5,
                 .wordDisplacement = 0,
                 .pc = 100,
@@ -283,7 +284,7 @@ INSTANTIATE_TEST_SUITE_P(Bcc, BccTest, testing::Values(
         },
         BccParams {
                 .testName = "BLE_Byte_WhenPositiveAndOverflow",
-                .condition = BCC_LE,
+                .condition = CC_LE,
                 .byteDisplacement = -5,
                 .wordDisplacement = 0,
                 .pc = 100,
@@ -294,7 +295,7 @@ INSTANTIATE_TEST_SUITE_P(Bcc, BccTest, testing::Values(
         },
         BccParams {
                 .testName = "BLE_Byte_WhenPositiveAndNoOverflow",
-                .condition = BCC_LE,
+                .condition = CC_LE,
                 .byteDisplacement = -5,
                 .wordDisplacement = 0,
                 .pc = 100,
@@ -305,7 +306,7 @@ INSTANTIATE_TEST_SUITE_P(Bcc, BccTest, testing::Values(
         },
         BccParams {
                 .testName = "BLE_Byte_WhenNegativeAndOverflow",
-                .condition = BCC_LE,
+                .condition = CC_LE,
                 .byteDisplacement = -5,
                 .wordDisplacement = 0,
                 .pc = 100,
@@ -316,7 +317,7 @@ INSTANTIATE_TEST_SUITE_P(Bcc, BccTest, testing::Values(
         },
         BccParams {
                 .testName = "BLE_Byte_WhenNegativeAndNoOverflow",
-                .condition = BCC_LE,
+                .condition = CC_LE,
                 .byteDisplacement = -5,
                 .wordDisplacement = 0,
                 .pc = 100,
@@ -327,7 +328,7 @@ INSTANTIATE_TEST_SUITE_P(Bcc, BccTest, testing::Values(
         },
         BccParams {
                 .testName = "BLS_Byte_WhenCarryAndZeroClear",
-                .condition = BCC_LS,
+                .condition = CC_LS,
                 .byteDisplacement = -5,
                 .wordDisplacement = 0,
                 .pc = 100,
@@ -338,7 +339,7 @@ INSTANTIATE_TEST_SUITE_P(Bcc, BccTest, testing::Values(
         },
         BccParams {
                 .testName = "BLS_Byte_WhenCarryClearAndZeroSet",
-                .condition = BCC_LS,
+                .condition = CC_LS,
                 .byteDisplacement = -5,
                 .wordDisplacement = 0,
                 .pc = 100,
@@ -349,7 +350,7 @@ INSTANTIATE_TEST_SUITE_P(Bcc, BccTest, testing::Values(
         },
         BccParams {
                 .testName = "BLS_Byte_WhenCarrySetAndZeroClear",
-                .condition = BCC_LS,
+                .condition = CC_LS,
                 .byteDisplacement = -5,
                 .wordDisplacement = 0,
                 .pc = 100,
@@ -360,7 +361,7 @@ INSTANTIATE_TEST_SUITE_P(Bcc, BccTest, testing::Values(
         },
         BccParams {
                 .testName = "BLS_Byte_WhenCarryAndZeroSet",
-                .condition = BCC_LS,
+                .condition = CC_LS,
                 .byteDisplacement = -5,
                 .wordDisplacement = 0,
                 .pc = 100,
@@ -371,7 +372,7 @@ INSTANTIATE_TEST_SUITE_P(Bcc, BccTest, testing::Values(
         },
         BccParams {
                 .testName = "BLT_Byte_WhenNegativeAndNoOverflow",
-                .condition = BCC_LT,
+                .condition = CC_LT,
                 .byteDisplacement = -5,
                 .wordDisplacement = 0,
                 .pc = 100,
@@ -382,7 +383,7 @@ INSTANTIATE_TEST_SUITE_P(Bcc, BccTest, testing::Values(
         },
         BccParams {
                 .testName = "BLT_Byte_WhenPositiveAndOverflow",
-                .condition = BCC_LT,
+                .condition = CC_LT,
                 .byteDisplacement = -5,
                 .wordDisplacement = 0,
                 .pc = 100,
@@ -393,7 +394,7 @@ INSTANTIATE_TEST_SUITE_P(Bcc, BccTest, testing::Values(
         },
         BccParams {
                 .testName = "BLT_Byte_WhenPositiveAndNoOverflow",
-                .condition = BCC_LT,
+                .condition = CC_LT,
                 .byteDisplacement = -5,
                 .wordDisplacement = 0,
                 .pc = 100,
@@ -404,7 +405,7 @@ INSTANTIATE_TEST_SUITE_P(Bcc, BccTest, testing::Values(
         },
         BccParams {
                 .testName = "BLT_Byte_WhenNegativeAndOverflow",
-                .condition = BCC_LT,
+                .condition = CC_LT,
                 .byteDisplacement = -5,
                 .wordDisplacement = 0,
                 .pc = 100,
@@ -415,7 +416,7 @@ INSTANTIATE_TEST_SUITE_P(Bcc, BccTest, testing::Values(
         },
         BccParams {
                 .testName = "BMI_Byte_WhenNegative",
-                .condition = BCC_MI,
+                .condition = CC_MI,
                 .byteDisplacement = -5,
                 .wordDisplacement = 0,
                 .pc = 100,
@@ -426,7 +427,7 @@ INSTANTIATE_TEST_SUITE_P(Bcc, BccTest, testing::Values(
         },
         BccParams {
                 .testName = "BMI_Byte_WhenPositive",
-                .condition = BCC_MI,
+                .condition = CC_MI,
                 .byteDisplacement = -5,
                 .wordDisplacement = 0,
                 .pc = 100,
@@ -437,7 +438,7 @@ INSTANTIATE_TEST_SUITE_P(Bcc, BccTest, testing::Values(
         },
         BccParams {
                 .testName = "BNE_Byte_WhenZeroClear",
-                .condition = BCC_NE,
+                .condition = CC_NE,
                 .byteDisplacement = -5,
                 .wordDisplacement = 0,
                 .pc = 100,
@@ -448,7 +449,7 @@ INSTANTIATE_TEST_SUITE_P(Bcc, BccTest, testing::Values(
         },
         BccParams {
                 .testName = "BNE_Byte_WhenZeroSet",
-                .condition = BCC_NE,
+                .condition = CC_NE,
                 .byteDisplacement = -5,
                 .wordDisplacement = 0,
                 .pc = 100,
@@ -459,7 +460,7 @@ INSTANTIATE_TEST_SUITE_P(Bcc, BccTest, testing::Values(
         },
         BccParams {
                 .testName = "BPL_Byte_WhenPositive",
-                .condition = BCC_PL,
+                .condition = CC_PL,
                 .byteDisplacement = -5,
                 .wordDisplacement = 0,
                 .pc = 100,
@@ -470,7 +471,7 @@ INSTANTIATE_TEST_SUITE_P(Bcc, BccTest, testing::Values(
         },
         BccParams {
                 .testName = "BPL_Byte_WhenNegative",
-                .condition = BCC_PL,
+                .condition = CC_PL,
                 .byteDisplacement = -5,
                 .wordDisplacement = 0,
                 .pc = 100,
@@ -481,7 +482,7 @@ INSTANTIATE_TEST_SUITE_P(Bcc, BccTest, testing::Values(
         },
         BccParams {
             .testName = "BVS_Byte_WhenOverflowSet",
-            .condition = BCC_VS,
+            .condition = CC_VS,
             .byteDisplacement = -5,
             .wordDisplacement = 0,
             .pc = 100,
@@ -492,7 +493,7 @@ INSTANTIATE_TEST_SUITE_P(Bcc, BccTest, testing::Values(
         },
         BccParams {
             .testName = "BVS_Byte_WhenOverflowClear",
-            .condition = BCC_VS,
+            .condition = CC_VS,
             .byteDisplacement = -5,
             .wordDisplacement = 0,
             .pc = 100,
@@ -503,7 +504,7 @@ INSTANTIATE_TEST_SUITE_P(Bcc, BccTest, testing::Values(
         },
         BccParams {
             .testName = "BVC_Byte_WhenOverflowClear",
-            .condition = BCC_VC,
+            .condition = CC_VC,
             .byteDisplacement = -5,
             .wordDisplacement = 0,
             .pc = 100,
@@ -514,7 +515,7 @@ INSTANTIATE_TEST_SUITE_P(Bcc, BccTest, testing::Values(
         },
         BccParams {
             .testName = "BVC_Byte_WhenOverflowSet",
-            .condition = BCC_VC,
+            .condition = CC_VC,
             .byteDisplacement = -5,
             .wordDisplacement = 0,
             .pc = 100,
@@ -525,7 +526,7 @@ INSTANTIATE_TEST_SUITE_P(Bcc, BccTest, testing::Values(
         },
         BccParams {
             .testName = "BCC_Word_WhenCarryClear",
-            .condition = BCC_CC,
+            .condition = CC_CC,
             .byteDisplacement = 0,
             .wordDisplacement = -5,
             .pc = 100,
@@ -536,7 +537,7 @@ INSTANTIATE_TEST_SUITE_P(Bcc, BccTest, testing::Values(
         },
         BccParams {
             .testName = "BCC_Word_WhenCarrySet",
-            .condition = BCC_CC,
+            .condition = CC_CC,
             .byteDisplacement = 0,
             .wordDisplacement = -5,
             .pc = 100,
