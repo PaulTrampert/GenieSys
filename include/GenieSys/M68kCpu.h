@@ -282,6 +282,14 @@ namespace GenieSys {
          * @return The highest 2 bits of the status register.
          */
         virtual uint8_t isTraceEnabled();
+
+        /**
+         * Test the given condition code. Condition code definitions can be found in ConditionCodes.h
+         *
+         * @param condition The condition code to test.
+         * @return True if CC register matches the condition code, false otherwise.
+         */
+        virtual bool testConditionCode(uint8_t condition);
     };
 }
 

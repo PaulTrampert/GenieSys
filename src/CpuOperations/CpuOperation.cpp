@@ -57,6 +57,7 @@
 #include <GenieSys/CpuOperations/NBCD.h>
 #include <GenieSys/CpuOperations/SWAP.h>
 #include <GenieSys/CpuOperations/BRA.h>
+#include "GenieSys/CpuOperations/DBcc.h"
 
 
 GenieSys::CpuOperation::CpuOperation(GenieSys::M68kCpu *cpu, GenieSys::Bus *bus) {
@@ -81,6 +82,7 @@ std::vector<std::shared_ptr<GenieSys::CpuOperation>> GenieSys::getOperations(Gen
             std::shared_ptr<GenieSys::CpuOperation>(new BTST(cpu, bus)),
             std::shared_ptr<GenieSys::CpuOperation>(new CLR(cpu, bus)),
             std::shared_ptr<GenieSys::CpuOperation>(new CMPI(cpu, bus)),
+            std::shared_ptr<GenieSys::CpuOperation>(new DBcc(cpu, bus)),
             std::shared_ptr<GenieSys::CpuOperation>(new EORI(cpu, bus)),
             std::shared_ptr<GenieSys::CpuOperation>(new EORItoCCR(cpu, bus)),
             std::shared_ptr<GenieSys::CpuOperation>(new EORItoSR(cpu, bus)),

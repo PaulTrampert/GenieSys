@@ -86,6 +86,8 @@ add_executable(testGenieSys
         CpuOperations/BccTest.cpp
         CpuOperations/BSRTest.cpp
         CpuOperations/BRATest.cpp
+        M68kCpuTests/TestConditionCodeTests.cpp
+        CpuOperations/DBccTest.cpp
 )
 
 target_link_libraries(testGenieSys PRIVATE GenieSys gtest gmock)
