@@ -89,6 +89,7 @@ add_executable(testGenieSys
         M68kCpuTests/TestConditionCodeTests.cpp
         CpuOperations/DBccTest.cpp
         CpuOperations/SccTest.cpp
+        CpuOperations/SUBQTest.cpp
 )
 
 target_link_libraries(testGenieSys PRIVATE GenieSys gtest gmock)
