@@ -56,6 +56,7 @@ protected:
         delete cpu;
         delete bus;
         delete addressingMode;
+        delete addressingResult;
     }
 };
 
