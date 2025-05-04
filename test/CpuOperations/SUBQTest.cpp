@@ -74,7 +74,7 @@ TEST_P(SUBQTest, Execute) {
 
     EXPECT_CALL(*cpu, getAddressingMode(params.eaMode))
             .Times(1);
-    EXPECT_CALL(*addressingMode, getDataProxy(params.eaReg, pow(2, params.size)))
+    EXPECT_CALL(*addressingMode, getDataProxy(params.eaReg, (1 << params.size)))
             .Times(1);
     EXPECT_CALL(*addressingResult, write(testing::Matcher<uint8_t>(params.expectedResult)))
             .Times(params.writeByteCalls);
@@ -99,7 +99,7 @@ TEST_P(SUBQTest, Disassemble) {
     opWord = sizeMask.compose(opWord, params.size);
     opWord = eaModeMask.compose(opWord, params.eaMode);
     opWord = eaRegMask.compose(opWord, params.eaReg);
-    uint8_t numBytes = pow(2, params.size);
+    uint8_t numBytes = 1 << params.size;
     ON_CALL(*addressingMode, disassemble(params.eaReg, numBytes))
         .WillByDefault(testing::Return("EA" + std::to_string(params.eaMode) + "-" + std::to_string(params.eaReg)));
 

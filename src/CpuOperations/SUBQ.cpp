@@ -77,7 +77,7 @@ std::string GenieSys::SUBQ::disassemble(uint16_t opWord) {
     std::stringstream stream;
     uint8_t data = dataMask.apply(opWord);
     uint8_t size = sizeMask.apply(opWord);
-    size = pow(2, size);
+    size = 1 << size;
     uint8_t eaMode = eaModeMask.apply(opWord);
     uint8_t eaReg = eaRegMask.apply(opWord);
     auto addressingMode = cpu->getAddressingMode(eaMode);
