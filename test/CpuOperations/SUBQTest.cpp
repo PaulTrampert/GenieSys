@@ -49,6 +49,7 @@ protected:
             .WillByDefault(testing::Return(addressingMode));
         ON_CALL(*addressingMode, getDataProxy(testing::_, testing::_))
             .WillByDefault(testing::Return(addressingResult));
+        testing::Mock::AllowLeak(addressingResult);
     }
 
     ~SUBQTest() override {
@@ -56,7 +57,6 @@ protected:
         delete cpu;
         delete bus;
         delete addressingMode;
-        delete addressingResult;
     }
 };
 
