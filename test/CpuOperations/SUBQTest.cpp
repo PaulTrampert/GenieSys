@@ -93,6 +93,21 @@ TEST_P(SUBQTest, Execute) {
     ASSERT_EQ(cycles, params.expectedCycles);
 }
 
+TEST_P(SUBQTest, Disassemble) {
+    const auto& params = GetParam();
+    uint16_t opWord = dataMask.compose(baseOpWord, params.data);
+    opWord = sizeMask.compose(opWord, params.size);
+    opWord = eaModeMask.compose(opWord, params.eaMode);
+    opWord = eaRegMask.compose(opWord, params.eaReg);
+    uint8_t numBytes = pow(2, params.size);
+    ON_CALL(*addressingMode, disassemble(params.eaReg, numBytes))
+        .WillByDefault(testing::Return("EA" + std::to_string(params.eaMode) + "-" + std::to_string(params.eaReg)));
+
+    std::string disassembly = subject->disassemble(opWord);
+
+    ASSERT_EQ(disassembly, params.expectedDisassembly);
+}
+
 INSTANTIATE_TEST_SUITE_P(SUBQ, SUBQTest, testing::Values(
         SUBQTestParams {
             .testName = "SUBQ_B_8_D0",
@@ -106,7 +121,8 @@ INSTANTIATE_TEST_SUITE_P(SUBQ, SUBQTest, testing::Values(
             .expectedResult = 42,
             .writeByteCalls = 1,
             .writeWordCalls = 0,
-            .writeLongCalls = 0
+            .writeLongCalls = 0,
+            .expectedDisassembly = "SUBQ.b #8, EA0-0"
         },
         SUBQTestParams {
             .testName = "SUBQ_B_4_D0",
@@ -120,7 +136,8 @@ INSTANTIATE_TEST_SUITE_P(SUBQ, SUBQTest, testing::Values(
             .expectedResult = 46,
             .writeByteCalls = 1,
             .writeWordCalls = 0,
-            .writeLongCalls = 0
+            .writeLongCalls = 0,
+            .expectedDisassembly = "SUBQ.b #4, EA0-0"
         },
         SUBQTestParams {
             .testName = "SUBQ_B_4_A0",
@@ -134,7 +151,8 @@ INSTANTIATE_TEST_SUITE_P(SUBQ, SUBQTest, testing::Values(
             .expectedResult = 46,
             .writeByteCalls = 0,
             .writeWordCalls = 1,
-            .writeLongCalls = 0
+            .writeLongCalls = 0,
+            .expectedDisassembly = "SUBQ.b #4, EA1-0"
         },
         SUBQTestParams {
             .testName = "SUBQ_W_4_D3",
@@ -148,7 +166,8 @@ INSTANTIATE_TEST_SUITE_P(SUBQ, SUBQTest, testing::Values(
             .expectedResult = 46,
             .writeByteCalls = 0,
             .writeWordCalls = 1,
-            .writeLongCalls = 0
+            .writeLongCalls = 0,
+            .expectedDisassembly = "SUBQ.w #4, EA0-3"
         },
         SUBQTestParams {
             .testName = "SUBQ_W_4_A3",
@@ -162,7 +181,8 @@ INSTANTIATE_TEST_SUITE_P(SUBQ, SUBQTest, testing::Values(
             .expectedResult = 46,
             .writeByteCalls = 0,
             .writeWordCalls = 1,
-            .writeLongCalls = 0
+            .writeLongCalls = 0,
+            .expectedDisassembly = "SUBQ.w #4, EA1-3"
         },
         SUBQTestParams {
             .testName = "SUBQ_L_4_D3",
@@ -176,7 +196,8 @@ INSTANTIATE_TEST_SUITE_P(SUBQ, SUBQTest, testing::Values(
             .expectedResult = 46,
             .writeByteCalls = 0,
             .writeWordCalls = 0,
-            .writeLongCalls = 1
+            .writeLongCalls = 1,
+            .expectedDisassembly = "SUBQ.l #4, EA0-3"
         },
         SUBQTestParams {
             .testName = "SUBQ_L_4_A3Indir",
@@ -190,7 +211,8 @@ INSTANTIATE_TEST_SUITE_P(SUBQ, SUBQTest, testing::Values(
             .expectedResult = 46,
             .writeByteCalls = 0,
             .writeWordCalls = 0,
-            .writeLongCalls = 1
+            .writeLongCalls = 1,
+            .expectedDisassembly = "SUBQ.l #4, EA2-3"
         },
         SUBQTestParams {
             .testName = "SUBQ_L_4_A3",
@@ -204,7 +226,8 @@ INSTANTIATE_TEST_SUITE_P(SUBQ, SUBQTest, testing::Values(
             .expectedResult = 46,
             .writeByteCalls = 0,
             .writeWordCalls = 0,
-            .writeLongCalls = 1
+            .writeLongCalls = 1,
+            .expectedDisassembly = "SUBQ.l #4, EA1-3"
         }
     ),
     [](const testing::TestParamInfo<SUBQTest::ParamType>& info) {

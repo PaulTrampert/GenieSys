@@ -77,13 +77,14 @@ std::string GenieSys::SUBQ::disassemble(uint16_t opWord) {
     std::stringstream stream;
     uint8_t data = dataMask.apply(opWord);
     uint8_t size = sizeMask.apply(opWord);
+    size = pow(2, size);
     uint8_t eaMode = eaModeMask.apply(opWord);
     uint8_t eaReg = eaRegMask.apply(opWord);
     auto addressingMode = cpu->getAddressingMode(eaMode);
     if (data == 0) {
         data = 8;
     }
-    stream << "SUBQ" << (size == 0 ? ".b " : size == 1 ? ".w " : ".l ") << " #" << data << ", " << addressingMode->disassemble(eaReg, size);
+    stream << "SUBQ" << (size == 1 ? ".b" : size == 2 ? ".w" : ".l") << " #" << std::to_string(data) << ", " << addressingMode->disassemble(eaReg, size);
     return stream.str();
 }
 
