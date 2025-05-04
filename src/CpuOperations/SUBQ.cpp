@@ -33,7 +33,7 @@ std::vector<uint16_t> GenieSys::SUBQ::getOpcodes() {
 uint8_t GenieSys::SUBQ::execute(uint16_t opWord) {
     uint8_t data = dataMask.apply(opWord);
     uint8_t size = sizeMask.apply(opWord);
-    size = pow(2, size);
+    size = 1 << size;
     uint8_t eaMode = eaModeMask.apply(opWord);
     uint8_t eaReg = eaRegMask.apply(opWord);
     auto addressingMode = cpu->getAddressingMode(eaMode);
