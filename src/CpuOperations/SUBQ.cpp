@@ -49,19 +49,19 @@ uint8_t GenieSys::SUBQ::execute(uint16_t opWord) {
     uint8_t cycles = 4;
     switch (size) {
         case 1:
-            subtractByte(addressingResult, data);
+            subtractByte(addressingResult, data, eaMode != AddressRegisterDirectMode::MODE_ID);
             if (eaMode != GenieSys::DataRegisterDirectMode::MODE_ID) {
                 cycles = 8;
             }
             break;
         case 2:
-            subtractWord(addressingResult, data);
+            subtractWord(addressingResult, data, eaMode != AddressRegisterDirectMode::MODE_ID);
             if (eaMode != GenieSys::DataRegisterDirectMode::MODE_ID) {
                 cycles = 8;
             }
             break;
         case 4:
-            subtractLong(addressingResult, data);
+            subtractLong(addressingResult, data, eaMode != AddressRegisterDirectMode::MODE_ID);
             if (eaMode != GenieSys::DataRegisterDirectMode::MODE_ID && eaMode != GenieSys::AddressRegisterDirectMode::MODE_ID) {
                 cycles = 12;
             }
@@ -90,21 +90,21 @@ std::string GenieSys::SUBQ::disassemble(uint16_t opWord) {
     return stream.str();
 }
 
-void GenieSys::SUBQ::subtractByte(std::unique_ptr<AddressingResult> &eaResult, uint8_t data) {
+void GenieSys::SUBQ::subtractByte(std::unique_ptr<AddressingResult> &eaResult, uint8_t data, bool setCcr) {
     uint8_t byteOperand = eaResult->getDataAsByte();
     uint8_t byteResult = byteOperand - data;
     cpu->setCcrFlags(GenieSys::getSubtractionCcrFlags<uint8_t, int8_t>(byteResult, byteOperand, data));
     eaResult->write(byteResult);
 }
 
-void GenieSys::SUBQ::subtractWord(std::unique_ptr<AddressingResult> &eaResult, uint8_t data) {
+void GenieSys::SUBQ::subtractWord(std::unique_ptr<AddressingResult> &eaResult, uint8_t data, bool setCcr) {
     uint16_t wordOperand = eaResult->getDataAsWord();
     uint16_t wordResult = wordOperand - data;
     cpu->setCcrFlags(GenieSys::getSubtractionCcrFlags<uint16_t, int16_t>(wordResult, wordOperand, data));
     eaResult->write(wordResult);
 }
 
-void GenieSys::SUBQ::subtractLong(std::unique_ptr<AddressingResult> &eaResult, uint8_t data) {
+void GenieSys::SUBQ::subtractLong(std::unique_ptr<AddressingResult> &eaResult, uint8_t data, bool setCcr) {
     uint32_t longOperand = eaResult->getDataAsLong();
     uint32_t longResult = longOperand - data;
     cpu->setCcrFlags(GenieSys::getSubtractionCcrFlags<uint32_t, int32_t>(longResult, longOperand, data));

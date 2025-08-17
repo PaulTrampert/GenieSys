@@ -3,6 +3,7 @@
 //
 #include <cmath>
 #include <sstream>
+#include <GenieSys/getCcrFlags.h>
 #include <GenieSys/getPossibleOpcodes.h>
 #include <GenieSys/M68kCpu.h>
 #include <GenieSys/AddressingModes/AddressingMode.h>
@@ -60,19 +61,46 @@ uint8_t GenieSys::ADDQ::execute(uint16_t opWord)
         data = 8;
     }
 
-    auto addressingMode = cpu->getAddressingMode(eaMode);
-    auto addressingResult = addressingMode->getData(eaReg, size);
+    const bool setCcr = eaMode != AddressRegisterDirectMode::MODE_ID;
+
+    const auto addressingMode = cpu->getAddressingMode(eaMode);
+    const auto addressingResult = addressingMode->getData(eaReg, size);
+
+    uint8_t byteOperand = 0;
+    uint8_t byteResult = 0;
+    uint16_t wordOperand = 0;
+    uint16_t wordResult = 0;
+    uint32_t longOperand = 0;
+    uint32_t longResult = 0;
 
     uint8_t cycles = 8; // Base cycles for ADDQ
     switch (size) {
         case 1:
-            addressingResult->write(static_cast<uint8_t>(addressingResult->getDataAsByte() + data));
+            byteOperand = addressingResult->getDataAsByte();
+            byteResult = static_cast<uint8_t>(byteOperand + data);
+            addressingResult->write(byteResult);
+            if (setCcr)
+            {
+                cpu->setCcrFlags(getAdditionCcrFlags<uint8_t, int8_t>(byteResult, byteOperand, data));
+            }
             break;
         case 2:
-            addressingResult->write(static_cast<uint16_t>(addressingResult->getDataAsWord() + data));
+            wordOperand = addressingResult->getDataAsWord();
+            wordResult = static_cast<uint16_t>(wordOperand + data);
+            addressingResult->write(wordResult);
+            if (setCcr)
+            {
+                cpu->setCcrFlags(getAdditionCcrFlags<uint16_t, int16_t>(wordResult, wordOperand, data));
+            }
             break;
         case 4:
-            addressingResult->write(static_cast<uint32_t>(addressingResult->getDataAsLong() + data));
+            longOperand = addressingResult->getDataAsLong();
+            longResult = static_cast<uint32_t>(longOperand + data);
+            addressingResult->write(longResult);
+            if (setCcr)
+            {
+                cpu->setCcrFlags(getAdditionCcrFlags<uint32_t, int32_t>(longResult, longOperand, data));
+            }
             break;
         default:
             return cpu->trap(TV_ILLEGAL_INSTR); // Invalid size

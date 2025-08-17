@@ -17,9 +17,9 @@ namespace GenieSys {
         BitMask<uint16_t> eaModeMask = BitMask<uint16_t>(5, 3);
         BitMask<uint16_t> eaRegMask = BitMask<uint16_t>(2, 3);
 
-        void subtractByte(std::unique_ptr<AddressingResult>& eaResult, uint8_t data);
-        void subtractWord(std::unique_ptr<AddressingResult>& eaResult, uint8_t data);
-        void subtractLong(std::unique_ptr<AddressingResult>& eaResult, uint8_t data);
+        void subtractByte(std::unique_ptr<AddressingResult>& eaResult, uint8_t data, bool setCcr);
+        void subtractWord(std::unique_ptr<AddressingResult>& eaResult, uint8_t data, bool setCcr);
+        void subtractLong(std::unique_ptr<AddressingResult>& eaResult, uint8_t data, bool setCcr);
 
     public:
         SUBQ(M68kCpu* cpu, Bus* bus);
