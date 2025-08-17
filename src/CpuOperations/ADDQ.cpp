@@ -18,7 +18,12 @@ std::string GenieSys::ADDQ::disassemble(uint16_t opWord) {
     const uint8_t size = 1 << sizeMask.apply(opWord);
     const uint8_t eaModeCode = eaModeMask.apply(opWord);
     const uint8_t eaReg = eaRegMask.apply(opWord);
-    const uint8_t data = dataMask.apply(opWord);
+    uint8_t data = dataMask.apply(opWord);
+
+    if (data == 0)
+    {
+        data = 8;
+    }
 
     const auto addressingMode = cpu->getAddressingMode(eaModeCode);
 
@@ -43,16 +48,20 @@ uint8_t GenieSys::ADDQ::getSpecificity()
 uint8_t GenieSys::ADDQ::execute(uint16_t opWord)
 {
     uint8_t data = dataMask.apply(opWord);
-    const uint8_t size = 1 << sizeMask.apply(opWord);
+    uint8_t size = 1 << sizeMask.apply(opWord);
     const uint8_t eaMode = eaModeMask.apply(opWord);
     const uint8_t eaReg = eaRegMask.apply(opWord);
 
-    auto addressingMode = cpu->getAddressingMode(eaMode);
-    auto addressingResult = addressingMode->getData(eaReg, size);
+    if (size < 4 && eaMode == GenieSys::AddressRegisterDirectMode::MODE_ID) {
+        size = 4;
+    }
 
     if (data == 0) {
         data = 8;
     }
+
+    auto addressingMode = cpu->getAddressingMode(eaMode);
+    auto addressingResult = addressingMode->getData(eaReg, size);
 
     uint8_t cycles = 8; // Base cycles for ADDQ
     switch (size) {
@@ -63,7 +72,7 @@ uint8_t GenieSys::ADDQ::execute(uint16_t opWord)
             addressingResult->write(static_cast<uint16_t>(addressingResult->getDataAsWord() + data));
             break;
         case 4:
-            addressingResult->write(static_cast<uint16_t>(addressingResult->getDataAsLong() + data));
+            addressingResult->write(static_cast<uint32_t>(addressingResult->getDataAsLong() + data));
             break;
         default:
             return cpu->trap(TV_ILLEGAL_INSTR); // Invalid size
@@ -73,7 +82,7 @@ uint8_t GenieSys::ADDQ::execute(uint16_t opWord)
     {
         cycles = 4;
     }
-    else if (eaMode != AddressRegisterDirectMode::MODE_ID)
+    else if (eaMode != DataRegisterDirectMode::MODE_ID && eaMode != AddressRegisterDirectMode::MODE_ID)
     {
         cycles = 12;
     }
