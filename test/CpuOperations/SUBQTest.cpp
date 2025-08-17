@@ -22,6 +22,7 @@ struct SUBQTestParams {
     uint8_t eaReg;
     uint8_t eaCycles;
     uint8_t size;
+    uint8_t expectedEffectiveSize;
     uint8_t expectedCycles;
     uint32_t expectedResult;
     uint8_t writeByteCalls;
@@ -75,7 +76,7 @@ TEST_P(SUBQTest, Execute) {
 
     EXPECT_CALL(*cpu, getAddressingMode(params.eaMode))
             .Times(1);
-    EXPECT_CALL(*addressingMode, getDataProxy(params.eaReg, (1 << params.size)))
+    EXPECT_CALL(*addressingMode, getDataProxy(params.eaReg, params.expectedEffectiveSize))
             .Times(1);
     EXPECT_CALL(*addressingResult, write(testing::Matcher<uint8_t>(params.expectedResult)))
             .Times(params.writeByteCalls);
@@ -118,6 +119,7 @@ INSTANTIATE_TEST_SUITE_P(SUBQ, SUBQTest, testing::Values(
             .eaReg = 0,
             .eaCycles = 0,
             .size = 0,
+            .expectedEffectiveSize = 1,
             .expectedCycles = 4,
             .expectedResult = 42,
             .writeByteCalls = 1,
@@ -133,6 +135,7 @@ INSTANTIATE_TEST_SUITE_P(SUBQ, SUBQTest, testing::Values(
             .eaReg = 0,
             .eaCycles = 0,
             .size = 0,
+            .expectedEffectiveSize = 1,
             .expectedCycles = 4,
             .expectedResult = 46,
             .writeByteCalls = 1,
@@ -148,11 +151,12 @@ INSTANTIATE_TEST_SUITE_P(SUBQ, SUBQTest, testing::Values(
             .eaReg = 0,
             .eaCycles = 0,
             .size = 0,
+            .expectedEffectiveSize = 4,
             .expectedCycles = 8,
             .expectedResult = 46,
             .writeByteCalls = 0,
-            .writeWordCalls = 1,
-            .writeLongCalls = 0,
+            .writeWordCalls = 0,
+            .writeLongCalls = 1,
             .expectedDisassembly = "SUBQ.b #4, EA1-0"
         },
         SUBQTestParams {
@@ -163,6 +167,7 @@ INSTANTIATE_TEST_SUITE_P(SUBQ, SUBQTest, testing::Values(
             .eaReg = 3,
             .eaCycles = 0,
             .size = 1,
+            .expectedEffectiveSize = 2,
             .expectedCycles = 4,
             .expectedResult = 46,
             .writeByteCalls = 0,
@@ -178,11 +183,12 @@ INSTANTIATE_TEST_SUITE_P(SUBQ, SUBQTest, testing::Values(
             .eaReg = 3,
             .eaCycles = 0,
             .size = 1,
+            .expectedEffectiveSize = 4,
             .expectedCycles = 8,
             .expectedResult = 46,
             .writeByteCalls = 0,
-            .writeWordCalls = 1,
-            .writeLongCalls = 0,
+            .writeWordCalls = 0,
+            .writeLongCalls = 1,
             .expectedDisassembly = "SUBQ.w #4, EA1-3"
         },
         SUBQTestParams {
@@ -193,6 +199,7 @@ INSTANTIATE_TEST_SUITE_P(SUBQ, SUBQTest, testing::Values(
             .eaReg = 3,
             .eaCycles = 0,
             .size = 2,
+            .expectedEffectiveSize = 4,
             .expectedCycles = 8,
             .expectedResult = 46,
             .writeByteCalls = 0,
@@ -208,6 +215,7 @@ INSTANTIATE_TEST_SUITE_P(SUBQ, SUBQTest, testing::Values(
             .eaReg = 3,
             .eaCycles = 5,
             .size = 2,
+            .expectedEffectiveSize = 4,
             .expectedCycles = 17,
             .expectedResult = 46,
             .writeByteCalls = 0,
@@ -223,6 +231,7 @@ INSTANTIATE_TEST_SUITE_P(SUBQ, SUBQTest, testing::Values(
             .eaReg = 3,
             .eaCycles = 5,
             .size = 2,
+            .expectedEffectiveSize = 4,
             .expectedCycles = 13,
             .expectedResult = 46,
             .writeByteCalls = 0,

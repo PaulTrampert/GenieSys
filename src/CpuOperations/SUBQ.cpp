@@ -36,14 +36,16 @@ uint8_t GenieSys::SUBQ::execute(uint16_t opWord) {
     size = 1 << size;
     uint8_t eaMode = eaModeMask.apply(opWord);
     uint8_t eaReg = eaRegMask.apply(opWord);
-    auto addressingMode = cpu->getAddressingMode(eaMode);
-    auto addressingResult = addressingMode->getData(eaReg, size);
+
     if (data == 0) {
         data = 8;
     }
-    if (size == 1 && eaMode == GenieSys::AddressRegisterDirectMode::MODE_ID) {
-        size = 2;
+    if (size < 4 && eaMode == GenieSys::AddressRegisterDirectMode::MODE_ID) {
+        size = 4;
     }
+
+    auto addressingMode = cpu->getAddressingMode(eaMode);
+    auto addressingResult = addressingMode->getData(eaReg, size);
     uint8_t cycles = 4;
     switch (size) {
         case 1:
