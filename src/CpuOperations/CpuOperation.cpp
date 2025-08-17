@@ -10,6 +10,7 @@
 #include <GenieSys/CpuOperations/ORItoSR.h>
 #include <GenieSys/CpuOperations/ANDI.h>
 #include <GenieSys/CpuOperations/ADDI.h>
+#include <GenieSys/CpuOperations/ADDQ.h>
 #include <GenieSys/CpuOperations/SUBI.h>
 #include <GenieSys/CpuOperations/ANDItoCCR.h>
 #include <GenieSys/CpuOperations/ANDItoSR.h>
@@ -71,6 +72,7 @@ std::vector<std::shared_ptr<GenieSys::CpuOperation>> GenieSys::getOperations(Gen
             std::shared_ptr<GenieSys::CpuOperation>(new ABCD(cpu, bus)),
             std::shared_ptr<GenieSys::CpuOperation>(new ADD(cpu, bus)),
             std::shared_ptr<GenieSys::CpuOperation>(new ADDI(cpu, bus)),
+            std::shared_ptr<GenieSys::CpuOperation>(new ADDQ(cpu, bus)),
             std::shared_ptr<GenieSys::CpuOperation>(new ANDI(cpu, bus)),
             std::shared_ptr<GenieSys::CpuOperation>(new ANDItoCCR(cpu, bus)),
             std::shared_ptr<GenieSys::CpuOperation>(new ANDItoSR(cpu, bus)),

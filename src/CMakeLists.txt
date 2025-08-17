@@ -80,7 +80,8 @@ add_library(GenieSys
         CpuOperations/DBcc.cpp
         ConditionCodes.cpp
         CpuOperations/Scc.cpp
-        CpuOperations/SUBQ.cpp)
+        CpuOperations/SUBQ.cpp
+        CpuOperations/ADDQ.cpp)
 
 target_include_directories(GenieSys PUBLIC ../include)
 target_link_libraries(GenieSys Threads::Threads)

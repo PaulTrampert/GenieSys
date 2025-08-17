@@ -1,10 +1,10 @@
 //
-// Created by paul on 5/3/25.
+// Created by paul on 8/16/25.
 //
 #include <string>
 #include <cstdint>
 #include <gtest/gtest.h>
-#include <GenieSys/CpuOperations/SUBQ.h>
+#include <GenieSys/CpuOperations/ADDQ.h>
 #include "../MockAddressingMode.h"
 #include "../MockBus.h"
 #include "../MockCpu.h"
@@ -14,7 +14,7 @@
 
 using namespace GenieSys;
 
-struct SUBQTestParams {
+struct ADDQTestParams {
     std::string testName;
     uint32_t registerData;
     uint8_t data;
@@ -31,7 +31,7 @@ struct SUBQTestParams {
     std::string expectedDisassembly;
 };
 
-class SUBQTest : public ::testing::TestWithParam<SUBQTestParams> {
+class ADDQTest : public ::testing::TestWithParam<ADDQTestParams> {
 protected:
     uint16_t baseOpWord = 0b0101000100000000;
     BitMask<uint16_t> dataMask = BitMask<uint16_t>(11, 3);
@@ -42,10 +42,10 @@ protected:
     MockCpu* cpu = new MockCpu();
     MockAddressingMode* addressingMode = new MockAddressingMode();
     MockAddressingResult* addressingResult = new MockAddressingResult();
-    SUBQ* subject;
+    ADDQ* subject;
 
-    SUBQTest() {
-        subject = new SUBQ(cpu, bus);
+    ADDQTest() {
+        subject = new ADDQ(cpu, bus);
         ON_CALL(*cpu, getAddressingMode(testing::_))
             .WillByDefault(testing::Return(addressingMode));
         ON_CALL(*addressingMode, getDataProxy(testing::_, testing::_))
@@ -53,7 +53,7 @@ protected:
         testing::Mock::AllowLeak(addressingResult);
     }
 
-    ~SUBQTest() override {
+    ~ADDQTest() override {
         delete subject;
         delete cpu;
         delete bus;
@@ -61,7 +61,7 @@ protected:
     }
 };
 
-TEST_P(SUBQTest, Execute) {
+TEST_P(ADDQTest, Execute) {
     const auto& params = GetParam();
     ON_CALL(*addressingResult, getDataAsByte())
         .WillByDefault(testing::Return(params.registerData));
@@ -95,7 +95,7 @@ TEST_P(SUBQTest, Execute) {
     ASSERT_EQ(cycles, params.expectedCycles);
 }
 
-TEST_P(SUBQTest, Disassemble) {
+TEST_P(ADDQTest, Disassemble) {
     const auto& params = GetParam();
     uint16_t opWord = dataMask.compose(baseOpWord, params.data);
     opWord = sizeMask.compose(opWord, params.size);
@@ -110,9 +110,9 @@ TEST_P(SUBQTest, Disassemble) {
     ASSERT_EQ(disassembly, params.expectedDisassembly);
 }
 
-INSTANTIATE_TEST_SUITE_P(SUBQ, SUBQTest, testing::Values(
-        SUBQTestParams {
-            .testName = "SUBQ_B_8_D0",
+INSTANTIATE_TEST_SUITE_P(ADDQ, ADDQTest, testing::Values(
+        ADDQTestParams {
+            .testName = "ADDQ_B_8_D0",
             .registerData = 50,
             .data = 0,
             .eaMode = GenieSys::DataRegisterDirectMode::MODE_ID,
@@ -121,14 +121,14 @@ INSTANTIATE_TEST_SUITE_P(SUBQ, SUBQTest, testing::Values(
             .size = 0,
             .expectedEffectiveSize = 1,
             .expectedCycles = 4,
-            .expectedResult = 42,
+            .expectedResult = 58,
             .writeByteCalls = 1,
             .writeWordCalls = 0,
             .writeLongCalls = 0,
-            .expectedDisassembly = "SUBQ.b #8, EA0-0"
+            .expectedDisassembly = "ADDQ.b #8, EA0-0"
         },
-        SUBQTestParams {
-            .testName = "SUBQ_B_4_D0",
+        ADDQTestParams {
+            .testName = "ADDQ_B_4_D0",
             .registerData = 50,
             .data = 4,
             .eaMode = GenieSys::DataRegisterDirectMode::MODE_ID,
@@ -137,14 +137,14 @@ INSTANTIATE_TEST_SUITE_P(SUBQ, SUBQTest, testing::Values(
             .size = 0,
             .expectedEffectiveSize = 1,
             .expectedCycles = 4,
-            .expectedResult = 46,
+            .expectedResult = 54,
             .writeByteCalls = 1,
             .writeWordCalls = 0,
             .writeLongCalls = 0,
-            .expectedDisassembly = "SUBQ.b #4, EA0-0"
+            .expectedDisassembly = "ADDQ.b #4, EA0-0"
         },
-        SUBQTestParams {
-            .testName = "SUBQ_B_4_A0",
+        ADDQTestParams {
+            .testName = "ADDQ_B_4_A0",
             .registerData = 50,
             .data = 4,
             .eaMode = GenieSys::AddressRegisterDirectMode::MODE_ID,
@@ -153,14 +153,14 @@ INSTANTIATE_TEST_SUITE_P(SUBQ, SUBQTest, testing::Values(
             .size = 0,
             .expectedEffectiveSize = 4,
             .expectedCycles = 8,
-            .expectedResult = 46,
+            .expectedResult = 54,
             .writeByteCalls = 0,
             .writeWordCalls = 0,
             .writeLongCalls = 1,
-            .expectedDisassembly = "SUBQ.b #4, EA1-0"
+            .expectedDisassembly = "ADDQ.b #4, EA1-0"
         },
-        SUBQTestParams {
-            .testName = "SUBQ_W_4_D3",
+        ADDQTestParams {
+            .testName = "ADDQ_W_4_D3",
             .registerData = 50,
             .data = 4,
             .eaMode = GenieSys::DataRegisterDirectMode::MODE_ID,
@@ -169,14 +169,14 @@ INSTANTIATE_TEST_SUITE_P(SUBQ, SUBQTest, testing::Values(
             .size = 1,
             .expectedEffectiveSize = 2,
             .expectedCycles = 4,
-            .expectedResult = 46,
+            .expectedResult = 54,
             .writeByteCalls = 0,
             .writeWordCalls = 1,
             .writeLongCalls = 0,
-            .expectedDisassembly = "SUBQ.w #4, EA0-3"
+            .expectedDisassembly = "ADDQ.w #4, EA0-3"
         },
-        SUBQTestParams {
-            .testName = "SUBQ_W_4_A3",
+        ADDQTestParams {
+            .testName = "ADDQ_W_4_A3",
             .registerData = 50,
             .data = 4,
             .eaMode = GenieSys::AddressRegisterDirectMode::MODE_ID,
@@ -185,14 +185,14 @@ INSTANTIATE_TEST_SUITE_P(SUBQ, SUBQTest, testing::Values(
             .size = 1,
             .expectedEffectiveSize = 4,
             .expectedCycles = 8,
-            .expectedResult = 46,
+            .expectedResult = 54,
             .writeByteCalls = 0,
             .writeWordCalls = 0,
             .writeLongCalls = 1,
-            .expectedDisassembly = "SUBQ.w #4, EA1-3"
+            .expectedDisassembly = "ADDQ.w #4, EA1-3"
         },
-        SUBQTestParams {
-            .testName = "SUBQ_L_4_D3",
+        ADDQTestParams {
+            .testName = "ADDQ_L_4_D3",
             .registerData = 50,
             .data = 4,
             .eaMode = GenieSys::DataRegisterDirectMode::MODE_ID,
@@ -201,14 +201,14 @@ INSTANTIATE_TEST_SUITE_P(SUBQ, SUBQTest, testing::Values(
             .size = 2,
             .expectedEffectiveSize = 4,
             .expectedCycles = 8,
-            .expectedResult = 46,
+            .expectedResult = 54,
             .writeByteCalls = 0,
             .writeWordCalls = 0,
             .writeLongCalls = 1,
-            .expectedDisassembly = "SUBQ.l #4, EA0-3"
+            .expectedDisassembly = "ADDQ.l #4, EA0-3"
         },
-        SUBQTestParams {
-            .testName = "SUBQ_L_4_A3Indir",
+        ADDQTestParams {
+            .testName = "ADDQ_L_4_A3Indir",
             .registerData = 50,
             .data = 4,
             .eaMode = GenieSys::AddressRegisterIndirectMode::MODE_ID,
@@ -217,14 +217,14 @@ INSTANTIATE_TEST_SUITE_P(SUBQ, SUBQTest, testing::Values(
             .size = 2,
             .expectedEffectiveSize = 4,
             .expectedCycles = 17,
-            .expectedResult = 46,
+            .expectedResult = 54,
             .writeByteCalls = 0,
             .writeWordCalls = 0,
             .writeLongCalls = 1,
-            .expectedDisassembly = "SUBQ.l #4, EA2-3"
+            .expectedDisassembly = "ADDQ.l #4, EA2-3"
         },
-        SUBQTestParams {
-            .testName = "SUBQ_L_4_A3",
+        ADDQTestParams {
+            .testName = "ADDQ_L_4_A3",
             .registerData = 50,
             .data = 4,
             .eaMode = GenieSys::AddressRegisterDirectMode::MODE_ID,
@@ -233,14 +233,14 @@ INSTANTIATE_TEST_SUITE_P(SUBQ, SUBQTest, testing::Values(
             .size = 2,
             .expectedEffectiveSize = 4,
             .expectedCycles = 13,
-            .expectedResult = 46,
+            .expectedResult = 54,
             .writeByteCalls = 0,
             .writeWordCalls = 0,
             .writeLongCalls = 1,
-            .expectedDisassembly = "SUBQ.l #4, EA1-3"
+            .expectedDisassembly = "ADDQ.l #4, EA1-3"
         }
     ),
-    [](const testing::TestParamInfo<SUBQTest::ParamType>& info) {
+    [](const testing::TestParamInfo<ADDQTest::ParamType>& info) {
         return info.param.testName;
     }
 );
