@@ -1,0 +1,5 @@
+if(EXISTS "/home/runner/work/GenieSys/GenieSys/_codeql_build_dir/test/testGenieSys[1]_tests.cmake")
+  include("/home/runner/work/GenieSys/GenieSys/_codeql_build_dir/test/testGenieSys[1]_tests.cmake")
+else()
+  add_test(testGenieSys_NOT_BUILT testGenieSys_NOT_BUILT)
+endif()
