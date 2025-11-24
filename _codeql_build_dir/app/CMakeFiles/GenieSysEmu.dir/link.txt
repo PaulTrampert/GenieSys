@@ -1,1 +1,0 @@
-/home/runner/work/GenieSys/.codeql-scratch/dbs/cpp/working/autobuild/bin/c++ -O3 -DNDEBUG -Wl,--dependency-file=CMakeFiles/GenieSysEmu.dir/link.d CMakeFiles/GenieSysEmu.dir/main.cpp.o -o GenieSysEmu  ../src/libGenieSys.a
