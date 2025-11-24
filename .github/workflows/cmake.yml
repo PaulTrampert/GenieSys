@@ -21,6 +21,10 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
+    - name: Get number of CPU cores
+      uses: SimenB/github-actions-cpu-cores@v2
+      id: cpu-cores
+
     - name: get-cmake
       # You may pin to the exact commit or the version.
       # uses: lukka/get-cmake@573c9a901acfd6b42c7a6f68d657326ef3d72a78
@@ -47,7 +51,7 @@ jobs:
       working-directory: ${{runner.workspace}}/build
       shell: bash
       # Execute the build.  You can specify a specific target with "--target <NAME>"
-      run: cmake --build . --config $BUILD_TYPE -j$(nproc)
+      run: cmake --build . --config $BUILD_TYPE -j${{ steps.cpu-cores.outputs.cores }}
 
     - name: Test
       working-directory: ${{runner.workspace}}/build
