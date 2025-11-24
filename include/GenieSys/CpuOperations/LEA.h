@@ -15,6 +15,8 @@ namespace GenieSys {
         BitMask<uint16_t> eaRegMask = BitMask<uint16_t>(2, 3);
         uint16_t opWordBase = 0b0100000111000000;
 
+        uint8_t getLeaCycles(uint8_t eaModeId, uint8_t eaReg);
+
     public:
         LEA(M68kCpu* cpu, Bus* bus);
         uint8_t getSpecificity() override;

@@ -6,6 +6,14 @@
 #include <GenieSys/getPossibleOpcodes.h>
 #include <GenieSys/M68kCpu.h>
 #include <GenieSys/AddressingModes/AddressingMode.h>
+#include <GenieSys/AddressingModes/AddressRegisterIndirectMode.h>
+#include <GenieSys/AddressingModes/AddressRegisterIndirectDisplacementMode.h>
+#include <GenieSys/AddressingModes/AddressRegisterIndirectWithIndexMode.h>
+#include <GenieSys/AddressingModes/ProgramCounterAddressingMode.h>
+#include <GenieSys/AddressingModes/AbsoluteShortAddressingMode.h>
+#include <GenieSys/AddressingModes/AbsoluteLongAddressingMode.h>
+#include <GenieSys/AddressingModes/ProgramCounterIndirectDisplacementMode.h>
+#include <GenieSys/AddressingModes/ProgramCounterIndirectWithIndexMode.h>
 #include <GenieSys/Bus.h>
 #include <sstream>
 
@@ -37,7 +45,34 @@ uint8_t GenieSys::LEA::execute(uint16_t opWord) {
     auto eaResult = eaMode->getData(eaReg, 4);
     uint32_t address = eaResult->getAddress();
     cpu->setAddressRegister(destReg, address);
-    return 4 + eaResult->getCycles();
+    return getLeaCycles(eaModeId, eaReg);
+}
+
+uint8_t GenieSys::LEA::getLeaCycles(uint8_t eaModeId, uint8_t eaReg) {
+    // LEA cycle counts based on M68000 Programmer's Reference Manual
+    switch (eaModeId) {
+        case AddressRegisterIndirectMode::MODE_ID:  // (An) - Address Register Indirect
+            return 4;
+        case AddressRegisterIndirectDisplacementMode::MODE_ID:  // d(An) - Address Register Indirect with Displacement
+            return 8;
+        case AddressRegisterIndirectWithIndexMode::MODE_ID:  // d(An,ix) - Address Register Indirect with Index
+            return 12;
+        case ProgramCounterAddressingMode::MODE_ID:  // PC-relative and Absolute modes
+            switch (eaReg) {
+                case AbsoluteShortAddressingMode::MODE_ID:  // xxx.W - Absolute Short
+                    return 8;
+                case AbsoluteLongAddressingMode::MODE_ID:  // xxx.L - Absolute Long
+                    return 12;
+                case ProgramCounterIndirectDisplacementMode::MODE_ID:  // d(PC) - Program Counter with Displacement
+                    return 8;
+                case ProgramCounterIndirectWithIndexMode::MODE_ID:  // d(PC,ix) - Program Counter with Index
+                    return 12;
+                default:
+                    return 0;
+            }
+        default:
+            return 0;
+    }
 }
 
 std::string GenieSys::LEA::disassemble(uint16_t opWord) {
