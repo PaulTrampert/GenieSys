@@ -91,6 +91,7 @@ add_executable(testGenieSys
         CpuOperations/SccTest.cpp
         CpuOperations/SUBQTest.cpp
         CpuOperations/ADDQTest.cpp
+        CpuOperations/CHKTest.cpp
 )
 
 target_link_libraries(testGenieSys PRIVATE GenieSys gtest gmock)

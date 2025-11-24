@@ -58,6 +58,8 @@
 #include <GenieSys/CpuOperations/NBCD.h>
 #include <GenieSys/CpuOperations/SWAP.h>
 #include <GenieSys/CpuOperations/BRA.h>
+#include <GenieSys/CpuOperations/CHK.h>
+
 #include "GenieSys/CpuOperations/DBcc.h"
 #include "GenieSys/CpuOperations/Scc.h"
 
@@ -83,6 +85,7 @@ std::vector<std::shared_ptr<GenieSys::CpuOperation>> GenieSys::getOperations(Gen
             std::shared_ptr<GenieSys::CpuOperation>(new BSET(cpu, bus)),
             std::shared_ptr<GenieSys::CpuOperation>(new BSR(cpu, bus)),
             std::shared_ptr<GenieSys::CpuOperation>(new BTST(cpu, bus)),
+            std::shared_ptr<GenieSys::CpuOperation>(new CHK(cpu, bus)),
             std::shared_ptr<GenieSys::CpuOperation>(new CLR(cpu, bus)),
             std::shared_ptr<GenieSys::CpuOperation>(new CMPI(cpu, bus)),
             std::shared_ptr<GenieSys::CpuOperation>(new DBcc(cpu, bus)),
