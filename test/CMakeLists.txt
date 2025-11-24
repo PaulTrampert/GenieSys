@@ -80,6 +80,7 @@ add_executable(testGenieSys
         CpuOperations/TRAPVTest.cpp
         CpuOperations/JSRTest.cpp
         CpuOperations/JMPTest.cpp
+        CpuOperations/LEATest.cpp
         CpuOperations/MOVEMTest.cpp
         RegisterListTest.cpp
         CpuOperations/MOVEQTest.cpp

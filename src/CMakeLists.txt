@@ -70,6 +70,7 @@ add_library(GenieSys
         CpuOperations/RTR.cpp
         CpuOperations/JSR.cpp
         CpuOperations/JMP.cpp
+        CpuOperations/LEA.cpp
         CpuOperations/MOVEM.cpp
         TrapException.cpp
         RegisterList.cpp

@@ -39,6 +39,7 @@
 #include <GenieSys/CpuOperations/TAS.h>
 #include <GenieSys/CpuOperations/TST.h>
 #include <GenieSys/CpuOperations/TRAP.h>
+#include <GenieSys/CpuOperations/LEA.h>
 #include <GenieSys/CpuOperations/LINK.h>
 #include <GenieSys/CpuOperations/UNLK.h>
 #include <GenieSys/CpuOperations/MOVE_USP.h>
@@ -96,6 +97,7 @@ std::vector<std::shared_ptr<GenieSys::CpuOperation>> GenieSys::getOperations(Gen
             std::shared_ptr<GenieSys::CpuOperation>(new ILLEGAL(cpu, bus)),
             std::shared_ptr<GenieSys::CpuOperation>(new JMP(cpu, bus)),
             std::shared_ptr<GenieSys::CpuOperation>(new JSR(cpu, bus)),
+            std::shared_ptr<GenieSys::CpuOperation>(new LEA(cpu, bus)),
             std::shared_ptr<GenieSys::CpuOperation>(new LINK(cpu, bus)),
             std::shared_ptr<GenieSys::CpuOperation>(new MOVE(cpu, bus)),
             std::shared_ptr<GenieSys::CpuOperation>(new MOVE_USP(cpu, bus)),
