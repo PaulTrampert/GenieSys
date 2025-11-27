@@ -83,7 +83,9 @@ add_library(GenieSys
         CpuOperations/Scc.cpp
         CpuOperations/SUBQ.cpp
         CpuOperations/ADDQ.cpp
-        CpuOperations/CHK.cpp)
+        CpuOperations/CHK.cpp
+        CpuOperations/ROL.cpp
+        CpuOperations/ROR.cpp)
 
 target_include_directories(GenieSys PUBLIC ../include)
 target_link_libraries(GenieSys Threads::Threads)
