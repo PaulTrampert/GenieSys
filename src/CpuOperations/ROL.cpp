@@ -105,56 +105,46 @@ uint8_t GenieSys::ROL::executeRegister(uint16_t opWord) {
         case 0: {  // Byte
             uint8_t byteData = data & 0xFF;
             if (count > 0) {
-                uint8_t effectiveCount = count % 8;
-                if (effectiveCount == 0) effectiveCount = 8;
-                lastBitOut = (byteData >> (8 - (count % 8 == 0 ? 8 : count % 8))) & 1;
-                // Perform the actual rotation
                 uint8_t rotCount = count % 8;
-                if (rotCount > 0) {
-                    byteData = (byteData << rotCount) | (byteData >> (8 - rotCount));
-                }
-                lastBitOut = (byteData & 1);  // Last bit rotated out went into bit 0
+                if (rotCount == 0) rotCount = 8;
+                // For left rotation, the last bit rotated out goes into bit 0
+                byteData = (byteData << rotCount) | (byteData >> (8 - rotCount));
+                lastBitOut = byteData & 1;  // The bit that was rotated out of MSB is now in LSB
             }
             cpu->setDataRegister(reg, byteData);
             if ((int8_t)byteData < 0) ccr |= CCR_NEGATIVE;
             if (byteData == 0) ccr |= CCR_ZERO;
-            if (count > 0) {
-                if (lastBitOut) ccr |= CCR_CARRY;
-            }
+            if (count > 0 && lastBitOut) ccr |= CCR_CARRY;
             break;
         }
         case 1: {  // Word
             uint16_t wordData = data & 0xFFFF;
             if (count > 0) {
                 uint8_t rotCount = count % 16;
-                if (rotCount > 0) {
-                    wordData = (wordData << rotCount) | (wordData >> (16 - rotCount));
-                }
-                lastBitOut = (wordData & 1);  // Last bit rotated out went into bit 0
+                if (rotCount == 0) rotCount = 16;
+                // For left rotation, the last bit rotated out goes into bit 0
+                wordData = (wordData << rotCount) | (wordData >> (16 - rotCount));
+                lastBitOut = wordData & 1;  // The bit that was rotated out of MSB is now in LSB
             }
             cpu->setDataRegister(reg, wordData);
             if ((int16_t)wordData < 0) ccr |= CCR_NEGATIVE;
             if (wordData == 0) ccr |= CCR_ZERO;
-            if (count > 0) {
-                if (lastBitOut) ccr |= CCR_CARRY;
-            }
+            if (count > 0 && lastBitOut) ccr |= CCR_CARRY;
             break;
         }
         case 2: {  // Long
             uint32_t longData = data;
             if (count > 0) {
                 uint8_t rotCount = count % 32;
-                if (rotCount > 0) {
-                    longData = (longData << rotCount) | (longData >> (32 - rotCount));
-                }
-                lastBitOut = (longData & 1);  // Last bit rotated out went into bit 0
+                if (rotCount == 0) rotCount = 32;
+                // For left rotation, the last bit rotated out goes into bit 0
+                longData = (longData << rotCount) | (longData >> (32 - rotCount));
+                lastBitOut = longData & 1;  // The bit that was rotated out of MSB is now in LSB
             }
             cpu->setDataRegister(reg, longData);
             if ((int32_t)longData < 0) ccr |= CCR_NEGATIVE;
             if (longData == 0) ccr |= CCR_ZERO;
-            if (count > 0) {
-                if (lastBitOut) ccr |= CCR_CARRY;
-            }
+            if (count > 0 && lastBitOut) ccr |= CCR_CARRY;
             break;
         }
         default:
