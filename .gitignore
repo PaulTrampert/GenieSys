@@ -1,4 +1,5 @@
 cmake-build-*/
+cmake-build/
 /.idea/*
 build/
 _codeql_build_dir/

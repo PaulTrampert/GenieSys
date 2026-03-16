@@ -1,1 +1,0 @@
-/usr/bin/c++ -g -Wl,--dependency-file=CMakeFiles/GenieSysEmu.dir/link.d CMakeFiles/GenieSysEmu.dir/main.cpp.o -o GenieSysEmu  ../src/libGenieSys.a
