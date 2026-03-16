@@ -9,8 +9,6 @@
 #include "../M68kCpu.h"
 
 namespace GenieSys {
-    class AddressingResult;
-
     /**
      * Documented on page 4-113 of docs/68KPM.pdf
      * Handles both ROL (rotate left) and ROR (rotate right) for register and memory forms.
