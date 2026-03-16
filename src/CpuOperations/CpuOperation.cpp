@@ -63,6 +63,7 @@
 
 #include "GenieSys/CpuOperations/DBcc.h"
 #include "GenieSys/CpuOperations/Scc.h"
+#include <GenieSys/CpuOperations/ROd.h>
 
 
 GenieSys::CpuOperation::CpuOperation(GenieSys::M68kCpu *cpu, GenieSys::Bus *bus) {
@@ -121,6 +122,7 @@ std::vector<std::shared_ptr<GenieSys::CpuOperation>> GenieSys::getOperations(Gen
             std::shared_ptr<GenieSys::CpuOperation>(new RTE(cpu, bus)),
             std::shared_ptr<GenieSys::CpuOperation>(new RTR(cpu, bus)),
             std::shared_ptr<GenieSys::CpuOperation>(new RTS(cpu, bus)),
+            std::shared_ptr<GenieSys::CpuOperation>(new ROd(cpu, bus)),
             std::shared_ptr<GenieSys::CpuOperation>(new Scc(cpu, bus)),
             std::shared_ptr<GenieSys::CpuOperation>(new STOP(cpu, bus)),
             std::shared_ptr<GenieSys::CpuOperation>(new SUBI(cpu, bus)),
