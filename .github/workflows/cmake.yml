@@ -15,11 +15,14 @@ jobs:
     runs-on: ${{ matrix.os }}
 
     strategy:
+      # Without this, one platform failing cancels the other mid-build and
+      # hides whether it would have passed.
+      fail-fast: false
       matrix:
         os: [ubuntu-latest, windows-latest]
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v5
 
     - name: Get number of CPU cores
       uses: SimenB/github-actions-cpu-cores@v2
@@ -30,7 +33,12 @@ jobs:
       # uses: lukka/get-cmake@573c9a901acfd6b42c7a6f68d657326ef3d72a78
       uses: lukka/get-cmake@latest
       with:
-        cmakeVersion: "~3.31.0"
+        # Must stay new enough to know the generator for the Visual Studio on
+        # the windows runner. windows-latest moved to VS 2026, which CMake
+        # 3.31 has no generator for, so configure fell back to NMake Makefiles
+        # and failed with "CMAKE_CXX_COMPILER not set". The project itself only
+        # needs 3.31.6 (see CMakeLists.txt).
+        cmakeVersion: latest
 
     - name: Create Build Environment
       # Some projects don't allow in-source building, so create a separate build directory
