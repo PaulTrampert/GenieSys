@@ -56,13 +56,13 @@ uint8_t GenieSys::MOVEM::execute(uint16_t opWord) {
     uint16_t regListWord = bus->readWord(cpu->getPc());
     cpu->incrementPc(2);
     auto eaMode = cpu->getAddressingMode(eaModeId);
-    std::unique_ptr<AddressingResult> result;
     try {
+        // The transfer's own cycle count is not usable here; MOVEM is timed per addressing mode.
         if (dir == DIR_MEM_TO_REG) {
-            result = eaMode->movemToReg(eaReg, size, regListWord);
+            eaMode->movemToReg(eaReg, size, regListWord);
         }
         else {
-            result = eaMode->movemToMem(eaReg, size, regListWord);
+            eaMode->movemToMem(eaReg, size, regListWord);
         }
     } catch (TrapException &e) {
         return cpu->trap(e.getTrapVector());
