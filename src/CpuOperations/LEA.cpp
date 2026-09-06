@@ -43,8 +43,8 @@ uint8_t GenieSys::LEA::execute(uint16_t opWord) {
         return cpu->trap(TV_ILLEGAL_INSTR);
     }
     auto eaMode = cpu->getAddressingMode(eaModeId);
-    auto eaResult = eaMode->getData(eaReg, 4);
-    uint32_t address = eaResult->getAddress();
+    // LEA loads the effective address, so the operand it points at is never read.
+    uint32_t address = eaMode->getAddress(eaReg);
     cpu->setAddressRegister(destReg, address);
     return CYCLES[controlMode];
 }

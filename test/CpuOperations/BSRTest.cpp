@@ -78,7 +78,8 @@ INSTANTIATE_TEST_SUITE_P(
                 .shortDisplacement = 0,
                 .wordDisplacement = 10,
                 .startPc = 20,
-                .expectedPc = 32,
+                // The word displacement is relative to the extension word at startPc, not past it.
+                .expectedPc = 30,
                 .expectedTopStackValue = 22,
                 .expectedDisassembly = "BSR $000a"
             },
@@ -87,7 +88,7 @@ INSTANTIATE_TEST_SUITE_P(
                 .shortDisplacement = 0,
                 .wordDisplacement = 0xFFF6,
                 .startPc = 20,
-                .expectedPc = 12,
+                .expectedPc = 10,
                 .expectedTopStackValue = 22,
                 .expectedDisassembly = "BSR $fff6"
             }

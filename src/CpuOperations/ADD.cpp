@@ -79,7 +79,7 @@ void GenieSys::ADD::addWords(uint8_t direction, uint8_t dataRegAddr, GenieSys::A
 
 void GenieSys::ADD::addLongs(uint8_t direction, uint8_t dataRegAddr, GenieSys::AddressingResult *eaResult) {
     uint32_t regOp = cpu->getDataRegister(dataRegAddr);
-    uint32_t eaOp = eaResult->getDataAsWord();
+    uint32_t eaOp = eaResult->getDataAsLong();
     uint32_t result = direction == 1 ? regOp + eaOp : eaOp + regOp;
     uint8_t ccr = GenieSys::getAdditionCcrFlags<uint32_t, int32_t>(result, regOp, eaOp);
     cpu->setCcrFlags(ccr);

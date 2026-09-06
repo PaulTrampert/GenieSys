@@ -531,7 +531,8 @@ INSTANTIATE_TEST_SUITE_P(Bcc, BccTest, testing::Values(
             .wordDisplacement = -5,
             .pc = 100,
             .ccr = 0,
-            .expectedPc = 97,
+            // The word displacement is relative to the extension word at pc, not past it.
+            .expectedPc = 95,
             .expectedCycles = 10,
             .expectedDisassembly = "BCC -5"
         },

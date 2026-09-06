@@ -29,7 +29,10 @@ uint8_t GenieSys::DBcc::execute(uint16_t opWord) {
     uint8_t condition = conditionMask.apply(opWord);
     uint8_t reg = regMask.apply(opWord);
     uint16_t data = cpu->getDataRegister(reg) & 0x0000FFFF;
-    auto displacement = signExtend<uint32_t>(bus->readWord(cpu->getPc()), 16);
+    // The displacement is relative to the address of the extension word, which is where the PC
+    // sits once the operation word has been fetched, not to the address after it.
+    uint32_t base = cpu->getPc();
+    auto displacement = signExtend<uint32_t>(bus->readWord(base), 16);
     cpu->incrementPc(2);
     // Condition true, no branch: 12. Condition false and the counter has not run out, so the
     // branch is taken: 10. Condition false and the counter ran out, so no branch: 14.
@@ -40,7 +43,7 @@ uint8_t GenieSys::DBcc::execute(uint16_t opWord) {
         cpu->setDataRegister(reg, data);
         if ((int16_t)data != -1) {
             cycles = 10;
-            cpu->setPc(cpu->getPc() + displacement);
+            cpu->setPc(base + displacement);
         }
     }
     return cycles;

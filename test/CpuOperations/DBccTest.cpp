@@ -81,7 +81,8 @@ INSTANTIATE_TEST_SUITE_P(DBcc, DBccTest, testing::Values(
             .wordDisplacement = 10,
             .pc = 1000,
             .ccr = 0,
-            .expectedPc = 1012,
+            // The displacement is relative to the extension word at pc, not past it.
+            .expectedPc = 1010,
             .expectedCycles = 10,
             .expectedDisassembly = "DBEQ D0, $000a"
         },

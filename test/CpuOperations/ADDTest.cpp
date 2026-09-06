@@ -53,6 +53,18 @@ TEST_F(ADDTest, ItAddsTwoLongs_EffectiveAddressResult) {
     ASSERT_EQ(0, cpu->getCcrFlags());
 }
 
+TEST_F(ADDTest, ItAddsTwoLongs_UsingTheWholeSourceOperand) {
+    // ADD.l D1,D0 -> 1101 000 0 10 000 001. The effective address operand is a long word, so
+    // the upper half of D1 has to take part in the addition.
+    cpu->setDataRegister(0, (uint32_t)0x00010000);
+    cpu->setDataRegister(1, (uint32_t)0x00020003);
+
+    subject->execute(0b1101000010000001);
+
+    ASSERT_EQ(0x00030003, cpu->getDataRegister(0));
+    ASSERT_EQ(0, cpu->getCcrFlags());
+}
+
 TEST_F(ADDTest, ItDisassembles_EffectiveAddressResult) {
     ASSERT_EQ("ADD.b D1,D0", subject->disassemble(0b1101001100000000));
 }

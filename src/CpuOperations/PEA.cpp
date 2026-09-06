@@ -41,8 +41,8 @@ uint8_t GenieSys::PEA::execute(uint16_t opWord) {
         return cpu->trap(GenieSys::TV_ILLEGAL_INSTR);
     }
     auto eaMode = cpu->getAddressingMode(eaModeId);
-    auto eaResult = eaMode->getData(eaReg, 4);
-    uint32_t address = eaResult->getAddress();
+    // PEA pushes the effective address, so the operand it points at is never read.
+    uint32_t address = eaMode->getAddress(eaReg);
     uint32_t sp = cpu->getAddressRegister(7);
     sp -= 4;
     cpu->setAddressRegister(7, sp);

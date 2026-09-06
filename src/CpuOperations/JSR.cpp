@@ -37,9 +37,11 @@ uint8_t GenieSys::JSR::execute(uint16_t opWord) {
         return cpu->trap(GenieSys::TV_ILLEGAL_INSTR);
     }
     auto eaMode = cpu->getAddressingMode(eaModeId);
-    auto eaData = eaMode->getData(eaReg, 4);
+    // A JSR goes to the effective address itself, so the operand is never read. The address is
+    // resolved first so that the pushed return address is past any extension words it consumed.
+    auto address = eaMode->getAddress(eaReg);
     cpu->stackPushLong(cpu->getPc());
-    cpu->setPc(eaData->getDataAsLong());
+    cpu->setPc(address);
     return CYCLES[controlMode];
 }
 
