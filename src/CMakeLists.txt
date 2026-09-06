@@ -21,6 +21,7 @@ add_library(GenieSys
         AddressingModes/ImmediateDataMode.cpp
         AddressingModes/ProgramCounterAddressingMode.cpp
         numberUtils.cpp
+        getControlModeIndex.cpp
         CpuOperations/ABCD.cpp
         CpuOperations/CpuOperation.cpp
         CpuOperations/ADD.cpp

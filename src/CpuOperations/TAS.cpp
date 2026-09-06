@@ -39,7 +39,7 @@ uint8_t GenieSys::TAS::execute(uint16_t opWord) {
         ccr |= CCR_NEGATIVE;
     eaResult->write((uint8_t)((1 << 7) | eaData));
     cpu->setCcrFlags(ccr);
-    return (eaModeId == DataRegisterDirectMode::MODE_ID || eaModeId == AddressRegisterDirectMode::MODE_ID ? 4 : 8)
+    return (eaModeId == DataRegisterDirectMode::MODE_ID || eaModeId == AddressRegisterDirectMode::MODE_ID ? 4 : 14)
         + eaResult->getCycles();
 }
 

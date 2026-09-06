@@ -113,3 +113,32 @@ TEST_F(NEGXTest, ExtendBitIsUsed) {
 
     ASSERT_EQ(4, (int32_t)cpu->getDataRegister(1));
 }
+
+// Memory destinations cost the same as NEG's: 8 plus the effective address calculation for byte
+// and word, 12 plus the effective address calculation for long.
+TEST_F(NEGXTest, ExecuteByteOpToMemoryTakes8PlusEaCycles) {
+    // NEGX.b (A1) -> 0100 0000 00 010 001
+    cpu->setAddressRegister(1, 500);
+    bus.writeByte(500, 1);
+
+    ASSERT_EQ(12, subject->execute(0b0100000000010001u));
+    ASSERT_EQ(0xFF, bus.read(500));
+}
+
+TEST_F(NEGXTest, ExecuteWordOpToMemoryTakes8PlusEaCycles) {
+    // NEGX.w (A1) -> 0100 0000 01 010 001
+    cpu->setAddressRegister(1, 500);
+    bus.writeWord(500, 1);
+
+    ASSERT_EQ(12, subject->execute(0b0100000001010001u));
+    ASSERT_EQ(0xFFFF, bus.readWord(500));
+}
+
+TEST_F(NEGXTest, ExecuteLongOpToMemoryTakes12PlusEaCycles) {
+    // NEGX.l (A1) -> 0100 0000 10 010 001
+    cpu->setAddressRegister(1, 500);
+    bus.writeLong(500, 1);
+
+    ASSERT_EQ(20, subject->execute(0b0100000010010001u));
+    ASSERT_EQ(0xFFFFFFFF, bus.readLong(500));
+}

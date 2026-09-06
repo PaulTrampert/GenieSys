@@ -17,6 +17,13 @@ namespace GenieSys {
         BitMask<uint16_t> srcEaRegMask = BitMask<uint16_t>(2, 3);
         BitMask<uint16_t> srcEaModeMask = BitMask<uint16_t>(5, 3);
 
+        /**
+         * Whether the decoded destination is one of the encodings MOVE does not own.
+         * @param destModeId The destination effective address mode.
+         * @param destReg    The destination register field, the sub mode selector in mode 0b111.
+         */
+        static bool isIllegalDestination(uint8_t destModeId, uint8_t destReg);
+
     public:
         MOVE(M68kCpu* cpu, Bus* bus);
         std::vector<uint16_t> getOpcodes() override;

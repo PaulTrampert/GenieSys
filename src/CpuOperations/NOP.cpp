@@ -15,7 +15,7 @@ std::vector<uint16_t> GenieSys::NOP::getOpcodes() {
 }
 
 uint8_t GenieSys::NOP::execute(uint16_t opWord) {
-    return 1;
+    return 4;
 }
 
 uint8_t GenieSys::NOP::getSpecificity() {

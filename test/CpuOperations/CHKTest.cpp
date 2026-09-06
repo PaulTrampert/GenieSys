@@ -89,7 +89,7 @@ TEST_P(CHKTest, Execute) {
         ASSERT_EQ(params.expectedCcrFlags, cpu->getCcrFlags() & CCR_NEGATIVE);
         ASSERT_EQ(0x1000, cpu->getPc());
     } else {
-        // No trap, just return 10 cycles
+        // No trap, the PC is left where the operand decode left it.
         ASSERT_EQ(params.pc, cpu->getPc());
     }
 }
@@ -126,7 +126,7 @@ INSTANTIATE_TEST_CASE_P(CHK, CHKTest,
             .eaValue = 100,
             .pc = 128,
             .eaAddress = 0,
-            .expectedCycles = 34,  // trap returns 34
+            .expectedCycles = 40,  // CHK exception processing, Dn costs no extra EA time
             .expectedCcrFlags = CCR_NEGATIVE,
             .expectTrap = true,
             .disassembly = "CHK D3, D2"
@@ -140,12 +140,12 @@ INSTANTIATE_TEST_CASE_P(CHK, CHKTest,
             .eaValue = 100,
             .pc = 256,
             .eaAddress = 0,
-            .expectedCycles = 34,  // trap returns 34
+            .expectedCycles = 40,  // CHK exception processing, Dn costs no extra EA time
             .expectedCcrFlags = 0,
             .expectTrap = true,
             .disassembly = "CHK D4, D1"
         },
-        // Test case 3: 0 < dn < ea, should return 10 (no trap)
+        // Test case 3: 0 < dn < ea, no trap
         CHKTestParams {
             .dataReg = 5,
             .eaMode = 0,  // Data register direct
@@ -159,7 +159,7 @@ INSTANTIATE_TEST_CASE_P(CHK, CHKTest,
             .expectTrap = false,
             .disassembly = "CHK D6, D5"
         },
-        // Test case 4: dn = 0, should return 10 (no trap)
+        // Test case 4: dn = 0, no trap
         CHKTestParams {
             .dataReg = 0,
             .eaMode = 0,  // Data register direct
@@ -173,7 +173,7 @@ INSTANTIATE_TEST_CASE_P(CHK, CHKTest,
             .expectTrap = false,
             .disassembly = "CHK D1, D0"
         },
-        // Test case 5: dn = ea, should return 10 (no trap)
+        // Test case 5: dn = ea, no trap
         CHKTestParams {
             .dataReg = 3,
             .eaMode = 0,  // Data register direct
@@ -196,7 +196,7 @@ INSTANTIATE_TEST_CASE_P(CHK, CHKTest,
             .eaValue = 50,
             .pc = 1280,
             .eaAddress = 2000,
-            .expectedCycles = 34,
+            .expectedCycles = 44,  // CHK exception processing plus the (An) EA calculation
             .expectedCcrFlags = CCR_NEGATIVE,
             .expectTrap = true,
             .disassembly = "CHK (A5), D4"
@@ -210,7 +210,7 @@ INSTANTIATE_TEST_CASE_P(CHK, CHKTest,
             .eaValue = 100,
             .pc = 1536,
             .eaAddress = 3000,
-            .expectedCycles = 34,
+            .expectedCycles = 44,  // CHK exception processing plus the (An) EA calculation
             .expectedCcrFlags = 0,
             .expectTrap = true,
             .disassembly = "CHK (A0), D7"
@@ -224,7 +224,7 @@ INSTANTIATE_TEST_CASE_P(CHK, CHKTest,
             .eaValue = 100,
             .pc = 1792,
             .eaAddress = 4000,
-            .expectedCycles = 10,
+            .expectedCycles = 14,  // 10 plus the (An) EA calculation
             .expectedCcrFlags = 0,
             .expectTrap = false,
             .disassembly = "CHK (A3), D2"

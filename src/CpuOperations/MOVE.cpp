@@ -7,6 +7,9 @@
 #include <GenieSys/AddressingModes/AddressingMode.h>
 #include <sstream>
 #include <GenieSys/M68kCpu.h>
+#include <GenieSys/AddressingModes/AbsoluteLongAddressingMode.h>
+#include <GenieSys/AddressingModes/ProgramCounterAddressingMode.h>
+#include <GenieSys/enums.h>
 
 
 static uint8_t byteWordCycleTable[12][9] = {
@@ -57,6 +60,16 @@ uint8_t GenieSys::MOVE::getSpecificity() {
     return sizeMask.getWidth() + destEaModeMask.getWidth() + destEaRegMask.getWidth() + srcEaRegMask.getWidth() + srcEaModeMask.getWidth();
 }
 
+/**
+ * Only (xxx).W and (xxx).L are valid destinations in mode 0b111. The PC relative and immediate
+ * sub modes are illegal encodings, and their move cycle keys (9, 10 and 11) would index past
+ * the end of the cycle tables.
+ */
+bool GenieSys::MOVE::isIllegalDestination(uint8_t destModeId, uint8_t destReg) {
+    return destModeId == GenieSys::ProgramCounterAddressingMode::MODE_ID
+        && destReg > GenieSys::AbsoluteLongAddressingMode::MODE_ID;
+}
+
 uint8_t GenieSys::MOVE::execute(uint16_t opWord) {
     uint8_t size = sizeMask.apply(opWord);
     uint8_t sizeBytes;
@@ -74,8 +87,11 @@ uint8_t GenieSys::MOVE::execute(uint16_t opWord) {
             abort();
     }
     uint8_t destModeId = destEaModeMask.apply(opWord);
-    auto destMode = cpu->getAddressingMode(destModeId);
     uint8_t destReg = destEaRegMask.apply(opWord);
+    if (isIllegalDestination(destModeId, destReg)) {
+        return cpu->trap(GenieSys::TV_ILLEGAL_INSTR);
+    }
+    auto destMode = cpu->getAddressingMode(destModeId);
     uint8_t srcModeId = srcEaModeMask.apply(opWord);
     auto srcMode = cpu->getAddressingMode(srcModeId);
     uint8_t srcReg = srcEaRegMask.apply(opWord);
@@ -118,8 +134,11 @@ std::string GenieSys::MOVE::disassemble(uint16_t opWord) {
             abort();
     }
     uint8_t destModeId = destEaModeMask.apply(opWord);
-    auto destMode = cpu->getAddressingMode(destModeId);
     uint8_t destReg = destEaRegMask.apply(opWord);
+    if (isIllegalDestination(destModeId, destReg)) {
+        return "ILLEGAL";
+    }
+    auto destMode = cpu->getAddressingMode(destModeId);
     uint8_t srcModeId = srcEaModeMask.apply(opWord);
     auto srcMode = cpu->getAddressingMode(srcModeId);
     uint8_t srcReg = srcEaRegMask.apply(opWord);

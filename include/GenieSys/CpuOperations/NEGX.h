@@ -18,9 +18,9 @@ namespace GenieSys {
         BitMask<uint16_t> eaModeMask = BitMask<uint16_t>(5, 3);
         BitMask<uint16_t> eaRegMask = BitMask<uint16_t>(2, 3);
 
-        uint8_t negxByte(std::unique_ptr<AddressingResult> &eaResult, uint8_t oldCcr, uint8_t extendBit);
-        uint8_t negxWord(std::unique_ptr<AddressingResult> &eaResult, uint8_t oldCcr, uint8_t extendBit);
-        uint8_t negxLong(std::unique_ptr<AddressingResult> &eaResult, uint8_t oldCcr, uint8_t extendBit);
+        uint8_t negxByte(std::unique_ptr<AddressingResult> &eaResult, uint8_t oldCcr, uint8_t extendBit, bool isRegisterEa);
+        uint8_t negxWord(std::unique_ptr<AddressingResult> &eaResult, uint8_t oldCcr, uint8_t extendBit, bool isRegisterEa);
+        uint8_t negxLong(std::unique_ptr<AddressingResult> &eaResult, uint8_t oldCcr, uint8_t extendBit, bool isRegisterEa);
 
     public:
         NEGX(M68kCpu* cpu, Bus* bus);

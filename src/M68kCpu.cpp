@@ -154,7 +154,30 @@ uint8_t GenieSys::M68kCpu::trap(uint8_t vector) {
     stackPushLong(pc);
     stackPushWord(SRandCCR);
     pc = bus->readLong(4 * vector);
-    return 34;
+    return getExceptionCycles(vector);
+}
+
+/**
+ * Exception processing time for a trap vector, from the exception processing timing table.
+ * Most exceptions cost 34 cycles, but a handful are documented separately.
+ */
+uint8_t GenieSys::M68kCpu::getExceptionCycles(uint8_t vector) {
+    switch (vector) {
+        case GenieSys::TV_BUS_ERR:
+        case GenieSys::TV_ADDR_ERR:
+            return 50;
+        case GenieSys::TV_DIV_ZERO:
+            return 42;
+        case GenieSys::TV_CHK:
+            return 40;
+        default:
+            // Interrupt acknowledge, including the spurious interrupt vector.
+            if (vector >= GenieSys::TV_SPURIOUS && vector <= GenieSys::TV_LEVEL7_INTER) {
+                return 44;
+            }
+            // Illegal instruction, privilege violation, trace, TRAPV and TRAP #n.
+            return 34;
+    }
 }
 
 uint8_t GenieSys::M68kCpu::getUspRegister() {

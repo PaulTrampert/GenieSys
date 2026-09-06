@@ -29,7 +29,7 @@ TEST_F(RESETTest, ExecuteCallsResetOnBus) {
 
     uint8_t cycles = subject->execute(opWord);
 
-    ASSERT_EQ(124, cycles);
+    ASSERT_EQ(132, cycles);
 }
 
 TEST_F(RESETTest, Disassemble) {

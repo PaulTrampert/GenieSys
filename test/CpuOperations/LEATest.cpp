@@ -87,6 +87,16 @@ TEST_F(LEATest, ExecuteWithPreDecrementModeTriggersIllegalInstructionTrap) {
     ASSERT_EQ(trapHandlerAddress, cpu->getPc());
 }
 
+TEST_F(LEATest, ExecuteWithImmediateModeTriggersIllegalInstructionTrap) {
+    // LEA #imm,A5 -> 0100 101 111 111 100 = EA mode 0b111, reg 0b100 (Immediate data)
+    uint16_t illegalOpWord = 0b0100101111111100;
+    uint32_t trapHandlerAddress = 0x5000;
+    bus.writeLong(TV_ILLEGAL_INSTR * 4, trapHandlerAddress);
+
+    ASSERT_EQ(34, subject->execute(illegalOpWord));
+    ASSERT_EQ(trapHandlerAddress, cpu->getPc());
+}
+
 TEST_F(LEATest, ExecuteWithDisplacementModeTakes8Cycles) {
     // LEA d(A3),A5 -> 0100 101 111 101 011 = EA mode 0b101 (Address register indirect with displacement)
     uint16_t opWord = 0b0100101111101011;

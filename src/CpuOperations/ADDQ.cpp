@@ -112,7 +112,7 @@ uint8_t GenieSys::ADDQ::execute(uint16_t opWord)
     }
     else if (eaMode != DataRegisterDirectMode::MODE_ID && eaMode != AddressRegisterDirectMode::MODE_ID)
     {
-        cycles = 12;
+        cycles = size == 4 ? 12 : 8;
     }
 
     return cycles + addressingResult->getCycles();

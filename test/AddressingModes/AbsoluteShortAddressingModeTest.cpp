@@ -45,6 +45,12 @@ TEST_F(AbsoluteShortAddressingModeTest, TestGetModeId) {
     EXPECT_EQ(0b000u, subject->getModeId());
 }
 
+TEST_F(AbsoluteShortAddressingModeTest, TestGetMoveCycleKey) {
+    // Row and column 7 of the MOVE cycle tables. The mode id is not usable as the key here,
+    // because it collides with data register direct.
+    EXPECT_EQ(7u, subject->getMoveCycleKey());
+}
+
 TEST_F(AbsoluteShortAddressingModeTest, TestDisassemble) {
     EXPECT_EQ("(9001).W", subject->disassemble(subject->getModeId(), 1));
 }

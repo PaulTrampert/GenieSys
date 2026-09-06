@@ -6,8 +6,17 @@
 #include <GenieSys/getPossibleOpcodes.h>
 #include <GenieSys/AddressingModes/AddressingMode.h>
 #include <GenieSys/M68kCpu.h>
+#include <GenieSys/getControlModeIndex.h>
+#include <GenieSys/enums.h>
 #include <vector>
 #include <sstream>
+
+
+/**
+ * Complete execution time per control addressing mode, indexed by CONTROL_MODE_INDEX.
+ * Documented on the JMP row of the JMP, JSR, LEA, PEA, MOVEM instruction timing table.
+ */
+static const uint8_t CYCLES[GenieSys::CTRL_MODE_COUNT] = {8, 10, 14, 10, 12, 10, 14};
 
 GenieSys::JMP::JMP(GenieSys::M68kCpu *cpu, GenieSys::Bus *bus) : CpuOperation(cpu, bus) {
 
@@ -27,10 +36,14 @@ uint8_t GenieSys::JMP::getSpecificity() {
 uint8_t GenieSys::JMP::execute(uint16_t opWord) {
     uint8_t eaModeId = eaModeMask.apply(opWord);
     uint8_t eaReg = eaRegMask.apply(opWord);
+    auto controlMode = GenieSys::getControlModeIndex(eaModeId, eaReg);
+    if (controlMode == GenieSys::CTRL_MODE_INVALID) {
+        return cpu->trap(GenieSys::TV_ILLEGAL_INSTR);
+    }
     auto eaMode = cpu->getAddressingMode(eaModeId);
     auto eaData = eaMode->getData(eaReg, 4);
     cpu->setPc(eaData->getDataAsLong());
-    return 8 + eaData->getCycles();
+    return CYCLES[controlMode];
 }
 
 std::string GenieSys::JMP::disassemble(uint16_t opWord) {

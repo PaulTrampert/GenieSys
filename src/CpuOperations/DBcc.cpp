@@ -31,13 +31,15 @@ uint8_t GenieSys::DBcc::execute(uint16_t opWord) {
     uint16_t data = cpu->getDataRegister(reg) & 0x0000FFFF;
     auto displacement = signExtend<uint32_t>(bus->readWord(cpu->getPc()), 16);
     cpu->incrementPc(2);
+    // Condition true, no branch: 12. Condition false and the counter has not run out, so the
+    // branch is taken: 10. Condition false and the counter ran out, so no branch: 14.
     uint8_t cycles = 12;
     if (!cpu->testConditionCode(condition)) {
-        cycles = 10;
+        cycles = 14;
         data--;
         cpu->setDataRegister(reg, data);
         if ((int16_t)data != -1) {
-            cycles = 14;
+            cycles = 10;
             cpu->setPc(cpu->getPc() + displacement);
         }
     }
