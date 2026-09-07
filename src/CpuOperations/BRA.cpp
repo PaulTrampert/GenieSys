@@ -23,13 +23,14 @@ uint8_t GenieSys::BRA::getSpecificity() {
 }
 
 uint8_t GenieSys::BRA::execute(uint16_t opWord) {
+    // The displacement is relative to the address of the extension word, which is where the PC
+    // sits once the operation word has been fetched, not to the address after it.
+    uint32_t base = cpu->getPc();
     auto displacement = signExtend<uint32_t>(displacementMask.apply(opWord), 8);
     if (displacement == 0) {
-        displacement = bus->readWord(cpu->getPc());
-        displacement = signExtend<uint32_t>(displacement, 16);
-        cpu->incrementPc(2);
+        displacement = signExtend<uint32_t>(bus->readWord(base), 16);
     }
-    cpu->setPc(cpu->getPc() + displacement);
+    cpu->setPc(base + displacement);
 
     return 10;
 }

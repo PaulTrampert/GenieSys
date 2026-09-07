@@ -24,16 +24,20 @@ uint8_t GenieSys::BSR::getSpecificity() {
 }
 
 uint8_t GenieSys::BSR::execute(uint16_t opWord) {
+    // The displacement is relative to the address of the extension word, which is where the PC
+    // sits once the operation word has been fetched, not to the address after it.
+    uint32_t base = cpu->getPc();
     uint32_t displacement = displacementMask.apply(opWord);
     uint8_t bits = 8;
     if (displacement == 0) {
-        displacement = bus->readWord(cpu->getPc());
+        displacement = bus->readWord(base);
         cpu->incrementPc(2);
         bits = 16;
     }
+    // The return address is the next instruction, so it is pushed after any extension word.
     cpu->stackPushLong(cpu->getPc());
     displacement = signExtend<uint32_t>(displacement, bits);
-    cpu->incrementPc((int32_t)displacement);
+    cpu->setPc(base + displacement);
     return 18;
 }
 

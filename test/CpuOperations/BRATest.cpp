@@ -76,7 +76,8 @@ INSTANTIATE_TEST_SUITE_P(
                     .opWord = BRA_OPCODE,
                     .wordDisplacement = 5,
                     .initPc = 100,
-                    .expectedPc = 107,
+                    // The word displacement is relative to the extension word at initPc, not past it.
+                    .expectedPc = 105,
                     .expectedDisassembly = "BRA.w #5"
                 },
                 BRATestParams{
@@ -84,7 +85,7 @@ INSTANTIATE_TEST_SUITE_P(
                     .opWord = BRA_OPCODE,
                     .wordDisplacement = (uint16_t)-5,
                     .initPc = 100,
-                    .expectedPc = 97,
+                    .expectedPc = 95,
                     .expectedDisassembly = "BRA.w #-5"
                 }
                 ),

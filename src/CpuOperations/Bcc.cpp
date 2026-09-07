@@ -31,18 +31,19 @@ uint8_t GenieSys::Bcc::execute(uint16_t opWord) {
     uint8_t condition = conditionMask.apply(opWord);
     auto displacement = signExtend<uint32_t>((uint8_t)displacementMask.apply(opWord), 8);
     uint8_t cycles = 8;
-    uint32_t pc = cpu->getPc();
+    // The displacement is relative to the address of the extension word, which is where the PC
+    // sits once the operation word has been fetched, not to the address after it.
+    uint32_t base = cpu->getPc();
     if (displacement == 0) {
-        displacement = signExtend<uint32_t>(bus->readWord(pc), 16);
+        displacement = signExtend<uint32_t>(bus->readWord(base), 16);
         cpu->incrementPc(2);
         cycles += 4;
-        pc = cpu->getPc();
     }
     if (condition == CC_T || condition == CC_F) {
         return cpu->trap(TV_ILLEGAL_INSTR);
     }
     if (cpu->testConditionCode(condition)) {
-        cpu->setPc(pc + displacement);
+        cpu->setPc(base + displacement);
         return 10;
     }
     return cycles;

@@ -41,8 +41,8 @@ uint8_t GenieSys::JMP::execute(uint16_t opWord) {
         return cpu->trap(GenieSys::TV_ILLEGAL_INSTR);
     }
     auto eaMode = cpu->getAddressingMode(eaModeId);
-    auto eaData = eaMode->getData(eaReg, 4);
-    cpu->setPc(eaData->getDataAsLong());
+    // A JMP goes to the effective address itself, so the operand is never read.
+    cpu->setPc(eaMode->getAddress(eaReg));
     return CYCLES[controlMode];
 }
 
