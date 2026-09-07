@@ -20,7 +20,7 @@ uint8_t GenieSys::RESET::getSpecificity() {
 
 uint8_t GenieSys::RESET::execute(uint16_t opWord) {
     bus->reset();
-    return 124;
+    return 132;
 }
 
 std::string GenieSys::RESET::disassemble(uint16_t opWord) {

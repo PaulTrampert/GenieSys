@@ -55,6 +55,7 @@ add_executable(testGenieSys
         CpuOperations/MOVEtoCCRTest.cpp
         CpuOperations/MOVEtoSRTest.cpp
         CpuOperations/NEGXTest.cpp
+        CpuOperations/NOPTest.cpp
         CpuOperations/CLRTest.cpp
         CpuOperations/NEGTest.cpp
         CpuOperations/NOTTest.cpp
@@ -72,6 +73,7 @@ add_executable(testGenieSys
         CpuOperations/MOVE_USPTest.cpp
         CpuOperations/RESETTest.cpp
         M68kCpuTests/SetDataRegisterTests.cpp
+        M68kCpuTests/ExceptionCycleTests.cpp
         M68kCpuTests/ResetTests.cpp
         CpuOperations/STOPTest.cpp
         CpuOperations/RTETest.cpp

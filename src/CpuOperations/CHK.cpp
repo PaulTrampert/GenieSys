@@ -48,9 +48,9 @@ uint8_t GenieSys::CHK::execute(uint16_t opWord)
         else
             ccr &= ~CCR_NEGATIVE;
         cpu->setCcrFlags(ccr);
-        return cpu->trap(TV_CHK);
+        return cpu->trap(TV_CHK) + eaResult->getCycles();
     }
-    return 10;
+    return 10 + eaResult->getCycles();
 }
 
 std::vector<uint16_t> GenieSys::CHK::getOpcodes()

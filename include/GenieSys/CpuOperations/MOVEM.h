@@ -16,6 +16,17 @@ namespace GenieSys {
         BitMask<uint16_t> eaModeMask = BitMask<uint16_t>(5, 3);
         BitMask<uint16_t> eaRegMask = BitMask<uint16_t>(2, 3);
 
+        /**
+         * Total execution time for a MOVEM, per direction and addressing mode.
+         *
+         * @param dir       DIR_MEM_TO_REG or DIR_REG_TO_MEM.
+         * @param size      Transfer size in bytes, 2 or 4.
+         * @param eaModeId  Effective address mode.
+         * @param eaReg     Effective address register field, the sub mode selector in mode 0b111.
+         * @param regCount  Number of registers named by the register list word.
+         */
+        static uint8_t getMovemCycles(uint8_t dir, uint8_t size, uint8_t eaModeId, uint8_t eaReg, uint8_t regCount);
+
     public:
         MOVEM(M68kCpu *cpu, Bus *bus);
 

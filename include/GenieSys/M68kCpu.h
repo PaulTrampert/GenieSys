@@ -206,9 +206,16 @@ namespace GenieSys {
          * it isn't already, pushes the PC and SR onto the supervisor
          * stack, and reads the provided trap vector into the PC.
          * @param vector The trap vector to execute.
-         * @return Returns 34, the cycle time for the TRAP instruction.
+         * @return The exception processing time in cycles for that vector.
          */
         virtual uint8_t trap(uint8_t vector);
+
+        /**
+         * The number of cycles exception processing takes for a given trap vector.
+         * @param vector The trap vector.
+         * @return The exception processing time in cycles.
+         */
+        static uint8_t getExceptionCycles(uint8_t vector);
 
         /**
          * Gets the specified addressing mode.

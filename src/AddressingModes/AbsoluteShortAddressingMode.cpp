@@ -30,3 +30,12 @@ std::string GenieSys::AbsoluteShortAddressingMode::disassemble(uint8_t regAddr, 
     stream << "(" << getAddress(regAddr) << ").W";
     return stream.str();
 }
+
+/**
+ * Row/column 7 of the MOVE cycle tables. Without this override the key would fall back to
+ * getModeId() (0b000), which is the Dn row/column, because mode ids are reused between the
+ * two addressing mode families.
+ */
+uint8_t GenieSys::AbsoluteShortAddressingMode::getMoveCycleKey() {
+    return 7;
+}

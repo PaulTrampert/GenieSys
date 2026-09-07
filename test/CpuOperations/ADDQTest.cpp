@@ -238,6 +238,39 @@ INSTANTIATE_TEST_SUITE_P(ADDQ, ADDQTest, testing::Values(
             .writeWordCalls = 0,
             .writeLongCalls = 1,
             .expectedDisassembly = "ADDQ.l #4, EA1-3"
+        },
+        ADDQTestParams {
+            // Byte and word to memory cost 8 plus the effective address calculation, not 12.
+            .testName = "ADDQ_B_4_A3Indir",
+            .registerData = 50,
+            .data = 4,
+            .eaMode = GenieSys::AddressRegisterIndirectMode::MODE_ID,
+            .eaReg = 3,
+            .eaCycles = 5,
+            .size = 0,
+            .expectedEffectiveSize = 1,
+            .expectedCycles = 13,
+            .expectedResult = 54,
+            .writeByteCalls = 1,
+            .writeWordCalls = 0,
+            .writeLongCalls = 0,
+            .expectedDisassembly = "ADDQ.b #4, EA2-3"
+        },
+        ADDQTestParams {
+            .testName = "ADDQ_W_4_A3Indir",
+            .registerData = 50,
+            .data = 4,
+            .eaMode = GenieSys::AddressRegisterIndirectMode::MODE_ID,
+            .eaReg = 3,
+            .eaCycles = 5,
+            .size = 1,
+            .expectedEffectiveSize = 2,
+            .expectedCycles = 13,
+            .expectedResult = 54,
+            .writeByteCalls = 0,
+            .writeWordCalls = 1,
+            .writeLongCalls = 0,
+            .expectedDisassembly = "ADDQ.w #4, EA2-3"
         }
     ),
     [](const testing::TestParamInfo<ADDQTest::ParamType>& info) {

@@ -82,7 +82,7 @@ INSTANTIATE_TEST_SUITE_P(DBcc, DBccTest, testing::Values(
             .pc = 1000,
             .ccr = 0,
             .expectedPc = 1012,
-            .expectedCycles = 14,
+            .expectedCycles = 10,
             .expectedDisassembly = "DBEQ D0, $000a"
         },
         DBccTestParams {
@@ -94,7 +94,7 @@ INSTANTIATE_TEST_SUITE_P(DBcc, DBccTest, testing::Values(
             .pc = 1000,
             .ccr = CCR_NEGATIVE | CCR_OVERFLOW,
             .expectedPc = 1002,
-            .expectedCycles = 10,
+            .expectedCycles = 14,
             .expectedDisassembly = "DBEQ D0, $000a"
         }
     ),

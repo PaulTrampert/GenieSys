@@ -5,6 +5,8 @@
 #include <GenieSys/CpuOperations/NEGX.h>
 #include <GenieSys/getPossibleOpcodes.h>
 #include <GenieSys/AddressingModes/AddressingMode.h>
+#include <GenieSys/AddressingModes/DataRegisterDirectMode.h>
+#include <GenieSys/AddressingModes/AddressRegisterDirectMode.h>
 #include <GenieSys/getCcrFlags.h>
 #include <vector>
 #include <cmath>
@@ -35,17 +37,19 @@ uint8_t GenieSys::NEGX::execute(uint16_t opWord) {
     uint8_t eaReg = eaRegMask.apply(opWord);
     auto eaMode = cpu->getAddressingMode(eaModeId);
     auto eaResult = eaMode->getData(eaReg, sizeBytes);
+    bool isRegisterEa = eaModeId == GenieSys::DataRegisterDirectMode::MODE_ID
+        || eaModeId == GenieSys::AddressRegisterDirectMode::MODE_ID;
     uint8_t oldCcr = cpu->getCcrFlags();
     auto extendBit = (oldCcr & GenieSys::CCR_EXTEND) >> 4;
     switch (sizeBytes) {
         case 1:
-            cycles = negxByte(eaResult, oldCcr, extendBit);
+            cycles = negxByte(eaResult, oldCcr, extendBit, isRegisterEa);
             break;
         case 2:
-            cycles = negxWord(eaResult, oldCcr, extendBit);
+            cycles = negxWord(eaResult, oldCcr, extendBit, isRegisterEa);
             break;
         case 4:
-            cycles = negxLong(eaResult, oldCcr, extendBit);
+            cycles = negxLong(eaResult, oldCcr, extendBit, isRegisterEa);
             break;
         default:
             cycles = 4;
@@ -54,28 +58,28 @@ uint8_t GenieSys::NEGX::execute(uint16_t opWord) {
     return cycles;
 }
 
-uint8_t GenieSys::NEGX::negxByte(std::unique_ptr<GenieSys::AddressingResult> &eaResult, uint8_t oldCcr, uint8_t extendBit) {
+uint8_t GenieSys::NEGX::negxByte(std::unique_ptr<GenieSys::AddressingResult> &eaResult, uint8_t oldCcr, uint8_t extendBit, bool isRegisterEa) {
     auto eaData = eaResult->getDataAsByte();
     uint8_t result = -eaData - extendBit;
     cpu->setCcrFlags(GenieSys::getNegxCcrFlags<uint8_t, int8_t>(result, -eaData, extendBit, oldCcr));
     eaResult->write((uint8_t)result);
-    return 4 + eaResult->getCycles();
+    return isRegisterEa ? 4 : (8 + eaResult->getCycles());
 }
 
-uint8_t GenieSys::NEGX::negxWord(std::unique_ptr<GenieSys::AddressingResult> &eaResult, uint8_t oldCcr, uint8_t extendBit) {
+uint8_t GenieSys::NEGX::negxWord(std::unique_ptr<GenieSys::AddressingResult> &eaResult, uint8_t oldCcr, uint8_t extendBit, bool isRegisterEa) {
     auto eaData = eaResult->getDataAsWord();
     uint16_t result = -eaData - extendBit;
     cpu->setCcrFlags(GenieSys::getNegxCcrFlags<uint16_t, int16_t>(result, -eaData, extendBit, oldCcr));
     eaResult->write((uint16_t)result);
-    return 4 + eaResult->getCycles();
+    return isRegisterEa ? 4 : (8 + eaResult->getCycles());
 }
 
-uint8_t GenieSys::NEGX::negxLong(std::unique_ptr<GenieSys::AddressingResult> &eaResult, uint8_t oldCcr, uint8_t extendBit) {
+uint8_t GenieSys::NEGX::negxLong(std::unique_ptr<GenieSys::AddressingResult> &eaResult, uint8_t oldCcr, uint8_t extendBit, bool isRegisterEa) {
     auto eaData = eaResult->getDataAsLong();
     uint32_t result = -eaData - extendBit;
     cpu->setCcrFlags(GenieSys::getNegxCcrFlags<uint32_t, int32_t>(result, -eaData, extendBit, oldCcr));
     eaResult->write((uint32_t)result);
-    return 6 + eaResult->getCycles();
+    return isRegisterEa ? 6 : (12 + eaResult->getCycles());
 }
 
 std::string GenieSys::NEGX::disassemble(uint16_t opWord) {
